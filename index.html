@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CCNA2 – روابط الدروس</title>
+  <meta name="description" content="صفحة فهرس لمحتوى CCNA2" />
+  <style>
+    :root{
+      --bg:#0f172a;        /* slate-900 */
+      --panel:#0b1426;     /* custom dark */
+      --ink:#e5e7eb;       /* gray-200 */
+      --muted:#9ca3af;     /* gray-400 */
+      --line:#263042;      /* border */
+      --brand:#38bdf8;     /* sky-400 */
+      --accent:#22c55e;    /* green-500 */
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Naskh Arabic UI",Tahoma,Arial; color:var(--ink); background:linear-gradient(180deg,#0b1220,#0f172a 30%,#0b1220);}
+    .wrap{max-width:980px; margin-inline:auto; padding:28px;}
+    header{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:16px}
+    h1{margin:0; font-size:clamp(18px,3vw,24px)}
+    .hint{color:var(--muted); font-size:14px}
+    .panel{background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:16px}
+    .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px}
+    .card{display:block; text-decoration:none; color:inherit; background:linear-gradient(180deg,#0b162a,#0e1a2f); border:1px solid var(--line); border-radius:14px; padding:14px; transition:.2s transform ease,.2s box-shadow ease,.2s border-color ease}
+    .card:hover{ transform:translateY(-2px); box-shadow:0 12px 32px rgba(0,0,0,.3); border-color:#3b82f6 }
+    .card h3{margin:0 0 6px 0; font-size:16px}
+    .card p{margin:0; color:var(--muted); font-size:13px}
+    .toprow{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:12px}
+    .btn{background:#0b1220; color:var(--ink); border:1px solid var(--line); border-radius:12px; padding:10px 14px; text-decoration:none; font-weight:600; display:inline-flex; align-items:center; gap:6px}
+    .btn:hover{border-color:#3b82f6}
+    footer{margin-top:14px; color:var(--muted); font-size:12px}
+    code{background:#0a1220; border:1px solid var(--line); border-radius:6px; padding:0 6px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>📚 CCNA2 – روابط الصفحات</h1>
+      <div class="hint">هذا الفهرس ثابت ويعمل على GitHub Pages</div>
+    </header>
+
+    <div class="panel">
+      <div class="toprow">
+        <!-- زر يفتح بطاقات IPv6 مباشرة (عدّل الرابط إذا لزم) -->
+        <a class="btn" href="./%21ipv6.html" title="فتح بطاقات IPv6">▶ فتح بطاقات IPv6</a>
+        <span class="hint">يمكنك تعديل الروابط أدناه إذا تغيّرت أسماء الملفات.</span>
+      </div>
+
+      <div class="grid">
+        <a class="card" href="./%21ipv6.html">
+          <h3>IPv6 Flashcards</h3>
+          <p>بطاقات المراجعة العربية (سؤال واضح + إجابة قصيرة + وضع اختبار)</p>
+        </a>
+        <a class="card" href="./LAN%20Security.html">
+          <h3>LAN Security</h3>
+          <p>مبادئ أمن الشبكات المحلية</p>
+        </a>
+        <a class="card" href="./OSI_TCPIP_Models.html">
+          <h3>OSI / TCP‑IP Models</h3>
+          <p>طبقات النماذج والمقارنات الأساسية</p>
+        </a>
+        <a class="card" href="./VLAN.html">
+          <h3>VLAN</h3>
+          <p>الشبكات المحلية الافتراضية وتقسيم البث</p>
+        </a>
+        <a class="card" href="./WLAN.html">
+          <h3>WLAN</h3>
+          <p>الشبكات اللاسلكية والمفاهيم المرتبطة</p>
+        </a>
+      </div>
+    </div>
+
+    <footer>
+      ملاحظة: لو كانت أسماء الملفات مختلفة، غيّر روابط <code>href</code> أعلاه. إن كان انتقالك يعرض الكود كنص، تأكد أنك تفتح رابط <code>github.io</code> وليس صفحة الملف في <code>github.com</code>.
+    </footer>
+  </div>
+</body>
+</html>
