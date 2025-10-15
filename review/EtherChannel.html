@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>🔗 مراجعة EtherChannel</title>
+  <style>
+    :root{ --bg:#0f172a; --card:#111827; --ink:#e5e7eb; --muted:#9ca3af; --brand:#38bdf8; --accent:#22c55e; --warn:#f59e0b; --danger:#ef4444; }
+    *{box-sizing:border-box}
+    body{ margin:0; background:linear-gradient(180deg,#0b1220,#0f172a 30%,#0b1220); color:var(--ink); font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Naskh Arabic UI",Tahoma; min-height:100dvh; display:flex; align-items:center; justify-content:center; padding:24px; }
+    .app{ width:min(1000px,100%) }
+    header{display:flex; gap:12px; align-items:center; justify-content:space-between; margin-bottom:16px}
+    header h1{font-size:clamp(18px,3vw,24px); margin:0; letter-spacing:.3px; color:var(--brand)}
+    .controls{display:flex; flex-wrap:wrap; gap:8px; align-items:center}
+    button{ background:#0b1220; color:var(--ink); border:1px solid #263042; border-radius:12px; padding:10px 14px; cursor:pointer; font-weight:600; transition:.2s }
+    button:hover{ transform:translateY(-1px); background:#0b1426 }
+    button.primary{ border-color:var(--brand) } button.good{ border-color:var(--accent) } button.bad{ border-color:var(--danger) }
+    input[type="number"],input[type="text"]{ background:#0b1220; color:var(--ink); border:1px solid #263042; border-radius:10px; padding:8px 10px; width:100% }
+    .card{ perspective:1200px; isolation:isolate; height:clamp(280px,42vh,420px); background:transparent; border-radius:16px; position:relative }
+    .card-inner{ position:absolute; inset:0; border-radius:16px; transform-style:preserve-3d; transition:transform .5s cubic-bezier(.2,.8,.2,1) }
+    .face{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:28px; background:radial-gradient(1200px 400px at 100% 0%,#0b1426,var(--card)); border:1px solid #1f2937; border-radius:16px; backface-visibility:hidden; box-shadow:0 10px 40px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.03) }
+    .face.back{ transform:rotateY(180deg); background:#0f1a2e }
+    .flipped .card-inner{ transform:rotateY(180deg) }
+    .meta{display:flex; align-items:center; gap:10px; opacity:.9; font-size:14px}
+    .pill{border:1px dashed #2b3450; padding:4px 10px; border-radius:999px}
+    .muted{color:var(--muted)}
+    .progress{height:10px; background:#162033; border-radius:999px; overflow:hidden; border:1px solid #263042; margin-top:12px}
+    .bar{height:100%; width:0%; background:linear-gradient(90deg,var(--brand),#60a5fa); transition:width .3s ease}
+    .panel{background:#0b1426; border:1px solid #263042; border-radius:16px; padding:16px}
+    .small{font-size:12px; opacity:.85}
+    .hidden{display:none}
+    .exbox{ margin-top:12px; padding:14px 16px; border-radius:14px; line-height:1.7; border:1px solid #26425a; background:linear-gradient(180deg,#0b1426,#0c162a); box-shadow: inset 0 1px 0 rgba(255,255,255,.04), 0 8px 24px rgba(0,0,0,.25) }
+    .exbox h4{margin:0 0 6px 0; font-size:14px; color:#7dd3fc}
+    .kbd{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; background:#0a1220; border:1px solid #263042; border-radius:6px; padding:0 6px}
+    .quizbox{ margin-top:12px; padding:16px; border-radius:14px; border:1px solid #334155; background:linear-gradient(180deg,#0c1528,#0f1a30); box-shadow: inset 0 1px 0 rgba(255,255,255,.04), 0 8px 24px rgba(0,0,0,.25) }
+    .row{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+    .score{font-weight:700}
+    .tag{border:1px solid #2b3450; padding:2px 8px; border-radius:999px; font-size:12px}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>🔗 مراجعة EtherChannel <br>– م.نبيل الشويكان</h1>
+      <div class="controls">
+        <button id="btnFlip" class="primary" title="المسطرة: مسافة">اقلب البطاقة ▯</button>
+        <button id="btnPrev" title="الأسهم">◀ السابقة</button>
+        <button id="btnNext" title="الأسهم">التالي ▶</button>
+        <button id="btnGood" class="good" title="رقم 1">عرفتها ✓</button>
+        <button id="btnBad" class="bad" title="رقم 2">لا، أعِدها ✗</button>
+        <button id="btnShuffle" title="خلط البطاقات">🔀 خلط</button>
+        <span class="tag" id="timer" title="الوقت المتبقي" style="margin-inline-start:8px">⏱️ —</span>
+      </div>
+    </header>
+
+    <section class="panel" id="studyView">
+      <div class="meta" style="margin-bottom:10px">
+        <span class="pill" id="deckName">المجموعة: EtherChannel – LACP / PAgP / L2&L3 / القيود / الأوامر</span>
+        <span class="muted">(<span id="idx">1</span>/<span id="total">1</span>)</span>
+      </div>
+
+      <div class="card" id="card">
+        <div class="card-inner" id="cardInner">
+          <div class="face front" id="front"></div>
+          <div class="face back" id="back"></div>
+        </div>
+      </div>
+
+      <div id="ex" class="exbox hidden">
+        <h4>شرح مختصر</h4>
+        <div id="exText"></div>
+      </div>
+
+      <div class="progress" aria-label="نسبة التقدم">
+        <div class="bar" id="bar"></div>
+      </div>
+      <p class="small muted">اختصارات: مسافة (قلب)، الأسهم يمين/يسار (تنقّل)، 1 (صح)، 2 (إعادة).</p>
+    </section>
+
+    <section class="panel quizbox" id="quizSetup">
+      <div class="row">
+        <strong>🎯 وضع اختبار سريع</strong>
+        <span class="muted">— اختر مدته ثم ابدأ</span>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <label for="mins" class="muted">الدقائق:</label>
+        <input id="mins" type="number" min="1" max="60" value="10" style="width:90px" />
+        <button id="btnStartQuiz" class="primary">ابدأ الاختبار</button>
+        <span class="muted" id="quizInfo"></span>
+      </div>
+    </section>
+
+    <section class="panel quizbox hidden" id="quizView">
+      <div class="row" style="justify-content:space-between">
+        <div>
+          <span class="score">النتيجة: <span id="score">0</span>/<span id="qtotal">0</span></span>
+          <span class="tag" style="margin-inline-start:6px">السؤال <span id="qidx">1</span></span>
+        </div>
+        <div class="muted">⏱️ <span id="quizTimer">—</span></div>
+      </div>
+
+      <div class="meta" style="margin-top:10px"><span class="pill" id="qFront"></span></div>
+
+      <div class="row" style="margin-top:10px">
+        <input id="ansInput" type="text" placeholder="اكتب إجابة قصيرة (كلمة/كلمتين)…" />
+        <button id="btnSubmit" class="primary">تحقّق</button>
+        <button id="btnSkip">تجاوز</button>
+        <div id="tfBtns" class="row hidden">
+          <button id="btnTrue" class="good">صح</button>
+          <button id="btnFalse" class="bad">خطأ</button>
+        </div>
+      </div>
+      <div id="quizFeedback" class="small" style="margin-top:8px"></div>
+    </section>
+
+    <section class="panel hidden" id="quizSummary">
+      <h3 style="margin:0">📊 نتيجة الاختبار</h3>
+      <p class="muted" id="summaryText"></p>
+      <div class="row"><button id="btnRetry" class="primary">إعادة الاختبار</button><button id="btnBackStudy">العودة للمراجعة</button></div>
+    </section>
+
+    <footer style="margin-top:14px" class="muted small">
+      يعمل بالكامل دون مكتبات خارجية. يتم حفظ تقدمك محليًا في المتصفح.
+    </footer>
+  </div>
+
+  <script>
+    // ===== البطاقات: 60 سؤال EtherChannel =====
+    const cards = [
+      // (1) المفاهيم الأساسية
+      {front:'ما هو EtherChannel؟',back:'تجميع وصلات',ex:'يجمع منافذ فيزيائية متعددة كوصلة منطقية واحدة لرفع السعة والموثوقية.'},
+      {front:'ما الاسم المقابل لواجهة القناة في Cisco IOS؟',back:'Port-Channel',ex:'واجهة منطقية تُطبَّق عليها الإعدادات بدلًا من كل منفذ.'},
+      {front:'هل تزيد القناة سرعة تدفق واحد؟',back:'لا',ex:'التجزئة بالهاش تُبقي التدفق الواحد عادة على رابط واحد.'},
+      {front:'كيف يتم توزيع المرور داخل القناة؟',back:'Hashing',ex:'موازنة أحمال اعتمادًا على MAC/IP/منفذ L4 وفق الإعداد.'},
+      {front:'هل يراها STP كمنفذ واحد؟',back:'نعم',ex:'STP يتعامل مع Port‑Channel كوصلة واحدة في الطبقة 2.'},
+      {front:'فائدة رئيسية للقناة؟',back:'تحمّل الأعطال',ex:'فشل رابط لا يقطع الخدمة؛ تستمر القناة بباقي الروابط.'},
+      {front:'متطلب أساسي لنجاح القناة؟',back:'تطابق الإعدادات',ex:'السرعة/duplex والوضع (access/trunk) وVLANs يجب أن تتطابق.'},
+      {front:'أقصى الروابط النشطة القياسية؟',back:'8',ex:'حتى 8 وصلات نشطة في القناة (وأخرى احتياطية حسب المنصة).'},
+      {front:'الحد الأدنى التشغيلي؟',back:'1',ex:'تستمر القناة مع رابط واحد عند فشل بقية الأعضاء.'},
+      {front:'هل يمكن خلط سرعات مختلفة؟',back:'لا',ex:'التجانس شرط: نفس السرعة ونفس duplex لجميع الأعضاء.'},
+
+      // (2) بروتوكولات التفاوض PAgP/LACP
+      {front:'ما PAgP؟',back:'Cisco Proprietary',ex:'Port Aggregation Protocol خاص بسيسكو للتجميع الديناميكي.'},
+      {front:'ما LACP؟',back:'IEEE 802.3ad/802.1AX',ex:'بروتوكول قياسي للتجميع عبر المصنعين.'},
+      {front:'أوضاع PAgP؟',back:'desirable/auto',ex:'desirable يبدأ التفاوض وauto يستجيب فقط.'},
+      {front:'أوضاع LACP؟',back:'active/passive',ex:'active يبدأ التفاوض وpassive يستجيب فقط.'},
+      {front:'هل الوضع on بروتوكول تفاوض؟',back:'لا',ex:'static on يجمع الروابط دون تفاوض ديناميكي.'},
+      {front:'هل يمكن خلط PAgP مع LACP؟',back:'لا',ex:'يجب تطابق البروتوكول أو استخدام الوضع الثابت on.'},
+      {front:'لو كان الطرفان passive (LACP)؟',back:'لا تقوم القناة',ex:'لا أحد يبدأ التفاوض فتفشل العملية.'},
+      {front:'LACP System Priority تُستخدم في؟',back:'اختيار المجمِّع',ex:'تحديد الجهاز القائد لتجميع الأعضاء عند التعارض.'},
+      {front:'LACP Port Priority تُستخدم في؟',back:'اختيار الأعضاء',ex:'تحديد الأعضاء النشطين والاحتياط عند تجاوز الحد.'},
+      {front:'LACP Key تعني؟',back:'مجموعة تجميع',ex:'معرّف منطقي يحدد أي المنافذ تُجمع معًا.'},
+
+      // (3) L2 مقابل L3
+      {front:'EtherChannel في الطبقة 2 يتطلب؟',back:'switchport',ex:'القناة تعمل كوصلة Access/Trunk بين السويتشات.'},
+      {front:'EtherChannel في الطبقة 3 يتطلب؟',back:'no switchport',ex:'تحويل المنافذ إلى Routed ووضع IP على Port‑Channel.'},
+      {front:'أين يُضبط IP في L3؟',back:'على Port‑Channel',ex:'واجهة القناة تحمل عنوانًا واحدًا بدل الأعضاء.'},
+      {front:'هل يشمل STP القنوات L3؟',back:'لا',ex:'STP يخص الطبقة 2 فقط؛ L3 يعمل بالتوجيه.'},
+      {front:'ميزة L3 مقابل وصلات منفصلة؟',back:'جيران أقل',ex:'يقلل جيران التوجيه ويحسن التوازن.'},
+      {front:'SVI وPort‑Channel L3 متساويان؟',back:'لا',ex:'SVI داخلي؛ Port‑Channel L3 يربط أجهزة عبر منافذ موجهة.'},
+      {front:'هل يمكن MEC عبر مبدّلين مكدّسين؟',back:'نعم',ex:'Multichassis EC متاح في Stack/VSS حسب المنصة.'},
+      {front:'هل رقم القناة يجب أن يطابق الطرف الآخر؟',back:'لا',ex:'رقم Port‑Channel محلي ولا يلزم تطابقه.'},
+      {front:'هل يقبل أنواع وسائط مختلفة؟',back:'لا',ex:'جميع الأعضاء من نفس النوع (Gi/Te… إلخ).'},
+      {front:'هل تتطابق قوائم VLAN في Trunk؟',back:'نعم',ex:'VLANs المسموح بها وNative VLAN يجب أن تتطابق.'},
+
+      // (4) المتطلبات والقيود
+      {front:'لو اختلفت إعدادات الأعضاء؟',back:'suspend/err‑disable',ex:'يُعلّق المنفذ أو يُعطّل تلقائيًا للحماية.'},
+      {front:'هل يمكن مزج access مع trunk؟',back:'لا',ex:'كل الأعضاء Access أو Trunk معًا.'},
+      {front:'هل يوزَّع التدفق الواحد على روابط عدة؟',back:'لا غالبًا',ex:'التجزئة تبقي التدفق على رابط ثابت لتفادي إعادة الترتيب.'},
+      {front:'طرق الهاش الشائعة؟',back:'MAC/IP/L4',ex:'src/dst-mac أو src/dst-ip أو منافذ TCP/UDP.'},
+      {front:'هل تؤثر خصائص STP PortFast/Guard؟',back:'L2 فقط',ex:'تطبّق على منافذ الطبقة 2 وليس L3.'},
+      {front:'Min‑Links متاح؟',back:'حسب المنصة',ex:'بعض الأجهزة تشترط حدًا أدنى لتبقى القناة up.'},
+      {front:'هل الحدود القصوى ثابتة؟',back:'لا',ex:'تختلف بعدد القنوات والمنافذ حسب الطراز.'},
+      {front:'هل يدعم IPv6؟',back:'نعم',ex:'السلوك مماثل ل IPv4 من ناحية التجميع.'},
+      {front:'هل تتأثر QoS بالقناة؟',back:'قد تتغير',ex:'الجدولة/الوسم تُطبّق على الأعضاء أو القناة حسب المنصة.'},
+      {front:'هل يؤثر MTU المختلف؟',back:'يفشل',ex:'اختلاف MTU قد يمنع النجاح أو يسبب أخطاء.'},
+
+      // (5) أوامر واختبارات
+      {front:'تكوين LACP بسرعة؟',back:'active/passive',ex:'ضع طرفًا active والآخر passive ضمن نفس channel‑group.'},
+      {front:'تكوين Static EtherChannel؟',back:'mode on',ex:'channel‑group X mode on دون تفاوض بروتوكولي.'},
+      {front:'أمر التحقق العام؟',back:'show etherchannel summary',ex:'يُظهر Po#, البروتوكول، حالة الأعضاء.'},
+      {front:'عرض تفصيلي؟',back:'show etherchannel detail',ex:'معلومات الهاش والأعضاء والجيران.'},
+      {front:'عرض جيران LACP؟',back:'show lacp neighbor',ex:'يعرض الشريك والأولويات والمنافذ النشطة.'},
+      {front:'عرض جيران PAgP؟',back:'show pagp neighbor',ex:'للأوضاع desirable/auto.'},
+      {front:'واجهة القناة؟',back:'interface port-channel X',ex:'مكان تطبيق trunk أو IP حسب النوع.'},
+      {front:'تحويل القناة إلى L3؟',back:'no switchport',ex:'ثم تعيين IP/Mask وتفعيلها.'},
+      {front:'اختيار خوارزمية التوازن؟',back:'port-channel load-balance',ex:'اختيار src-dst-mac/src-dst-ip/… حسب الدعم.'},
+      {front:'LACP معدل سريع؟',back:'lacp rate fast',ex:'إرسال LACPDU دوريًا بسرعة أعلى (~1s).'},
+
+      // (6) أسئلة صح/خطأ تطبيقية
+      {front:'الوضع on يفاوض الشريك تلقائيًا.',back:'لا',ex:'لا تفاوض في الوضع الثابت؛ يجب تطابق الطرفين يدويًا.'},
+      {front:'يمكن أن تعمل القناة بروابط بسرعات مختلفة.',back:'لا',ex:'يجب التطابق في السرعة والـduplex.'},
+      {front:'تحتاج القناة إلى تطابق Native VLAN على الطرفين.',back:'نعم',ex:'في وضع trunk يجب تطابق الإعدادات الحيوية.'},
+      {front:'يمكن ل LACP وPAgP العمل معًا على نفس القناة.',back:'لا',ex:'اختر واحدًا فقط أو الوضع on.'},
+      {front:'القناة L3 تخضع لـ STP.',back:'لا',ex:'STP يخص الطبقة 2 فقط.'},
+      {front:'يمكن إضافة عضو جديد دون قطع الخدمة.',back:'نعم',ex:'إذا كانت الإعدادات متطابقة سينضم بدون انقطاع.'},
+      {front:'التدفق الواحد قد يُقسّم على روابط متعددة داخل القناة.',back:'لا',ex:'لتجنّب out‑of‑order يبقى على رابط واحد غالبًا.'},
+      {front:'قد تُعلّق المنافذ غير المتطابقة إلى وضع suspend.',back:'نعم',ex:'آلية حماية آلية في كثير من المنصات.'},
+      {front:'رقم Port‑Channel يجب أن يتطابق بين الجهازين.',back:'لا',ex:'محلي لكل جهاز؛ المهم التوافق البروتوكولي.'},
+      {front:'يمكن استخدام EtherChannel بين سويتش وموجّه.',back:'نعم',ex:'LACP أو on يدعمان الربط المتبادل.'},
+
+      // (7) سيناريوهات تصميم ومقارنات
+      {front:'متى تفضّل L3 EtherChannel؟',back:'تصميم موجّه',ex:'في شبكات Routed Access لتقليل جيران التوجيه وتحسين الاستقرار.'},
+      {front:'ميزة مع STP في الطبقة 2؟',back:'منفذ واحد',ex:'يقل عدد الوصلات المحجوبة ويبسّط الشجرة.'},
+      {front:'PAgP مقابل LACP بإيجاز؟',back:'خاص/قياسي',ex:'PAgP خاص بسيسكو؛ LACP قياسي متعدد المصنعين.'},
+      {front:'Static مقابل Negotiated؟',back:'on مقابل LACP/PAgP',ex:'الثابت أسرع إعدادًا لكن أقل أمانًا ضد عدم التطابق.'},
+      {front:'Cross‑Stack EtherChannel مفيد لماذا؟',back:'تحمّل الأعطال',ex:'يوزع الأعضاء عبر شاسيهات مكدّسة لمرونة أعلى.'},
+      {front:'هل يؤثر عدد القنوات على CPU؟',back:'قد يؤثر',ex:'إدارة LACP/BPDUs والهاش تستهلك موارد حسب المنصة.'},
+      {front:'هل يمكن المزج بين وسائط ضوئية ونحاسية؟',back:'لا عادة',ex:'التجانس مفضل؛ بعض المنصات قد ترفض المزج.'},
+      {front:'هل يحتاج الهاش إلى إعداد على الطرفين؟',back:'ليس بالضرورة',ex:'يمكن أن تختلف خوارزميات الهاش طالما التوافق قائم.'},
+      {front:'هل تُورَّث إعدادات القناة إلى الأعضاء؟',back:'نعم',ex:'تكوين Port‑Channel يُطبَّق على الأعضاء تلقائيًا.'},
+      {front:'هل تؤثر القناة على STP cost؟',back:'نعم',ex:'تُحسب كوصلة واحدة غالبًا بتكلفة منخفضة نسبياً.'}
+    ];
+
+    // ===== عناصر DOM =====
+    const els = {
+      front: document.getElementById('front'), back: document.getElementById('back'), card: document.getElementById('card'),
+      idx: document.getElementById('idx'), total: document.getElementById('total'), bar: document.getElementById('bar'),
+      btnFlip: document.getElementById('btnFlip'), btnPrev: document.getElementById('btnPrev'), btnNext: document.getElementById('btnNext'),
+      btnGood: document.getElementById('btnGood'), btnBad: document.getElementById('btnBad'), btnShuffle: document.getElementById('btnShuffle'),
+      exBox: document.getElementById('ex'), exText: document.getElementById('exText'), timer: document.getElementById('timer'),
+      mins: document.getElementById('mins'), btnStartQuiz: document.getElementById('btnStartQuiz'), quizInfo: document.getElementById('quizInfo'),
+      quizSetup: document.getElementById('quizSetup'), quizView: document.getElementById('quizView'), qFront: document.getElementById('qFront'),
+      qidx: document.getElementById('qidx'), qtotal: document.getElementById('qtotal'), score: document.getElementById('score'),
+      ansInput: document.getElementById('ansInput'), btnSubmit: document.getElementById('btnSubmit'), btnSkip: document.getElementById('btnSkip'),
+      quizFeedback: document.getElementById('quizFeedback'), quizTimer: document.getElementById('quizTimer'), tfBtns: document.getElementById('tfBtns'),
+      btnTrue: document.getElementById('btnTrue'), btnFalse: document.getElementById('btnFalse'), quizSummary: document.getElementById('quizSummary'),
+      summaryText: document.getElementById('summaryText'), btnRetry: document.getElementById('btnRetry'), btnBackStudy: document.getElementById('btnBackStudy'),
+      studyView: document.getElementById('studyView')
+    };
+
+    // ===== منطق العرض =====
+    let i = 0; const STORAGE_KEY = 'etherchannel-known-v2'; let known = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
+
+    function updateExplain(){ const flipped = els.card.classList.contains('flipped'); const hasEx = !!cards[i].ex; if(flipped && hasEx){ els.exText.textContent = cards[i].ex; els.exBox.classList.remove('hidden'); } else { els.exBox.classList.add('hidden'); els.exText.textContent = ''; } }
+    function render(){ els.total.textContent = cards.length; els.idx.textContent = i+1; els.front.textContent = cards[i].front; els.back.textContent = cards[i].back; const progress = (known.size / cards.length) * 100; els.bar.style.width = progress + '%'; els.card.classList.remove('flipped'); updateExplain(); }
+    function flip(){ els.card.classList.toggle('flipped'); updateExplain(); }
+    function next(){ i = (i+1) % cards.length; els.card.classList.remove('flipped'); render(); }
+    function prev(){ i = (i-1+cards.length) % cards.length; els.card.classList.remove('flipped'); render(); }
+    function markKnown(){ known.add(i); localStorage.setItem(STORAGE_KEY, JSON.stringify([...known])); next(); }
+    function markUnknown(){ known.delete(i); localStorage.setItem(STORAGE_KEY, JSON.stringify([...known])); next(); }
+    function shuffle(){ for(let j = cards.length - 1; j > 0; j--){ const k = Math.floor(Math.random() * (j + 1)); [cards[j], cards[k]] = [cards[k], cards[j]]; } i = 0; els.card.classList.remove('flipped'); render(); }
+
+    els.btnFlip.addEventListener('click', flip); els.btnNext.addEventListener('click', next); els.btnPrev.addEventListener('click', prev); els.btnGood.addEventListener('click', markKnown); els.btnBad.addEventListener('click', markUnknown); els.btnShuffle.addEventListener('click', shuffle);
+    document.addEventListener('keydown', (e)=>{ if(e.code === 'Space'){ e.preventDefault(); flip(); } else if(e.key === 'ArrowRight'){ next(); } else if(e.key === 'ArrowLeft'){ prev(); } else if(e.key === '1'){ markKnown(); } else if(e.key === '2'){ markUnknown(); } });
+
+    // ===== وضع الاختبار =====
+    let quiz = { order: [], idx: 0, score: 0, total: 0, running: false, endAt: 0, tHandle: null };
+
+    function normalize(s){ return (s||'').toString().trim().toLowerCase().replace(/[\u200f\u200e]/g,'').replace(/[\u0610-\u061a\u064b-\u065f\u06d6-\u06ed]/g,'').replace(/[–—−]/g,'-').replace(/\s+/g,' '); }
+    const synonyms = { 'صح':['صح','نعم','true'], 'لا':['لا','خطأ','false'], 'show etherchannel summary':['show etherchannel summary','etherchannel summary'], 'interface port-channel x':['interface port-channel x','port-channel'], 'mode on':['mode on','on'] };
+    function eq(a,b){ a=normalize(a); b=normalize(b); if(a===b) return true; if((b==='نعم'&& (a==='صح'||a==='نعم')) || (b==='لا'&&(a==='خطأ'||a==='لا'))) return true; for(const k in synonyms){ if(b===k && synonyms[k].includes(a)) return true; } return false; }
+
+    function startTimer(mins){ const ms=mins*60*1000; quiz.endAt=Date.now()+ms; updateTimer(); quiz.tHandle=setInterval(updateTimer,250); }
+    function stopTimer(){ if(quiz.tHandle){ clearInterval(quiz.tHandle); quiz.tHandle=null; } els.quizTimer.textContent='—'; }
+    function updateTimer(){ const remain = Math.max(0, quiz.endAt - Date.now()); const m=Math.floor(remain/60000); const s=Math.floor((remain%60000)/1000); els.quizTimer.textContent = `${m}:${String(s).padStart(2,'0')}`; els.timer.textContent = `⏱️ ${m}:${String(s).padStart(2,'0')}`; if(remain<=0){ finishQuiz(); } }
+
+    function show(el){ el.classList.remove('hidden'); } function hide(el){ el.classList.add('hidden'); }
+
+    function beginQuiz(){ quiz.order = Array.from(cards.keys()); for(let j = quiz.order.length-1; j>0; j--){ const k = Math.floor(Math.random()*(j+1)); [quiz.order[j], quiz.order[k]] = [quiz.order[k], quiz.order[j]]; } quiz.idx=0; quiz.score=0; quiz.total=quiz.order.length; quiz.running=true; els.qtotal.textContent=quiz.total; els.score.textContent='0'; els.qidx.textContent='1'; els.quizFeedback.textContent=''; hide(els.quizSetup); show(els.quizView); hide(els.quizSummary); hide(els.studyView); loadQuestion(); const mins=Math.max(1, Math.min(60, parseInt(els.mins.value||'10',10))); startTimer(mins); els.quizInfo.textContent = `تم بدء اختبار بـ ${mins} دقيقة`; }
+
+    function loadQuestion(){ const idx = quiz.order[quiz.idx]; const c = cards[idx]; els.qFront.textContent = c.front; els.ansInput.value=''; els.ansInput.focus(); const b = normalize(c.back); if(b === 'صح' || b === 'خطأ' || b==='نعم' || b==='لا'){ show(els.tfBtns); } else { hide(els.tfBtns); } }
+
+    function checkAnswer(userAns){ const idx = quiz.order[quiz.idx]; const c = cards[idx]; const a = normalize(userAns); let b = normalize(c.back); if(['yes','صح','نعم','true'].includes(b)) b='نعم'; if(['no','خطأ','لا','false'].includes(b)) b='لا'; const ok = (a===b) || eq(a,b); if(ok){ quiz.score++; els.quizFeedback.innerHTML = '✅ إجابة صحيحة'; } else{ els.quizFeedback.innerHTML = `❌ الصحيح: <span class="kbd">${c.back}</span>` + (c.ex? `<br/><span class="small muted">${c.ex}</span>`:''); } els.score.textContent = String(quiz.score); quiz.idx++; if(quiz.idx >= quiz.total){ finishQuiz(); } else { els.qidx.textContent = String(quiz.idx+1); loadQuestion(); } }
+
+    function finishQuiz(){ if(!quiz.running) return; quiz.running=false; stopTimer(); hide(els.quizView); show(els.quizSummary); const percent = Math.round((quiz.score/quiz.total)*100); els.summaryText.innerHTML = `أنهيت الاختبار: <strong>${quiz.score}</strong> من <strong>${quiz.total}</strong> — الدرجة: <strong>${percent} / 100</strong>`; }
+
+    // روابط أحداث الاختبار
+    document.getElementById('btnStartQuiz').addEventListener('click', beginQuiz);
+    document.getElementById('btnSubmit').addEventListener('click', ()=>{ checkAnswer(els.ansInput.value); });
+    document.getElementById('btnSkip').addEventListener('click', ()=>{ checkAnswer('___'); });
+    document.getElementById('btnTrue').addEventListener('click', ()=> checkAnswer('نعم'));
+    document.getElementById('btnFalse').addEventListener('click', ()=> checkAnswer('لا'));
+    document.getElementById('btnRetry').addEventListener('click', ()=>{ show(els.quizSetup); hide(els.quizSummary); hide(els.studyView); });
+    document.getElementById('btnBackStudy').addEventListener('click', ()=>{ show(els.studyView); hide(els.quizSetup); hide(els.quizSummary); stopTimer(); });
+
+    // ===== Self-tests (Console) =====
+    (function selfTests(){ const tests=[]; function t(name,fn){ try{ fn(); tests.push({name,ok:true}); } catch(e){ tests.push({name,ok:false,msg:e.message}); } }
+      t('cards length 60', ()=>{ if(!Array.isArray(cards) || cards.length!==60) throw new Error('عدد البطاقات يجب أن يكون 60'); });
+      t('front/back present', ()=>{ cards.forEach(c=>{ if(typeof c.front!=='string' || typeof c.back!=='string') throw new Error('front/back نوع غير نصي'); }); });
+      t('ex مختصر', ()=>{ cards.forEach(c=>{ if(c.ex && c.ex.length>240) throw new Error('شرح طويل'); }); });
+      console.log('%c[EtherChannel Flashcards 60] Self-tests:','color:#7dd3fc');
+      tests.forEach(r=> console.log(r.ok? '✅ '+r.name : '❌ '+r.name+' — '+r.msg));
+    })();
+
+    // بدء العرض
+    render();
+  </script>
+</body>
+</html>
