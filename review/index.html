@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CCNA2 – مراجعات</title>
+  <meta name="description" content="فهرس مراجعات CCNA2 – مفاهيم أساسية ومواضيع المقرر" />
+  <style>
+    /* لوحة ألوان وخطوط متوازنة للواجهة العربية */
+    :root{
+      --bg:#0b1220; --bg2:#0f172a; --panel:#0b1426; --card:#0c1628; --ink:#e5e7eb; --muted:#9ca3af;
+      --line:#263042; --brand:#38bdf8; --brand2:#60a5fa; --accent:#22c55e; --shadow:0 14px 40px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--ink);
+      font-family: "Noto Naskh Arabic UI", system-ui, -apple-system, "Segoe UI", Roboto, Tahoma, Arial;
+      background:
+        radial-gradient(1200px 600px at 100% 0%, #0a1526 0%, #0b1220 60%),
+        linear-gradient(180deg, #0b1220, #0f172a 40%, #0b1220 100%);
+    }
+    .wrap{max-width:1200px; margin-inline:auto; padding:24px}
+
+    header{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:18px}
+    h1{margin:0; font-size:clamp(20px,3.2vw,30px); letter-spacing:.2px}
+    .crumbs{color:var(--muted); font-size:13px}
+    .badge{border:1px solid var(--line); color:var(--muted); padding:6px 10px; border-radius:999px; font-size:12px; background:#0b1220}
+
+    .panel{background:linear-gradient(180deg,#0b162a,#0f1a30); border:1px solid var(--line); border-radius:18px; padding:18px; box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,.03); margin-bottom:14px}
+
+    .toolbar{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:12px}
+    input[type="search"]{
+      background:#0b1220; color:var(--ink); border:1px solid var(--line); border-radius:12px; padding:10px 12px; outline:none; min-width:260px
+    }
+    .btn{background:#0b1220; color:var(--ink); border:1px solid var(--line); border-radius:12px; padding:10px 14px; text-decoration:none; font-weight:700; display:inline-flex; align-items:center; gap:8px}
+    .btn:hover{ border-color:#3b82f6 }
+
+    .section{display:flex; align-items:center; justify-content:space-between; gap:10px; margin:6px 0 10px}
+    .section h2{margin:0; font-size:clamp(16px,2.4vw,20px)}
+    .tag{border:1px solid var(--line); color:#bae6fd; background:#0b1220; padding:4px 10px; border-radius:999px; font-size:12px}
+
+    .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:12px}
+    .card{display:block; text-decoration:none; color:inherit; position:relative; overflow:hidden; background:linear-gradient(180deg,var(--card),#0e1a2f); border:1px solid var(--line); border-radius:16px; padding:16px; transition:.25s transform ease,.25s box-shadow ease,.2s border-color ease}
+    .card:hover{ transform:translateY(-3px); box-shadow:0 16px 40px rgba(0,0,0,.38); border-color:#334155 }
+    .card h3{margin:0 0 6px 0; font-size:17px}
+    .card p{margin:0; color:var(--muted); font-size:13px}
+
+    footer{margin-top:14px; color:var(--muted); font-size:12px}
+    code{background:#0a1220; border:1px solid var(--line); border-radius:6px; padding:0 6px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>📘 مراجعات CCNA2</h1>
+        <div class="crumbs">الرئيسية ← <a href="../" style="color:#7dd3fc;text-decoration:none">ccna2</a> ← <b>review</b></div>
+      </div>
+      <div class="badge" id="countBadge">—</div>
+    </header>
+
+    <!-- بحث سريع -->
+    <section class="panel">
+      <div class="toolbar">
+        <input id="q" type="search" placeholder="ابحث: IPv6, VLAN, Routing …" />
+        <a class="btn" href="../">↩︎ عودة إلى الفهرس</a>
+        <span class="badge" id="results">—</span>
+      </div>
+
+      <!-- القسم 1: مفاهيم أساسية -->
+      <div class="section"><h2>🔹 مفاهيم أساسية</h2><span class="tag">أساسيات قبل التطبيق</span></div>
+      <div id="core" class="grid"></div>
+
+      <!-- القسم 2: مواضيع المقرر -->
+      <div class="section" style="margin-top:18px"><h2>📚 مواضيع المقرر</h2><span class="tag">تطبيقات ومختبرات</span></div>
+      <div id="topics" class="grid"></div>
+    </section>
+
+    <footer>
+اعداد م. نبيل الشويكان 2025
+    </footer>
+  </div>
+
+  <script>
+    // --- بيانات ملفاتك كما زوّدتني بها ---
+    // القسم الأول: مفاهيم أساسية
+    const CORE = [
+      { title:'IPv6 – المفاهيم والعنونة',  file:'ipv6.html', desc:'نظرة شاملة + مراجعة سريعة' },
+      { title:'نماذج OSI / TCP‑IP',       file:'OSI_TCPIP_Models.html', desc:'نماذج الطبقات' },
+    ];
+
+    // القسم الثاني: مواضيع المقرر
+    const TOPICS = [
+      { title:'VLAN',           file:'VLAN.html',           desc:'الشبكات المحلية الافتراضية وتقسيم مجالات البث' },
+      { title:'Spanning Tree (STP)', file:'STP.html',       desc:'منع حلقات التكرار في الطبقة الثانية' },
+      { title:'EtherChannel',   file:'EtherChannel.html',   desc:'تجميع الروابط وزيادة الاعتمادية' },
+      { title:'LAN Security',   file:'LAN Security.html',   desc:' تأمين الشبكات المحلية' },
+      { title:'WLAN',           file:'WLAN.html',           desc:'الشبكات المحلية اللاسلكية' },
+      { title:'DHCP',        file:'DHCP.html',        desc:'بروتوكول التعيين التلقائي للـ IPv.4 و IPv.6' },
+      { title:'FHRP',        file:'FHRP.html',        desc:'بروتوكولات تكرار البوابة الافتراضية' },
+      { title:'Routing',        file:'Routing.html',        desc:'مفاهيم التوجيه والتوجيه الثابت والتوجيه الافتراضي' },
+
+    ];
+
+    // ترميز أسماء فيها مسافات تلقائيًا
+    function hrefFor(name){ return './' + encodeURIComponent(name); }
+    
+    function card({title, file, desc}){
+      return `
+        <a class="card" href="${hrefFor(file)}" title="${title}">
+          <h3>${title}</h3>
+          <p>${desc}</p>
+        </a>`;
+    }
+
+    const els = {
+      q: document.getElementById('q'),
+      results: document.getElementById('results'),
+      core: document.getElementById('core'),
+      topics: document.getElementById('topics'),
+      countBadge: document.getElementById('countBadge')
+    };
+
+    function render(all){
+      const q = (els.q.value||'').toLowerCase().trim();
+      const filter = it => !q || (it.title + ' ' + it.desc + ' ' + it.file).toLowerCase().includes(q);
+      const coreList = CORE.filter(filter);
+      const topicsList = TOPICS.filter(filter);
+      els.core.innerHTML   = coreList.map(it=> card(it)).join(''); // ميّز أول بطاقة أساسية
+      els.topics.innerHTML = topicsList.map(card).join('');
+      els.results.textContent = `النتائج: ${coreList.length + topicsList.length}/${CORE.length + TOPICS.length}`;
+      els.countBadge.textContent = `${CORE.length + TOPICS.length} صفحة`;
+    }
+
+    els.q.addEventListener('input', ()=> render());
+    render();
+  </script>
+</body>
+</html>
