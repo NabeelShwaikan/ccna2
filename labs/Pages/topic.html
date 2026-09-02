@@ -1,1 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#F6F8FB">
+  <title>أوامر Cisco</title>
+  <link rel="stylesheet" href="../Style/main.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="../index.html" aria-label="العودة إلى مرجع أوامر Cisco">
+        <div class="brandmark" aria-hidden="true">C</div>
+        <strong>أوامر Cisco</strong>
+      </a>
+      <div class="top-actions">
+        <a class="back-link" href="../index.html" aria-label="العودة إلى الموضوعات">← <span>الموضوعات</span></a>
+        <button class="icon-btn" id="themeBtn" type="button" aria-label="تفعيل الوضع الداكن" aria-pressed="false" title="تبديل المظهر">◐</button>
+      </div>
+    </header>
 
+    <section class="hero" aria-labelledby="pageTitle">
+      <h1 id="pageTitle">جاري التحميل…</h1>
+      <p id="pageSubtitle"></p>
+    </section>
+
+    <div class="section-head"><h2>الموضوعات</h2></div>
+    <main class="topics" id="topics" aria-live="polite">
+      <div class="loading">جاري تحميل البيانات…</div>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTopicTitle" aria-describedby="modalTopicSub" aria-hidden="true">
+    <section class="modal">
+      <div class="modal-head">
+        <div class="modal-title">
+          <strong id="modalTopicTitle">الأوامر</strong>
+          <span id="modalTopicSub"></span>
+        </div>
+        <button class="close-btn" id="closeModal" type="button" aria-label="إغلاق نافذة الأوامر">×</button>
+      </div>
+
+      <div class="terminal-shell">
+        <div class="terminal-bar">
+          <span class="terminal-device">Cisco IOS CLI</span>
+          <span id="terminalLabel">Router / Switch</span>
+        </div>
+        <div class="terminal" id="terminal" aria-live="polite" aria-atomic="false"></div>
+      </div>
+
+      <div class="modal-actions">
+        <div class="action-group">
+          <button class="primary-btn" id="replayBtn" type="button">إعادة العرض</button>
+          <button class="secondary-btn" id="showAllBtn" type="button">إظهار الكل</button>
+        </div>
+        <span class="status" id="terminalStatus" aria-live="polite"></span>
+      </div>
+    </section>
+  </div>
+
+  <script src="../Scripts/common.js" defer></script>
+  <script src="../Scripts/topic.js" defer></script>
+</body>
+</html>
