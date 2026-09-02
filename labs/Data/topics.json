@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "site_title": "أوامر Cisco",
+  "site_subtitle": "مرجع تفاعلي لأوامر Cisco IOS",
+  "topics": [
+    {
+      "id": "basic-configuration",
+      "order": 1,
+      "title": "التكوين الأساسي",
+      "short_description": "أوضاع IOS، إعداد السويتش والراوتر، الأمان الأساسي، والتحقق.",
+      "data_file": "basic-configuration.json",
+      "status": "ready"
+    },
+    {
+      "id": "vlan",
+      "order": 2,
+      "title": "VLAN و Inter-VLAN Routing",
+      "short_description": "إنشاء VLANs، منافذ Access وTrunk، والتوجيه بين الشبكات الافتراضية.",
+      "data_file": "vlan.json",
+      "status": "planned"
+    },
+    {
+      "id": "stp",
+      "order": 3,
+      "title": "STP",
+      "short_description": "الجسر الجذري، أدوار المنافذ، الحماية، والمراقبة.",
+      "data_file": "stp.json",
+      "status": "planned"
+    },
+    {
+      "id": "etherchannel",
+      "order": 4,
+      "title": "EtherChannel",
+      "short_description": "LACP وPAgP، تجميع الروابط، والتحقق من القنوات.",
+      "data_file": "etherchannel.json",
+      "status": "planned"
+    },
+    {
+      "id": "port-security",
+      "order": 5,
+      "title": "Port Security",
+      "short_description": "تأمين منافذ Access، عناوين MAC، وأنماط المخالفات.",
+      "data_file": "port-security.json",
+      "status": "planned"
+    },
+    {
+      "id": "dhcp",
+      "order": 6,
+      "title": "DHCP و SLAAC",
+      "short_description": "DHCPv4 وDHCPv6 وSLAAC والترحيل والتحقق.",
+      "data_file": "dhcp.json",
+      "status": "planned"
+    },
+    {
+      "id": "static-default-routing",
+      "order": 7,
+      "title": "Static & Default Routing",
+      "short_description": "المسارات الثابتة والافتراضية في IPv4 وIPv6.",
+      "data_file": "static-default-routing.json",
+      "status": "planned"
+    },
+    {
+      "id": "ssh",
+      "order": 8,
+      "title": "SSH",
+      "short_description": "تهيئة الوصول الآمن عن بعد باستخدام SSH.",
+      "data_file": "ssh.json",
+      "status": "planned"
+    }
+  ]
+}

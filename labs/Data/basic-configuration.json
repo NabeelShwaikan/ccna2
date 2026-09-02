@@ -1,1 +1,450 @@
-
+{
+  "schema_version": 1,
+  "topic": {
+    "id": "basic-configuration",
+    "title": "التكوين الأساسي",
+    "subtitle": "افهم الفكرة أولًا، ثم شاهد تسلسل الأوامر كما يظهر في Cisco IOS.",
+    "source": {
+      "file_name": "Basic Configuration.pdf",
+      "pages": 5
+    },
+    "sections": [
+      {
+        "id": "ios-modes",
+        "order": 1,
+        "title": "التنقل بين أوضاع IOS وحفظ الإعدادات",
+        "subtitle": "فهم الـ Prompt قبل كتابة الأمر",
+        "source_page": 1,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "يعتمد Cisco IOS على أوضاع تشغيل متدرجة، ويحدد شكل الـ Prompt الوضع الحالي.",
+          "points": [
+            {
+              "id": "start-mode",
+              "text": "تبدأ الجلسة عادةً من User EXEC ويظهر الرمز >."
+            },
+            {
+              "id": "privileged-mode",
+              "text": "الأمر enable ينقلك إلى Privileged EXEC ويظهر الرمز #."
+            },
+            {
+              "id": "global-config",
+              "text": "من Privileged EXEC تستخدم configure terminal للدخول إلى Global Configuration."
+            },
+            {
+              "id": "save-config",
+              "text": "بعد الانتهاء احفظ running-config في startup-config حتى تبقى الإعدادات بعد إعادة التشغيل."
+            }
+          ],
+          "note": {
+            "label": "ملاحظة خبير",
+            "text": "الأمر end يعيدك مباشرةً إلى Privileged EXEC ذي الرمز #، وليس إلى User EXEC ذي الرمز >."
+          }
+        },
+        "terminal": {
+          "label": "Router",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "Router>",
+              "command": "enable",
+              "description": "يدخل إلى وضع الامتياز Privileged EXEC."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "Router#",
+              "command": "configure terminal",
+              "description": "يدخل إلى وضع التكوين العام."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "Router(config)#",
+              "command": "exit",
+              "description": "يخرج من الوضع الحالي إلى المستوى السابق."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "Router#",
+              "command": "configure terminal",
+              "description": "يدخل مرة أخرى إلى وضع التكوين العام لعرض وظيفة end."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "Router(config)#",
+              "command": "end",
+              "description": "يعود مباشرةً إلى Privileged EXEC."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "Router#",
+              "command": "copy running-config startup-config",
+              "description": "يحفظ التكوين الحالي في الذاكرة الدائمة."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
+              "prompt": "Router#",
+              "command": "write memory",
+              "description": "طريقة مختصرة لحفظ التكوين الحالي."
+            }
+          ]
+        }
+      },
+      {
+        "id": "basic-switch",
+        "order": 2,
+        "title": "التكوين الأساسي للسويتش",
+        "subtitle": "اسم الجهاز وواجهة الإدارة SVI",
+        "source_page": 2,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "السويتش من الطبقة الثانية لا يحتاج عنوان IP لتمرير الإطارات داخل الشبكة، لكنه يحتاج عنوان إدارة إذا أردنا الوصول إليه عبر الشبكة.",
+          "points": [
+            {
+              "id": "hostname",
+              "text": "غيّر اسم الجهاز أولًا حتى يصبح الـ Prompt واضحًا أثناء العمل."
+            },
+            {
+              "id": "svi",
+              "text": "عنوان الإدارة يوضع على واجهة SVI مثل interface vlan 1 في هذا المثال."
+            },
+            {
+              "id": "management-ip",
+              "text": "عيّن عنوان IPv4 وقناع الشبكة على واجهة الإدارة."
+            },
+            {
+              "id": "enable-svi",
+              "text": "فعّل الواجهة بالأمر no shutdown."
+            }
+          ],
+          "note": {
+            "label": "الفكرة العملية",
+            "text": "التكوين هنا يجهز السويتش للإدارة عبر الشبكة، ولا يغيّر وظيفة تحويل الإطارات بين المنافذ."
+          }
+        },
+        "terminal": {
+          "label": "Switch",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "Switch>",
+              "command": "enable",
+              "description": "يدخل إلى وضع الامتياز."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "Switch#",
+              "command": "configure terminal",
+              "description": "يدخل إلى وضع التكوين العام."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "Switch(config)#",
+              "command": "hostname SW1",
+              "description": "يغيّر اسم السويتش إلى SW1."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "SW1(config)#",
+              "command": "interface vlan 1",
+              "description": "يدخل إلى واجهة VLAN 1 الخاصة بالإدارة."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "SW1(config-if)#",
+              "command": "ip address 192.168.1.1 255.255.255.0",
+              "description": "يضبط عنوان IPv4 للإدارة على VLAN 1."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "SW1(config-if)#",
+              "command": "no shutdown",
+              "description": "يفعّل واجهة SVI إذا كانت معطلة."
+            }
+          ]
+        }
+      },
+      {
+        "id": "basic-router",
+        "order": 3,
+        "title": "التكوين الأساسي للراوتر",
+        "subtitle": "الواجهات وعناوين IPv4 وIPv6",
+        "source_page": 3,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "الراوتر يربط شبكات مختلفة، لذلك تُضبط عناوين IP على الواجهات التي تشارك في التوجيه.",
+          "points": [
+            {
+              "id": "hostname",
+              "text": "ابدأ باسم واضح للجهاز لتسهيل التعرف عليه أثناء الإدارة."
+            },
+            {
+              "id": "select-interface",
+              "text": "ادخل إلى الواجهة المطلوبة قبل ضبط عنوانها."
+            },
+            {
+              "id": "ipv4",
+              "text": "عيّن عنوان IPv4 وقناع الشبكة ثم فعّل الواجهة."
+            },
+            {
+              "id": "ipv6",
+              "text": "يمكن إضافة عنوان IPv6 على الواجهة نفسها عند الحاجة."
+            }
+          ],
+          "note": {
+            "label": "تنبيه خبير",
+            "text": "ورد في المصدر الأمر ip default-gateway، لكنه ليس الطريقة المعتادة لتحديد المسار الافتراضي على راوتر يقوم بالتوجيه؛ لذلك لم يُدرج ضمن تسلسل التنفيذ هنا."
+          }
+        },
+        "terminal": {
+          "label": "Router",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "Router>",
+              "command": "enable",
+              "description": "يدخل إلى وضع الامتياز."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "Router#",
+              "command": "configure terminal",
+              "description": "يدخل إلى وضع التكوين العام."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "Router(config)#",
+              "command": "hostname R2",
+              "description": "يغيّر اسم الراوتر إلى R2."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "R2(config)#",
+              "command": "interface GigabitEthernet0/0",
+              "description": "يدخل إلى تكوين الواجهة GigabitEthernet0/0."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "R2(config-if)#",
+              "command": "ip address 192.168.1.1 255.255.255.0",
+              "description": "يضبط عنوان IPv4 للواجهة."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "R2(config-if)#",
+              "command": "no shutdown",
+              "description": "يفعّل الواجهة."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
+              "prompt": "R2(config-if)#",
+              "command": "ipv6 address 2001:db8::1/64",
+              "description": "يضبط عنوان IPv6 على الواجهة."
+            }
+          ],
+          "source_only": [
+            {
+              "id": "source-default-gateway",
+              "prompt": "Router(config)#",
+              "command": "ip default-gateway 192.168.1.254",
+              "description": "ورد في المصدر الأصلي، لكنه لم يُدرج في العرض التفاعلي وفق مراجعة الخبير."
+            }
+          ]
+        }
+      },
+      {
+        "id": "basic-security",
+        "order": 4,
+        "title": "الأمان الأساسي وخطوط VTY",
+        "subtitle": "حماية الامتياز وتقييد الوصول البعيد",
+        "source_page": 4,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "الإعدادات الأساسية هنا تقلل مخاطر الوصول غير المصرح به، ثم تقيّد بروتوكول الوصول البعيد على خطوط VTY.",
+          "points": [
+            {
+              "id": "enable-secret",
+              "text": "استخدم enable secret لحماية الوصول إلى Privileged EXEC."
+            },
+            {
+              "id": "password-encryption",
+              "text": "service password-encryption يخفي كلمات المرور القابلة لذلك داخل ملف الإعداد."
+            },
+            {
+              "id": "banner",
+              "text": "أضف رسالة تحذيرية تظهر عند تسجيل الدخول."
+            },
+            {
+              "id": "vty",
+              "text": "اضبط خطوط VTY ثم قيد بروتوكول النقل إلى SSH."
+            }
+          ],
+          "note": {
+            "label": "ملاحظة خبير",
+            "text": "transport input ssh يمنع Telnet لكنه لا يُكمل إعداد SSH وحده. إعداد SSH الكامل يحتاج عناصر إضافية مثل اسم النطاق ومفاتيح RSA وحساب مستخدم محلي، وهي أنسب لموضوع SSH المستقل."
+          }
+        },
+        "terminal": {
+          "label": "Router",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "Router(config)#",
+              "command": "enable secret class",
+              "description": "يعيّن كلمة مرور لوضع الامتياز."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "Router(config)#",
+              "command": "service password-encryption",
+              "description": "يخفي كلمات المرور القابلة للتشفير في ملف التكوين."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "Router(config)#",
+              "command": "banner motd # Unauthorized Access Prohibited! #",
+              "description": "يضيف رسالة تحذيرية عند تسجيل الدخول."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "Router(config)#",
+              "command": "line vty 0 4",
+              "description": "يدخل إلى تكوين خطوط VTY."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "Router(config-line)#",
+              "command": "password cisco",
+              "description": "يضبط كلمة مرور للوصول البعيد في المثال."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "Router(config-line)#",
+              "command": "login",
+              "description": "يفرض استخدام كلمة المرور عند الاتصال."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
+              "prompt": "Router(config-line)#",
+              "command": "transport input ssh",
+              "description": "يسمح باتصالات SSH ويمنع Telnet."
+            },
+            {
+              "id": "cmd-08",
+              "order": 8,
+              "prompt": "Router(config-line)#",
+              "command": "end",
+              "description": "يعود إلى Privileged EXEC."
+            },
+            {
+              "id": "cmd-09",
+              "order": 9,
+              "prompt": "Router#",
+              "command": "configure terminal",
+              "description": "يدخل إلى وضع التكوين العام."
+            },
+            {
+              "id": "cmd-10",
+              "order": 10,
+              "prompt": "Router(config)#",
+              "command": "ip ssh version 2",
+              "description": "يفرض استخدام SSH الإصدار 2."
+            }
+          ]
+        }
+      },
+      {
+        "id": "basic-verification",
+        "order": 5,
+        "title": "التحقق واستكشاف الأخطاء",
+        "subtitle": "تحقق من الحالة بعد كل تكوين",
+        "source_page": 5,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "لا يكفي أن يقبل الجهاز الأمر؛ يجب التحقق من الحالة الفعلية بعد التكوين.",
+          "points": [
+            {
+              "id": "running-config",
+              "text": "show running-config يعرض الإعداد الحالي الموجود في الذاكرة."
+            },
+            {
+              "id": "interfaces",
+              "text": "show ip interface brief يعطي ملخصًا سريعًا لحالة الواجهات وعناوين IPv4."
+            },
+            {
+              "id": "vlans",
+              "text": "show vlan brief يعرض VLANs والمنافذ المرتبطة بها على السويتش."
+            },
+            {
+              "id": "routing-table",
+              "text": "show ip route يعرض جدول التوجيه على الراوتر."
+            }
+          ],
+          "note": {
+            "label": "قاعدة عملية",
+            "text": "نفّذ التكوين ثم استخدم أمر show مناسب مباشرةً؛ هذا يجعل اكتشاف الخطأ أسرع وأسهل."
+          }
+        },
+        "terminal": {
+          "label": "Router / Switch",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "Switch#",
+              "command": "show running-config",
+              "description": "يعرض التكوين الحالي للسويتش."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "Router#",
+              "command": "show ip interface brief",
+              "description": "يعرض المنافذ وعناوين IPv4 باختصار."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "Switch#",
+              "command": "show vlan brief",
+              "description": "يعرض قائمة VLANs المكوّنة."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "Router#",
+              "command": "show ip route",
+              "description": "يعرض جدول التوجيه الخاص بالراوتر."
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
