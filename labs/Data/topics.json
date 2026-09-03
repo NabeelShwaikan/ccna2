@@ -12,12 +12,20 @@
       "status": "ready"
     },
     {
+      "id": "ssh",
+      "order": 8,
+      "title": "SSH",
+      "short_description": "تهيئة SSHv2، مفاتيح RSA، المستخدم المحلي، وتأمين خطوط VTY.",
+      "data_file": "ssh.json",
+      "status": "ready"
+    },
+    {
       "id": "vlan",
       "order": 2,
       "title": "VLAN و Inter-VLAN Routing",
       "short_description": "إنشاء VLANs، منافذ Access وTrunk، والتوجيه بين الشبكات الافتراضية.",
       "data_file": "vlan.json",
-      "status": "planned"
+      "status": "ready"
     },
     {
       "id": "stp",
@@ -59,13 +67,6 @@
       "data_file": "static-default-routing.json",
       "status": "planned"
     },
-    {
-      "id": "ssh",
-      "order": 8,
-      "title": "SSH",
-      "short_description": "تهيئة SSHv2، مفاتيح RSA، المستخدم المحلي، وتأمين خطوط VTY.",
-      "data_file": "ssh.json",
-      "status": "ready"
-    }
+
   ]
 }
