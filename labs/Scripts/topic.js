@@ -1,7 +1,14 @@
 (function(){
   'use strict';
 
-  const {escapeHtml, initTheme, fetchJson} = window.CiscoApp;
+  const {
+    escapeHtml,
+    initTheme,
+    fetchJson,
+    hasLocalStorage,
+    getStudentNote,
+    setStudentNote
+  } = window.CiscoApp;
 
   const pageTitle = document.getElementById('pageTitle');
   const pageSubtitle = document.getElementById('pageSubtitle');
@@ -18,14 +25,85 @@
 
   let sections = [];
   let currentSection = null;
+  let currentTopicId = '';
   let runToken = 0;
   let lastFocused = null;
+  const noteTimers = new WeakMap();
 
   initTheme('themeBtn');
 
   function getTopicId(){
     const params = new URLSearchParams(window.location.search);
     return params.get('id') || 'basic-configuration';
+  }
+
+  function noteFieldId(sectionId){
+    return `student-note-${String(sectionId).replace(/[^a-zA-Z0-9_-]/g,'-')}`;
+  }
+
+  function resizeNote(textarea){
+    textarea.style.height = 'auto';
+    textarea.style.height = `${Math.max(76,Math.min(textarea.scrollHeight,260))}px`;
+  }
+
+  function updateNoteStatus(statusEl,message,state=''){
+    statusEl.textContent = message;
+    statusEl.className = `student-note-status${state ? ` ${state}` : ''}`;
+  }
+
+  function saveNote(textarea,statusEl){
+    const sectionId = textarea.dataset.noteSection;
+    if(!currentTopicId || !sectionId) return;
+
+    const ok = setStudentNote(currentTopicId,sectionId,textarea.value);
+    updateNoteStatus(
+      statusEl,
+      ok ? (textarea.value.trim() ? 'تم الحفظ ✓' : 'لا توجد ملاحظة') : 'تعذر الحفظ المحلي',
+      ok ? 'saved' : 'error'
+    );
+  }
+
+  function bindStudentNotes(){
+    const storageReady = hasLocalStorage();
+
+    topicsEl.querySelectorAll('.student-note-input').forEach(textarea => {
+      const sectionId = textarea.dataset.noteSection;
+      const statusEl = textarea.closest('.student-note')?.querySelector('.student-note-status');
+      if(!sectionId || !statusEl) return;
+
+      textarea.value = storageReady ? getStudentNote(currentTopicId,sectionId) : '';
+      resizeNote(textarea);
+
+      if(!storageReady){
+        textarea.disabled = true;
+        updateNoteStatus(statusEl,'الحفظ المحلي غير متاح','error');
+        return;
+      }
+
+      updateNoteStatus(
+        statusEl,
+        textarea.value.trim() ? 'محفوظة على هذا الجهاز' : 'تُحفظ تلقائيًا على هذا الجهاز',
+        textarea.value.trim() ? 'saved' : ''
+      );
+
+      textarea.addEventListener('input', () => {
+        resizeNote(textarea);
+        updateNoteStatus(statusEl,'جارٍ الحفظ…');
+        const existingTimer = noteTimers.get(textarea);
+        if(existingTimer) clearTimeout(existingTimer);
+        const timer = setTimeout(() => saveNote(textarea,statusEl),350);
+        noteTimers.set(textarea,timer);
+      });
+
+      textarea.addEventListener('blur', () => {
+        const existingTimer = noteTimers.get(textarea);
+        if(existingTimer){
+          clearTimeout(existingTimer);
+          noteTimers.delete(textarea);
+        }
+        saveNote(textarea,statusEl);
+      });
+    });
   }
 
   function renderSections(items){
@@ -35,6 +113,7 @@
       const explanation = section.explanation || {};
       const points = Array.isArray(explanation.points) ? explanation.points : [];
       const note = explanation.note || null;
+      const fieldId = noteFieldId(section.id || `section-${index + 1}`);
 
       return `
         <article class="topic">
@@ -52,6 +131,22 @@
             ${points.length ? `<ul class="expert-points">${points.map(point => `<li>${escapeHtml(point.text || '')}</li>`).join('')}</ul>` : ''}
           </div>
 
+          <div class="student-note">
+            <div class="student-note-head">
+              <label for="${fieldId}">ملاحظتي</label>
+              <span class="student-note-status">تُحفظ تلقائيًا على هذا الجهاز</span>
+            </div>
+            <textarea
+              class="student-note-input"
+              id="${fieldId}"
+              data-note-section="${escapeHtml(section.id || '')}"
+              rows="2"
+              maxlength="50000"
+              spellcheck="true"
+              placeholder="اكتب شرحك أو ما تريد تذكره عن هذا الموضوع…"
+            ></textarea>
+          </div>
+
           ${note ? `<div class="expert-note"><b>${escapeHtml(note.label || 'ملاحظة')}:</b> ${escapeHtml(note.text || '')}</div>` : ''}
 
           <div class="topic-actions">
@@ -59,6 +154,8 @@
           </div>
         </article>`;
     }).join('');
+
+    bindStudentNotes();
 
     topicsEl.querySelectorAll('[data-section]').forEach(button => {
       button.addEventListener('click', () => openSection(button.dataset.section));
@@ -190,6 +287,7 @@
 
   async function init(){
     const topicId = getTopicId();
+    currentTopicId = topicId;
 
     try{
       const manifest = await fetchJson('../Data/topics.json');
