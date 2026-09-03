@@ -1,0 +1,502 @@
+{
+  "schema_version": 1,
+  "topic": {
+    "id": "stp",
+    "title": "STP",
+    "subtitle": "منع الحلقات في الشبكات المحولة، اختيار Root Bridge، وحماية منافذ الوصول.",
+    "source": {
+      "file_name": "STP.pdf",
+      "pages": 5
+    },
+    "review": {
+      "status": "expert-reviewed",
+      "basis": "المحتوى الأساسي مأخوذ من الملف، مع إبقاء تصحيحات خبير Cisco منفصلة وواضحة وعدم إدراج الصيغ غير الصحيحة في محاكاة CLI.",
+      "adjustments": [
+        {
+          "id": "stp-mode-syntax",
+          "source": "يعرض الملف spanning-tree mode <stp/rstp/pvst/rapid-pvst/mst>.",
+          "site": "يستخدم الموقع spanning-tree mode {pvst | rapid-pvst | mst}.",
+          "reason": "هذه هي القيم المدعومة للأمر على منصات Catalyst IOS/IOS XE الشائعة؛ STP وRSTP اسما بروتوكولين وليسا كلمتي اختيار لهذا الأمر."
+        },
+        {
+          "id": "root-guard-syntax",
+          "source": "يعرض الملف في صفحة 5 صيغة spanning-tree vlan <VLAN_ID> rootguard، بينما يعرض في صفحة 4 الصيغة spanning-tree guard root.",
+          "site": "اعتمد الموقع spanning-tree guard root داخل وضع تكوين المنفذ.",
+          "reason": "Root Guard ميزة تطبق على المنفذ، وهذه هي صيغة Cisco IOS الموثقة."
+        },
+        {
+          "id": "loop-guard-syntax",
+          "source": "يعرض الملف spanning-tree loopguard enable.",
+          "site": "اعتمد الموقع spanning-tree guard loop داخل وضع تكوين المنفذ.",
+          "reason": "هذه هي صيغة Loop Guard على واجهات Cisco IOS الشائعة."
+        },
+        {
+          "id": "designated-root-command",
+          "source": "يعرض الملف spanning-tree vlan <VLAN_ID> designated-root لإجبار المنفذ على أن يكون Designated Port.",
+          "site": "لم يُدرج الأمر في المحاكاة.",
+          "reason": "لا يُضبط Designated Port بهذه الصيغة؛ STP ينتخب أدوار المنافذ وفق Root Path Cost وBridge ID وPort ID."
+        },
+        {
+          "id": "uplinkfast-backbonefast",
+          "source": "يتضمن الملف spanning-tree uplinkfast وspanning-tree backbonefast.",
+          "site": "حُفظا كمعلومة تراثية في المراجعة ولم يوضعا ضمن المسار التعليمي الأساسي.",
+          "reason": "الميّزتان مرتبطتان أساسًا بـPVST+ التقليدي وتبقيان غير نشطتين عند العمل بـRapid-PVST+ أوMST على كثير من منصات Catalyst الحديثة."
+        },
+        {
+          "id": "bpdu-filter-warning",
+          "source": "يصف الملف spanning-tree bpdufilter enable بأنه يمنع إرسال أو استقبال BPDUs على المنفذ.",
+          "site": "أبقي الأمر مع تحذير صريح من استخدامه إلا عند فهم أثره.",
+          "reason": "إخفاء BPDUs قد يمنع STP من اكتشاف حلقة فعلية، لذلك هو أكثر خطورة من BPDU Guard في منافذ المستخدمين."
+        }
+      ],
+      "legacy_source_commands": [
+        {
+          "command": "spanning-tree uplinkfast",
+          "note": "وارد في المصدر، لكنه ليس جزءًا من المسار الأساسي في الصفحة."
+        },
+        {
+          "command": "spanning-tree backbonefast",
+          "note": "وارد في المصدر، لكنه ليس جزءًا من المسار الأساسي في الصفحة."
+        }
+      ]
+    },
+    "sections": [
+      {
+        "id": "stp-monitoring",
+        "order": 1,
+        "title": "فهم حالة STP والتحقق منها",
+        "subtitle": "ابدأ بالمراقبة قبل تغيير أي إعداد",
+        "source_page": 1,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "قبل تعديل STP اعرض الحالة الحالية لتعرف Root Bridge وأدوار المنافذ والمسارات المحجوبة لكل VLAN.",
+          "points": [
+            {
+              "id": "show-all",
+              "text": "show spanning-tree يعطي نظرة عامة على حالة STP والـVLANs والمنافذ."
+            },
+            {
+              "id": "show-vlan",
+              "text": "show spanning-tree vlan <VLAN_ID> يعزل التحليل على VLAN محددة."
+            },
+            {
+              "id": "show-root",
+              "text": "show spanning-tree root يساعدك على معرفة الجسر الجذري الحالي ومعلومات المسار إليه."
+            },
+            {
+              "id": "show-interface",
+              "text": "show spanning-tree interface <interface-id> يعرض دور المنفذ وحالته وتفاصيل STP الخاصة به."
+            }
+          ],
+          "note": {
+            "label": "الفكرة العملية",
+            "text": "في استكشاف الأعطال لا تبدأ بتغيير الأولويات؛ حدّد أولًا من هو Root Bridge وما المنافذ Forwarding أوBlocking."
+          }
+        },
+        "terminal": {
+          "label": "SW1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "SW1#",
+              "command": "show spanning-tree",
+              "description": "يعرض حالة STP العامة."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "SW1#",
+              "command": "show spanning-tree vlan 10",
+              "description": "يعرض تفاصيل STP لـVLAN 10 كمثال."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "SW1#",
+              "command": "show spanning-tree summary",
+              "description": "يعرض ملخصًا لحالة STP على السويتش."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "SW1#",
+              "command": "show spanning-tree root",
+              "description": "يعرض معلومات Root Bridge والمسار إليه."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "SW1#",
+              "command": "show spanning-tree blockedports",
+              "description": "يعرض المنافذ الموجودة في حالة حجب بسبب STP."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "SW1#",
+              "command": "show spanning-tree interface gigabitethernet 0/1",
+              "description": "يعرض تفاصيل STP لمنفذ محدد."
+            }
+          ]
+        }
+      },
+      {
+        "id": "stp-mode-root",
+        "order": 2,
+        "title": "اختيار وضع STP وتحديد Root Bridge",
+        "subtitle": "التحكم في نقطة المرجع التي تبني عليها الشجرة",
+        "source_page": 3,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "يعمل STP بصورة أفضل عندما تختار Root Bridge مقصودًا بدل ترك الاختيار للمصادفة، وتحدد وضع STP الملائم للبيئة.",
+          "points": [
+            {
+              "id": "mode",
+              "text": "على Catalyst IOS الشائع تكون خيارات الوضع PVST+ أوRapid-PVST+ أوMST."
+            },
+            {
+              "id": "root-primary",
+              "text": "root primary يضبط أولوية مناسبة تجعل السويتش مرشحًا قويًا ليصبح Root Bridge للـVLAN المحددة."
+            },
+            {
+              "id": "root-secondary",
+              "text": "root secondary يجهز سويتشًا احتياطيًا إذا فقد الجسر الجذري الأساسي."
+            },
+            {
+              "id": "manual-priority",
+              "text": "يمكن استخدام priority عندما تريد التحكم العددي المباشر في Bridge Priority؛ القيمة الأقل أكثر تفضيلًا."
+            }
+          ],
+          "note": {
+            "label": "تصحيح خبير",
+            "text": "المصدر يضع stp وrstp ضمن خيارات spanning-tree mode؛ في الموقع اعتمدنا pvst وrapid-pvst وmst فقط."
+          }
+        },
+        "terminal": {
+          "label": "SW1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "SW1(config)#",
+              "command": "spanning-tree mode rapid-pvst",
+              "description": "يختار Rapid-PVST+ كمثال لوضع STP."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "SW1(config)#",
+              "command": "spanning-tree vlan 10 root primary",
+              "description": "يجعل SW1 المرشح الأساسي ليكون Root Bridge لـVLAN 10."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "SW2(config)#",
+              "command": "spanning-tree vlan 10 root secondary",
+              "description": "يجعل SW2 مرشحًا احتياطيًا لـVLAN 10."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "SW1(config)#",
+              "command": "spanning-tree vlan 20 priority 24576",
+              "description": "مثال على ضبط Bridge Priority يدويًا لـVLAN 20."
+            }
+          ]
+        }
+      },
+      {
+        "id": "stp-edge-protection",
+        "order": 3,
+        "title": "PortFast وBPDU Guard لمنافذ المستخدمين",
+        "subtitle": "تسريع منفذ الطرف النهائي مع حماية من توصيل سويتش بالخطأ",
+        "source_page": 3,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "على منفذ موصل بجهاز طرفي يمكن استخدام PortFast لتجاوز انتظار حالات STP التقليدية، ويضاف BPDU Guard لحماية الشبكة إذا ظهر BPDU على منفذ لا يفترض أن يتصل بسويتش.",
+          "points": [
+            {
+              "id": "portfast",
+              "text": "PortFast مناسب للمنافذ المواجهة لأجهزة المستخدمين، وليس للوصلات بين السويتشات."
+            },
+            {
+              "id": "bpduguard",
+              "text": "BPDU Guard يضع المنفذ في err-disabled إذا استقبل BPDU عند تفعيله على المنفذ."
+            },
+            {
+              "id": "together",
+              "text": "الجمع بين PortFast وBPDU Guard نمط حماية شائع لمنافذ Access الطرفية."
+            }
+          ],
+          "note": {
+            "label": "تنبيه",
+            "text": "لا تفعّل PortFast على وصلة يمكن أن تُنشئ حلقة Layer 2 ما لم تكن متأكدًا من طبيعتها."
+          }
+        },
+        "terminal": {
+          "label": "SW1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "SW1(config)#",
+              "command": "interface gigabitethernet 0/10",
+              "description": "يدخل إلى منفذ مستخدم كمثال."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "SW1(config-if)#",
+              "command": "spanning-tree portfast",
+              "description": "يفعّل PortFast على المنفذ."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "SW1(config-if)#",
+              "command": "spanning-tree bpduguard enable",
+              "description": "يفعّل BPDU Guard على المنفذ."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "SW1(config)#",
+              "command": "spanning-tree portfast default",
+              "description": "يفعّل PortFast افتراضيًا على المنافذ غير الـTrunk في المنصات التي تدعم هذه الصيغة."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "SW1(config)#",
+              "command": "spanning-tree portfast bpduguard default",
+              "description": "يفعّل BPDU Guard افتراضيًا على منافذ PortFast."
+            }
+          ]
+        }
+      },
+      {
+        "id": "stp-guards",
+        "order": 4,
+        "title": "Root Guard وLoop Guard وBPDU Filter",
+        "subtitle": "حمايات STP للمنافذ الحساسة",
+        "source_pages": [
+          3,
+          4,
+          5
+        ],
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "توفر Cisco حمايات إضافية لمنع تغيّر غير مرغوب في الجذر أو تجنب بعض حالات الفشل أحادي الاتجاه، لكن لكل ميزة موضع استخدام مختلف.",
+          "points": [
+            {
+              "id": "root-guard",
+              "text": "Root Guard يمنع المنفذ من أن يصبح مسارًا نحو Root Bridge غير مرغوب فيه."
+            },
+            {
+              "id": "loop-guard",
+              "text": "Loop Guard يحمي من انتقال منفذ Root أوAlternate إلى Forwarding عند توقف BPDUs بصورة غير طبيعية."
+            },
+            {
+              "id": "bpdu-filter",
+              "text": "BPDU Filter يمنع BPDUs على المنفذ، ولذلك استخدامه أكثر حساسية وقد يخفي حلقة من STP."
+            }
+          ],
+          "note": {
+            "label": "تصحيح خبير",
+            "text": "اعتمدنا spanning-tree guard root وspanning-tree guard loop. لم نستخدم الصيغتين rootguard وloopguard enable الواردتين في الصفحة الأخيرة من المصدر."
+          }
+        },
+        "terminal": {
+          "label": "SW1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "SW1(config)#",
+              "command": "interface gigabitethernet 0/2",
+              "description": "يدخل إلى المنفذ المراد حمايته."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "SW1(config-if)#",
+              "command": "spanning-tree guard root",
+              "description": "يفعّل Root Guard على المنفذ."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "SW1(config-if)#",
+              "command": "spanning-tree guard loop",
+              "description": "يفعّل Loop Guard على المنفذ بدل صيغة loopguard enable غير المعتمدة هنا."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "SW1(config-if)#",
+              "command": "spanning-tree bpdufilter enable",
+              "description": "يفعّل BPDU Filter؛ يستخدم بحذر شديد."
+            }
+          ]
+        }
+      },
+      {
+        "id": "stp-path-timers",
+        "order": 5,
+        "title": "التحكم في اختيار المسار ومؤقتات STP",
+        "subtitle": "Cost وPort Priority والمؤقتات عند الحاجة",
+        "source_pages": [
+          4,
+          5
+        ],
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "عند وجود أكثر من مسار يمكن التأثير في قرار STP بتكلفة المنفذ أو Port Priority، بينما تعديل المؤقتات إجراء متقدم لا يُستخدم عادةً دون سبب تصميمي واضح.",
+          "points": [
+            {
+              "id": "cost",
+              "text": "Path Cost الأقل هو الأكثر تفضيلًا عند اختيار المسار نحو Root Bridge."
+            },
+            {
+              "id": "port-priority",
+              "text": "Port Priority يستخدم كعامل ترجيح إضافي عند تساوي معايير أعلى منه."
+            },
+            {
+              "id": "timers",
+              "text": "Hello Time وForward Time وMax Age مؤقتات تؤثر في سلوك STP التقليدي ويجب تعديلها بتصميم متسق."
+            }
+          ],
+          "note": {
+            "label": "ملاحظة خبير",
+            "text": "لا تحاول إجبار منفذ على أن يصبح Designated Port بأمر مباشر؛ STP ينتخب الدور نتيجة المقارنة بين معلومات الجسور والمسارات والمنافذ."
+          }
+        },
+        "terminal": {
+          "label": "SW1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "SW1(config)#",
+              "command": "interface gigabitethernet 0/1",
+              "description": "يدخل إلى منفذ تريد التأثير في اختياره."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "SW1(config-if)#",
+              "command": "spanning-tree cost 19",
+              "description": "يضبط Path Cost للمنفذ كمثال."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "SW1(config-if)#",
+              "command": "spanning-tree vlan 10 port-priority 64",
+              "description": "يضبط Port Priority للمنفذ داخل VLAN 10."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "SW1(config)#",
+              "command": "spanning-tree vlan 10 hello-time 2",
+              "description": "يضبط Hello Time لـVLAN 10 كمثال."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "SW1(config)#",
+              "command": "spanning-tree vlan 10 forward-time 15",
+              "description": "يضبط Forward Time لـVLAN 10."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "SW1(config)#",
+              "command": "spanning-tree vlan 10 max-age 20",
+              "description": "يضبط Max Age لـVLAN 10."
+            }
+          ]
+        }
+      },
+      {
+        "id": "stp-mst",
+        "order": 6,
+        "title": "MST ومراقبة الإعداد",
+        "subtitle": "الأوامر الأساسية الواردة في المصدر لـMultiple Spanning Tree",
+        "source_pages": [
+          1,
+          4
+        ],
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "يتضمن المصدر أوامر MSTP، وهي تُستخدم عندما تجمع عدة VLANs داخل عدد أقل من مثيلات Spanning Tree بدل إنشاء شجرة مستقلة لكل VLAN.",
+          "points": [
+            {
+              "id": "mst-mode",
+              "text": "يجب أن يعمل السويتش في وضع MST قبل الاستفادة من إعدادات مثيلات MST."
+            },
+            {
+              "id": "mst-config",
+              "text": "spanning-tree mst configuration يدخل إلى وضع تكوين منطقة MST."
+            },
+            {
+              "id": "mst-priority",
+              "text": "spanning-tree mst <instance> priority <value> يضبط أولوية الجسر لمثيل MST محدد."
+            },
+            {
+              "id": "mst-show",
+              "text": "show spanning-tree mst وshow spanning-tree mst configuration يستخدمان للتحقق من الحالة والإعداد."
+            }
+          ],
+          "note": {
+            "label": "حدود المصدر",
+            "text": "الملف لا يشرح تكوين اسم منطقة MST أوRevision أوربط VLANs بالمثيلات؛ لذلك لم نضف هذه الخطوات من خارج الملف إلى المحاكاة."
+          }
+        },
+        "terminal": {
+          "label": "SW1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "SW1(config)#",
+              "command": "spanning-tree mode mst",
+              "description": "يحول السويتش إلى وضع MST."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "SW1(config)#",
+              "command": "spanning-tree mst configuration",
+              "description": "يدخل إلى وضع تكوين MST."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "SW1(config)#",
+              "command": "spanning-tree mst 1 priority 24576",
+              "description": "يضبط أولوية الجسر لمثيل MST 1 كمثال على الصيغة الواردة في المصدر."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "SW1#",
+              "command": "show spanning-tree mst configuration",
+              "description": "يعرض تكوين منطقة MST."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "SW1#",
+              "command": "show spanning-tree mst",
+              "description": "يعرض حالة مثيلات MST."
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

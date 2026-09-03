@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "site_title": "أوامر Cisco",
+  "site_title": "ملخص أوامر أساسيات التوجيه والتحويل والشبكات اللاسلكية",
   "site_subtitle": "مرجع تفاعلي لأوامر Cisco IOS",
   "topics": [
     {
       "id": "basic-configuration",
       "order": 1,
-      "title": "التكوين الأساسي",
+      "title": "التكوين الأساسي Basic Configuration",
       "short_description": "أوضاع IOS، إعداد السويتش والراوتر، الأمان الأساسي، والتحقق.",
       "data_file": "basic-configuration.json",
       "status": "ready"
@@ -14,7 +14,7 @@
     {
       "id": "ssh",
       "order": 2,
-      "title": "SSH",
+      "title": " تأمين الاتصال الاداري عن بعد SSH",
       "short_description": "تهيئة SSHv2، مفاتيح RSA، المستخدم المحلي، وتأمين خطوط VTY.",
       "data_file": "ssh.json",
       "status": "ready"
@@ -22,7 +22,7 @@
     {
       "id": "vlan",
       "order": 3,
-      "title": "VLAN و Inter-VLAN Routing",
+      "title": "الشبكات المحلية الافتراضية VLAN و Inter-VLAN Routing",
       "short_description": "إنشاء VLANs، منافذ Access وTrunk، والتوجيه بين الشبكات الافتراضية.",
       "data_file": "vlan.json",
       "status": "ready"
@@ -30,15 +30,15 @@
     {
       "id": "stp",
       "order": 4,
-      "title": "STP",
+      "title": "بروتوكول الشجرة الممتدة  STP",
       "short_description": "الجسر الجذري، أدوار المنافذ، الحماية، والمراقبة.",
       "data_file": "stp.json",
-      "status": "planned"
+      "status": "ready"
     },
     {
       "id": "etherchannel",
       "order": 5,
-      "title": "EtherChannel",
+      "title": "تجميع الروابط EtherChannel",
       "short_description": "LACP وPAgP، تجميع الروابط، والتحقق من القنوات.",
       "data_file": "etherchannel.json",
       "status": "planned"
@@ -46,7 +46,7 @@
     {
       "id": "port-security",
       "order": 6,
-      "title": "Port Security",
+      "title": "تأمين منافذ المحولات  Port Security",
       "short_description": "تأمين منافذ Access، عناوين MAC، وأنماط المخالفات.",
       "data_file": "port-security.json",
       "status": "planned"
@@ -54,7 +54,7 @@
     {
       "id": "dhcp",
       "order": 7,
-      "title": "DHCP و SLAAC",
+      "title": "بروتوكول DHCP و SLAAC",
       "short_description": "DHCPv4 وDHCPv6 وSLAAC والترحيل والتحقق.",
       "data_file": "dhcp.json",
       "status": "planned"
@@ -62,7 +62,7 @@
     {
       "id": "static-default-routing",
       "order": 8,
-      "title": "Static & Default Routing",
+      "title": "التوجيه الثابت والافتراضيStatic & Default Routing",
       "short_description": "المسارات الثابتة والافتراضية في IPv4 وIPv6.",
       "data_file": "static-default-routing.json",
       "status": "planned"
