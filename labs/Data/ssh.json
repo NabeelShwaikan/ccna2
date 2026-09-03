@@ -1,0 +1,285 @@
+{
+  "schema_version": 1,
+  "topic": {
+    "id": "ssh",
+    "title": "SSH",
+    "subtitle": "تهيئة وصول إداري آمن إلى أجهزة Cisco IOS بخطوات قصيرة وواضحة.",
+    "source": {
+      "file_name": "SSH.pdf",
+      "pages": 1
+    },
+    "review": {
+      "status": "expert-reviewed",
+      "basis": "المحتوى الأساسي مأخوذ من الملف، مع فصل تعديلات خبير Cisco بوضوح.",
+      "adjustments": [
+        {
+          "id": "rsa-key-size",
+          "source": "يذكر الملف إنشاء مفاتيح RSA بطول 1024 bits.",
+          "site": "تستخدم المحاكاة 2048 bits.",
+          "reason": "مثال Cisco الحديث لتقوية IOS يستخدم RSA modulus 2048."
+        },
+        {
+          "id": "ssh-version-2",
+          "source": "لا يذكر الملف الأمر ip ssh version 2.",
+          "site": "أضيف ip ssh version 2 إلى تسلسل التهيئة.",
+          "reason": "Cisco توصي بتقييد الخدمة على SSHv2 بدل السماح بالتوافق مع SSHv1."
+        },
+        {
+          "id": "vty-temporary-password",
+          "source": "يضع الملف كلمة مرور على VTY ثم يعود لاحقًا إلى login local ويحذف كلمة المرور.",
+          "site": "تبدأ محاكاة VTY النهائية مباشرةً بـ login local بعد إنشاء المستخدم المحلي.",
+          "reason": "إزالة خطوة انتقالية لا يحتاجها التسلسل النهائي عند استخدام قاعدة المستخدمين المحلية."
+        }
+      ]
+    },
+    "sections": [
+      {
+        "id": "ssh-foundation",
+        "order": 1,
+        "title": "تهيئة الجهاز قبل SSH",
+        "subtitle": "اسم الجهاز والحماية المحلية الأساسية",
+        "source_page": 1,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "قبل تفعيل SSH نبدأ بتهيئة هوية واضحة للجهاز وإعداد الوصول المحلي الأساسي.",
+          "points": [
+            {
+              "id": "privileged-config",
+              "text": "ادخل إلى Privileged EXEC ثم Global Configuration حتى تصبح أوامر التهيئة متاحة."
+            },
+            {
+              "id": "hostname",
+              "text": "عيّن اسمًا للجهاز؛ اسم المضيف يدخل ضمن هوية الجهاز المستخدمة عند إنشاء مفاتيح RSA."
+            },
+            {
+              "id": "console",
+              "text": "يمكن حماية منفذ Console بكلمة مرور وفرض تسجيل الدخول كما ورد في الملف."
+            },
+            {
+              "id": "password-display",
+              "text": "الأمر service password-encryption يخفي كلمات المرور النصية في ملف التكوين، لكنه ليس بديلًا عن استخدام كلمات مرور سرية قوية."
+            }
+          ],
+          "note": {
+            "label": "ملاحظة خبير",
+            "text": "الملف يستخدم enable password cisco. أبقيناه ضمن تسلسل المصدر، لكن في البيئات الفعلية يُفضّل استخدام enable secret بدلًا منه."
+          }
+        },
+        "terminal": {
+          "label": "R1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "Router>",
+              "command": "enable",
+              "description": "يدخل إلى Privileged EXEC."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "Router#",
+              "command": "configure terminal",
+              "description": "يدخل إلى Global Configuration."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "Router(config)#",
+              "command": "hostname R1",
+              "description": "يغيّر اسم الجهاز إلى R1."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "R1(config)#",
+              "command": "enable password cisco",
+              "description": "يضبط كلمة مرور وضع الامتياز كما ورد في المصدر."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "R1(config)#",
+              "command": "line console 0",
+              "description": "يدخل إلى إعدادات منفذ Console."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "R1(config-line)#",
+              "command": "password cisco",
+              "description": "يضبط كلمة مرور Console في المثال."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
+              "prompt": "R1(config-line)#",
+              "command": "login",
+              "description": "يفرض طلب كلمة المرور عند الدخول من Console."
+            },
+            {
+              "id": "cmd-08",
+              "order": 8,
+              "prompt": "R1(config-line)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
+            },
+            {
+              "id": "cmd-09",
+              "order": 9,
+              "prompt": "R1(config)#",
+              "command": "service password-encryption",
+              "description": "يخفي كلمات المرور النصية في ملف التكوين."
+            }
+          ]
+        }
+      },
+      {
+        "id": "ssh-identity",
+        "order": 2,
+        "title": "إنشاء هوية SSH والمستخدم المحلي",
+        "subtitle": "Domain Name وRSA وSSH Version 2",
+        "source_page": 1,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "يحتاج SSH إلى هوية للجهاز ومفاتيح تشفير، ثم حساب محلي يمكن استخدامه للمصادقة.",
+          "points": [
+            {
+              "id": "domain-name",
+              "text": "عيّن اسم النطاق باستخدام ip domain-name قبل إنشاء مفاتيح RSA."
+            },
+            {
+              "id": "rsa",
+              "text": "أنشئ مفاتيح RSA؛ وهي التي تمكّن خدمة SSH وتوفر أساس التشفير للجلسة."
+            },
+            {
+              "id": "local-user",
+              "text": "أنشئ مستخدمًا محليًا باستخدام secret حتى تعتمد خطوط VTY على قاعدة المستخدمين المحلية."
+            },
+            {
+              "id": "sshv2",
+              "text": "قيّد الخدمة على SSH Version 2 بدل السماح بالتوافق مع الإصدار الأول."
+            }
+          ],
+          "note": {
+            "label": "تعديل خبير",
+            "text": "المصدر يذكر RSA بطول 1024 bits ولا يذكر ip ssh version 2. في المحاكاة نستخدم modulus 2048 ونضيف SSHv2 وفق إرشادات Cisco الحديثة."
+          }
+        },
+        "terminal": {
+          "label": "R1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "R1(config)#",
+              "command": "ip domain-name mct.edu.sa",
+              "description": "يعيّن اسم النطاق للجهاز كما ورد في المصدر."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "R1(config)#",
+              "command": "crypto key generate rsa modulus 2048",
+              "description": "ينشئ مفاتيح RSA بطول 2048 بت وفق تعديل الخبير."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "R1(config)#",
+              "command": "ip ssh version 2",
+              "description": "يفرض استخدام SSH Version 2."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "R1(config)#",
+              "command": "username administrator secret cisco",
+              "description": "ينشئ مستخدمًا محليًا باسم administrator بكلمة مرور سرية."
+            }
+          ]
+        }
+      },
+      {
+        "id": "ssh-vty-access",
+        "order": 3,
+        "title": "تقييد VTY على SSH واختبار الاتصال",
+        "subtitle": "Local Login ثم SSH فقط",
+        "source_page": 1,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "بعد تجهيز SSH نربط خطوط VTY بقاعدة المستخدمين المحلية ونمنع بروتوكولات الوصول البعيد غير المطلوبة.",
+          "points": [
+            {
+              "id": "vty-lines",
+              "text": "ادخل إلى خطوط VTY التي تستقبل جلسات الإدارة عن بعد."
+            },
+            {
+              "id": "login-local",
+              "text": "الأمر login local يجعل المصادقة تعتمد على المستخدم المحلي الذي أنشأناه."
+            },
+            {
+              "id": "ssh-only",
+              "text": "الأمر transport input ssh يسمح بـSSH ويمنع Telnet على خطوط VTY المحددة."
+            },
+            {
+              "id": "client-test",
+              "text": "اختبر الاتصال من جهاز العميل باستخدام اسم المستخدم وعنوان IP الخاص بالراوتر."
+            }
+          ],
+          "note": {
+            "label": "الفكرة العملية",
+            "text": "بعد تفعيل login local لا تحتاج إلى كلمة مرور VTY المشتركة الموجودة في الجزء الأول من الملف؛ المصادقة أصبحت باسم مستخدم وكلمة مرور محلية."
+          }
+        },
+        "terminal": {
+          "label": "R1 / PC",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "R1(config)#",
+              "command": "line vty 0 15",
+              "description": "يدخل إلى إعدادات خطوط VTY."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "R1(config-line)#",
+              "command": "login local",
+              "description": "يستخدم قاعدة المستخدمين المحلية للمصادقة."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "R1(config-line)#",
+              "command": "transport input ssh",
+              "description": "يسمح بالوصول عبر SSH فقط."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "R1(config-line)#",
+              "command": "no password cisco",
+              "description": "يحذف كلمة مرور VTY المشتركة التي ظهرت في تسلسل المصدر."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "R1(config-line)#",
+              "command": "end",
+              "description": "يعود إلى Privileged EXEC قبل الاختبار."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "C:\\>",
+              "command": "ssh -l administrator 10.10.10.1",
+              "description": "يبدأ جلسة SSH من جهاز العميل كما في المصدر."
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -63,9 +63,9 @@
       "id": "ssh",
       "order": 8,
       "title": "SSH",
-      "short_description": "تهيئة الوصول الآمن عن بعد باستخدام SSH.",
+      "short_description": "تهيئة SSHv2، مفاتيح RSA، المستخدم المحلي، وتأمين خطوط VTY.",
       "data_file": "ssh.json",
-      "status": "planned"
+      "status": "ready"
     }
   ]
 }
