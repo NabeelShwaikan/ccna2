@@ -326,3 +326,135 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--focus);outline-offs
   html{scroll-behavior:auto}
   .cursor{animation:none}
 }
+
+/* Student notes */
+.student-note{
+  margin-top:11px;
+  padding:12px 13px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:var(--surface);
+}
+.student-note-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:8px;
+}
+.student-note-head label{
+  color:var(--text);
+  font-size:14px;
+  font-weight:800;
+  line-height:1.5;
+}
+.student-note-status{
+  color:var(--muted);
+  font-size:11.5px;
+  font-weight:600;
+  line-height:1.5;
+  text-align:left;
+}
+.student-note-status.saved{color:var(--success)}
+.student-note-status.error{color:var(--warning)}
+.student-note-input{
+  display:block;
+  width:100%;
+  min-height:76px;
+  max-height:260px;
+  padding:10px 11px;
+  overflow:auto;
+  resize:vertical;
+  border:1px solid var(--border);
+  border-radius:9px;
+  background:var(--surface-soft);
+  color:var(--text);
+  font-family:var(--sans);
+  font-size:14.5px;
+  font-weight:500;
+  line-height:1.8;
+}
+.student-note-input::placeholder{color:color-mix(in srgb,var(--muted) 76%,transparent)}
+.student-note-input:focus-visible{
+  outline:3px solid var(--focus);
+  outline-offset:1px;
+  border-color:var(--primary);
+}
+.student-note-input:disabled{opacity:.7;cursor:not-allowed}
+
+/* Notes backup on index */
+.notes-section-head{margin-top:30px}
+.notes-backup{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:14px 18px;
+  padding:18px 19px;
+  border:1px solid var(--border);
+  border-radius:var(--radius-card);
+  background:var(--surface);
+}
+.notes-backup-copy{min-width:0}
+.notes-backup h3{
+  margin:0;
+  color:var(--text);
+  font-size:18px;
+  font-weight:750;
+  line-height:1.55;
+}
+.notes-backup p{
+  margin:4px 0 0;
+  color:var(--muted);
+  font-size:14px;
+  font-weight:500;
+  line-height:1.75;
+}
+.notes-count{
+  display:block;
+  margin-top:7px;
+  color:var(--expert);
+  font-size:12.5px;
+  font-weight:750;
+  line-height:1.6;
+}
+.backup-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.backup-btn{
+  min-height:42px;
+  padding:9px 13px;
+  border:1px solid var(--border);
+  border-radius:var(--radius-control);
+  background:var(--surface-soft);
+  color:var(--text);
+  font-size:13.5px;
+  font-weight:750;
+}
+.backup-btn.primary{border-color:var(--primary);background:var(--primary);color:#fff}
+@media (hover:hover) and (pointer:fine){
+  .backup-btn:not(:disabled):hover{border-color:color-mix(in srgb,var(--primary) 48%,var(--border))}
+  .backup-btn.primary:not(:disabled):hover{background:var(--primary-hover);border-color:var(--primary-hover)}
+}
+.backup-status{
+  grid-column:1/-1;
+  min-height:20px;
+  color:var(--muted);
+  font-size:12.5px;
+  font-weight:600;
+  line-height:1.6;
+}
+.backup-status.success{color:var(--success)}
+.backup-status.warning,.backup-status.error{color:var(--warning)}
+
+@media (max-width:700px){
+  .notes-backup{grid-template-columns:1fr;align-items:stretch}
+  .backup-actions{justify-content:stretch}
+  .backup-btn{flex:1}
+}
+@media (max-width:520px){
+  .student-note{padding:11px}
+  .student-note-head{align-items:flex-start;flex-direction:column;gap:2px}
+  .student-note-status{text-align:right}
+  .student-note-input{font-size:14px;line-height:1.75}
+  .notes-backup{padding:15px}
+  .backup-actions{flex-direction:column}
+  .backup-btn{width:100%}
+}
