@@ -1,0 +1,281 @@
+{
+  "schema_version": 1,
+  "topic": {
+    "id": "static-default-routing",
+    "title": "Static & Default Routing",
+    "subtitle": "إنشاء المسارات الثابتة والافتراضية في IPv4 وIPv6، ثم التحقق من جدول التوجيه والاتصال.",
+    "source": {
+      "file_name": "Static and Default Routing.pdf",
+      "pages": 4
+    },
+    "review": {
+      "status": "expert-reviewed",
+      "basis": "المحتوى الأساسي مأخوذ من الملف المرفق، مع الحفاظ على أمثلته وتقسيمه إلى مسارات ثابتة وافتراضية والتحقق. التصحيحات أو التوضيحات خارج نص المصدر موثقة هنا.",
+      "adjustments": [
+        {
+          "id": "running-config-filter",
+          "source": "يعرض المصدر show running-config include ip route.",
+          "site": "تم تصحيح الصيغة إلى show running-config | include ip route.",
+          "reason": "include مرشح لمخرجات show running-config ويُستخدم بعد علامة | في Cisco IOS."
+        },
+        {
+          "id": "next-hop-wording",
+          "source": "تظهر الصيغة العامة في المصدر بعبارة عنوان الوجهة / Next-Hop.",
+          "site": "تم توضيح أن العنوان الأخير في أمثلة الملف هو عنوان الـNext-Hop الذي تُرسل إليه الحزمة.",
+          "reason": "للتفريق بين شبكة الوجهة التي يطابقها المسار وبين الراوتر التالي الذي تُرسل إليه الحزمة."
+        },
+        {
+          "id": "ipv6-example-normalized",
+          "source": "صياغة مثال IPv6 في النص المستخرج من PDF متداخلة بسبب اتجاه RTL/LTR.",
+          "site": "تم ترتيب المثال إلى ipv6 route 2001:db8:2::/64 2001:db8:1::2 دون تغيير القيم الواردة في المصدر.",
+          "reason": "تنظيف تنسيق النص فقط حتى يظهر الأمر كما يُكتب في CLI."
+        },
+        {
+          "id": "verification-clarified",
+          "source": "يستخدم المصدر show ip route وshow ipv6 route للتحقق.",
+          "site": "تم الإبقاء عليهما كما هما، مع توضيح أن S يشير إلى Static وأن S* في IPv4 يدل على المسار الثابت المرشح كمسار افتراضي.",
+          "reason": "هذه الدلالة مذكورة أصلًا في وصف المصدر وتفيد المتدرب أثناء القراءة."
+        }
+      ]
+    },
+    "sections": [
+      {
+        "id": "ipv4-static-route",
+        "order": 1,
+        "title": "المسار الثابت في IPv4",
+        "subtitle": "توجيه شبكة محددة عبر Next-Hop",
+        "source_page": 1,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "المسار الثابت في IPv4 يخبر الراوتر كيف يصل إلى شبكة محددة عندما لا يكون لديه مسار متعلم إليها بطريقة أخرى.",
+          "points": [
+            {
+              "id": "destination-network",
+              "text": "نحدد أولًا شبكة الوجهة وقناعها."
+            },
+            {
+              "id": "next-hop",
+              "text": "بعد ذلك نحدد عنوان الـNext-Hop الذي سترسل إليه الحزم للوصول إلى تلك الشبكة."
+            },
+            {
+              "id": "source-example",
+              "text": "في مثال الملف، الشبكة 192.168.2.0/24 تُوجَّه عبر الراوتر المجاور 192.168.1.2."
+            }
+          ],
+          "note": {
+            "label": "الفكرة العملية",
+            "text": "المسار الثابت لا يُنشئ الاتصال بحد ذاته؛ يجب أن يكون الـNext-Hop قابلًا للوصول من الراوتر."
+          }
+        },
+        "terminal": {
+          "label": "R1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "R1(config)#",
+              "command": "ip route 192.168.2.0 255.255.255.0 192.168.1.2",
+              "description": "ينشئ مسارًا ثابتًا إلى الشبكة 192.168.2.0/24 عبر 192.168.1.2."
+            }
+          ]
+        }
+      },
+      {
+        "id": "ipv6-static-route",
+        "order": 2,
+        "title": "المسار الثابت في IPv6",
+        "subtitle": "توجيه Prefix محدد عبر Next-Hop IPv6",
+        "source_page": 1,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "الفكرة نفسها في IPv6؛ نحدد Prefix الوجهة ثم عنوان IPv6 للراوتر التالي.",
+          "points": [
+            {
+              "id": "destination-prefix",
+              "text": "شبكة الوجهة تُكتب بصيغة Prefix مثل 2001:db8:2::/64."
+            },
+            {
+              "id": "ipv6-next-hop",
+              "text": "الـNext-Hop في مثال الملف هو 2001:db8:1::2."
+            },
+            {
+              "id": "same-purpose",
+              "text": "الهدف هو إضافة مسار يدوي لشبكة لا تصل إليها المسارات المتصلة مباشرة."
+            }
+          ],
+          "note": {
+            "label": "ملاحظة خبير",
+            "text": "تم فقط ترتيب نص الأمر بسبب تداخل اتجاه العربية مع IPv6 في ملف PDF؛ قيم المثال نفسها لم تتغير."
+          }
+        },
+        "terminal": {
+          "label": "R1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "R1(config)#",
+              "command": "ipv6 route 2001:db8:2::/64 2001:db8:1::2",
+              "description": "ينشئ مسارًا ثابتًا إلى 2001:db8:2::/64 عبر 2001:db8:1::2."
+            }
+          ]
+        }
+      },
+      {
+        "id": "ipv4-default-route",
+        "order": 3,
+        "title": "المسار الافتراضي في IPv4",
+        "subtitle": "وجهة لكل الشبكات غير المعروفة",
+        "source_page": 2,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "المسار الافتراضي يُستخدم عندما لا يجد الراوتر مسارًا أكثر تحديدًا للوجهة، فيرسل الحركة إلى Next-Hop محدد.",
+          "points": [
+            {
+              "id": "default-network",
+              "text": "0.0.0.0 0.0.0.0 تمثل جميع وجهات IPv4 غير المعروفة."
+            },
+            {
+              "id": "default-next-hop",
+              "text": "في مثال الملف تُرسل هذه الحركة إلى 192.168.1.1."
+            },
+            {
+              "id": "edge-use",
+              "text": "يشير الملف إلى شيوع هذا النوع في الراوترات الحدودية المتصلة بالإنترنت أو بشبكة أكبر."
+            }
+          ],
+          "note": {
+            "label": "الفكرة العملية",
+            "text": "يستخدم الراوتر المسار الافتراضي فقط إذا لم يجد مسارًا أكثر تحديدًا يطابق عنوان الوجهة."
+          }
+        },
+        "terminal": {
+          "label": "R1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "R1(config)#",
+              "command": "ip route 0.0.0.0 0.0.0.0 192.168.1.1",
+              "description": "ينشئ مسار IPv4 افتراضيًا عبر 192.168.1.1."
+            }
+          ]
+        }
+      },
+      {
+        "id": "ipv6-default-route",
+        "order": 4,
+        "title": "المسار الافتراضي في IPv6",
+        "subtitle": "::/0 لجميع الوجهات غير المعروفة",
+        "source_page": 2,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "في IPv6 تمثل ::/0 المسار الافتراضي، وتُرسل عبره الوجهات التي لا يوجد لها مسار أكثر تحديدًا.",
+          "points": [
+            {
+              "id": "default-prefix",
+              "text": "::/0 هو Prefix المسار الافتراضي في IPv6."
+            },
+            {
+              "id": "source-next-hop",
+              "text": "يستخدم مثال الملف 2001:db8:1::1 كـNext-Hop للمسار الافتراضي."
+            }
+          ],
+          "note": {
+            "label": "الفكرة العملية",
+            "text": "وظيفته في IPv6 تماثل وظيفة 0.0.0.0/0 في IPv4."
+          }
+        },
+        "terminal": {
+          "label": "R1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "R1(config)#",
+              "command": "ipv6 route ::/0 2001:db8:1::1",
+              "description": "ينشئ مسار IPv6 افتراضيًا عبر 2001:db8:1::1."
+            }
+          ]
+        }
+      },
+      {
+        "id": "routing-verification",
+        "order": 5,
+        "title": "التحقق واستكشاف المسارات",
+        "subtitle": "جدول التوجيه وRunning Configuration وPing",
+        "source_page": 3,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "بعد إضافة المسار لا نكتفي بحفظ التكوين؛ يجب التأكد من ظهوره في جدول التوجيه ثم اختبار الوصول إلى الوجهة.",
+          "points": [
+            {
+              "id": "ipv4-table",
+              "text": "show ip route يعرض جدول IPv4؛ ويظهر المسار الثابت بالرمز S، بينما يظهر المسار الافتراضي الثابت عادة بعلامة S*."
+            },
+            {
+              "id": "ipv6-table",
+              "text": "show ipv6 route يعرض جدول توجيه IPv6 والمسارات الثابتة الموجودة فيه."
+            },
+            {
+              "id": "running-routes",
+              "text": "يمكن تصفية running-config لإظهار أسطر ip route بسرعة."
+            },
+            {
+              "id": "ping-test",
+              "text": "استخدم ping بعد التحقق من الجدول لتأكيد وجود اتصال فعلي بالوجهة."
+            },
+            {
+              "id": "return-route",
+              "text": "يشدد الملف على ضرورة وجود Return Route في الطرف الآخر حتى تنجح الاستجابة."
+            }
+          ],
+          "note": {
+            "label": "نصيحة عملية",
+            "text": "المسارات الثابتة لا تتكيف تلقائيًا مع تغير الشبكة؛ إذا تغير الـNext-Hop أو التصميم يجب تحديثها يدويًا."
+          }
+        },
+        "terminal": {
+          "label": "R1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "R1#",
+              "command": "show ip route",
+              "description": "يعرض جدول توجيه IPv4."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "R1#",
+              "command": "show ipv6 route",
+              "description": "يعرض جدول توجيه IPv6."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "R1#",
+              "command": "show running-config | include ip route",
+              "description": "يعرض أسطر المسارات الثابتة IPv4 في running-config بعد تصحيح صيغة الفلتر."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "R1#",
+              "command": "ping 192.168.2.1",
+              "description": "مثال لاختبار اتصال IPv4."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "R1#",
+              "command": "ping ipv6 2001:db8:2::1",
+              "description": "مثال لاختبار اتصال IPv6 وفق صيغة الملف."
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,576 @@
+{
+  "schema_version": 1,
+  "topic": {
+    "id": "dhcp",
+    "title": "DHCP و SLAAC",
+    "subtitle": "توزيع عناوين IPv4 وIPv6 تلقائيًا، وضبط DHCPv4 وDHCPv6 وSLAAC ومراقبتها.",
+    "source": {
+      "file_name": "DHCP.pdf",
+      "pages": 6
+    },
+    "review": {
+      "status": "expert-reviewed",
+      "basis": "المحتوى الأساسي مأخوذ من الملف المرفق، مع تنظيم DHCPv4 وDHCPv6 وSLAAC في وحدات مستقلة. أي إضافة أو تصحيح خارج نص المصدر موثق هنا بوضوح.",
+      "adjustments": [
+        {
+          "id": "dhcpv4-relay-separated",
+          "source": "يضع المصدر ip helper-address ضمن تسلسل تكوين DHCPv4 على الراوتر نفسه.",
+          "site": "تم شرحه كوظيفة DHCP Relay مستقلة داخل وحدة DHCPv4 وعدم اعتباره جزءًا لازمًا من خادم DHCP المحلي.",
+          "reason": "ip helper-address يُستخدم على الواجهة المواجهة للعملاء عندما يكون خادم DHCP في شبكة أخرى."
+        },
+        {
+          "id": "dhcpv6-stateful-stateless-separated",
+          "source": "يعرض المصدر pool يحتوي address prefix ثم يشرح managed-config-flag وother-config-flag ضمن التسلسل نفسه.",
+          "site": "تم فصل المثالين: Stateful يستخدم address prefix لتوزيع العنوان عبر DHCPv6، بينما Stateless يعتمد على SLAAC للعنوان ويستخدم DHCPv6 للمعلومات الإضافية.",
+          "reason": "حتى لا يختلط على المتدرب مصدر عنوان IPv6 في النمطين."
+        },
+        {
+          "id": "ipv6-unicast-routing-prerequisite",
+          "source": "لا يذكر المصدر الأمر ipv6 unicast-routing ضمن خطوات DHCPv6 أو SLAAC.",
+          "site": "أضيف كمطلب تمهيدي في أمثلة IPv6 مع تمييزه كإضافة خبير.",
+          "reason": "توثيق Cisco لأمثلة DHCPv6 وSLAAC يبدأ بتمكين IPv6 unicast routing حتى يعمل الراوتر ويرسل Router Advertisements."
+        },
+        {
+          "id": "slaac-prefix-context",
+          "source": "يعرض المصدر ipv6 nd prefix 2001:db8:1::/64 ويصفه بأنه يعلن الشبكة للعملاء.",
+          "site": "تم الإبقاء عليه مع توضيح أن دوره متعلق بإعلانات Router Advertisement الخاصة بالبادئة.",
+          "reason": "لربط الأمر بسلوك SLAAC بدل تقديمه كأمر DHCPv6."
+        }
+      ]
+    },
+    "sections": [
+      {
+        "id": "dhcp-monitor",
+        "order": 1,
+        "title": "مراقبة DHCP وSLAAC",
+        "subtitle": "معرفة العناوين الموزعة وحالة المجمعات والعملاء",
+        "source_page": 1,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "أوامر show تعطيك صورة سريعة عن العناوين التي تم توزيعها ومجمعات DHCP والأجهزة المرتبطة بـIPv6.",
+          "points": [
+            {
+              "id": "dhcpv4-bindings",
+              "text": "show ip dhcp binding يعرض عناوين IPv4 التي منحها DHCPv4 للعملاء."
+            },
+            {
+              "id": "dhcpv4-pool",
+              "text": "show ip dhcp pool يعرض تفاصيل مجمعات DHCPv4 على الراوتر."
+            },
+            {
+              "id": "dhcpv6-bindings",
+              "text": "show ipv6 dhcp binding يعرض ارتباطات DHCPv6 التي أنشأها الخادم."
+            },
+            {
+              "id": "ipv6-neighbors",
+              "text": "show ipv6 neighbors يساعد في رؤية الجيران الذين تعلمهم الراوتر على شبكات IPv6."
+            }
+          ],
+          "note": {
+            "label": "الفكرة العملية",
+            "text": "ابدأ بأوامر show قبل debug؛ غالبًا تكفي لمعرفة هل المشكلة في المجمع أو العناوين أو وصول العميل."
+          }
+        },
+        "terminal": {
+          "label": "R1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "R1#",
+              "command": "show ip dhcp binding",
+              "description": "يعرض عناوين IPv4 الموزعة عبر DHCPv4."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "R1#",
+              "command": "show ip dhcp pool",
+              "description": "يعرض حالة وتفاصيل مجمعات DHCPv4."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "R1#",
+              "command": "show ip dhcp server statistics",
+              "description": "يعرض إحصائيات رسائل DHCPv4."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "R1#",
+              "command": "show ipv6 dhcp binding",
+              "description": "يعرض ارتباطات DHCPv6."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "R1#",
+              "command": "show ipv6 dhcp pool",
+              "description": "يعرض مجمعات DHCPv6."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "R1#",
+              "command": "show ipv6 neighbors",
+              "description": "يعرض جدول الجيران في IPv6."
+            }
+          ]
+        }
+      },
+      {
+        "id": "dhcpv4-server",
+        "order": 2,
+        "title": "تكوين DHCPv4",
+        "subtitle": "استثناء العناوين وإنشاء Pool وتحديد خيارات العملاء",
+        "source_page": 2,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "في DHCPv4 نحدد أولًا العناوين التي لا نريد توزيعها، ثم ننشئ Pool ونحدد الشبكة والبوابة وDNS ومدة التأجير.",
+          "points": [
+            {
+              "id": "excluded-addresses",
+              "text": "العناوين 192.168.1.1 إلى 192.168.1.10 مستثناة من التوزيع في مثال الملف."
+            },
+            {
+              "id": "pool-network",
+              "text": "Pool باسم LAN يوزع عناوين من الشبكة 192.168.1.0/24."
+            },
+            {
+              "id": "client-options",
+              "text": "default-router وdns-server وdomain-name ترسل للعملاء إعدادات الشبكة المطلوبة."
+            },
+            {
+              "id": "lease",
+              "text": "lease 7 يحدد مدة تأجير العنوان بسبعة أيام في المثال."
+            },
+            {
+              "id": "relay",
+              "text": "ip helper-address 192.168.2.1 يُستخدم عندما يكون خادم DHCP موجودًا في شبكة أخرى ويجب ترحيل طلبات العملاء إليه."
+            }
+          ],
+          "note": {
+            "label": "ملاحظة خبير",
+            "text": "ip helper-address ليس مطلوبًا عندما يكون الراوتر نفسه هو خادم DHCP المحلي لهذه الشبكة؛ هو وظيفة Relay لسيناريو مختلف."
+          }
+        },
+        "terminal": {
+          "label": "R1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "R1(config)#",
+              "command": "ip dhcp excluded-address 192.168.1.1 192.168.1.10",
+              "description": "يستثني نطاق العناوين من التوزيع."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "R1(config)#",
+              "command": "ip dhcp pool LAN",
+              "description": "ينشئ مجمع DHCPv4 باسم LAN."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "R1(dhcp-config)#",
+              "command": "network 192.168.1.0 255.255.255.0",
+              "description": "يحدد الشبكة التي ستوزع منها العناوين."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "R1(dhcp-config)#",
+              "command": "default-router 192.168.1.1",
+              "description": "يحدد البوابة الافتراضية للعملاء."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "R1(dhcp-config)#",
+              "command": "dns-server 8.8.8.8",
+              "description": "يحدد خادم DNS للعملاء."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "R1(dhcp-config)#",
+              "command": "lease 7",
+              "description": "يضبط مدة التأجير على سبعة أيام."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
+              "prompt": "R1(dhcp-config)#",
+              "command": "domain-name example.com",
+              "description": "يحدد اسم النطاق للعملاء."
+            },
+            {
+              "id": "cmd-08",
+              "order": 8,
+              "prompt": "R1(config)#",
+              "command": "interface gigabitethernet 0/0",
+              "description": "يدخل إلى واجهة الشبكة في مثال المصدر."
+            },
+            {
+              "id": "cmd-09",
+              "order": 9,
+              "prompt": "R1(config-if)#",
+              "command": "ip address 192.168.1.1 255.255.255.0",
+              "description": "يضبط عنوان البوابة على الواجهة."
+            }
+          ]
+        }
+      },
+      {
+        "id": "dhcpv6-stateful",
+        "order": 3,
+        "title": "DHCPv6 Stateful",
+        "subtitle": "الحصول على عنوان IPv6 والإعدادات من DHCPv6",
+        "source_page": 3,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "في Stateful DHCPv6 يحصل العميل على عنوان IPv6 وإعداداته من خادم DHCPv6، ويشير managed-config-flag في Router Advertisement إلى استخدام هذا الأسلوب.",
+          "points": [
+            {
+              "id": "pool",
+              "text": "يُنشأ DHCPv6 Pool باسم DHCPv6_POOL ويحدد فيه نطاق العناوين وDNS واسم النطاق."
+            },
+            {
+              "id": "interface-address",
+              "text": "الواجهة تحمل العنوان 2001:db8:1::1/64 في مثال الملف."
+            },
+            {
+              "id": "bind-pool",
+              "text": "ipv6 dhcp server DHCPv6_POOL يربط المجمع بالواجهة."
+            },
+            {
+              "id": "managed-flag",
+              "text": "ipv6 nd managed-config-flag يخبر العملاء عبر RA باستخدام DHCPv6 للحصول على العنوان."
+            }
+          ],
+          "note": {
+            "label": "إضافة خبير",
+            "text": "أضيف ipv6 unicast-routing كمطلب تمهيدي في المحاكاة؛ لا يورده ملف المصدر، لكنه موجود في أمثلة Cisco الرسمية لـDHCPv6."
+          }
+        },
+        "terminal": {
+          "label": "R1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "R1(config)#",
+              "command": "ipv6 unicast-routing",
+              "description": "إضافة خبير: يمكّن توجيه IPv6 وإرسال Router Advertisements."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "R1(config)#",
+              "command": "ipv6 dhcp pool DHCPv6_POOL",
+              "description": "ينشئ مجمع DHCPv6."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "R1(config-dhcpv6)#",
+              "command": "address prefix 2001:db8:1::/64",
+              "description": "يحدد البادئة التي ستستخدم لتوزيع عناوين IPv6."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "R1(config-dhcpv6)#",
+              "command": "dns-server 2001:db8::100",
+              "description": "يحدد خادم DNS."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "R1(config-dhcpv6)#",
+              "command": "domain-name example.com",
+              "description": "يحدد اسم النطاق."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "R1(config)#",
+              "command": "interface gigabitethernet 0/0",
+              "description": "يدخل إلى واجهة العملاء."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
+              "prompt": "R1(config-if)#",
+              "command": "ipv6 address 2001:db8:1::1/64",
+              "description": "يضبط عنوان IPv6 على الواجهة."
+            },
+            {
+              "id": "cmd-08",
+              "order": 8,
+              "prompt": "R1(config-if)#",
+              "command": "ipv6 dhcp server DHCPv6_POOL",
+              "description": "يربط مجمع DHCPv6 بالواجهة."
+            },
+            {
+              "id": "cmd-09",
+              "order": 9,
+              "prompt": "R1(config-if)#",
+              "command": "ipv6 nd managed-config-flag",
+              "description": "يضبط Managed flag ليدل العملاء على Stateful DHCPv6."
+            }
+          ]
+        }
+      },
+      {
+        "id": "dhcpv6-stateless-slaac",
+        "order": 4,
+        "title": "SLAAC وDHCPv6 Stateless",
+        "subtitle": "العنوان من SLAAC والمعلومات الإضافية من DHCPv6",
+        "source_page": 4,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "في SLAAC يولد العميل عنوان IPv6 اعتمادًا على Router Advertisement، ويمكن استخدام DHCPv6 Stateless لتزويده بمعلومات إضافية مثل DNS دون أن يوزع DHCPv6 العنوان نفسه.",
+          "points": [
+            {
+              "id": "slaac-address",
+              "text": "العميل يحصل على عنوانه عبر SLAAC من معلومات البادئة المعلنة في RA."
+            },
+            {
+              "id": "other-flag",
+              "text": "ipv6 nd other-config-flag يخبر العميل بوجود معلومات إضافية يمكن أخذها من DHCPv6."
+            },
+            {
+              "id": "prefix",
+              "text": "المصدر يستخدم ipv6 nd prefix 2001:db8:1::/64 لإعلان البادئة المرتبطة بالشبكة."
+            },
+            {
+              "id": "stateless-dhcp",
+              "text": "في النمط Stateless لا نستخدم address prefix داخل DHCPv6 Pool لتوزيع عنوان العميل؛ العنوان يأتي من SLAAC."
+            }
+          ],
+          "note": {
+            "label": "تصحيح تنظيمي",
+            "text": "فصلنا Stateful عن Stateless لأن ملف المصدر يعرض أوامر النمطين متجاورة، وقد يوحي ذلك بأن address prefix داخل DHCPv6 Pool مطلوب في الحالتين."
+          }
+        },
+        "terminal": {
+          "label": "R1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "R1(config)#",
+              "command": "ipv6 unicast-routing",
+              "description": "إضافة خبير: يمكّن توجيه IPv6 وإرسال RA."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "R1(config)#",
+              "command": "ipv6 dhcp pool DHCPv6_POOL",
+              "description": "ينشئ مجمع DHCPv6 للمعلومات الإضافية."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "R1(config-dhcpv6)#",
+              "command": "dns-server 2001:db8::100",
+              "description": "يوفر DNS عبر DHCPv6."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "R1(config-dhcpv6)#",
+              "command": "domain-name example.com",
+              "description": "يوفر اسم النطاق عبر DHCPv6."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "R1(config)#",
+              "command": "interface gigabitethernet 0/0",
+              "description": "يدخل إلى واجهة العملاء."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "R1(config-if)#",
+              "command": "ipv6 address 2001:db8:1::1/64",
+              "description": "يضبط عنوان IPv6 على الواجهة."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
+              "prompt": "R1(config-if)#",
+              "command": "ipv6 nd other-config-flag",
+              "description": "يخبر العملاء بالحصول على معلومات إضافية من DHCPv6."
+            },
+            {
+              "id": "cmd-08",
+              "order": 8,
+              "prompt": "R1(config-if)#",
+              "command": "ipv6 nd prefix 2001:db8:1::/64",
+              "description": "يعرض إعداد البادئة المستخدمة في Router Advertisement كما ورد في المصدر."
+            },
+            {
+              "id": "cmd-09",
+              "order": 9,
+              "prompt": "R1(config-if)#",
+              "command": "ipv6 dhcp server DHCPv6_POOL",
+              "description": "يربط DHCPv6 Pool بالواجهة لتقديم المعلومات الإضافية."
+            }
+          ]
+        }
+      },
+      {
+        "id": "dhcp-client",
+        "order": 5,
+        "title": "الراوتر كعميل DHCP",
+        "subtitle": "الحصول على IPv4 أوIPv6 تلقائيًا",
+        "source_page": 5,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "يمكن أن يعمل الراوتر نفسه كعميل DHCP على واجهة معينة بدل تعيين العنوان يدويًا.",
+          "points": [
+            {
+              "id": "ipv4-client",
+              "text": "ip address dhcp يجعل الواجهة تطلب عنوان IPv4 من خادم DHCP."
+            },
+            {
+              "id": "ipv6-client",
+              "text": "ipv6 address dhcp يجعل الواجهة تطلب عنوان IPv6 عبر DHCPv6."
+            }
+          ],
+          "note": {
+            "label": "الفكرة العملية",
+            "text": "هذا السيناريو مختلف عن عمل الراوتر كخادم DHCP؛ هنا الواجهة نفسها هي العميل."
+          }
+        },
+        "terminal": {
+          "label": "R1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "R1(config)#",
+              "command": "interface gigabitethernet 0/1",
+              "description": "يدخل إلى الواجهة التي ستعمل كعميل."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "R1(config-if)#",
+              "command": "ip address dhcp",
+              "description": "يجعل الواجهة تحصل على IPv4 عبر DHCP."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "R1(config-if)#",
+              "command": "ipv6 address dhcp",
+              "description": "يجعل الواجهة تحصل على IPv6 عبر DHCPv6."
+            }
+          ]
+        }
+      },
+      {
+        "id": "dhcp-troubleshooting",
+        "order": 6,
+        "title": "استكشاف أخطاء DHCP",
+        "subtitle": "Bindings وPools وDebug ومسح الارتباطات",
+        "source_page": 6,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "عند تعطل التوزيع نراجع أولًا الـBindings والـPools والجيران، ثم نستخدم debug عند الحاجة، ويمكن مسح الارتباطات لإجبار العملاء على الحصول على تخصيص جديد.",
+          "points": [
+            {
+              "id": "bindings",
+              "text": "تحقق من وجود Binding للعميل قبل افتراض أن الخادم لم يوزع عنوانًا."
+            },
+            {
+              "id": "pools",
+              "text": "راجع حالة الـPool لمعرفة توفر العناوين وإحصائيات الاستخدام."
+            },
+            {
+              "id": "debug",
+              "text": "debug يعرض أحداث DHCP بالتفصيل، لذلك يستخدم بعد أوامر show الأساسية."
+            },
+            {
+              "id": "clear",
+              "text": "أوامر clear تمسح الارتباطات الحالية، لذا تستخدم بحذر أثناء الاستكشاف أو المختبر."
+            }
+          ],
+          "note": {
+            "label": "ملاحظة خبير",
+            "text": "لا تبدأ بـdebug في بيئة تشغيل مزدحمة؛ مخرجاته قد تكون كثيرة. ابدأ بـshow ثم انتقل إليه عند الحاجة."
+          }
+        },
+        "terminal": {
+          "label": "R1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "R1#",
+              "command": "show ip dhcp binding",
+              "description": "يعرض ارتباطات DHCPv4."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "R1#",
+              "command": "show ipv6 dhcp binding",
+              "description": "يعرض ارتباطات DHCPv6."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "R1#",
+              "command": "show ip dhcp pool",
+              "description": "يعرض حالة مجمعات DHCPv4."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "R1#",
+              "command": "show ipv6 dhcp pool",
+              "description": "يعرض حالة مجمعات DHCPv6."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "R1#",
+              "command": "debug ip dhcp server events",
+              "description": "يعرض أحداث خادم DHCPv4."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "R1#",
+              "command": "debug ipv6 dhcp server",
+              "description": "يعرض أحداث خادم DHCPv6."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
+              "prompt": "R1#",
+              "command": "clear ip dhcp binding *",
+              "description": "يمسح جميع ارتباطات DHCPv4 الحالية."
+            },
+            {
+              "id": "cmd-08",
+              "order": 8,
+              "prompt": "R1#",
+              "command": "clear ipv6 dhcp binding",
+              "description": "يعرض أمر مسح ارتباطات DHCPv6 كما ورد في المصدر."
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

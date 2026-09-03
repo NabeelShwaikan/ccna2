@@ -41,7 +41,7 @@
       "title": "تجميع الروابط EtherChannel",
       "short_description": "LACP وPAgP، تجميع الروابط، والتحقق من القنوات.",
       "data_file": "etherchannel.json",
-      "status": "planned"
+      "status": "ready"
     },
     {
       "id": "port-security",
@@ -49,7 +49,7 @@
       "title": "تأمين منافذ المحولات  Port Security",
       "short_description": "تأمين منافذ Access، عناوين MAC، وأنماط المخالفات.",
       "data_file": "port-security.json",
-      "status": "planned"
+      "status": "ready"
     },
     {
       "id": "dhcp",
@@ -57,7 +57,7 @@
       "title": "بروتوكول DHCP و SLAAC",
       "short_description": "DHCPv4 وDHCPv6 وSLAAC والترحيل والتحقق.",
       "data_file": "dhcp.json",
-      "status": "planned"
+      "status": "ready"
     },
     {
       "id": "static-default-routing",
@@ -65,7 +65,7 @@
       "title": "التوجيه الثابت والافتراضيStatic & Default Routing",
       "short_description": "المسارات الثابتة والافتراضية في IPv4 وIPv6.",
       "data_file": "static-default-routing.json",
-      "status": "planned"
+      "status": "ready"
     }
 
   ]
