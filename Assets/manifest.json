@@ -1,1 +1,26 @@
-
+{
+  "name": "CCNA 2 Learning Hub",
+  "short_name": "CCNA 2",
+  "description": "منصة CCNA 2 للمعامل والمحاضرات والاستعداد للاختبارات.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "../index.html",
+  "scope": "../",
+  "display": "standalone",
+  "background_color": "#f6f8fb",
+  "theme_color": "#087ea4",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
