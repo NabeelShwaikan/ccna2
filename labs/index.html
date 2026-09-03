@@ -29,6 +29,21 @@
     <main class="subjects" id="subjects" aria-live="polite">
       <div class="loading">جاري تحميل الموضوعات…</div>
     </main>
+
+    <div class="section-head notes-section-head"><h2>ملاحظاتي</h2></div>
+    <section class="notes-backup" aria-labelledby="notesBackupTitle">
+      <div class="notes-backup-copy">
+        <h3 id="notesBackupTitle">النسخ الاحتياطي للملاحظات</h3>
+        <p>صدّر جميع ملاحظاتك إلى ملف JSON أو استعد نسخة سابقة على هذا الجهاز.</p>
+        <span class="notes-count" id="notesCount">جاري قراءة الملاحظات…</span>
+      </div>
+      <div class="backup-actions">
+        <button class="backup-btn primary" id="exportNotesBtn" type="button">تصدير الملاحظات</button>
+        <button class="backup-btn" id="importNotesBtn" type="button">استعادة نسخة</button>
+        <input id="importNotesFile" type="file" accept="application/json,.json" hidden>
+      </div>
+      <div class="backup-status" id="backupStatus" role="status" aria-live="polite"></div>
+    </section>
   </div>
 
   <script src="Scripts/common.js" defer></script>
