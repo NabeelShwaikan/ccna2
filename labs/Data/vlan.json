@@ -1,0 +1,481 @@
+{
+  "schema_version": 1,
+  "topic": {
+    "id": "vlan",
+    "title": "VLAN و Inter-VLAN Routing",
+    "subtitle": "إنشاء VLANs، ضبط منافذ Access وTrunk، إدارة السويتش، والتوجيه بين الشبكات الافتراضية.",
+    "source": {
+      "file_name": "VLAN.pdf",
+      "pages": 2
+    },
+    "review": {
+      "status": "expert-reviewed",
+      "basis": "المحتوى الأساسي مأخوذ من الملف، مع إبراز تصحيحات خبير Cisco بدل نقل الأخطاء كما هي.",
+      "adjustments": [
+        {
+          "id": "vlan20-access-mode",
+          "source": "في نطاق FastEthernet0/11-17 الخاص بـ VLAN 20 يذكر الملف switchport mode trunk.",
+          "site": "تم تصحيحه إلى switchport mode access.",
+          "reason": "المنفذ الذي يُسند إلى VLAN واحدة بالأمر switchport access vlan يجب أن يعمل كمنفذ Access."
+        },
+        {
+          "id": "no-shutdown-typo",
+          "source": "يظهر في الملف no shuthdown على منفذ الراوتر.",
+          "site": "تم تصحيحه إلى no shutdown.",
+          "reason": "تصحيح خطأ كتابي في اسم أمر Cisco IOS."
+        },
+        {
+          "id": "native-vlan-wording",
+          "source": "يصف الملف المنافذ 0/1-5 بأنها Trunk على VLAN 99.",
+          "site": "صيغ الشرح على أنها منافذ Trunk مع VLAN 99 كـ Native VLAN.",
+          "reason": "منفذ Trunk يمكنه حمل عدة VLANs، بينما native VLAN تحدد معالجة الحركة غير الموسومة على الـTrunk."
+        },
+        {
+          "id": "subinterface-prompt",
+          "source": "يظهر Prompt المنفذ الفرعي في الملف بصيغة config-if.",
+          "site": "تعرض المحاكاة Prompt بصيغة config-subif.",
+          "reason": "هذا هو الـPrompt المعتاد عند تكوين Router subinterface في Cisco IOS."
+        }
+      ]
+    },
+    "sections": [
+      {
+        "id": "vlan-create",
+        "order": 1,
+        "title": "إنشاء VLANs وتسميتها",
+        "subtitle": "تقسيم الشبكة منطقيًا قبل توزيع المنافذ",
+        "source_page": 1,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "نبدأ بإنشاء الشبكات الافتراضية المطلوبة على السويتش ثم نعطي كل VLAN اسمًا واضحًا يدل على استخدامها.",
+          "points": [
+            {
+              "id": "management-vlan",
+              "text": "VLAN 99 مخصصة للإدارة وتحمل الشبكة 192.168.99.0/24 في مخطط الملف."
+            },
+            {
+              "id": "students-vlan",
+              "text": "VLAN 10 مخصصة للطلاب وتحمل الشبكة 192.168.10.0/24."
+            },
+            {
+              "id": "instructors-vlan",
+              "text": "VLAN 20 مخصصة للمدربين وتحمل الشبكة 192.168.20.0/24."
+            },
+            {
+              "id": "guests-vlan",
+              "text": "VLAN 30 مخصصة للضيوف وتحمل الشبكة 192.168.30.0/24."
+            }
+          ],
+          "note": {
+            "label": "الفكرة العملية",
+            "text": "إنشاء VLAN وحده لا يضع أي منفذ داخلها؛ توزيع المنافذ يأتي في الخطوات التالية."
+          }
+        },
+        "terminal": {
+          "label": "S1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "S1(config)#",
+              "command": "vlan 99",
+              "description": "ينشئ VLAN 99 ويدخل إلى وضع تكوينها."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "S1(config-vlan)#",
+              "command": "name Management",
+              "description": "يسمي VLAN 99 باسم Management."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "S1(config-vlan)#",
+              "command": "vlan 10",
+              "description": "ينتقل إلى إنشاء VLAN 10."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "S1(config-vlan)#",
+              "command": "name Students",
+              "description": "يسمي VLAN 10 باسم Students."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "S1(config-vlan)#",
+              "command": "vlan 20",
+              "description": "ينتقل إلى إنشاء VLAN 20."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "S1(config-vlan)#",
+              "command": "name Instructors",
+              "description": "يسمي VLAN 20 باسم Instructors."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
+              "prompt": "S1(config-vlan)#",
+              "command": "vlan 30",
+              "description": "ينتقل إلى إنشاء VLAN 30."
+            },
+            {
+              "id": "cmd-08",
+              "order": 8,
+              "prompt": "S1(config-vlan)#",
+              "command": "name Guests",
+              "description": "يسمي VLAN 30 باسم Guests."
+            }
+          ]
+        }
+      },
+      {
+        "id": "vlan-trunk-native",
+        "order": 2,
+        "title": "ضبط منافذ Trunk وNative VLAN",
+        "subtitle": "حمل عدة VLANs عبر الوصلة نفسها",
+        "source_page": 1,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "منافذ Trunk تُستخدم لنقل حركة أكثر من VLAN عبر وصلة واحدة، ويحدد الملف VLAN 99 كـ Native VLAN على النطاق FastEthernet0/1-5.",
+          "points": [
+            {
+              "id": "interface-range",
+              "text": "استخدم interface range لتطبيق الإعداد نفسه على مجموعة منافذ دفعة واحدة."
+            },
+            {
+              "id": "trunk-mode",
+              "text": "switchport mode trunk يحول المنافذ المحددة إلى منافذ Trunk."
+            },
+            {
+              "id": "native-vlan",
+              "text": "switchport trunk native vlan 99 يجعل VLAN 99 هي الـNative VLAN على هذه الوصلات."
+            }
+          ],
+          "note": {
+            "label": "ملاحظة خبير",
+            "text": "الـNative VLAN ليست VLAN الوحيدة على منفذ Trunk؛ الـTrunk يمكنه حمل عدة VLANs، بينما الـNative VLAN ترتبط بالحركة غير الموسومة."
+          }
+        },
+        "terminal": {
+          "label": "S1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "S1(config)#",
+              "command": "interface range fastethernet 0/1-5",
+              "description": "يحدد النطاق FastEthernet0/1 إلى FastEthernet0/5."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "S1(config-if-range)#",
+              "command": "switchport mode trunk",
+              "description": "يضبط المنافذ المحددة على وضع Trunk."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "S1(config-if-range)#",
+              "command": "switchport trunk native vlan 99",
+              "description": "يضبط VLAN 99 كـNative VLAN على منافذ الـTrunk."
+            }
+          ]
+        }
+      },
+      {
+        "id": "vlan-access-ports",
+        "order": 3,
+        "title": "توزيع منافذ Access على VLANs",
+        "subtitle": "ربط منافذ المستخدمين بالشبكات الافتراضية",
+        "source_page": 1,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "منفذ Access ينتمي إلى VLAN واحدة، لذلك نحدد النطاق المطلوب ثم نضبطه Access ونربطه برقم VLAN.",
+          "points": [
+            {
+              "id": "students-ports",
+              "text": "المنافذ FastEthernet0/6-10 تُسند إلى VLAN 10 الخاصة بالطلاب."
+            },
+            {
+              "id": "instructors-ports",
+              "text": "المنافذ FastEthernet0/11-17 تُسند إلى VLAN 20 الخاصة بالمدربين."
+            },
+            {
+              "id": "guests-ports",
+              "text": "المنافذ FastEthernet0/18-24 تُسند إلى VLAN 30 الخاصة بالضيوف."
+            }
+          ],
+          "note": {
+            "label": "تصحيح خبير",
+            "text": "ورد في المصدر switchport mode trunk لنطاق VLAN 20، وتم تصحيحه هنا إلى switchport mode access ليتوافق مع الغرض من المنافذ."
+          }
+        },
+        "terminal": {
+          "label": "S1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "S1(config)#",
+              "command": "interface range fastethernet 0/6-10",
+              "description": "يحدد منافذ الطلاب."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "S1(config-if-range)#",
+              "command": "switchport mode access",
+              "description": "يضبط المنافذ على وضع Access."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "S1(config-if-range)#",
+              "command": "switchport access vlan 10",
+              "description": "يسند المنافذ إلى VLAN 10."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "S1(config)#",
+              "command": "interface range fastethernet 0/11-17",
+              "description": "يحدد منافذ المدربين."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "S1(config-if-range)#",
+              "command": "switchport mode access",
+              "description": "يضبط المنافذ على وضع Access بعد تصحيح خطأ المصدر."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "S1(config-if-range)#",
+              "command": "switchport access vlan 20",
+              "description": "يسند المنافذ إلى VLAN 20."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
+              "prompt": "S1(config)#",
+              "command": "interface range fastethernet 0/18-24",
+              "description": "يحدد منافذ الضيوف."
+            },
+            {
+              "id": "cmd-08",
+              "order": 8,
+              "prompt": "S1(config-if-range)#",
+              "command": "switchport mode access",
+              "description": "يضبط المنافذ على وضع Access."
+            },
+            {
+              "id": "cmd-09",
+              "order": 9,
+              "prompt": "S1(config-if-range)#",
+              "command": "switchport access vlan 30",
+              "description": "يسند المنافذ إلى VLAN 30."
+            }
+          ]
+        }
+      },
+      {
+        "id": "vlan-management-svi",
+        "order": 4,
+        "title": "عنوان إدارة السويتش",
+        "subtitle": "استخدام SVI على VLAN 99",
+        "source_page": 2,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "يستخدم الملف VLAN 99 كشبكة إدارة، لذلك يُنشأ SVI لها ويُعطى السويتش عنوانًا من شبكة الإدارة.",
+          "points": [
+            {
+              "id": "svi-interface",
+              "text": "interface vlan 99 يدخل إلى واجهة SVI الخاصة بشبكة الإدارة."
+            },
+            {
+              "id": "management-ip",
+              "text": "العنوان 192.168.99.2/24 هو عنوان إدارة السويتش في المثال."
+            },
+            {
+              "id": "enable-svi",
+              "text": "no shutdown يفعّل واجهة SVI إداريًا."
+            }
+          ],
+          "note": {
+            "label": "الفكرة العملية",
+            "text": "هذا العنوان مخصص للوصول إلى السويتش وإدارته، وليس عنوانًا لأحد المنافذ الفيزيائية."
+          }
+        },
+        "terminal": {
+          "label": "S1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "S1(config)#",
+              "command": "interface vlan 99",
+              "description": "يدخل إلى واجهة SVI الخاصة بـVLAN 99."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "S1(config-if)#",
+              "command": "ip address 192.168.99.2 255.255.255.0",
+              "description": "يضبط عنوان إدارة السويتش."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "S1(config-if)#",
+              "command": "no shutdown",
+              "description": "يفعّل واجهة SVI."
+            }
+          ]
+        }
+      },
+      {
+        "id": "inter-vlan-router-on-stick",
+        "order": 5,
+        "title": "Inter-VLAN Routing باستخدام Router-on-a-Stick",
+        "subtitle": "Subinterfaces و802.1Q على الراوتر",
+        "source_page": 2,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "للسماح بالتواصل بين VLANs يستخدم الملف منفذًا فيزيائيًا واحدًا على الراوتر مع Subinterface مستقلة لكل VLAN.",
+          "points": [
+            {
+              "id": "physical-interface",
+              "text": "نفعّل المنفذ GigabitEthernet0/0 ليحمل حركة VLANs بين السويتش والراوتر."
+            },
+            {
+              "id": "subinterfaces",
+              "text": "تُنشأ Subinterface لكل VLAN باستخدام رقم يطابق VLAN في المثال لتسهيل القراءة."
+            },
+            {
+              "id": "dot1q",
+              "text": "encapsulation dot1q يربط كل Subinterface بمعرّف VLAN المناسب."
+            },
+            {
+              "id": "gateway-addresses",
+              "text": "يأخذ كل Subinterface عنوان 192.168.X.1 ليعمل كبوابة افتراضية لأجهزة VLAN المقابلة."
+            }
+          ],
+          "note": {
+            "label": "ملاحظة خبير",
+            "text": "VLAN 99 محددة كـNative VLAN في جهة السويتش، ولذلك يستخدم المصدر encapsulation dot1q 99 native على Subinterface المقابلة في الراوتر."
+          }
+        },
+        "terminal": {
+          "label": "R1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "R1(config)#",
+              "command": "interface gigabitethernet 0/0",
+              "description": "يدخل إلى المنفذ الفيزيائي المتصل بالسويتش."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "R1(config-if)#",
+              "command": "no shutdown",
+              "description": "يفعّل المنفذ الفيزيائي بعد تصحيح الخطأ الكتابي في المصدر."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "R1(config)#",
+              "command": "interface gigabitethernet 0/0.99",
+              "description": "ينشئ Subinterface الخاصة بـVLAN 99."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "R1(config-subif)#",
+              "command": "encapsulation dot1q 99 native",
+              "description": "يربط Subinterface بـVLAN 99 ويحددها Native."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "R1(config-subif)#",
+              "command": "ip address 192.168.99.1 255.255.255.0",
+              "description": "يضبط بوابة VLAN 99."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "R1(config)#",
+              "command": "interface gigabitethernet 0/0.10",
+              "description": "ينشئ Subinterface الخاصة بـVLAN 10."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
+              "prompt": "R1(config-subif)#",
+              "command": "encapsulation dot1q 10",
+              "description": "يربط Subinterface بـVLAN 10."
+            },
+            {
+              "id": "cmd-08",
+              "order": 8,
+              "prompt": "R1(config-subif)#",
+              "command": "ip address 192.168.10.1 255.255.255.0",
+              "description": "يضبط بوابة VLAN 10."
+            },
+            {
+              "id": "cmd-09",
+              "order": 9,
+              "prompt": "R1(config)#",
+              "command": "interface gigabitethernet 0/0.20",
+              "description": "ينشئ Subinterface الخاصة بـVLAN 20."
+            },
+            {
+              "id": "cmd-10",
+              "order": 10,
+              "prompt": "R1(config-subif)#",
+              "command": "encapsulation dot1q 20",
+              "description": "يربط Subinterface بـVLAN 20."
+            },
+            {
+              "id": "cmd-11",
+              "order": 11,
+              "prompt": "R1(config-subif)#",
+              "command": "ip address 192.168.20.1 255.255.255.0",
+              "description": "يضبط بوابة VLAN 20."
+            },
+            {
+              "id": "cmd-12",
+              "order": 12,
+              "prompt": "R1(config)#",
+              "command": "interface gigabitethernet 0/0.30",
+              "description": "ينشئ Subinterface الخاصة بـVLAN 30."
+            },
+            {
+              "id": "cmd-13",
+              "order": 13,
+              "prompt": "R1(config-subif)#",
+              "command": "encapsulation dot1q 30",
+              "description": "يربط Subinterface بـVLAN 30."
+            },
+            {
+              "id": "cmd-14",
+              "order": 14,
+              "prompt": "R1(config-subif)#",
+              "command": "ip address 192.168.30.1 255.255.255.0",
+              "description": "يضبط بوابة VLAN 30."
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
