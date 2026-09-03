@@ -13,7 +13,7 @@
     },
     {
       "id": "ssh",
-      "order": 8,
+      "order": 2,
       "title": "SSH",
       "short_description": "تهيئة SSHv2، مفاتيح RSA، المستخدم المحلي، وتأمين خطوط VTY.",
       "data_file": "ssh.json",
@@ -21,7 +21,7 @@
     },
     {
       "id": "vlan",
-      "order": 2,
+      "order": 3,
       "title": "VLAN و Inter-VLAN Routing",
       "short_description": "إنشاء VLANs، منافذ Access وTrunk، والتوجيه بين الشبكات الافتراضية.",
       "data_file": "vlan.json",
@@ -29,7 +29,7 @@
     },
     {
       "id": "stp",
-      "order": 3,
+      "order": 4,
       "title": "STP",
       "short_description": "الجسر الجذري، أدوار المنافذ، الحماية، والمراقبة.",
       "data_file": "stp.json",
@@ -37,7 +37,7 @@
     },
     {
       "id": "etherchannel",
-      "order": 4,
+      "order": 5,
       "title": "EtherChannel",
       "short_description": "LACP وPAgP، تجميع الروابط، والتحقق من القنوات.",
       "data_file": "etherchannel.json",
@@ -45,7 +45,7 @@
     },
     {
       "id": "port-security",
-      "order": 5,
+      "order": 6,
       "title": "Port Security",
       "short_description": "تأمين منافذ Access، عناوين MAC، وأنماط المخالفات.",
       "data_file": "port-security.json",
@@ -53,7 +53,7 @@
     },
     {
       "id": "dhcp",
-      "order": 6,
+      "order": 7,
       "title": "DHCP و SLAAC",
       "short_description": "DHCPv4 وDHCPv6 وSLAAC والترحيل والتحقق.",
       "data_file": "dhcp.json",
@@ -61,7 +61,7 @@
     },
     {
       "id": "static-default-routing",
-      "order": 7,
+      "order": 8,
       "title": "Static & Default Routing",
       "short_description": "المسارات الثابتة والافتراضية في IPv4 وIPv6.",
       "data_file": "static-default-routing.json",
