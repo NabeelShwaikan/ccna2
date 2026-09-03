@@ -64,20 +64,24 @@ a {
 .brand {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 8px;
+}
+
+.brand > div:last-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .logo {
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
+  width: 66px;
+  height: 66px;
   display: grid;
   place-items: center;
-  background: var(--accent-soft);
-  color: var(--accent);
-  border: 1px solid var(--border);
-  font-weight: 800;
-  overflow: hidden;
+  flex: 0 0 auto;
+  background: transparent;
+  border: 0;
+  overflow: visible;
 }
 
 .logo img {
@@ -258,6 +262,15 @@ a {
 
   .badge {
     display: none;
+  }
+
+  .brand {
+    gap: 7px;
+  }
+
+  .logo {
+    width: 58px;
+    height: 58px;
   }
 
   .grid {
