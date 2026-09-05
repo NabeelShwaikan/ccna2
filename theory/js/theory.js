@@ -8,8 +8,10 @@
   const tocToggle=document.getElementById('tocToggle');
   const themeButton=document.getElementById('themeButton');
   const classroomButton=document.getElementById('classroomButton');
+  const groupTitle=document.getElementById('groupTitle');
+  const groupMeta=document.getElementById('groupMeta');
   const cache=new Map();
-  let course=null, currentModule=null;
+  let course=null, currentModule=null, moduleEntries=[];
 
   const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 
@@ -86,8 +88,15 @@
     document.querySelectorAll('.section').forEach(s=>observer.observe(s));
   }
 
-  async function selectModule(meta){
+  function showGroup(group){
+    groupTitle.textContent=group.title;
+    if(groupMeta) groupMeta.textContent=group.meta||'';
+  }
+
+  async function selectModule(entry){
+    const {module:meta,group}=entry;
     tabs.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',Number(b.dataset.module)===meta.number));
+    showGroup(group);
     content.innerHTML='<div class="loading">جاري تحميل الوحدة…</div>';
     try{
       const data=await getJSON(meta.path);
@@ -99,9 +108,12 @@
     }
   }
 
-  function buildTabs(modules){
-    tabs.innerHTML=modules.map(m=>`<button class="tab" type="button" data-module="${m.number}">الوحدة ${m.number} · ${esc(m.title)}</button>`).join('');
-    tabs.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>selectModule(modules.find(m=>m.number===Number(b.dataset.module)))));
+  function buildTabs(entries){
+    tabs.innerHTML=entries.map(({module:m})=>`<button class="tab" type="button" data-module="${m.number}">الوحدة ${m.number} · ${esc(m.title)}</button>`).join('');
+    tabs.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
+      const entry=entries.find(e=>e.module.number===Number(b.dataset.module));
+      if(entry) selectModule(entry);
+    }));
   }
 
   tocToggle.addEventListener('click',()=>sidebar.classList.toggle('open'));
@@ -109,11 +121,11 @@
   async function init(){
     try{
       course=await getJSON('Lects/course.json');
-      const group=course.groups[0];
-      document.getElementById('groupTitle').textContent=group.title;
-      buildTabs(group.modules);
+      moduleEntries=(course.groups||[]).flatMap(group=>(group.modules||[]).map(module=>({group,module})));
+      if(!moduleEntries.length) throw new Error('لا توجد وحدات متاحة في هيكل المقرر.');
+      buildTabs(moduleEntries);
       const requested=Number(new URL(location.href).searchParams.get('module'));
-      const first=group.modules.find(m=>m.number===requested)||group.modules[0];
+      const first=moduleEntries.find(e=>e.module.number===requested)||moduleEntries[0];
       await selectModule(first);
     }catch(err){
       content.innerHTML=`<div class="errorbox">تعذر تحميل هيكل المقرر. ${esc(err.message)}<br><small>تحتاج النسخة الرسمية إلى تشغيلها عبر HTTP/HTTPS لأن البيانات منفصلة في ملفات JSON.</small></div>`;
