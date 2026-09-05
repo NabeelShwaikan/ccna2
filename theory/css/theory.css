@@ -115,3 +115,23 @@ body.classroom .study-detail{display:none!important}body.classroom .sidebar{disp
   .student-note-status{text-align:right}
   .student-note-input{font-size:.79rem;line-height:1.75}
 }
+
+/* ===== Scrollable module tabs ===== */
+.tabs{
+  overflow-x:auto;
+  overflow-y:hidden;
+  flex-wrap:nowrap;
+  scroll-snap-type:x proximity;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-inline:contain;
+  scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  flex:1 0 120px;
+  scroll-snap-align:start;
+  white-space:nowrap;
+}
+@media(max-width:560px){
+  .tab{flex-basis:112px}
+}
