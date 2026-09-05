@@ -1,1 +1,28 @@
-
+{
+  "schema_version": 1,
+  "course_id": "srwe-routing-switching-1",
+  "course_title": "التوجيه والتحويل 1",
+  "course_code": "CCNA SRWE",
+  "groups": [
+    {
+      "id": "01_Foundations",
+      "title": "أساسيات الأجهزة والتحويل",
+      "modules": [
+        {
+          "number": 1,
+          "title": "التكوين الأساسي للجهاز",
+          "title_en": "Basic Device Configuration",
+          "path": "Lects/module_01.json",
+          "status": "available"
+        },
+        {
+          "number": 2,
+          "title": "مفاهيم التحويل",
+          "title_en": "Switching Concepts",
+          "path": "Lects/module_02.json",
+          "status": "available"
+        }
+      ]
+    }
+  ]
+}

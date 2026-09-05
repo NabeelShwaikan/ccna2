@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "policy": {
+    "core_term_display": "English Term (المصطلح العربي) في العناوين أو عند تقديم المفهوم، مع تجنب إثقال الجمل بالتكرار غير الضروري.",
+    "descriptive_phrases": "تكتب بالعربية الطبيعية مثل: عنوان MAC المصدر، عنوان MAC الوجهة، منفذ الدخول، منفذ الخروج.",
+    "commands_and_abbreviations": "تبقى بصيغتها الأصلية، ويضاف شرح عربي فقط عند الحاجة."
+  },
+  "terms": [
+    {
+      "en": "Switch",
+      "ar": "المحوّل"
+    },
+    {
+      "en": "Switching",
+      "ar": "التحويل"
+    },
+    {
+      "en": "Router",
+      "ar": "الموجّه"
+    },
+    {
+      "en": "Routing",
+      "ar": "التوجيه"
+    },
+    {
+      "en": "Frame",
+      "ar": "الإطار"
+    },
+    {
+      "en": "Packet",
+      "ar": "الحزمة"
+    },
+    {
+      "en": "MAC Address Table",
+      "ar": "جدول عناوين MAC"
+    },
+    {
+      "en": "Broadcast Domain",
+      "ar": "مجال البث"
+    },
+    {
+      "en": "Collision Domain",
+      "ar": "مجال الاصطدام"
+    },
+    {
+      "en": "Full-Duplex",
+      "ar": "الازدواج الكامل"
+    },
+    {
+      "en": "Half-Duplex",
+      "ar": "نصف الازدواج"
+    },
+    {
+      "en": "Store-and-Forward",
+      "ar": "التخزين ثم إعادة التوجيه"
+    },
+    {
+      "en": "Cut-Through",
+      "ar": "المرور المباشر"
+    },
+    {
+      "en": "Flooding",
+      "ar": "الإغراق"
+    },
+    {
+      "en": "Forwarding",
+      "ar": "إعادة التوجيه"
+    },
+    {
+      "en": "SVI",
+      "ar": "واجهة VLAN الافتراضية"
+    },
+    {
+      "en": "Default Gateway",
+      "ar": "البوابة الافتراضية"
+    },
+    {
+      "en": "Management VLAN",
+      "ar": "شبكة VLAN للإدارة"
+    },
+    {
+      "en": "Loopback Interface",
+      "ar": "واجهة الاسترجاع"
+    },
+    {
+      "en": "Boot Loader",
+      "ar": "محمّل الإقلاع"
+    },
+    {
+      "en": "Flash Memory",
+      "ar": "ذاكرة فلاش"
+    },
+    {
+      "en": "Auto-Negotiation",
+      "ar": "التفاوض التلقائي"
+    },
+    {
+      "en": "Auto-MDIX",
+      "ar": "الكشف التلقائي عن نوع توصيل الكابل"
+    },
+    {
+      "en": "Routing Table",
+      "ar": "جدول التوجيه"
+    },
+    {
+      "en": "Buffering",
+      "ar": "التخزين المؤقت"
+    }
+  ]
+}
