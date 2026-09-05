@@ -12,8 +12,120 @@
   const groupMeta=document.getElementById('groupMeta');
   const cache=new Map();
   let course=null, currentModule=null, moduleEntries=[];
+  const NOTE_PREFIX='cisco-theory-student-note::';
+  const noteTimers=new Map();
+  let storageAvailableCache;
 
   const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+
+  function hasLocalStorage(){
+    if(typeof storageAvailableCache==='boolean') return storageAvailableCache;
+    try{
+      const probe=`${NOTE_PREFIX}__probe__`;
+      localStorage.setItem(probe,'1');
+      localStorage.removeItem(probe);
+      storageAvailableCache=true;
+    }catch(_){ storageAvailableCache=false; }
+    return storageAvailableCache;
+  }
+
+  function makeStudentNoteKey(moduleNumber,sectionId){
+    return `${NOTE_PREFIX}${encodeURIComponent(String(moduleNumber))}::${encodeURIComponent(String(sectionId))}`;
+  }
+
+  function getStudentNote(moduleNumber,sectionId){
+    if(!hasLocalStorage()) return '';
+    try{return localStorage.getItem(makeStudentNoteKey(moduleNumber,sectionId))||''}catch(_){return ''}
+  }
+
+  function setStudentNote(moduleNumber,sectionId,text){
+    if(!hasLocalStorage()) return false;
+    try{
+      const key=makeStudentNoteKey(moduleNumber,sectionId);
+      const value=String(text??'');
+      if(value.trim()) localStorage.setItem(key,value);
+      else localStorage.removeItem(key);
+      return true;
+    }catch(_){return false}
+  }
+
+  function noteFieldId(moduleNumber,sectionId){
+    return `student-note-${String(moduleNumber).replace(/[^a-zA-Z0-9_-]/g,'-')}-${String(sectionId).replace(/[^a-zA-Z0-9_-]/g,'-')}`;
+  }
+
+  function resizeStudentNote(textarea){
+    textarea.style.height='auto';
+    textarea.style.height=`${Math.max(76,Math.min(textarea.scrollHeight,260))}px`;
+  }
+
+  function updateStudentNoteStatus(statusEl,message,state=''){
+    statusEl.textContent=message;
+    statusEl.className=`student-note-status${state?` ${state}`:''}`;
+  }
+
+  function saveStudentNote(textarea,statusEl){
+    const moduleNumber=textarea.dataset.noteModule;
+    const sectionId=textarea.dataset.noteSection;
+    if(!moduleNumber||!sectionId) return;
+    const ok=setStudentNote(moduleNumber,sectionId,textarea.value);
+    updateStudentNoteStatus(
+      statusEl,
+      ok?(textarea.value.trim()?'تم الحفظ ✓':'لا توجد ملاحظة'):'تعذر الحفظ المحلي',
+      ok?'saved':'error'
+    );
+  }
+
+  function flushStudentNotes(){
+    content.querySelectorAll('.student-note-input').forEach(textarea=>{
+      const timer=noteTimers.get(textarea);
+      if(timer){clearTimeout(timer);noteTimers.delete(textarea)}
+      const statusEl=textarea.closest('.student-note')?.querySelector('.student-note-status');
+      if(statusEl) saveStudentNote(textarea,statusEl);
+    });
+  }
+
+  function bindStudentNotes(){
+    const storageReady=hasLocalStorage();
+    content.querySelectorAll('.student-note-input').forEach(textarea=>{
+      const moduleNumber=textarea.dataset.noteModule;
+      const sectionId=textarea.dataset.noteSection;
+      const statusEl=textarea.closest('.student-note')?.querySelector('.student-note-status');
+      if(!moduleNumber||!sectionId||!statusEl) return;
+
+      textarea.value=storageReady?getStudentNote(moduleNumber,sectionId):'';
+      resizeStudentNote(textarea);
+
+      if(!storageReady){
+        textarea.disabled=true;
+        updateStudentNoteStatus(statusEl,'الحفظ المحلي غير متاح','error');
+        return;
+      }
+
+      updateStudentNoteStatus(
+        statusEl,
+        textarea.value.trim()?'محفوظة على هذا الجهاز':'تُحفظ تلقائيًا على هذا الجهاز',
+        textarea.value.trim()?'saved':''
+      );
+
+      textarea.addEventListener('input',()=>{
+        resizeStudentNote(textarea);
+        updateStudentNoteStatus(statusEl,'جارٍ الحفظ…');
+        const existing=noteTimers.get(textarea);
+        if(existing) clearTimeout(existing);
+        const timer=setTimeout(()=>{
+          noteTimers.delete(textarea);
+          saveStudentNote(textarea,statusEl);
+        },350);
+        noteTimers.set(textarea,timer);
+      });
+
+      textarea.addEventListener('blur',()=>{
+        const existing=noteTimers.get(textarea);
+        if(existing){clearTimeout(existing);noteTimers.delete(textarea)}
+        saveStudentNote(textarea,statusEl);
+      });
+    });
+  }
 
   function setTheme(theme){
     root.dataset.theme=theme;
@@ -56,11 +168,22 @@
 
   function renderModule(m){
     currentModule=m;
-    const sections=(m.sections||[]).map(sec=>`<section class="section" id="${esc(sec.id)}" data-title="${esc(sec.toc_title)}">
+    const sections=(m.sections||[]).map(sec=>{
+      const fieldId=noteFieldId(m.module_number,sec.id);
+      return `<section class="section" id="${esc(sec.id)}" data-title="${esc(sec.toc_title)}">
       <div class="section-top"><div class="num">${esc(sec.number)}</div><div><h3>${esc(sec.title)}</h3>${sec.subtitle?`<div class="sub">${esc(sec.subtitle)}</div>`:''}</div></div>
       ${sec.body_html||''}
-    </section>`).join('');
+      <div class="student-note study-detail">
+        <div class="student-note-head">
+          <label for="${esc(fieldId)}">ملاحظتي</label>
+          <span class="student-note-status">تُحفظ تلقائيًا على هذا الجهاز</span>
+        </div>
+        <textarea class="student-note-input" id="${esc(fieldId)}" data-note-module="${esc(m.module_number)}" data-note-section="${esc(sec.id)}" rows="2" maxlength="50000" spellcheck="true" placeholder="اكتب شرحك أو ما تريد تذكره عن هذا الموضوع…"></textarea>
+      </div>
+    </section>`;
+    }).join('');
     content.innerHTML=`<article class="unit">${moduleHeader(m)}${sections}</article>`;
+    bindStudentNotes();
     renderTOC(m);
     attachObservers();
     window.scrollTo({top:0,behavior:'smooth'});
@@ -94,6 +217,7 @@
   }
 
   async function selectModule(entry){
+    flushStudentNotes();
     const {module:meta,group}=entry;
     tabs.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',Number(b.dataset.module)===meta.number));
     showGroup(group);
@@ -117,6 +241,7 @@
   }
 
   tocToggle.addEventListener('click',()=>sidebar.classList.toggle('open'));
+  window.addEventListener('beforeunload',flushStudentNotes);
 
   async function init(){
     try{
