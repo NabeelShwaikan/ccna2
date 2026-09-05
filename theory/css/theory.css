@@ -54,3 +54,64 @@ body.classroom .study-detail{display:none!important}body.classroom .sidebar{disp
 .module-objective{margin-top:11px;padding:10px 12px;border-right:3px solid var(--brand2);background:rgba(126,225,195,.055);border-radius:0 10px 10px 0;color:var(--muted);font-size:.83rem;line-height:1.75}.module-objective strong{color:var(--text)}
 .footer{margin-top:20px;text-align:center;color:var(--muted);font-size:.7rem;padding:12px}
 @media(max-width:700px){.coursebar{padding:15px}.coursebar-top{align-items:flex-start;flex-direction:column;gap:7px}.coursebar-meta{white-space:normal}.statusline{margin-top:8px}.module-objective{font-size:.79rem}}
+
+/* ===== Student notes ===== */
+.student-note{
+  margin-top:14px;
+  padding:12px 13px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--panel2);
+}
+.student-note-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:8px;
+}
+.student-note-head label{
+  color:var(--text);
+  font-size:.82rem;
+  font-weight:800;
+  line-height:1.5;
+}
+.student-note-status{
+  color:var(--muted);
+  font-size:.68rem;
+  font-weight:600;
+  line-height:1.5;
+  text-align:left;
+}
+.student-note-status.saved{color:var(--ok)}
+.student-note-status.error{color:var(--danger)}
+.student-note-input{
+  display:block;
+  width:100%;
+  min-height:76px;
+  max-height:260px;
+  padding:10px 11px;
+  overflow:auto;
+  resize:vertical;
+  border:1px solid var(--line);
+  border-radius:11px;
+  background:var(--panel);
+  color:var(--text);
+  font:inherit;
+  font-size:.82rem;
+  font-weight:500;
+  line-height:1.8;
+}
+.student-note-input::placeholder{color:color-mix(in srgb,var(--muted) 76%,transparent)}
+.student-note-input:focus-visible{
+  outline:3px solid color-mix(in srgb,var(--brand) 34%,transparent);
+  outline-offset:1px;
+  border-color:var(--brand);
+}
+.student-note-input:disabled{opacity:.7;cursor:not-allowed}
+@media(max-width:560px){
+  .student-note{padding:11px}
+  .student-note-head{align-items:flex-start;flex-direction:column;gap:2px}
+  .student-note-status{text-align:right}
+  .student-note-input{font-size:.79rem;line-height:1.75}
+}
