@@ -7,6 +7,7 @@
     {
       "id": "01_Foundations",
       "title": "أساسيات الأجهزة والتحويل",
+      "meta": "الوحدتان 1–2",
       "modules": [
         {
           "number": 1,
@@ -20,6 +21,27 @@
           "title": "مفاهيم التحويل",
           "title_en": "Switching Concepts",
           "path": "Lects/module_02.json",
+          "status": "available"
+        }
+      ]
+    },
+    {
+      "id": "02_VLAN_InterVLAN",
+      "title": "VLAN وInter-VLAN Routing",
+      "meta": "الوحدتان 3–4",
+      "modules": [
+        {
+          "number": 3,
+          "title": "VLANs",
+          "title_en": "VLANs",
+          "path": "Lects/module_03.json",
+          "status": "available"
+        },
+        {
+          "number": 4,
+          "title": "التوجيه بين شبكات VLAN",
+          "title_en": "Inter-VLAN Routing",
+          "path": "Lects/module_04.json",
           "status": "available"
         }
       ]
