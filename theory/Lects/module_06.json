@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "module_number": 6,
+  "group_id": "03_Redundancy_LinkAggregation",
+  "title": "الوحدة 6 — EtherChannel",
+  "title_en": "EtherChannel",
+  "badge": "EtherChannel",
+  "summary": "كيف يجمع EtherChannel عدة روابط Ethernet فعلية في رابط منطقي واحد لزيادة عرض النطاق والتكرار، وكيف يتعامل معه STP، وما متطلبات تكوينه، والفرق بين PAgP وLACP، ثم كيفية تكوين LACP والتحقق من Port Channel وتشخيص أخطاء القناة.",
+  "official_objective": "استكشاف أخطاء EtherChannel على الروابط المحوّلة، مع وصف تقنية EtherChannel وتكوينها والتحقق منها.",
+  "lecture": {
+    "duration": "≈ 85 دقيقة",
+    "steps": [
+      {
+        "time": "15 د",
+        "topic": "لماذا Link Aggregation؟ فكرة EtherChannel وفوائده وعلاقته بـSTP."
+      },
+      {
+        "time": "15 د",
+        "topic": "قيود التكوين وتطابق خصائص المنافذ ودور Port Channel."
+      },
+      {
+        "time": "15 د",
+        "topic": "PAgP: آلية العمل والأوضاع On/Desirable/Auto."
+      },
+      {
+        "time": "15 د",
+        "topic": "LACP: Active/Passive والمقارنة مع PAgP وتوافق الأوضاع."
+      },
+      {
+        "time": "15 د",
+        "topic": "تكوين EtherChannel باستخدام LACP وتطبيق إعدادات Trunk على Port Channel."
+      },
+      {
+        "time": "10 د",
+        "topic": "أوامر التحقق ومسار تشخيص الأخطاء + مراجعة."
+      }
+    ]
+  },
+  "review": {
+    "committee": "theory_content_committee",
+    "status": "approved",
+    "approved": true,
+    "review_date": "2026-09-05",
+    "notes": [
+      "تمت مطابقة الداتا مع المحاور الرسمية الثلاثة: EtherChannel Operation، Configure EtherChannel، وVerify and Troubleshoot EtherChannel.",
+      "تم تضمين الفوائد والقيود، Port Channel، PAgP وLACP ومصفوفات التوافق، إرشادات التكوين، مثال LACP، أوامر التحقق، وأخطاء التكوين الشائعة ومسار التشخيص.",
+      "يوجد في Speaker Notes للصفحة الأولى وصف Module 6 بأنه Basic Device Configuration رغم أن العنوان والمحتوى والأهداف كلها EtherChannel؛ اعتبرته اللجنة خطأً شكليًا في العرض ولم تنقله للداتا.",
+      "هناك عبارتان في العرض تحتاجان قراءة سياقية: قسم القيود يركز على EtherChannel Layer 2 في Catalyst 2960، بينما قسم الإرشادات يذكر أن Port Channel عمومًا يمكن أن يكون Access أو Trunk أو Routed Port؛ عُرضتا بوضوح دون دمجهما كقاعدة واحدة.",
+      "أنشطة Packet Tracer والمختبر لم تُكرر لأنها تنتمي للمسار العملي.",
+      "لم يتم تعديل التصميم أو JavaScript أو CSS؛ الإضافة بيانات فقط."
+    ]
+  },
+  "sections": [
+    {
+      "id": "u6s1",
+      "number": "01",
+      "toc_title": "فكرة EtherChannel وفوائده",
+      "title": "عدة وصلات فعلية… رابط منطقي واحد",
+      "subtitle": "EtherChannel يحل مشكلة زيادة عرض النطاق والتكرار دون أن يتعامل STP مع كل وصلة كمسار مستقل.",
+      "body_html": "<p class=\"core\">إذا وصلنا عدة روابط Ethernet مستقلة بين جهازين، فإن <strong>STP</strong> قد يحجب الروابط الزائدة لمنع الحلقة. <strong>EtherChannel (تجميع روابط Ethernet منطقيًا)</strong> يجمع عدة وصلات فعلية في <strong>Link Aggregation</strong> واحد، فيراه STP كرابط منطقي واحد.</p>\n<div class=\"grid3\">\n  <div class=\"card\"><h4>زيادة عرض النطاق</h4><p>تعمل عدة روابط فعلية ضمن قناة واحدة بدل الاعتماد على وصلة واحدة فقط.</p></div>\n  <div class=\"card\"><h4>Load Sharing</h4><p>يمكن توزيع الحركة بين الروابط الأعضاء في EtherChannel.</p></div>\n  <div class=\"card\"><h4>Fault Tolerance</h4><p>فشل وصلة عضو لا يعني سقوط القناة كلها، ولا يغيّر طوبولوجيا STP ما دامت القناة المنطقية قائمة.</p></div>\n</div>\n<div class=\"keyline\"><strong>Port Channel:</strong> بعد تكوين EtherChannel تظهر واجهة منطقية اسمها Port Channel، وتُجمع الواجهات الفيزيائية داخلها.</div>\n<details class=\"expand study-detail\"><summary>كيف يراه STP؟</summary><div class=\"expand-body\">إذا كان بين المحوّلين EtherChannel واحد، تكون كل الروابط الفيزيائية داخله فعالة لأن STP يرى رابطًا منطقيًا واحدًا. وإذا وُجد أكثر من EtherChannel مكرر بين الجهازين فقد يحجب STP قناة كاملة لمنع الحلقة، وليس رابطًا عضوًا منفردًا داخل القناة.</div></details>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: لماذا لا نكتفي بوصل كابلين مستقلين بين محوّلين لزيادة السرعة؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">لأن STP سيعامل الرابط الثاني كمسار مكرر وقد يحجبه. EtherChannel يجمع الروابط ويقدمها كرابط منطقي واحد.</div></div>\n<div class=\"terms\"><span class=\"term\">EtherChannel</span><span class=\"term\">Link Aggregation</span><span class=\"term\">Port Channel</span><span class=\"term\">Load Sharing</span></div>"
+    },
+    {
+      "id": "u6s2",
+      "number": "02",
+      "toc_title": "القيود وتطابق المنافذ",
+      "title": "EtherChannel لا يجمع أي منافذ عشوائيًا",
+      "subtitle": "أعضاء القناة يجب أن يكونوا متوافقين؛ أي اختلاف مهم قد يمنع تكوين القناة أو يسبب مشكلة تشغيلية.",
+      "body_html": "<div class=\"grid2\">\n  <div class=\"card\"><h4>نوع الواجهة</h4><p>لا يخلط العرض Fast Ethernet وGigabit Ethernet داخل EtherChannel واحد.</p></div>\n  <div class=\"card\"><h4>Speed وDuplex</h4><p>يجب أن تعمل الواجهات الأعضاء بالسرعة نفسها وبوضع Duplex نفسه.</p></div>\n  <div class=\"card\"><h4>VLAN / Trunk</h4><p>يجب أن تتطابق Access VLAN، أو تكون المنافذ Trunk مع Native VLAN وAllowed VLANs متطابقة.</p></div>\n  <div class=\"card\"><h4>Port Channel Configuration</h4><p>الإعدادات المطبقة على واجهة Port Channel تنتقل إلى الواجهات الفيزيائية الأعضاء، ولذلك يفضل تعديل خصائص القناة من واجهتها المنطقية.</p></div>\n</div>\n<div class=\"keyline\"><strong>أرقام المنهج:</strong> يذكر العرض أن EtherChannel الواحد قد يضم حتى 8 منافذ Ethernet متوافقة، وأن Catalyst 2960 Layer 2 يدعم حتى 6 EtherChannels.</div>\n<details class=\"expand study-detail\"><summary>ملاحظة سياقية حول Layer 2 وRouted Port</summary><div class=\"expand-body\">في قسم قيود التنفيذ الخاص بسياق Catalyst 2960 يذكر العرض أن أعضاء EtherChannel تكون Layer 2. وفي قسم إرشادات التكوين يوضح بصورة عامة أن Port Channel يمكن أن يكون Access أو Trunk، أو يُستخدم على Routed Port في أجهزة تدعم ذلك. أبقينا النقطتين منفصلتين كما وردتا بدل تحويلهما إلى قاعدة موحدة.</div></details>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: هل يمكن أن يكون أحد أعضاء Trunk يسمح VLANs 10,20 والعضو الآخر يسمح 10,30؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">لا. Allowed VLAN range يجب أن يتطابق على أعضاء EtherChannel المكوّن كـTrunk.</div></div>\n<div class=\"terms\"><span class=\"term\">Port Channel</span><span class=\"term\">Native VLAN</span><span class=\"term\">Allowed VLANs</span><span class=\"term\">Speed / Duplex</span></div>"
+    },
+    {
+      "id": "u6s3",
+      "number": "03",
+      "toc_title": "PAgP",
+      "title": "PAgP: تفاوض EtherChannel الخاص بـCisco",
+      "subtitle": "يتحقق من توافق الروابط ويساعد على تكوين القناة وإدارتها تلقائيًا.",
+      "body_html": "<p class=\"core\"><strong>Port Aggregation Protocol (PAgP)</strong> بروتوكول مملوك لـCisco يساعد على إنشاء EtherChannel تلقائيًا. تتبادل المنافذ رسائل PAgP للتحقق من التوافق، ويذكر العرض أن رسائل PAgP تُرسل كل 30 ثانية عند تمكينه.</p>\n<div class=\"grid3\">\n  <div class=\"card\"><h4>desirable</h4><p>وضع نشط يبدأ التفاوض ويرسل رسائل PAgP.</p></div>\n  <div class=\"card\"><h4>auto</h4><p>وضع سلبي يستجيب لـPAgP لكنه لا يبدأ التفاوض.</p></div>\n  <div class=\"card\"><h4>on</h4><p>يفرض القناة دون PAgP أو أي تفاوض؛ يجب أن يكون الطرف الآخر on أيضًا.</p></div>\n</div>\n<div class=\"compare\">\n  <div class=\"compare-box\"><h4>تكوين ينجح</h4><p>desirable + desirable، أو desirable + auto، أو on + on.</p></div>\n  <div class=\"compare-box\"><h4>تكوين لا ينجح</h4><p>auto + auto لا يبدأ التفاوض، وon لا يتوافق مع desirable/auto لأن طرف on لا يفاوض.</p></div>\n</div>\n<div class=\"keyline\"><strong>فائدة التفاوض:</strong> PAgP يتحقق من اتساق خصائص المنافذ ويدير إضافة الروابط وفشلها. الوضع on يفقد ميزة التحقق التفاوضي.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: لماذا لا تتكون قناة PAgP إذا كان الطرفان auto؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">لأن الطرفين في وضع سلبي؛ كلاهما ينتظر أن يبدأ الطرف الآخر التفاوض.</div></div>\n<div class=\"terms\"><span class=\"term\">PAgP</span><span class=\"term\">desirable</span><span class=\"term\">auto</span><span class=\"term\">on</span></div>"
+    },
+    {
+      "id": "u6s4",
+      "number": "04",
+      "toc_title": "LACP",
+      "title": "LACP: المعيار المفتوح لتجميع الروابط",
+      "subtitle": "يؤدي وظيفة مشابهة لـPAgP لكنه معيار IEEE ويمكن استخدامه في بيئات متعددة الشركات.",
+      "body_html": "<p class=\"core\"><strong>Link Aggregation Control Protocol (LACP)</strong> جزء من معيار IEEE 802.3ad وفق العرض، ويكوّن قناة من عدة منافذ فعلية عبر التفاوض. على أجهزة Cisco يمكن استخدام LACP أو PAgP.</p>\n<div class=\"grid3\">\n  <div class=\"card\"><h4>active</h4><p>وضع نشط يبدأ تفاوض LACP بإرسال رسائل للطرف المقابل.</p></div>\n  <div class=\"card\"><h4>passive</h4><p>وضع سلبي يستجيب لرسائل LACP ولا يبدأ التفاوض.</p></div>\n  <div class=\"card\"><h4>on</h4><p>قناة ثابتة بلا LACP؛ لا تتبادل الواجهات رسائل تفاوض.</p></div>\n</div>\n<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">PAgP</div><h4>Cisco Proprietary</h4><p>الأوضاع التفاوضية: desirable وauto.</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">LACP</div><h4>IEEE Standard</h4><p>الأوضاع التفاوضية: active وpassive، ومناسب لبيئات متعددة الشركات.</p></div>\n</div>\n<div class=\"keyline\"><strong>توافق LACP:</strong> active + active ينجح، active + passive ينجح، passive + passive لا ينجح. وon يعمل فقط مع on.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: أيهما تختار غالبًا عند الحاجة إلى معيار متعدد الشركات: PAgP أم LACP؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">LACP لأنه معيار IEEE وليس بروتوكولًا خاصًا بـCisco.</div></div>\n<div class=\"terms\"><span class=\"term\">LACP</span><span class=\"term\">active</span><span class=\"term\">passive</span><span class=\"term\">IEEE 802.3ad</span></div>"
+    },
+    {
+      "id": "u6s5",
+      "number": "05",
+      "toc_title": "تكوين EtherChannel",
+      "title": "تكوين LACP في ثلاث خطوات",
+      "subtitle": "حدد أعضاء القناة، أنشئ Channel Group، ثم طبّق خصائص Layer 2 على واجهة Port Channel.",
+      "body_html": "<p class=\"core\">مثال المنهج يستخدم <strong>LACP active</strong>. الترتيب الأساسي بسيط: تحديد مجموعة الواجهات، إنشاء Channel Group، ثم الدخول إلى واجهة Port Channel لتطبيق إعدادات القناة.</p>\n<div class=\"flow\">\n  <div class=\"step\"><b>1 · interface range</b><span>حدد كل الواجهات الفيزيائية التي ستنضم إلى EtherChannel.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>2 · channel-group</b><span>أنشئ المجموعة وحدد mode active لاستخدام LACP.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>3 · interface port-channel</b><span>اضبط Trunk أو Access وAllowed VLANs من الواجهة المنطقية.</span></div>\n</div>\n<div class=\"swipe-hint\">↔ اسحب لرؤية بقية خطوات التكوين</div>\n<pre class=\"cmd study-detail\">S1(config)# interface range FastEthernet 0/1 - 2\nS1(config-if-range)# channel-group 1 mode active\nS1(config-if-range)# exit\nS1(config)# interface port-channel 1\nS1(config-if)# switchport mode trunk\nS1(config-if)# switchport trunk allowed vlan 1,2,20</pre>\n<div class=\"keyline\"><strong>قاعدة مهمة:</strong> إذا احتجت تغيير خصائص القناة بعد إنشائها، فطبّق التغيير على Port Channel. تعديل عضو فيزيائي منفرد قد يسبب عدم توافق بين أعضاء القناة.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: أين نضبط Trunk بعد تكوين Port Channel؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">على واجهة Port Channel نفسها، حتى يبقى الإعداد متسقًا على الأعضاء.</div></div>\n<div class=\"terms\"><span class=\"term\">interface range</span><span class=\"term\">channel-group</span><span class=\"term\">mode active</span><span class=\"term\">interface port-channel</span></div>"
+    },
+    {
+      "id": "u6s6",
+      "number": "06",
+      "toc_title": "التحقق من EtherChannel",
+      "title": "لا يكفي أن تُنشئ القناة؛ تحقق من حالتها وأعضائها",
+      "subtitle": "أوامر show تكشف حالة Port Channel، البروتوكول، ودور كل واجهة عضو.",
+      "body_html": "<div class=\"grid2\">\n  <div class=\"card\"><h4>show interfaces port-channel</h4><p>يعرض الحالة العامة لواجهة Port Channel.</p></div>\n  <div class=\"card\"><h4>show etherchannel summary</h4><p>ملخص سطر واحد لكل Port Channel، وهو أسرع أمر لرؤية القناة وأعضائها.</p></div>\n  <div class=\"card\"><h4>show etherchannel port-channel</h4><p>يعرض معلومات أكثر عن Port Channel محدد.</p></div>\n  <div class=\"card\"><h4>show interfaces etherchannel</h4><p>يساعد في معرفة دور واجهة فيزيائية عضو داخل EtherChannel.</p></div>\n</div>\n<div class=\"keyline\"><strong>اقرأ الرموز:</strong> في مثال العرض تظهر القناة الناجحة كـPo1(SU) وتظهر الواجهات الأعضاء بالرمز (P). وفي المثال المعطل ظهرت Po1(SD) والواجهات (D)، ما يشير إلى أن القناة ليست في الاستخدام.</div>\n<details class=\"expand study-detail\"><summary>أهم الرموز الظاهرة في show etherchannel summary</summary><div class=\"expand-body\"><ul><li><strong>S</strong> = Layer 2، <strong>R</strong> = Layer 3.</li><li><strong>U</strong> = in use، <strong>D</strong> = down.</li><li><strong>P</strong> = bundled in port-channel.</li><li><strong>I</strong> = stand-alone، <strong>s</strong> = suspended.</li><li><strong>H</strong> = Hot-standby (LACP only).</li></ul>المطلوب تعليميًا هو ربط الرمز بحالة القناة بدل حفظ جميع الرموز دون سياق.</div></details>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: أي أمر تبدأ به غالبًا للحصول على ملخص سريع عن كل EtherChannel؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">show etherchannel summary</div></div>\n<div class=\"terms\"><span class=\"term\">show etherchannel summary</span><span class=\"term\">Port Channel</span><span class=\"term\">P = bundled</span><span class=\"term\">U = in use</span></div>"
+    },
+    {
+      "id": "u6s7",
+      "number": "07",
+      "toc_title": "الأخطاء الشائعة",
+      "title": "إذا لم تتكون القناة، ابحث أولًا عن عدم التطابق",
+      "subtitle": "معظم أخطاء EtherChannel تأتي من خصائص مختلفة بين الأعضاء أو من أوضاع تفاوض غير متوافقة.",
+      "body_html": "<div class=\"grid2\">\n  <div class=\"card\"><h4>VLAN غير متطابقة</h4><p>منافذ Access في VLANs مختلفة، أو Native VLAN مختلفة على Trunk، تمنع التكوين الصحيح.</p></div>\n  <div class=\"card\"><h4>Trunk غير متسق</h4><p>بعض الأعضاء Trunk والبعض ليس كذلك، أو Allowed VLANs مختلفة بين الأعضاء.</p></div>\n  <div class=\"card\"><h4>Speed / Duplex مختلف</h4><p>خصائص الواجهات الفيزيائية يجب أن تكون متوافقة داخل المجموعة.</p></div>\n  <div class=\"card\"><h4>أوضاع تفاوض غير متوافقة</h4><p>مثل auto + auto في PAgP أو passive + passive في LACP، أو استخدام on مقابل وضع تفاوضي.</p></div>\n</div>\n<div class=\"flow\">\n  <div class=\"step\"><b>1 · Summary</b><span>ابدأ بـshow etherchannel summary وحدد هل القناة Down أم Up.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>2 · Configuration</b><span>راجع Port Channel والأعضاء بـshow running-config وتحقق من Mode وVLANs.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>3 · Correct</b><span>صحح عدم التوافق مع مراعاة ترتيب أوامر EtherChannel وSTP.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>4 · Verify</b><span>أعد show etherchannel summary وتأكد من SU وP في المثال.</span></div>\n</div>\n<div class=\"swipe-hint\">↔ اسحب لرؤية مسار التشخيص</div>\n<div class=\"keyline\"><strong>مثال العرض:</strong> كان S1 مضبوطًا mode on وS2 على desirable؛ لم تتكون PAgP. بعد تصحيح الوضع وإعادة بناء Port Channel ظهرت القناة نشطة. وينبه العرض إلى أن EtherChannel وSTP مترابطان، لذلك ترتيب أوامر التصحيح مهم لتجنب blocking أو errdisabled.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: القناة لا تعمل والطرفان LACP passive؛ ما أول تصحيح منطقي؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">اجعل أحد الطرفين على الأقل active حتى يبدأ تفاوض LACP.</div></div>\n<div class=\"terms\"><span class=\"term\">Troubleshooting</span><span class=\"term\">Allowed VLANs</span><span class=\"term\">Native VLAN</span><span class=\"term\">errdisabled</span></div>"
+    },
+    {
+      "id": "u6s8",
+      "number": "08",
+      "toc_title": "الخلاصة",
+      "title": "EtherChannel = اتساق + تفاوض صحيح + تحقق",
+      "subtitle": "المفهوم سهل عندما تربط بين القناة المنطقية ومتطلبات الأعضاء وطريقة التفاوض.",
+      "body_html": "<div class=\"summary-box\"><h4>ما الذي يجب أن يبقى في ذهنك؟</h4><div class=\"summary-list\">\n  <div class=\"summary-item\">EtherChannel يجمع عدة روابط Ethernet فعلية في رابط منطقي واحد.</div>\n  <div class=\"summary-item\">STP يرى Port Channel كرابط واحد بدل معالجة كل عضو كمسار مكرر مستقل.</div>\n  <div class=\"summary-item\">الأعضاء يجب أن تتطابق في Speed وDuplex وVLAN/Trunk وAllowed/Native VLANs.</div>\n  <div class=\"summary-item\">PAgP خاص بـCisco: desirable/auto؛ وLACP معيار IEEE: active/passive.</div>\n  <div class=\"summary-item\">on لا يفاوض ويحتاج on على الطرف الآخر.</div>\n  <div class=\"summary-item\">طبّق تغييرات القناة على interface port-channel، ثم تحقق بـshow etherchannel summary.</div>\n  <div class=\"summary-item\">عند الفشل ابدأ بعدم التطابق في الإعدادات وأوضاع التفاوض قبل البحث عن أسباب أعقد.</div>\n</div></div>\n<div class=\"compare\">\n  <div class=\"compare-box\"><h4>PAgP</h4><p><strong>desirable + auto</strong> يعمل.<br><strong>auto + auto</strong> لا يعمل.</p></div>\n  <div class=\"compare-box\"><h4>LACP</h4><p><strong>active + passive</strong> يعمل.<br><strong>passive + passive</strong> لا يعمل.</p></div>\n</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال ختامي: ما العلامة التي تبحث عنها في show etherchannel summary لتعرف أن الأعضاء انضموا فعليًا إلى القناة؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">في مثال المنهج تظهر الواجهات الأعضاء بالرمز P (bundled in port-channel)، وتظهر القناة في الاستخدام بالرمز U.</div></div>\n<div class=\"terms\"><span class=\"term\">EtherChannel</span><span class=\"term\">PAgP</span><span class=\"term\">LACP</span><span class=\"term\">Port Channel</span></div>"
+    }
+  ]
+}

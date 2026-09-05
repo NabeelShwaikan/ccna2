@@ -45,6 +45,27 @@
           "status": "available"
         }
       ]
+    },
+    {
+      "id": "03_Redundancy_LinkAggregation",
+      "title": "التكرار وتجميع الروابط",
+      "meta": "الوحدتان 5–6",
+      "modules": [
+        {
+          "number": 5,
+          "title": "مفاهيم STP",
+          "title_en": "STP Concepts",
+          "path": "Lects/module_05.json",
+          "status": "available"
+        },
+        {
+          "number": 6,
+          "title": "EtherChannel",
+          "title_en": "EtherChannel",
+          "path": "Lects/module_06.json",
+          "status": "available"
+        }
+      ]
     }
   ]
 }

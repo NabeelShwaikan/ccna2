@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "module_number": 5,
+  "group_id": "03_Redundancy_LinkAggregation",
+  "title": "الوحدة 5 — STP Concepts (مفاهيم STP)",
+  "title_en": "STP Concepts",
+  "badge": "STP",
+  "summary": "لماذا نحتاج التكرار في Layer 2، ولماذا قد تتحول الروابط المكررة إلى حلقات وعواصف بث، وكيف يبني STP طوبولوجيا خالية من الحلقات عبر Root Bridge وأدوار المنافذ والتكلفة، ثم كيف تطورت الآلية إلى RSTP وRapid PVST+ مع PortFast وBPDU Guard.",
+  "official_objective": "شرح كيف يمكّن STP التكرار في شبكة Layer 2، مع تفسير مشكلات الشبكات المحوّلة ذات المسارات المكررة، وآلية عمل STP، وكيف يعمل Rapid PVST+.",
+  "lecture": {
+    "duration": "≈ 90 دقيقة",
+    "steps": [
+      {
+        "time": "15 د",
+        "topic": "التكرار في Layer 2، الحلقات، عدم استقرار جدول MAC وعاصفة البث."
+      },
+      {
+        "time": "20 د",
+        "topic": "فكرة STP/STA، رسائل BPDU، وانتخاب Root Bridge باستخدام BID."
+      },
+      {
+        "time": "15 د",
+        "topic": "Root Path Cost وانتخاب Root Port وDesignated/Alternate Ports وكسر التعادل."
+      },
+      {
+        "time": "15 د",
+        "topic": "مؤقتات STP وحالات المنافذ وسلوك BPDU وجدول MAC في كل حالة."
+      },
+      {
+        "time": "15 د",
+        "topic": "PVST+ وRSTP وRapid PVST+ وحالات وأدوار RSTP."
+      },
+      {
+        "time": "10 د",
+        "topic": "PortFast وBPDU Guard والانتقال نحو Layer 3 + مراجعة."
+      }
+    ]
+  },
+  "review": {
+    "committee": "theory_content_committee",
+    "status": "approved",
+    "approved": true,
+    "review_date": "2026-09-05",
+    "notes": [
+      "تمت مطابقة الداتا مع المحاور الرسمية الثلاثة: Purpose of STP، STP Operations، وEvolution of STP.",
+      "تم تضمين أسباب حلقات Layer 2 وآثارها، STA وBPDUs وBID، انتخاب Root Bridge وأدوار المنافذ والتكلفة وكسر التعادل، المؤقتات والحالات، PVST+/RSTP/Rapid PVST+، وPortFast وBPDU Guard.",
+      "أنشطة الفيديو وPacket Tracer وأسئلة Check Your Understanding لم تُنسخ كأنشطة عملية؛ استُخدمت فقط لتحديد التركيز التعليمي.",
+      "تم الحفاظ على تفاصيل الإصدارات والقيم كما وردت في Instructor Materials، مع استخدام عبارات مثل «وفق العرض» عند الحاجة لتجنب تعميم معلومات مرتبطة بالمنصة أو الإصدار.",
+      "لم يتم تعديل التصميم أو JavaScript أو CSS؛ الإضافة بيانات فقط."
+    ]
+  },
+  "sections": [
+    {
+      "id": "u5s1",
+      "number": "01",
+      "toc_title": "لماذا نحتاج STP؟",
+      "title": "التكرار مفيد… لكنه قد يصنع حلقة في Layer 2",
+      "subtitle": "المسار البديل يحمي الشبكة من نقطة الفشل الواحدة، لكن Ethernet يحتاج طوبولوجيا منطقية بلا حلقات.",
+      "body_html": "<p class=\"core\"><strong>Redundancy (التكرار)</strong> يضيف مسارات بديلة حتى تستمر الخدمة إذا تعطلت وصلة أو جهاز. لكن وجود أكثر من مسار فعّال بين محوّلات Ethernet قد ينشئ <strong>Layer 2 Loop (حلقة في الطبقة الثانية)</strong>. عندها يمكن للإطارات أن تستمر بالدوران لأن Ethernet لا يحتوي آلية مماثلة لـTTL في IPv4 أو Hop Limit في IPv6.</p>\n<div class=\"grid3\">\n  <div class=\"card\"><h4>عدم استقرار جدول MAC</h4><p>يتغير موقع عنوان MAC باستمرار بين المنافذ بسبب وصول الإطارات نفسها من مسارات مختلفة.</p></div>\n  <div class=\"card\"><h4>تشبع الوصلات وارتفاع CPU</h4><p>الإطارات المتكررة تستهلك عرض النطاق وقد ترفع حمل المعالجة على المحوّلات والأجهزة النهائية.</p></div>\n  <div class=\"card\"><h4>Broadcast Storm (عاصفة البث)</h4><p>قد تتضاعف حركة Broadcast وMulticast وUnknown Unicast بسرعة حتى تصبح الشبكة غير قابلة للاستخدام خلال وقت قصير.</p></div>\n</div>\n<div class=\"keyline\"><strong>الفكرة:</strong> نريد الاحتفاظ بالمسارات الفيزيائية المكررة، لكن نحتاج آلية تمنع استخدامها كلها منطقيًا في الوقت نفسه. هنا يأتي دور STP.</div>\n<details class=\"expand study-detail\"><summary>لماذا لا تنتهي الحلقة من تلقاء نفسها مثل حزمة IP؟</summary><div class=\"expand-body\">يذكر العرض أن الموجّه يخفض TTL في IPv4 وHop Limit في IPv6 حتى تُسقط الحزمة عند الصفر. إطار Ethernet في Layer 2 لا يحمل آلية مكافئة تحد عدد مرات إعادة تمريره، لذلك صُمم STP خصيصًا لمنع حلقات Ethernet.</div></details>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: هل حذف الروابط المكررة هو الحل الأفضل لمنع الحلقة؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">لا. الروابط المكررة مفيدة لاستمرارية الخدمة. STP يسمح ببقائها فيزيائيًا ويمنع الحلقة منطقيًا.</div></div>\n<div class=\"terms\"><span class=\"term\">Redundancy</span><span class=\"term\">Layer 2 Loop</span><span class=\"term\">Broadcast Storm</span><span class=\"term\">MAC Address Table</span></div>"
+    },
+    {
+      "id": "u5s2",
+      "number": "02",
+      "toc_title": "فكرة STP وSTA",
+      "title": "STP يبقي التكرار ويغلق المسار الزائد منطقيًا",
+      "subtitle": "Spanning Tree Protocol يمنع الحلقات باختيار طوبولوجيا منطقية واحدة قابلة لإعادة الحساب عند حدوث عطل.",
+      "body_html": "<p class=\"core\"><strong>Spanning Tree Protocol (بروتوكول الشجرة الممتدة)</strong> بروتوكول لمنع الحلقات يسمح بوجود التكرار، لكنه يحجب منطقيًا المسارات التي قد تكوّن حلقة. إذا تعطّل المسار المستخدم، يعيد STP الحساب ويمكنه فتح منفذ كان محجوبًا ليصبح المسار البديل فعالًا.</p>\n<div class=\"flow\">\n  <div class=\"step\"><b>1 · Root Bridge</b><span>اختيار محوّل مرجعي تبنى حوله الشجرة.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>2 · Root Ports</b><span>كل محوّل غير جذري يختار أفضل منفذ نحو الجذر.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>3 · Designated Ports</b><span>اختيار المنفذ الأفضل لكل Segment.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>4 · Alternate Ports</b><span>المسارات الزائدة توضع في حالة لا تمرر بيانات المستخدم.</span></div>\n</div>\n<div class=\"swipe-hint\">↔ اسحب لرؤية بقية الخطوات</div>\n<div class=\"keyline\"><strong>STA:</strong> خوارزمية Spanning Tree Algorithm تنشئ طوبولوجيا خالية من الحلقات بحيث يكون لكل محوّل مسار منطقي واحد نحو Root Bridge، بينما تبقى الروابط الأخرى جاهزة للتعافي.</div>\n<div class=\"card\"><h4>BPDU هي رسائل القرار</h4><p>تتبادل المحوّلات Bridge Protocol Data Units (BPDUs) لمشاركة معلوماتها واتصالاتها، وتُستخدم هذه الرسائل في انتخاب Root Bridge وتحديد Root وDesignated وAlternate Ports.</p></div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: ماذا يحدث لمنفذ محجوب إذا فشل المسار الرئيسي؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">يعيد STP حساب الطوبولوجيا، وقد يحول المنفذ البديل إلى مسار تمرير فعّال لاستعادة الاتصال.</div></div>\n<div class=\"terms\"><span class=\"term\">STP</span><span class=\"term\">STA</span><span class=\"term\">BPDU</span><span class=\"term\">Root Bridge</span></div>"
+    },
+    {
+      "id": "u5s3",
+      "number": "03",
+      "toc_title": "انتخاب Root Bridge",
+      "title": "أقل Bridge ID يفوز بمنصب Root Bridge",
+      "subtitle": "يبدأ القرار من BID: أولوية الجسر + Extended System ID + عنوان MAC.",
+      "body_html": "<p class=\"core\">تبدأ المحوّلات بإرسال <strong>BPDU</strong> والمقارنة بينها حتى تتفق على محوّل واحد هو <strong>Root Bridge (المحوّل الجذري)</strong>. المعيار الحاسم هو أقل <strong>Bridge ID (BID)</strong>.</p>\n<div class=\"grid3\">\n  <div class=\"card\"><div class=\"micro\">Bridge Priority</div><h4>الأولوية أولًا</h4><p>القيمة الافتراضية في العرض 32768، والنطاق 0–61440 بزيادات 4096. القيمة الأقل أفضل.</p></div>\n  <div class=\"card\"><div class=\"micro\">Extended System ID</div><h4>هوية VLAN</h4><p>تضاف إلى قيمة الأولوية لتحديد VLAN الخاصة بمثيل Spanning Tree.</p></div>\n  <div class=\"card\"><div class=\"micro\">MAC Address</div><h4>كسر التعادل</h4><p>إذا تساوت الأولوية وExtended System ID، يفوز المحوّل ذو عنوان MAC الأقل رقميًا.</p></div>\n</div>\n<div class=\"keyline\"><strong>أفضل ممارسة تعليمية:</strong> لا تترك اختيار Root Bridge للصدفة اعتمادًا على MAC؛ اضبط المحوّل المطلوب بأولوية أقل.</div>\n<details class=\"expand study-detail\"><summary>ماذا يحدث مباشرة بعد تشغيل المحوّلات؟</summary><div class=\"expand-body\">وفق العرض، يبدأ كل محوّل باعتبار نفسه Root Bridge ويرسل BPDU كل ثانيتين متضمنة BID الخاص به وRoot ID. مع استمرار التبادل تتعلم المحوّلات أي BID هو الأقل وتتفق على Root Bridge واحد.</div></details>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: محوّلان لهما نفس الأولوية ونفس VLAN؛ من يصبح Root Bridge؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">المحوّل ذو عنوان MAC الأقل، لأن MAC يصبح عامل كسر التعادل في BID.</div></div>\n<div class=\"terms\"><span class=\"term\">Bridge ID (BID)</span><span class=\"term\">Bridge Priority</span><span class=\"term\">Extended System ID</span><span class=\"term\">Root ID</span></div>"
+    },
+    {
+      "id": "u5s4",
+      "number": "04",
+      "toc_title": "التكلفة وRoot Port",
+      "title": "أفضل مسار إلى الجذر هو الأقل تكلفة",
+      "subtitle": "بعد انتخاب Root Bridge يحسب كل محوّل مجموع تكاليف المنافذ على الطريق إلى الجذر.",
+      "body_html": "<p class=\"core\"><strong>Root Path Cost (تكلفة المسار إلى الجذر)</strong> هي مجموع تكاليف المنافذ على المسار من المحوّل إلى Root Bridge. كل محوّل غير جذري يختار <strong>Root Port (المنفذ الجذري)</strong> الذي يقوده إلى أقل تكلفة إجمالية.</p>\n<div class=\"grid2\">\n  <div class=\"card\"><h4>مثال المسار</h4><p>إذا كان المسار الأول تكلفته 19 والمسار الثاني 38، يصبح المنفذ المؤدي إلى المسار ذي التكلفة 19 هو Root Port.</p></div>\n  <div class=\"card\"><h4>التكلفة مرتبطة بالسرعة</h4><p>كلما زادت سرعة الوصلة انخفضت التكلفة الافتراضية. ويمكن للمدير تغيير Port Cost للتحكم في المسار المفضل.</p></div>\n</div>\n<details class=\"expand study-detail\"><summary>قيم التكلفة الواردة في العرض</summary><div class=\"expand-body\"><ul><li>10 Gbps: ‏2 في 802.1D-1998، و2000 في 802.1w-2004.</li><li>1 Gbps: ‏4، و20000.</li><li>100 Mbps: ‏19، و200000.</li><li>10 Mbps: ‏100، و2000000.</li></ul>يعرض المنهج الفرق بين Short Path Cost وLong Path Cost؛ الفكرة الأساسية للطالب أن مجموع التكلفة الأقل هو المسار المفضل.</div></details>\n<div class=\"keyline\"><strong>قاعدة:</strong> يوجد Root Port واحد على كل محوّل غير Root Bridge، بينما Root Bridge نفسه لا يحتاج Root Port.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: هل يختار STP المسار الأقل عددًا من الوصلات دائمًا؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">لا. القرار يعتمد على مجموع Port Cost، وليس على عدد الوصلات وحده.</div></div>\n<div class=\"terms\"><span class=\"term\">Root Path Cost</span><span class=\"term\">Port Cost</span><span class=\"term\">Root Port</span></div>"
+    },
+    {
+      "id": "u5s5",
+      "number": "05",
+      "toc_title": "أدوار المنافذ وكسر التعادل",
+      "title": "Root، Designated، Alternate: لكل منفذ دور",
+      "subtitle": "بعد اختيار الجذر والمسار الأفضل، يحدد STP أي المنافذ تمرر وأيها تبقى بديلة.",
+      "body_html": "<div class=\"grid3\">\n  <div class=\"card\"><h4>Root Port</h4><p>أفضل منفذ نحو Root Bridge على كل محوّل غير جذري.</p></div>\n  <div class=\"card\"><h4>Designated Port</h4><p>المنفذ الأفضل على كل Segment لاستقبال الحركة المتجهة نحو Root Bridge. جميع منافذ Root Bridge تكون Designated.</p></div>\n  <div class=\"card\"><h4>Alternate Port</h4><p>أي منفذ ليس Root ولا Designated يصبح مسارًا بديلًا ويُمنع من تمرير إطارات المستخدم لمنع الحلقة.</p></div>\n</div>\n<div class=\"keyline\"><strong>قواعد سريعة:</strong> إذا كان أحد طرفي الوصلة Root Port فالطرف الآخر Designated Port، ومنافذ الأجهزة النهائية Designated Ports، وعلى الوصلة بين محوّلين غير جذريين يفوز الطرف ذو المسار الأقل تكلفة إلى الجذر.</div>\n<p class=\"core\">إذا تساوت تكلفة مسارين نحو Root Bridge، يكسر STP التعادل بهذا الترتيب:</p>\n<div class=\"flow\">\n  <div class=\"step\"><b>1 · Lowest Sender BID</b><span>أقل BID للمحوّل المرسل للـBPDU.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>2 · Lowest Sender Port Priority</b><span>إذا استمر التعادل، الأقل في أولوية منفذ المرسل.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>3 · Lowest Sender Port ID</b><span>آخر معيار: أقل Port ID لدى المرسل.</span></div>\n</div>\n<div class=\"swipe-hint\">↔ اسحب لرؤية بقية معايير كسر التعادل</div>\n<div class=\"keyline\"><strong>انتبه:</strong> المعيار الأخير يعتمد على Port ID للمرسل، وليس رقم منفذ المستقبل.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: منفذ ليس Root ولا Designated؛ ماذا يصبح؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">يصبح Alternate/Blocked Port، ويبقى كمسار احتياطي دون تمرير حركة المستخدم في الحالة الطبيعية.</div></div>\n<div class=\"terms\"><span class=\"term\">Designated Port</span><span class=\"term\">Alternate Port</span><span class=\"term\">Port Priority</span><span class=\"term\">Port ID</span></div>"
+    },
+    {
+      "id": "u5s6",
+      "number": "06",
+      "toc_title": "المؤقتات وحالات STP",
+      "title": "STP لا ينتقل إلى Forwarding مباشرة",
+      "subtitle": "المؤقتات والحالات تمنح المحوّلات وقتًا لفهم الطوبولوجيا قبل السماح بمرور بيانات المستخدم.",
+      "body_html": "<div class=\"grid3\">\n  <div class=\"card\"><div class=\"micro\">Hello Timer</div><h4>2 ثانية افتراضيًا</h4><p>الفاصل بين BPDUs، ويمكن وفق العرض ضبطه من 1 إلى 10 ثوانٍ.</p></div>\n  <div class=\"card\"><div class=\"micro\">Forward Delay</div><h4>15 ثانية افتراضيًا</h4><p>الوقت في Listening والوقت في Learning، ويمكن ضبطه من 4 إلى 30 ثانية.</p></div>\n  <div class=\"card\"><div class=\"micro\">Max Age</div><h4>20 ثانية افتراضيًا</h4><p>أقصى وقت انتظار قبل محاولة تغيير طوبولوجيا STP، ويمكن ضبطه من 6 إلى 40 ثانية.</p></div>\n</div>\n<div class=\"keyline\"><strong>مرجع المؤقتات:</strong> يذكر العرض أن القيم الافتراضية يمكن تغييرها على Root Bridge، وهو الذي يحددها لنطاق STP.</div>\n<div class=\"flow\">\n  <div class=\"step\"><b>Blocking</b><span>لا تمرير بيانات، لا تحديث لجدول MAC، استقبال BPDU فقط.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Listening</b><span>إرسال/استقبال BPDU، بلا تعلم MAC أو تمرير بيانات.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Learning</b><span>يتعلم عناوين MAC، لكنه لا يمرر بيانات المستخدم بعد.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Forwarding</b><span>يتعلم MAC ويمرر الإطارات.</span></div>\n</div>\n<div class=\"swipe-hint\">↔ اسحب لرؤية حالات STP</div>\n<details class=\"expand study-detail\"><summary>وماذا عن Disabled؟</summary><div class=\"expand-body\">Disabled حالة غير تشغيلية في الجدول: لا تُرسل أو تُستقبل BPDUs، لا يحدث تحديث لجدول MAC، ولا تمرر إطارات بيانات.</div></details>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: في أي حالة يبدأ المنفذ بتحديث جدول MAC دون تمرير بيانات المستخدم؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">Learning.</div></div>\n<div class=\"terms\"><span class=\"term\">Hello Timer</span><span class=\"term\">Forward Delay</span><span class=\"term\">Max Age</span><span class=\"term\">Blocking</span><span class=\"term\">Learning</span><span class=\"term\">Forwarding</span></div>"
+    },
+    {
+      "id": "u5s7",
+      "number": "07",
+      "toc_title": "PVST+ وRSTP وRapid PVST+",
+      "title": "تطور Spanning Tree: من STP إلى RSTP",
+      "subtitle": "الفكرة الأساسية بقيت، لكن التقارب أصبح أسرع وأصبح من الممكن تشغيل مثيل مستقل لكل VLAN.",
+      "body_html": "<p class=\"core\"><strong>PVST+ (الشجرة الممتدة لكل VLAN)</strong> يشغّل مثيل STP مستقلًا لكل VLAN، ولذلك يمكن أن يكون لكل VLAN Root Bridge مختلف. ويذكر العرض أن محوّلات Cisco ذات IOS 15.0 أو أحدث تعمل بـPVST+ افتراضيًا، بينما يحتاج وضع Rapid Spanning Tree إلى تفعيل صريح.</p>\n<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">STP · IEEE 802.1D</div><h4>التقارب التقليدي</h4><p>يعتمد حالات Blocking وListening وLearning وForwarding، ويستخدم نفس STA لاختيار الأدوار والمسارات.</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">RSTP · IEEE 802.1w</div><h4>تقارب أسرع</h4><p>يحافظ على مفاهيم STP الأساسية لكنه يسرّع إعادة الحساب، وقد ينتقل Alternate Port إلى Forwarding بسرعة كبيرة في شبكة مضبوطة جيدًا.</p></div>\n</div>\n<div class=\"grid3\">\n  <div class=\"card\"><h4>Discarding</h4><p>في RSTP تندمج حالات Disabled وBlocking وListening التقليدية في حالة واحدة.</p></div>\n  <div class=\"card\"><h4>Learning</h4><p>يبني جدول MAC ولا يمرر بيانات المستخدم بعد.</p></div>\n  <div class=\"card\"><h4>Forwarding</h4><p>يتعلم ويمرر حركة المستخدم.</p></div>\n</div>\n<div class=\"keyline\"><strong>Rapid PVST+:</strong> تطبيق Cisco لـRSTP على أساس Per-VLAN؛ يعمل مثيل مستقل من RSTP لكل VLAN.</div>\n<details class=\"expand study-detail\"><summary>بقية الإصدارات الواردة في المنهج</summary><div class=\"expand-body\"><ul><li><strong>STP/CST:</strong> المثيل الأصلي وفق 802.1D.</li><li><strong>PVST+:</strong> مثيل 802.1D مستقل لكل VLAN.</li><li><strong>RSTP:</strong> IEEE 802.1w بتقارب أسرع.</li><li><strong>Rapid PVST+:</strong> مثيل RSTP مستقل لكل VLAN.</li><li><strong>MSTP/MST:</strong> تجميع عدة VLANs في عدد أقل من مثيلات Spanning Tree؛ يذكر العرض أن تطبيق Cisco MST يوفر حتى 16 مثيلًا من RSTP.</li></ul></div></details>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: ما الفرق البصري الأبرز في حالات RSTP مقارنة بـSTP؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">RSTP يستخدم ثلاث حالات فقط: Discarding وLearning وForwarding، حيث تندمج Disabled وBlocking وListening القديمة في Discarding.</div></div>\n<div class=\"terms\"><span class=\"term\">PVST+</span><span class=\"term\">RSTP</span><span class=\"term\">Rapid PVST+</span><span class=\"term\">MSTP</span><span class=\"term\">Discarding</span></div>"
+    },
+    {
+      "id": "u5s8",
+      "number": "08",
+      "toc_title": "PortFast وBPDU Guard",
+      "title": "تسريع منافذ المستخدم مع إبقاء الحماية من الحلقات",
+      "subtitle": "PortFast يزيل انتظار STP على منفذ المستخدم، وBPDU Guard يحميه إذا ظهر عليه محوّل بالخطأ.",
+      "body_html": "<div class=\"grid2\">\n  <div class=\"card\"><h4>PortFast</h4><p>يجعل منفذ Access ينتقل إلى Forwarding مباشرة بدل انتظار Listening ثم Learning، متجنبًا تأخيرًا تقليديًا قدره نحو 30 ثانية. يفيد خصوصًا أجهزة المستخدم وDHCP.</p></div>\n  <div class=\"card\"><h4>BPDU Guard</h4><p>إذا استقبل منفذ PortFast رسالة BPDU فهذا مؤشر على اتصال محوّل محتمل. BPDU Guard يضع المنفذ فورًا في حالة errdisabled لحماية الشبكة من حلقة محتملة.</p></div>\n</div>\n<div class=\"keyline\"><strong>قاعدة أمان:</strong> PortFast للاستخدام على Access Ports المتصلة بأجهزة نهائية فقط. تمكينه على وصلة إلى محوّل آخر قد يعرّض الشبكة لحلقة STP.</div>\n<details class=\"expand study-detail\"><summary>لماذا تتجه بعض التصاميم إلى Layer 3؟</summary><div class=\"expand-body\">يذكر العرض أن Layer 3 Routing يسمح بمسارات مكررة دون الحاجة إلى حجب منافذ كما يفعل Spanning Tree، ولذلك تتجه بعض البيئات إلى جعل الربط بين طبقتي Access وDistribution من Layer 3 مع الإبقاء على Layer 2 قرب الأجهزة النهائية.</div></details>\n<div class=\"summary-box\"><h4>ما الذي يجب أن يبقى في ذهنك؟</h4><div class=\"summary-list\">\n  <div class=\"summary-item\">التكرار يحسن الاستمرارية لكنه قد يصنع Layer 2 Loop.</div>\n  <div class=\"summary-item\">STP يمنع الحلقة باختيار Root Bridge ومسار أقل تكلفة وحجب المسار البديل.</div>\n  <div class=\"summary-item\">BPDUs وBID وPort Cost هي أساس قرارات STA.</div>\n  <div class=\"summary-item\">RSTP وRapid PVST+ يقدمان تقاربًا أسرع مع مفاهيم أدوار مشابهة.</div>\n  <div class=\"summary-item\">PortFast يسرّع منافذ المستخدم، وBPDU Guard يحميها من BPDUs غير المتوقعة.</div>\n</div></div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال ختامي: لماذا نستخدم PortFast وBPDU Guard معًا على منفذ مستخدم؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">PortFast يسرّع وصول الجهاز للشبكة، وBPDU Guard يحمي المنفذ إذا استقبل BPDU تدل على اتصال محوّل أو خطر حلقة.</div></div>\n<div class=\"terms\"><span class=\"term\">PortFast</span><span class=\"term\">BPDU Guard</span><span class=\"term\">errdisabled</span><span class=\"term\">Layer 3</span></div>"
+    }
+  ]
+}

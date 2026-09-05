@@ -161,6 +161,106 @@
     {
       "en": "Routed Port",
       "ar": "منفذ موجّه"
+    },
+    {
+      "en": "Redundancy",
+      "ar": "التكرار"
+    },
+    {
+      "en": "Layer 2 Loop",
+      "ar": "حلقة في الطبقة الثانية"
+    },
+    {
+      "en": "Broadcast Storm",
+      "ar": "عاصفة البث"
+    },
+    {
+      "en": "Spanning Tree Protocol (STP)",
+      "ar": "بروتوكول الشجرة الممتدة"
+    },
+    {
+      "en": "Spanning Tree Algorithm (STA)",
+      "ar": "خوارزمية الشجرة الممتدة"
+    },
+    {
+      "en": "Bridge Protocol Data Unit (BPDU)",
+      "ar": "وحدة بيانات بروتوكول الجسر"
+    },
+    {
+      "en": "Bridge ID (BID)",
+      "ar": "معرّف الجسر"
+    },
+    {
+      "en": "Root Bridge",
+      "ar": "المحوّل الجذري"
+    },
+    {
+      "en": "Root Port",
+      "ar": "المنفذ الجذري"
+    },
+    {
+      "en": "Designated Port",
+      "ar": "المنفذ المعيّن"
+    },
+    {
+      "en": "Alternate Port",
+      "ar": "المنفذ البديل"
+    },
+    {
+      "en": "Root Path Cost",
+      "ar": "تكلفة المسار إلى الجذر"
+    },
+    {
+      "en": "Bridge Priority",
+      "ar": "أولوية الجسر"
+    },
+    {
+      "en": "Extended System ID",
+      "ar": "معرّف النظام الممتد"
+    },
+    {
+      "en": "PVST+",
+      "ar": "الشجرة الممتدة لكل VLAN"
+    },
+    {
+      "en": "RSTP",
+      "ar": "بروتوكول الشجرة الممتدة السريع"
+    },
+    {
+      "en": "Rapid PVST+",
+      "ar": "الشجرة الممتدة السريعة لكل VLAN"
+    },
+    {
+      "en": "MSTP",
+      "ar": "بروتوكول الشجرة الممتدة المتعددة"
+    },
+    {
+      "en": "PortFast",
+      "ar": "التفعيل السريع للمنفذ"
+    },
+    {
+      "en": "BPDU Guard",
+      "ar": "حماية BPDU"
+    },
+    {
+      "en": "Link Aggregation",
+      "ar": "تجميع الروابط"
+    },
+    {
+      "en": "EtherChannel",
+      "ar": "تجميع روابط Ethernet منطقيًا"
+    },
+    {
+      "en": "Port Channel",
+      "ar": "واجهة تجميع الروابط"
+    },
+    {
+      "en": "PAgP",
+      "ar": "بروتوكول تجميع المنافذ"
+    },
+    {
+      "en": "LACP",
+      "ar": "بروتوكول التحكم في تجميع الروابط"
     }
   ]
 }
