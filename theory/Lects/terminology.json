@@ -105,6 +105,62 @@
     {
       "en": "Buffering",
       "ar": "التخزين المؤقت"
+    },
+    {
+      "en": "VLAN",
+      "ar": "الشبكة المحلية الافتراضية"
+    },
+    {
+      "en": "Access Port",
+      "ar": "منفذ وصول"
+    },
+    {
+      "en": "Trunk",
+      "ar": "وصلة تنقل عدة VLANs"
+    },
+    {
+      "en": "Native VLAN",
+      "ar": "شبكة VLAN الأصلية"
+    },
+    {
+      "en": "Data VLAN",
+      "ar": "شبكة VLAN للبيانات"
+    },
+    {
+      "en": "Voice VLAN",
+      "ar": "شبكة VLAN للصوت"
+    },
+    {
+      "en": "VLAN Tagging",
+      "ar": "وسم VLAN"
+    },
+    {
+      "en": "IEEE 802.1Q",
+      "ar": "معيار وسم VLAN"
+    },
+    {
+      "en": "DTP",
+      "ar": "بروتوكول التفاوض على Trunk"
+    },
+    {
+      "en": "Inter-VLAN Routing",
+      "ar": "التوجيه بين شبكات VLAN"
+    },
+    {
+      "en": "Router-on-a-Stick",
+      "ar": "التوجيه عبر واجهة راوتر واحدة"
+    },
+    {
+      "en": "Subinterface",
+      "ar": "واجهة فرعية"
+    },
+    {
+      "en": "Layer 3 Switch",
+      "ar": "محوّل الطبقة الثالثة"
+    },
+    {
+      "en": "Routed Port",
+      "ar": "منفذ موجّه"
     }
   ]
 }

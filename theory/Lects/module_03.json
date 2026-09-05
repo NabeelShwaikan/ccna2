@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "module_number": 3,
+  "group_id": "02_VLAN_InterVLAN",
+  "title": "الوحدة 3 — VLANs (الشبكات المحلية الافتراضية)",
+  "title_en": "VLANs",
+  "badge": "VLANs",
+  "summary": "كيف تقسّم VLAN (الشبكة المحلية الافتراضية) شبكة Layer 2 إلى مجالات بث منطقية، وكيف تنتقل VLANs بين المحوّلات عبر Trunk ووسم 802.1Q، ثم كيفية إنشاء VLANs وربط المنافذ بها وتكوين Trunks وDTP والتحقق منها.",
+  "official_objective": "شرح الغرض من VLANs في الشبكات المحوّلة، وكيف تنتقل الإطارات وفق تكوين VLAN عبر عدة محوّلات، ثم تكوين منافذ Access وTrunk وDTP والتحقق منها.",
+  "lecture": {
+    "duration": "≈ 90 دقيقة",
+    "steps": [
+      {
+        "time": "15 د",
+        "topic": "مفهوم VLAN وفوائد التقسيم وأنواع VLAN الأساسية."
+      },
+      {
+        "time": "15 د",
+        "topic": "VLANs عبر عدة محوّلات: Trunk، عزل الحركة، ووسم IEEE 802.1Q."
+      },
+      {
+        "time": "15 د",
+        "topic": "Native VLAN وVoice VLAN وكيفية التعامل مع الوسم."
+      },
+      {
+        "time": "20 د",
+        "topic": "نطاقات VLAN وإنشاؤها وربط Access Ports وData/Voice VLANs والتحقق."
+      },
+      {
+        "time": "15 د",
+        "topic": "تكوين Trunk، Allowed VLANs، Native VLAN والتحقق وإعادة الضبط."
+      },
+      {
+        "time": "10 د",
+        "topic": "DTP: أوضاع التفاوض، النتائج، وأفضل ممارسة + مراجعة."
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "u3s1",
+      "number": "01",
+      "toc_title": "فكرة VLAN وفوائدها",
+      "title": "لماذا نستخدم VLAN (الشبكة المحلية الافتراضية)؟",
+      "subtitle": "VLAN تقسيم منطقي داخل البنية المحوّلة؛ الأجهزة قد تتشارك المحوّلات نفسها لكنها تصبح ضمن شبكات منطقية مستقلة.",
+      "body_html": "<p class=\"core\"><strong>VLAN (الشبكة المحلية الافتراضية)</strong> تجمع الأجهزة منطقيًا بدل أن يكون التجميع مرتبطًا بمكانها الفيزيائي فقط. كل VLAN تمثل شبكة منطقية منفصلة، وتُعزل داخلها حركة Broadcast وMulticast وUnicast الخاصة بها.</p>\n<div class=\"grid3\">\n<div class=\"card\"><h4>مجالات بث أصغر</h4><p>تقسيم LAN إلى VLANs يصغّر Broadcast Domain (مجال البث) ويحد من انتشار حركة البث.</p></div>\n<div class=\"card\"><h4>تنظيم وأمان أفضل</h4><p>يمكن جمع الأجهزة حسب الوظيفة أو الفريق أو التطبيق، ولا تتواصل VLANs المختلفة مباشرة من دون Layer 3.</p></div>\n<div class=\"card\"><h4>أداء وإدارة</h4><p>تقليل حركة البث وتحجيم المجموعات يساعدان على تحسين استخدام عرض النطاق وتبسيط الإدارة.</p></div>\n</div>\n<div class=\"keyline\"><strong>قاعدة أساسية:</strong> لكل VLAN نطاق IP منطقي خاص بها عادةً، والأجهزة في VLAN مختلفة تحتاج Router (الموجّه) أو Layer 3 Switch (محوّل الطبقة الثالثة) حتى تتواصل.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: جهازان موصولان بالمحوّل نفسه لكن كل واحد في VLAN مختلفة؛ هل يمكنهما التواصل مباشرة على Layer 2؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">لا. VLANs تفصل الشبكات منطقيًا، والتواصل بين VLANs يحتاج خدمة Routing (التوجيه) من جهاز Layer 3.</div></div>\n<div class=\"terms\"><span class=\"term\">VLAN (الشبكة المحلية الافتراضية)</span><span class=\"term\">Broadcast Domain (مجال البث)</span><span class=\"term\">Layer 2</span><span class=\"term\">Layer 3</span></div>"
+    },
+    {
+      "id": "u3s2",
+      "number": "02",
+      "toc_title": "أنواع VLAN",
+      "title": "ليست كل VLANs للغرض نفسه",
+      "subtitle": "يميز المنهج بين Default وData وNative وManagement وVoice VLANs؛ ولكل واحدة وظيفة مختلفة.",
+      "body_html": "<div class=\"grid2\">\n<div class=\"card\"><h4>Default VLAN</h4><p><strong>VLAN 1</strong> هي VLAN الافتراضية، وتكون افتراضيًا أيضًا Native VLAN وManagement VLAN، ولا يمكن حذفها أو إعادة تسميتها. توصي Cisco بنقل الوظائف الافتراضية الحساسة إلى VLANs أخرى.</p></div>\n<div class=\"card\"><h4>Data VLAN</h4><p>مخصصة لحركة المستخدم العادية مثل البريد والويب. جميع المنافذ تكون في VLAN 1 افتراضيًا قبل إعادة توزيعها.</p></div>\n<div class=\"card\"><h4>Native VLAN</h4><p>تستخدم على Trunk. في 802.1Q تكون إطارات Native VLAN غير موسومة افتراضيًا، ويجب أن تتطابق Native VLAN على طرفي الوصلة.</p></div>\n<div class=\"card\"><h4>Management VLAN</h4><p>تستخدم لحركة الإدارة مثل SSH/Telnet، وغالبًا تكون هي VLAN التي توجد عليها SVI الخاصة بإدارة Switch (المحوّل).</p></div>\n</div>\n<div class=\"keyline\"><strong>Voice VLAN:</strong> تحتاج حركة الصوت VLAN منفصلة بسبب حساسيتها للزمن والحاجة إلى عرض نطاق مضمون وأولوية QoS وتجنب الازدحام، ويذكر العرض هدف تأخير أقل من 150 ms من المصدر إلى الوجهة.</div>\n<details class=\"expand study-detail\"><summary>كيف يجتمع Data VLAN وVoice VLAN على منفذ Access واحد؟</summary><div class=\"expand-body\">يمكن لمنفذ Access أن ينتمي إلى Data VLAN واحدة، ومع ذلك يمكن أن يحدد أيضًا Voice VLAN للهاتف المتصل على المنفذ نفسه. يستخدم Switch بروتوكول CDP لإبلاغ هاتف Cisco بـ Voice VLAN، ويقوم الهاتف بوسم حركة الصوت الخاصة به ويمكنه استخدام CoS كأولوية Layer 2.</div></details>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: لماذا لا نستخدم VLAN 1 كخيار مفضل للإدارة رغم أنها تعمل افتراضيًا؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">لأن أفضل الممارسات في العرض توصي بفصل وظائف الإدارة والـNative عن VLAN 1 الافتراضية واستخدام VLANs مخصصة.</div></div>\n<div class=\"terms\"><span class=\"term\">Data VLAN</span><span class=\"term\">Native VLAN</span><span class=\"term\">Management VLAN</span><span class=\"term\">Voice VLAN</span></div>"
+    },
+    {
+      "id": "u3s3",
+      "number": "03",
+      "toc_title": "VLANs وTrunks",
+      "title": "كيف تمتد VLAN عبر عدة محوّلات؟",
+      "subtitle": "Trunk ينقل حركة أكثر من VLAN على وصلة واحدة بدل تخصيص وصلة منفصلة لكل VLAN.",
+      "body_html": "<p class=\"core\"><strong>Trunk (وصلة تنقل عدة VLANs)</strong> هي وصلة Point-to-Point بين جهازين شبكيين تسمح بمرور أكثر من VLAN، وتمكّن VLAN نفسها من الامتداد عبر عدة Switches (محولات). افتراضيًا يدعم Trunk جميع VLANs ما لم تُقيّد قائمة VLANs المسموح بها.</p>\n<div class=\"compare\">\n<div class=\"compare-box\"><span class=\"tag\">بدون VLANs</span><h4>مجال بث واسع</h4><p>تنتشر حركة Broadcast عبر الشبكة المحوّلة، ولا يوجد فصل منطقي بين المجموعات.</p></div>\n<div class=\"compare-box\"><span class=\"tag\">مع VLANs</span><h4>الحركة محصورة داخل VLAN</h4><p>Broadcast وMulticast وUnicast المرتبطة بالشبكة المنطقية تبقى داخل VLAN المناسبة، ولا تنتقل إلى VLAN أخرى من دون Layer 3.</p></div>\n</div>\n<div class=\"diagram\"><div class=\"diagram-title\">فكرة Trunk: وصلة واحدة بين Switches تحمل VLAN 10 و20 و30 بدل استخدام منفذ مستقل لكل VLAN.</div><div class=\"network-row\"><div class=\"lan-zone\"><span class=\"zone-title\">S1</span><div class=\"dev\">VLAN 10</div><div class=\"dev\">VLAN 20</div></div><div class=\"wire\"><span class=\"label\">802.1Q Trunk</span></div><div class=\"lan-zone\"><span class=\"zone-title\">S2</span><div class=\"dev\">VLAN 10</div><div class=\"dev\">VLAN 20</div></div></div></div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: لماذا نحتاج Trunk بين محوّلين إذا كانت VLAN 20 موجودة على كليهما؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">لأن Trunk يسمح بتمرير حركة VLAN 20 ـ ومعها VLANs أخرى ـ عبر وصلة واحدة مع الحفاظ على هوية VLAN لكل Frame.</div></div>\n<div class=\"terms\"><span class=\"term\">Trunk</span><span class=\"term\">Access Port</span><span class=\"term\">VLAN Segmentation</span></div>"
+    },
+    {
+      "id": "u3s4",
+      "number": "04",
+      "toc_title": "وسم IEEE 802.1Q",
+      "title": "كيف يعرف الطرف الآخر لأي VLAN ينتمي Frame؟",
+      "subtitle": "802.1Q يضيف Tag إلى Frame أثناء عبوره Trunk ثم يزال قبل وصوله إلى الجهاز الطرفي.",
+      "body_html": "<p class=\"core\">يضيف معيار <strong>IEEE 802.1Q</strong> وسمًا بحجم <strong>4 Bytes</strong> إلى Frame أثناء عبوره Trunk. عند إضافة Tag يجب إعادة حساب FCS، وعند إزالة Tag قبل تسليم Frame إلى الجهاز الطرفي يعاد حساب FCS مرة أخرى.</p>\n<div class=\"grid2\">\n<div class=\"card\"><h4>TPID / Type</h4><p>حقل 2 Bytes بالقيمة <strong>0x8100</strong> للدلالة على وجود وسم 802.1Q.</p></div>\n<div class=\"card\"><h4>User Priority</h4><p>قيمة 3 bits تستخدم للأولوية على Layer 2.</p></div>\n<div class=\"card\"><h4>CFI</h4><p>حقل 1 bit كما يورده العرض ضمن مكونات Tag.</p></div>\n<div class=\"card\"><h4>VID</h4><p>معرّف VLAN بطول 12 bits، ما يسمح نظريًا بـ4096 قيمة مع وجود نطاقات محجوزة/غير مستخدمة تشغيليًا.</p></div>\n</div>\n<div class=\"keyline\"><strong>Native VLAN:</strong> في Trunk 802.1Q تكون VLAN الأصلية غير موسومة افتراضيًا، ويجب أن تكون Native VLAN نفسها على طرفي Trunk؛ عدم التطابق يؤدي إلى مشكلات.</div>\n<details class=\"expand study-detail\"><summary>Voice VLAN والوسم</summary><div class=\"expand-body\">هاتف VoIP يعمل كجهاز يحتوي عمليًا على منافذ للربط مع Switch وPC. يبلّغه Switch عن Voice VLAN بواسطة CDP، ويقوم الهاتف بوسم حركة الصوت وقد يضيف قيمة CoS. حركة PC قد تكون موسومة أو غير موسومة وفق التكوين.</div></details>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: أي جزء من 802.1Q يحدد رقم VLAN الذي ينتمي إليه Frame؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">VLAN ID (VID)، وهو حقل بطول 12 bits داخل 802.1Q Tag.</div></div>\n<div class=\"terms\"><span class=\"term\">IEEE 802.1Q</span><span class=\"term\">VLAN Tagging</span><span class=\"term\">Native VLAN</span><span class=\"term\">VID</span></div>"
+    },
+    {
+      "id": "u3s5",
+      "number": "05",
+      "toc_title": "إنشاء VLAN وربط المنافذ",
+      "title": "من قاعدة البيانات إلى Access Port",
+      "subtitle": "ننشيء VLAN أولًا، نسميها، ثم نضع منفذ المستخدم في Access Mode ونربطه برقم VLAN المطلوب.",
+      "body_html": "<div class=\"compare\">\n<div class=\"compare-box\"><span class=\"tag\">Normal Range</span><h4>VLAN 1–1005</h4><ul><li>VLANs 1 و1002–1005 تُنشأ تلقائيًا ولا يمكن حذفها.</li><li>التكوين يُخزن في <strong>vlan.dat</strong> داخل Flash.</li><li>يستخدم عادة في بيئات صغيرة ومتوسطة.</li></ul></div>\n<div class=\"compare-box\"><span class=\"tag\">Extended Range</span><h4>VLAN 1006–4095</h4><ul><li>يستخدم في بيئات أوسع مثل مزودي الخدمة.</li><li>يظهر ضمن Running-Config بحسب العرض.</li><li>له اعتبارات VTP وميزات أقل في المنصات التي يتناولها المنهج.</li></ul></div>\n</div>\n<div class=\"cmd study-detail\">configure terminal<br/>vlan 20<br/> name student<br/>interface fa0/18<br/> switchport mode access<br/> switchport access vlan 20<br/>end</div>\n<div class=\"grid2\">\n<div class=\"card\"><h4>التحقق</h4><div class=\"cmd\">show vlan brief<br/>show vlan id 20<br/>show vlan name student<br/>show vlan summary<br/>show interfaces fa0/18 switchport</div></div>\n<div class=\"card\"><h4>تغيير العضوية</h4><p>أعد تنفيذ <code>switchport access vlan vlan-id</code> لاختيار VLAN أخرى. واستخدام <code>no switchport access vlan</code> يعيد المنفذ إلى VLAN 1.</p></div>\n</div>\n<details class=\"expand study-detail\"><summary>Data VLAN + Voice VLAN على المنفذ نفسه</summary><div class=\"expand-body\"><div class=\"cmd\">vlan 20<br/> name student<br/>vlan 150<br/> name VOICE<br/>interface fa0/18<br/> switchport mode access<br/> switchport access vlan 20<br/> mls qos trust cos<br/> switchport voice vlan 150</div><p>يوضح العرض أن QoS نفسه خارج نطاق المقرر، لكن الأمر يظهر في المثال لتوضيح أولوية الصوت.</p></div></details>\n<details class=\"expand study-detail\"><summary>حذف VLAN: ماذا يحدث للمنافذ؟</summary><div class=\"expand-body\"><p>استخدم <code>no vlan vlan-id</code> لحذف VLAN محددة. يجب نقل المنافذ منها أولًا. حذف قاعدة VLAN كاملة يتم بـ <code>delete flash:vlan.dat</code> أو <code>delete vlan.dat</code> ثم Reload وفق سيناريو العرض.</p></div></details>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: أنشأت VLAN 20 لكن PC ما زال ضمن VLAN 1. ما الخطوة الناقصة؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">تكوين منفذ PC كـAccess Port ثم ربطه بـVLAN 20 باستخدام switchport access vlan 20.</div></div>"
+    },
+    {
+      "id": "u3s6",
+      "number": "06",
+      "toc_title": "تكوين Trunk والتحقق",
+      "title": "اجعل وصلة Trunk واضحة ومحددة",
+      "subtitle": "أفضل التكوينات هي التي تحدد Mode وNative VLAN وAllowed VLANs صراحةً ثم تتحقق من الحالة التشغيلية.",
+      "body_html": "<div class=\"cmd\">interface fa0/1<br/> switchport mode trunk<br/> switchport trunk native vlan 99<br/> switchport trunk allowed vlan 10,20,30,99<br/>end</div>\n<div class=\"grid2\">\n<div class=\"card\"><h4>Administrative vs Operational</h4><p>التحقق لا يكتفي بما كتبته في الإعداد. يجب أن ترى أن المنفذ <strong>trunk إداريًا وتشغيليًا</strong> وأن Encapsulation هو dot1q وأن Native VLAN صحيحة.</p></div>\n<div class=\"card\"><h4>Allowed VLANs</h4><p>يمكن تقييد VLANs التي تعبر Trunk. وإذا لم تُحدد القائمة، يكون السلوك الافتراضي السماح بـVLANs المدعومة على الوصلة بحسب المنصة.</p></div>\n</div>\n<div class=\"cmd study-detail\">show interfaces fa0/1 switchport<br/>show interfaces trunk</div>\n<details class=\"expand study-detail\"><summary>إعادة Trunk إلى القيم الافتراضية أو إلى Access</summary><div class=\"expand-body\"><div class=\"cmd\">interface fa0/1<br/> no switchport trunk allowed vlan<br/> no switchport trunk native vlan<br/><br/>! لإعادته Access<br/> switchport mode access</div><p>بعد إزالة إعداد Native VLAN تعود إلى VLAN 1، وبعد إزالة Allowed VLAN list تعود السياسة الافتراضية. استخدم أوامر show للتحقق.</p></div></details>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: كلا الطرفين Trunk لكن كل طرف يستخدم Native VLAN مختلفة. هل التكوين صحيح؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">لا. يجب أن تتطابق Native VLAN على طرفي Trunk حتى لا يحدث Native VLAN mismatch وما يترتب عليه من مشكلات.</div></div>\n<div class=\"terms\"><span class=\"term\">Trunk</span><span class=\"term\">Allowed VLANs</span><span class=\"term\">Native VLAN</span><span class=\"term\">802.1Q</span></div>"
+    },
+    {
+      "id": "u3s7",
+      "number": "07",
+      "toc_title": "DTP",
+      "title": "DTP: متى يصبح الرابط Trunk تلقائيًا؟",
+      "subtitle": "DTP بروتوكول Cisco للتفاوض على Trunk، لكن أفضل ممارسة في العرض هي التكوين الثابت وإيقاف التفاوض عند عدم الحاجة.",
+      "body_html": "<p class=\"core\"><strong>DTP (Dynamic Trunking Protocol)</strong> بروتوكول مملوك لـCisco للتفاوض على وضع الوصلة. يذكر العرض أن Dynamic Auto هو الوضع الافتراضي في Catalyst 2960 و2950 في البيئة التي يشرحها.</p>\n<div class=\"grid2\">\n<div class=\"card\"><h4>dynamic auto</h4><p>لا يبادر؛ يصبح Trunk إذا كان الطرف الآخر Trunk أو Dynamic Desirable.</p></div>\n<div class=\"card\"><h4>dynamic desirable</h4><p>يبادر بالتفاوض ليصبح Trunk، وينجح مع Auto أو Desirable أو Trunk.</p></div>\n<div class=\"card\"><h4>trunk</h4><p>وضع Trunk دائم، ويستطيع التفاوض مع الطرف الآخر ما لم توقف DTP.</p></div>\n<div class=\"card\"><h4>access</h4><p>وضع Access دائم؛ الجمع بين Trunk ثابت وAccess ثابت يؤدي إلى اتصال محدود/غير صحيح.</p></div>\n</div>\n<div class=\"cmd study-detail\">switchport mode trunk<br/>switchport nonegotiate<br/><br/>! أو<br/>switchport mode dynamic auto<br/><br/>show dtp interface</div>\n<div class=\"keyline\"><strong>Best Practice:</strong> يوصي العرض بتحديد المنافذ صراحةً كـAccess أو Trunk وإيقاف DTP عندما لا يكون التفاوض مطلوبًا، لتقليل مشكلات التفاوض غير المقصود.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: إذا كان الطرفان Dynamic Auto، ماذا تصبح الوصلة؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">Access؛ لأن أي طرف منهما لا يبادر بتكوين Trunk.</div></div>"
+    },
+    {
+      "id": "u3s8",
+      "number": "✓",
+      "toc_title": "خلاصة الوحدة 3",
+      "title": "ماذا يجب أن يبقى في ذهنك؟",
+      "subtitle": "العلاقة بين VLAN وAccess وTrunk و802.1Q وDTP هي جوهر الوحدة.",
+      "body_html": "<div class=\"summary-box\"><h4>الخلاصة الذهنية</h4><div class=\"summary-list\">\n<div class=\"summary-item\">VLAN تقسيم منطقي يجعل كل VLAN شبكة مستقلة ومجال بث أصغر.</div>\n<div class=\"summary-item\">Access Port يخدم Data VLAN واحدة، ويمكن أن يضيف Voice VLAN عند وجود هاتف IP مع جهاز طرفي.</div>\n<div class=\"summary-item\">Trunk يحمل أكثر من VLAN بين الأجهزة الشبكية ويستخدم 802.1Q للحفاظ على هوية VLAN.</div>\n<div class=\"summary-item\">802.1Q Tag حجمه 4 Bytes ويتضمن VID؛ أما Native VLAN فتكون غير موسومة افتراضيًا ويجب أن تتطابق على الطرفين.</div>\n<div class=\"summary-item\">VLANs ذات النطاق الطبيعي تحفظ في vlan.dat وفق المنصات المعروضة، ويمكن إنشاء VLAN وتسميتها ثم ربط منافذ Access بها.</div>\n<div class=\"summary-item\">DTP يتفاوض على Trunk، لكن التكوين الثابت مع تعطيل التفاوض هو أفضل ممارسة عندما لا نحتاج DTP.</div>\n</div></div>\n<div class=\"terms\"><span class=\"term\">VLAN</span><span class=\"term\">Access Port</span><span class=\"term\">Trunk</span><span class=\"term\">IEEE 802.1Q</span><span class=\"term\">Native VLAN</span><span class=\"term\">Voice VLAN</span><span class=\"term\">DTP</span></div>"
+    }
+  ],
+  "review": {
+    "committee": "theory_content_committee",
+    "status": "approved",
+    "approved": true,
+    "review_date": "2026-09-05",
+    "notes": [
+      "تمت مطابقة الداتا مع المحاور الخمسة في Instructor Materials: Overview of VLANs، Multi-Switched Environment، VLAN Configuration، VLAN Trunks، وDTP.",
+      "تم تضمين نطاقات VLAN، 802.1Q Tag، Native/Voice VLAN، أوامر الإنشاء والتعيين والتحقق والحذف، Trunk وDTP ضمن المسار الأساسي أو التفاصيل القابلة للطي.",
+      "أنشطة Packet Tracer والمختبرات لم تُنسخ إلى الجزء النظري لأنها موجودة ضمن المسار العملي للمشروع.",
+      "توجد في شريحة Module Objectives بالملف عبارة Protocols and Models وهدف غير متعلق بـVLANs؛ اعتبرتها اللجنة خطأً ظاهرًا في العرض واعتمدت Topic Objectives الخاصة بالوحدة لبناء الهدف التعليمي.",
+      "لم يتم تعديل التصميم أو إضافة مكونات CSS جديدة."
+    ]
+  }
+}

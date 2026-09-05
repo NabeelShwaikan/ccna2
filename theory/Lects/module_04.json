@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "module_number": 4,
+  "group_id": "02_VLAN_InterVLAN",
+  "title": "الوحدة 4 — Inter-VLAN Routing (التوجيه بين شبكات VLAN)",
+  "title_en": "Inter-VLAN Routing",
+  "badge": "Inter-VLAN Routing",
+  "summary": "لماذا لا تتواصل VLANs المختلفة مباشرة، وما الخيارات الثلاثة للتوجيه بينها، وكيف يعمل Router-on-a-Stick وLayer 3 Switch، ثم كيف نتحقق من التكوين ونشخّص أخطاء VLAN وTrunk وAccess وSubinterfaces.",
+  "official_objective": "استكشاف أخطاء Inter-VLAN Routing (التوجيه بين شبكات VLAN) على أجهزة Layer 3، مع فهم خيارات التكوين وتطبيق Router-on-a-Stick وLayer 3 Switching.",
+  "lecture": {
+    "duration": "≈ 85 دقيقة",
+    "steps": [
+      {
+        "time": "15 د",
+        "topic": "لماذا نحتاج Inter-VLAN Routing؟ مقارنة Legacy وRouter-on-a-Stick وLayer 3 Switch."
+      },
+      {
+        "time": "20 د",
+        "topic": "Router-on-a-Stick: Trunk، Subinterfaces، 802.1Q والبوابات الافتراضية."
+      },
+      {
+        "time": "10 د",
+        "topic": "التحقق من Router-on-a-Stick باستخدام ping وshow commands."
+      },
+      {
+        "time": "20 د",
+        "topic": "Layer 3 Switch: SVIs، ip routing، Routed Port والاتصال بشبكات Layer 3 أخرى."
+      },
+      {
+        "time": "15 د",
+        "topic": "استكشاف الأعطال: VLAN مفقودة، Trunk، Access Port، إعداد Router/Subinterface."
+      },
+      {
+        "time": "5 د",
+        "topic": "مراجعة العلاقات الأساسية وخط سير التشخيص."
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "u4s1",
+      "number": "01",
+      "toc_title": "خيارات Inter-VLAN Routing",
+      "title": "كيف تتواصل VLAN مع VLAN أخرى؟",
+      "subtitle": "Layer 2 يفصل VLANs؛ وللانتقال من شبكة VLAN إلى أخرى نحتاج قرار Routing على Layer 3.",
+      "body_html": "<p class=\"core\"><strong>Inter-VLAN Routing (التوجيه بين شبكات VLAN)</strong> هو تمرير حركة الشبكة من VLAN إلى VLAN أخرى. الأجهزة داخل VLAN مختلفة لا تتواصل مباشرة ما لم يوفر Router (الموجّه) أو Layer 3 Switch (محوّل الطبقة الثالثة) خدمة التوجيه.</p>\n<div class=\"grid3\">\n<div class=\"card\"><div class=\"micro\">Legacy</div><h4>واجهة فعلية لكل VLAN</h4><p>كل واجهة Ethernet في Router تتصل بمنفذ Switch داخل VLAN مختلفة وتعمل كبوابة افتراضية. تعمل، لكنها لا تتوسع جيدًا بسبب محدودية الواجهات الفيزيائية.</p></div>\n<div class=\"card\"><div class=\"micro\">Small / Medium</div><h4>Router-on-a-Stick</h4><p>واجهة Ethernet فعلية واحدة تحمل Trunk 802.1Q، وتقسّم منطقيًا إلى Subinterfaces؛ كل واجهة فرعية تمثل VLAN وشبكة IP مختلفة.</p></div>\n<div class=\"card\"><div class=\"micro\">Medium / Large</div><h4>Layer 3 Switch</h4><p>يستخدم SVIs للتوجيه داخل الجهاز نفسه، وهو الحل الأكثر قابلية للتوسع في الشبكات المؤسسية وفق العرض.</p></div>\n</div>\n<div class=\"keyline\"><strong>اختيار الحل:</strong> Legacy للتفسير التاريخي فقط، Router-on-a-Stick مناسب لشبكة صغيرة إلى متوسطة، وLayer 3 Switch هو الحل الحديث الأكثر قابلية للتوسع.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: لماذا لا يكفي Trunk وحده لكي يتواصل PC في VLAN 10 مع PC في VLAN 20؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">لأن Trunk ينقل VLANs على Layer 2 فقط. الانتقال بين شبكتين منطقيتين مختلفتين يحتاج Routing على Layer 3.</div></div>\n<div class=\"terms\"><span class=\"term\">Inter-VLAN Routing</span><span class=\"term\">Router-on-a-Stick</span><span class=\"term\">Layer 3 Switch</span><span class=\"term\">SVI</span></div>"
+    },
+    {
+      "id": "u4s2",
+      "number": "02",
+      "toc_title": "Router-on-a-Stick",
+      "title": "واجهة فعلية واحدة، وعدة Subinterfaces",
+      "subtitle": "الفكرة الأساسية: Trunk يصل إلى Router، وكل VLAN تُربط بواجهة فرعية لها عنوان IP يمثل Default Gateway لتلك VLAN.",
+      "body_html": "<p class=\"core\">في <strong>Router-on-a-Stick (التوجيه عبر واجهة راوتر واحدة)</strong> يتصل Router بـSwitch باستخدام وصلة 802.1Q Trunk واحدة. تُقسّم الواجهة الفيزيائية إلى <strong>Subinterfaces (واجهات فرعية)</strong>، وكل Subinterface مرتبطة بـVLAN واحدة وشبكة IP مستقلة.</p>\n<div class=\"flow\">\n<div class=\"step\"><b>1 · Frame من VLAN 10</b><span>يصل موسومًا عبر Trunk.</span></div><div class=\"arrow\">←</div>\n<div class=\"step\"><b>2 · Subinterface 10</b><span>يفك Router سياق VLAN ويستقبل Packet على واجهة VLAN المناسبة.</span></div><div class=\"arrow\">←</div>\n<div class=\"step\"><b>3 · Routing Decision</b><span>يقرر الوجهة اعتمادًا على شبكة IP.</span></div><div class=\"arrow\">←</div>\n<div class=\"step\"><b>4 · Subinterface 20</b><span>يعيد تغليف Frame بوسم VLAN 20 ويعيده عبر الواجهة نفسها.</span></div>\n</div>\n<div class=\"swipe-hint\">↔ اسحب لرؤية بقية المسار</div>\n<div class=\"keyline\"><strong>قابلية التوسع:</strong> يذكر العرض أن Router-on-a-Stick لا يتوسع بعد نحو <strong>50 VLAN</strong>، لذلك لا يعد الحل المثالي للبيئات الكبيرة.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: هل Subinterface منفذ فيزيائي مستقل؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">لا. هي واجهة منطقية Software-based مرتبطة بواجهة Ethernet فيزيائية واحدة.</div></div>"
+    },
+    {
+      "id": "u4s3",
+      "number": "03",
+      "toc_title": "تكوين Router-on-a-Stick",
+      "title": "تكوين الطرفين: Switch ثم Router",
+      "subtitle": "نجاح Router-on-a-Stick يعتمد على VLANs وAccess Ports وTrunk من جهة، وSubinterfaces صحيحة من جهة Router.",
+      "body_html": "<div class=\"grid2\">\n<div class=\"card\"><h4>على Switch</h4><ol><li>إنشاء VLANs وتسميتها.</li><li>إنشاء Management SVI عند الحاجة.</li><li>ربط منافذ المستخدمين بـVLANs الصحيحة.</li><li>تكوين المنفذ المتجه إلى Router كـTrunk.</li></ol></div>\n<div class=\"card\"><h4>على Router</h4><ol><li>إنشاء Subinterface لكل VLAN تحتاج Routing.</li><li>تحديد 802.1Q VLAN ID بواسطة <code>encapsulation dot1q</code>.</li><li>إعطاء كل Subinterface عنوانًا من شبكة VLAN ليصبح Default Gateway.</li><li>تفعيل الواجهة الفيزيائية بـ<code>no shutdown</code>.</li></ol></div>\n</div>\n<div class=\"cmd\">interface g0/0/1.10<br/> description Default Gateway for VLAN 10<br/> encapsulation dot1q 10<br/> ip address 192.168.10.1 255.255.255.0<br/><br/>interface g0/0/1.20<br/> description Default Gateway for VLAN 20<br/> encapsulation dot1q 20<br/> ip address 192.168.20.1 255.255.255.0<br/><br/>interface g0/0/1.99<br/> encapsulation dot1q 99<br/> ip address 192.168.99.1 255.255.255.0<br/><br/>interface g0/0/1<br/> no shutdown</div>\n<details class=\"expand study-detail\"><summary>Native VLAN على Router-on-a-Stick</summary><div class=\"expand-body\">صيغة الأمر هي <code>encapsulation dot1q vlan-id [native]</code>. تستخدم كلمة <code>native</code> عندما تريد تحديد Subinterface التي تستقبل Native VLAN غير الموسومة إذا كانت Native VLAN مختلفة عن السلوك الافتراضي.</div></details>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: أنشأت جميع Subinterfaces صحيحة لكن الواجهة الفيزيائية g0/0/1 ما زالت shutdown. ماذا يحدث؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">تتوقف جميع Subinterfaces التابعة لها؛ يجب تفعيل الواجهة الفيزيائية بـno shutdown.</div></div>\n<div class=\"terms\"><span class=\"term\">Subinterface</span><span class=\"term\">encapsulation dot1q</span><span class=\"term\">Default Gateway</span></div>"
+    },
+    {
+      "id": "u4s4",
+      "number": "04",
+      "toc_title": "التحقق من Router-on-a-Stick",
+      "title": "لا تعتبر التكوين ناجحًا قبل التحقق من الطرفين",
+      "subtitle": "ابدأ من Host ثم Router ثم Switch؛ ping يخبرك بوجود المشكلة، وأوامر show تساعدك على تحديد مكانها.",
+      "body_html": "<div class=\"grid2\">\n<div class=\"card\"><div class=\"micro\">Host</div><h4>ipconfig + ping</h4><p>تحقق من عنوان الجهاز وقناعه والبوابة الافتراضية، ثم اختبر الوصول إلى جهاز في VLAN أخرى.</p></div>\n<div class=\"card\"><div class=\"micro\">Router</div><h4>واجهات ومسارات</h4><div class=\"cmd\">show ip route<br/>show ip interface brief<br/>show interfaces</div></div>\n<div class=\"card\"><div class=\"micro\">Switch</div><h4>حالة Trunk</h4><div class=\"cmd\">show interfaces trunk<br/>show interfaces switchport</div></div>\n<div class=\"card\"><div class=\"micro\">الهدف</div><h4>اختبر خطوة بخطوة</h4><p>اختبر البوابة المحلية أولًا، ثم VLAN الأخرى، ثم أجهزة الإدارة. لا تنتقل إلى فرضية معقدة قبل التأكد من الطبقات الأساسية.</p></div>\n</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: PC لا يصل إلى VLAN أخرى. أي أمر على Switch يؤكد أن الوصلة إلى Router تعمل كـTrunk؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">show interfaces trunk، ثم يمكن فحص إعداد المنفذ نفسه عند الحاجة.</div></div>"
+    },
+    {
+      "id": "u4s5",
+      "number": "05",
+      "toc_title": "Layer 3 Switch وSVIs",
+      "title": "التوجيه داخل Switch نفسه",
+      "subtitle": "في Layer 3 Switch تصبح SVI الخاصة بكل VLAN هي بوابتها الافتراضية، ويقوم الجهاز بالتحويل والتوجيه Hardware-based.",
+      "body_html": "<p class=\"core\">يستخدم <strong>Layer 3 Switch (محوّل الطبقة الثالثة)</strong> عدة <strong>SVIs</strong> للتوجيه بين VLANs. تنشأ SVI لكل VLAN قابلة للتوجيه، ويكون عنوان IP على SVI هو Default Gateway للأجهزة داخل تلك VLAN.</p>\n<div class=\"flow\"><div class=\"step\"><b>1 · أنشئ VLANs</b><span>مثل VLAN 10 و20.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>2 · أنشئ SVIs</b><span>عنوان IP لكل VLAN.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>3 · Access Ports</b><span>ضع المستخدمين في VLANs الصحيحة.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>4 · ip routing</b><span>فعّل IPv4 Routing بين SVIs.</span></div></div>\n<div class=\"swipe-hint\">↔ اسحب لرؤية بقية الخطوات</div>\n<div class=\"cmd study-detail\">vlan 10<br/>vlan 20<br/><br/>interface vlan 10<br/> ip address 192.168.10.1 255.255.255.0<br/> no shutdown<br/><br/>interface vlan 20<br/> ip address 192.168.20.1 255.255.255.0<br/> no shutdown<br/><br/>ip routing</div>\n<div class=\"grid2\">\n<div class=\"card\"><h4>مزايا</h4><ul><li>معالجة Hardware-based أسرع.</li><li>لا تحتاج وصلة خارجية إلى Router للتوجيه بين VLANs المحلية.</li><li>Latency أقل.</li><li>قابلية توسع أعلى ويمكن استخدام EtherChannel بين المحوّلات لزيادة عرض النطاق.</li></ul></div>\n<div class=\"card\"><h4>المقابل</h4><p>العيب الذي يذكره العرض هو أن Layer 3 Switch أعلى تكلفة من الحلول الأبسط.</p></div>\n</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: ما الأمر الذي يحول Layer 3 Switch من مجرد وجود SVIs إلى تنفيذ IPv4 Routing بينها؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">الأمر global configuration: ip routing.</div></div>"
+    },
+    {
+      "id": "u4s6",
+      "number": "06",
+      "toc_title": "Routed Port والربط الخارجي",
+      "title": "عندما يحتاج Layer 3 Switch إلى شبكة Layer 3 أخرى",
+      "subtitle": "يمكن تحويل منفذ Layer 2 إلى Routed Port ليصبح شبيهًا بواجهة Router فعلية.",
+      "body_html": "<p class=\"core\">إذا احتاج Layer 3 Switch إلى الاتصال بـRouter أو Layer 3 Switch آخر، يمكن تحويل منفذ من Switchport إلى <strong>Routed Port (منفذ موجّه)</strong> باستخدام <code>no switchport</code>، ثم إعطائه عنوان IPv4 وتفعيله.</p>\n<div class=\"cmd\">interface g1/0/1<br/> no switchport<br/> ip address 10.10.10.2 255.255.255.0<br/> no shutdown<br/>exit<br/>ip routing</div>\n<div class=\"keyline\"><strong>بعد ذلك:</strong> الشبكات المحلية خلف Layer 3 Switch تحتاج طريقة Routing حتى تصبح معروفة لدى أجهزة Layer 3 الأخرى: Static أو Dynamic Routing. يستخدم العرض OSPF كمثال، لكنه يوضح أن فهم تكوين OSPF نفسه ليس مطلوبًا في هذه الوحدة.</div>\n<div class=\"grid2 study-detail\"><div class=\"card\"><h4>التحقق من Routing</h4><div class=\"cmd\">show ip route</div></div><div class=\"card\"><h4>التحقق من Reachability</h4><div class=\"cmd\">ping &lt;destination-ip&gt;</div></div></div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: ماذا يفعل no switchport على منفذ Layer 3 Switch؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">يعطل وظيفة Layer 2 Switchport ويحوّل المنفذ إلى Layer 3 Routed Port يمكن إعطاؤه عنوان IP.</div></div>\n<div class=\"terms\"><span class=\"term\">Routed Port</span><span class=\"term\">no switchport</span><span class=\"term\">ip routing</span></div>"
+    },
+    {
+      "id": "u4s7",
+      "number": "07",
+      "toc_title": "استكشاف أخطاء Inter-VLAN",
+      "title": "شخّص من الأسفل إلى الأعلى",
+      "subtitle": "أغلب الأعطال ترجع إلى VLAN مفقودة، أو Trunk غير صحيح، أو Access Port في VLAN خاطئة، أو Subinterface غير مطابقة.",
+      "body_html": "<p class=\"core\">ابدأ دائمًا بالطبقة الفيزيائية: الكابل والمنفذ. إذا كان الاتصال الفيزيائي صحيحًا، انتقل إلى VLAN وAccess وTrunk ثم Router/Subinterfaces.</p>\n<div class=\"grid2\">\n<div class=\"card\"><h4>1 · Missing VLAN</h4><p>قد تكون VLAN غير منشأة، محذوفة، أو غير مسموح بها على Trunk. عند حذف VLAN تصبح المنافذ المرتبطة بها inactive حتى تعيد إنشاء VLAN أو تنقلها إلى VLAN أخرى.</p><div class=\"cmd\">show vlan brief<br/>show interfaces fa0/6 switchport</div></div>\n<div class=\"card\"><h4>2 · Trunk Issue</h4><p>في Router-on-a-Stick يعد Trunk الخاطئ سببًا شائعًا. تحقق أن منفذ Router ظاهر ضمن Trunks وأن VLANs المطلوبة مسموحة.</p><div class=\"cmd\">show interfaces trunk<br/>show running-config interface fa0/1</div></div>\n<div class=\"card\"><h4>3 · Access Port Issue</h4><p>إذا كان PC مضبوطًا بعنوان وقناع وبوابة صحيحة لكنه لا يستطيع Ping للبوابة، تحقق من VLAN الخاصة بمنفذ Access.</p><div class=\"cmd\">show vlan brief<br/>show interfaces fa0/6 switchport<br/>show running-config interface fa0/6</div></div>\n<div class=\"card\"><h4>4 · Router/Subinterface Issue</h4><p>تحقق من حالة Subinterfaces، عناوين IP، وVLAN ID داخل encapsulation dot1q.</p><div class=\"cmd\">show ip interface brief<br/>show interfaces | include Gig|802.1Q</div></div>\n</div>\n<div class=\"keyline\"><strong>تسلسل عملي:</strong> Physical → VLAN موجودة → Access Port صحيح → Trunk صحيح → Subinterface/Encapsulation صحيح → IP/Gateway صحيح → Routing/Connectivity.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: PC عنوانه والبوابة صحيحة، لكنه لا يستطيع Ping للبوابة نفسها. ما أول إعداد Layer 2 يستحق الفحص؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">عضوية VLAN لمنفذ Access الخاص بالـPC، ثم وجود VLAN وحالتها.</div></div>"
+    },
+    {
+      "id": "u4s8",
+      "number": "✓",
+      "toc_title": "خلاصة الوحدة 4",
+      "title": "ماذا يجب أن يبقى في ذهنك؟",
+      "subtitle": "أي Inter-VLAN Routing ناجح يحتاج تطابق Layer 2 مع Layer 3.",
+      "body_html": "<div class=\"summary-box\"><h4>الخلاصة الذهنية</h4><div class=\"summary-list\">\n<div class=\"summary-item\">VLANs لا تتواصل مع بعضها مباشرة؛ Inter-VLAN Routing يحتاج Router أو Layer 3 Switch.</div>\n<div class=\"summary-item\">Legacy يستخدم واجهة Router فعلية لكل VLAN وهو غير قابل للتوسع عمليًا.</div>\n<div class=\"summary-item\">Router-on-a-Stick يستخدم Trunk واحدًا وعدة Subinterfaces، وكل Subinterface ترتبط بـVLAN وشبكة IP مختلفة.</div>\n<div class=\"summary-item\">Layer 3 Switch يستخدم SVI لكل VLAN ويفعّل التوجيه بأمر ip routing.</div>\n<div class=\"summary-item\">no switchport يحول منفذًا إلى Routed Port للاتصال بأجهزة Layer 3 أخرى.</div>\n<div class=\"summary-item\">استكشاف الأخطاء يبدأ من VLAN/Access/Trunk ثم Subinterface وIP، وليس بتغيير الإعدادات عشوائيًا.</div>\n</div></div>\n<div class=\"terms\"><span class=\"term\">Inter-VLAN Routing</span><span class=\"term\">Router-on-a-Stick</span><span class=\"term\">Subinterface</span><span class=\"term\">Layer 3 Switch</span><span class=\"term\">SVI</span><span class=\"term\">Routed Port</span></div>"
+    }
+  ],
+  "review": {
+    "committee": "theory_content_committee",
+    "status": "approved",
+    "approved": true,
+    "review_date": "2026-09-05",
+    "notes": [
+      "تمت مطابقة الداتا مع المحاور الأربعة الرسمية: Inter-VLAN Routing Operation، Router-on-a-Stick، Layer 3 Switches، وTroubleshooting.",
+      "تم تضمين الخيارات الثلاثة، Subinterfaces و802.1Q، التحقق، SVIs وip routing، Routed Port وno switchport، ومسار استكشاف الأخطاء.",
+      "ذُكر OSPF فقط كمرجع سياقي لأن العرض نفسه ينص على أن فهم تكوين OSPF ليس مطلوبًا في هذه الوحدة.",
+      "أنشطة Packet Tracer والمختبرات لم تُنسخ إلى الجزء النظري لأنها تنتمي للمسار العملي.",
+      "لم يتم تعديل التصميم أو إضافة مكونات CSS جديدة."
+    ]
+  }
+}
