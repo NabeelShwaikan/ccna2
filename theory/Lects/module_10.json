@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "module_number": 10,
+  "group_id": "06_LAN_Security",
+  "title": "الوحدة 10 — LAN Security Concepts (مفاهيم أمان الشبكة المحلية)",
+  "title_en": "LAN Security Concepts",
+  "badge": "LAN Security",
+  "summary": "كيف تُستغل نقاط النهاية والتحكم في الوصول والطبقة الثانية، ولماذا قد يؤدي اختراق Layer 2 إلى تجاوز ضوابط الطبقات الأعلى، ثم كيف تعمل هجمات MAC Flooding وVLAN Hopping وDHCP وARP وAddress Spoofing وSTP وCDP Reconnaissance، وما آليات التخفيف الأساسية المرتبطة بكل منها.",
+  "official_objective": "شرح كيف تؤثر الثغرات في أمان الشبكة المحلية، مع توضيح أمان نقاط النهاية، والتحكم في الوصول باستخدام AAA و802.1X، وثغرات Layer 2، وهجمات جدول عناوين MAC، وهجمات LAN.",
+  "lecture": {
+    "duration": "≈ 90 دقيقة",
+    "steps": [
+      {
+        "time": "10 د",
+        "topic": "التهديدات الحديثة وحماية نقاط النهاية وأجهزة الأمان الأساسية."
+      },
+      {
+        "time": "12 د",
+        "topic": "AAA وLocal/Server-Based Authentication وRADIUS/TACACS+."
+      },
+      {
+        "time": "8 د",
+        "topic": "IEEE 802.1X وأدوار Supplicant وAuthenticator وAuthentication Server."
+      },
+      {
+        "time": "10 د",
+        "topic": "لماذا Layer 2 نقطة حساسة وخريطة هجمات المحوّل وآليات التخفيف."
+      },
+      {
+        "time": "10 د",
+        "topic": "MAC Address Table Flooding وعلاقته بـUnknown Unicast Flooding وPort Security."
+      },
+      {
+        "time": "10 د",
+        "topic": "VLAN Hopping وDouble-Tagging والعلاقة مع DTP وNative VLAN."
+      },
+      {
+        "time": "10 د",
+        "topic": "DHCP Starvation وDHCP Spoofing ودور DHCP Snooping."
+      },
+      {
+        "time": "10 د",
+        "topic": "ARP Spoofing/Poisoning وAddress Spoofing وDAI/IPSG."
+      },
+      {
+        "time": "10 د",
+        "topic": "STP Attack وCDP/LLDP Reconnaissance + مراجعة شاملة."
+      }
+    ]
+  },
+  "review": {
+    "committee": "theory_content_committee",
+    "status": "approved",
+    "approved": true,
+    "review_date": "2026-09-06",
+    "notes": [
+      "تمت مطابقة الداتا مع المحاور الرسمية الخمسة: Endpoint Security، Access Control، Layer 2 Security Threats، MAC Address Table Attack، وLAN Attacks.",
+      "حافظت الوحدة على طبيعتها المفاهيمية؛ أوامر التكوين تظهر فقط عندما تساعد على فهم التخفيف، بينما يبقى التطبيق التفصيلي في الوحدة 11.",
+      "استُخدمت ترجمة Cisco العربية «المصادقة والتفويض والمحاسبة» لـAAA، و«أمان المنفذ» لـPort Security، و«فحص ARP الديناميكي» لـDAI، و«التطفل على بروتوكول DHCP» لـDHCP Snooping عند تقديم المصطلح رسميًا.",
+      "أنشطة الفيديو وCheck Your Understanding لم تُنسخ؛ حُوّلت أفكارها إلى أسئلة فهم قصيرة داخل الوحدة.",
+      "تم ربط كل هجوم بآلية التخفيف المقابلة دون إدخال تكوينات خارج نطاق Module 10."
+    ]
+  },
+  "sections": [
+    {
+      "id": "u10s1",
+      "number": "01",
+      "toc_title": "Endpoint Security",
+      "title": "حماية الشبكة تبدأ من نقاط النهاية ولا تتوقف عند الجدار الناري",
+      "subtitle": "DDoS وData Breach وMalware توضح أن حماية LAN تحتاج دفاعًا متعدد الطبقات حول المستخدم والجهاز والخدمات.",
+      "body_html": "<p class=\"core\">تذكر Cisco ثلاثة أمثلة بارزة على الهجمات الحديثة: <strong>DDoS</strong> لتعطيل الخدمة، و<strong>Data Breach</strong> لسرقة المعلومات السرية، و<strong>Malware</strong> لإصابة الأنظمة ببرمجيات ضارة. نقاط النهاية مثل الحواسيب والخوادم وهواتف IP وأجهزة الموظفين معرضة بصورة خاصة للتهديدات القادمة عبر البريد والويب.</p>\n<div class=\"grid3\">\n  <div class=\"card\"><h4>DDoS</h4><p>هجوم منسق من عدد كبير من الأجهزة بهدف إبطاء أو إيقاف الوصول إلى موارد المؤسسة.</p></div>\n  <div class=\"card\"><h4>Data Breach</h4><p>اختراق خوادم أو مضيفين بهدف سرقة بيانات سرية.</p></div>\n  <div class=\"card\"><h4>Malware</h4><p>برمجيات ضارة قد تتسبب في تشفير الملفات أو التجسس أو تعطيل الأنظمة.</p></div>\n</div>\n<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">Perimeter</div><h4>VPN / NGFW / NAC</h4><p>VPN للوصول الآمن عن بعد، وNGFW للفحص المتقدم والتحكم بالتطبيقات، وNAC لإدارة سياسات الوصول.</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">Endpoint</div><h4>AMP / ESA / WSA</h4><p>AMP لمكافحة البرمجيات الضارة، وESA لحماية البريد، وWSA لحماية حركة الويب والتحكم فيها.</p></div>\n</div>\n<details class=\"expand study-detail\"><summary>ما دور ESA وWSA وفق الوحدة؟</summary><div class=\"expand-body\"><strong>ESA</strong> يراقب SMTP ويساعد على حجب التهديدات والروابط الضارة وتشفير البريد الصادر عند الحاجة. <strong>WSA</strong> يركز على تهديدات الويب عبر فلترة URL، فحص البرمجيات الضارة، تصنيف المواقع والتحكم بالتطبيقات.</div></details>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: لماذا لا يكفي الاعتماد على Antivirus وحده؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">لأن التهديدات تأتي عبر مسارات متعددة؛ لذلك تعرض الوحدة حماية متعددة الطبقات تشمل NAC وAMP وحماية البريد والويب وأجهزة حماية الشبكة.</div></div>\n<div class=\"terms\"><span class=\"term\">Endpoint Security</span><span class=\"term\">DDoS</span><span class=\"term\">NGFW</span><span class=\"term\">NAC</span><span class=\"term\">AMP</span></div>"
+    },
+    {
+      "id": "u10s2",
+      "number": "02",
+      "toc_title": "AAA",
+      "title": "AAA يجيب عن ثلاثة أسئلة: من أنت؟ ماذا يسمح لك؟ وماذا فعلت؟",
+      "subtitle": "المصادقة والتفويض والمحاسبة هي الإطار الأساسي للتحكم في الوصول إلى أجهزة الشبكة وخدماتها.",
+      "body_html": "<p class=\"core\"><strong>AAA — المصادقة والتفويض والمحاسبة</strong> هو إطار للتحكم في الوصول. <strong>Authentication</strong> يثبت الهوية، و<strong>Authorization</strong> يحدد الصلاحيات بعد نجاح المصادقة، و<strong>Accounting</strong> يسجل النشاط والاستخدام لأغراض التدقيق والتتبع.</p>\n<div class=\"flow\">\n  <div class=\"step\"><b>Authentication</b><span>من المستخدم؟ وهل بيانات اعتماده صحيحة؟</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Authorization</b><span>ما الذي يحق له تنفيذه أو الوصول إليه؟</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Accounting</b><span>ماذا فعل؟ ومتى؟ وكم استهلك؟</span></div>\n</div>\n<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">Local AAA</div><h4>قاعدة محلية</h4><p>المستخدمون محفوظون على كل جهاز. مناسبة للشبكات الصغيرة لكنها لا تتوسع بسهولة.</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">Server-Based AAA</div><h4>خادم مركزي</h4><p>الأجهزة تتصل بخادم AAA مركزي عبر بروتوكولات مثل RADIUS أو TACACS+، وهو أنسب عند وجود عدة موجّهات ومحوّلات.</p></div>\n</div>\n<div class=\"keyline\"><strong>Accounting ليس تسجيل دخول:</strong> هو سجل تفصيلي قد يتضمن وقت البداية والنهاية، الأوامر المنفذة، وعدد الحزم والبايتات.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: أي جزء من AAA يحدد ما يستطيع المستخدم فعله بعد نجاح تسجيل الدخول؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">Authorization (التفويض).</div></div>\n<div class=\"terms\"><span class=\"term\">AAA</span><span class=\"term\">Authentication</span><span class=\"term\">Authorization</span><span class=\"term\">Accounting</span><span class=\"term\">RADIUS</span><span class=\"term\">TACACS+</span></div>"
+    },
+    {
+      "id": "u10s3",
+      "number": "03",
+      "toc_title": "IEEE 802.1X",
+      "title": "802.1X يجعل منفذ الوصول بوابة مصادقة قبل السماح بخدمات LAN",
+      "subtitle": "المعيار يقسم العملية إلى Supplicant وAuthenticator وAuthentication Server.",
+      "body_html": "<p class=\"core\"><strong>IEEE 802.1X</strong> هو بروتوكول للتحكم في الوصول والمصادقة على مستوى المنفذ. الهدف هو منع محطة غير مصرح لها من استخدام خدمات الشبكة قبل التحقق من هويتها.</p>\n<div class=\"flow\">\n  <div class=\"step\"><b>Supplicant</b><span>العميل الذي يطلب الوصول ويستجيب لطلبات المصادقة.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Authenticator</b><span>المحوّل أو نقطة الوصول التي تتوسط بين العميل وخادم المصادقة.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Authentication Server</b><span>الخادم الذي يتحقق من هوية العميل ويرسل قرار السماح أو الرفض.</span></div>\n</div>\n<div class=\"keyline\"><strong>الفكرة:</strong> المحوّل لا يثبت هوية المستخدم بنفسه في النموذج المركزي؛ بل يطلب المعلومات ويمررها إلى خادم المصادقة ثم يطبق القرار.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: أي جهاز يؤدي عادةً دور Authenticator في شبكة سلكية؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">المحوّل، ويمكن لنقطة الوصول اللاسلكية أن تؤدي الدور نفسه في الشبكات اللاسلكية.</div></div>\n<div class=\"terms\"><span class=\"term\">IEEE 802.1X</span><span class=\"term\">Supplicant</span><span class=\"term\">Authenticator</span><span class=\"term\">Authentication Server</span></div>"
+    },
+    {
+      "id": "u10s4",
+      "number": "04",
+      "toc_title": "تهديدات Layer 2",
+      "title": "اختراق Layer 2 قد يجعل ضوابط الطبقات الأعلى بلا قيمة عملية",
+      "subtitle": "أمان المحوّل ليس تفصيلًا محليًا؛ فهو الأساس الذي تعتمد عليه الاتصالات في الطبقات الأعلى.",
+      "body_html": "<p class=\"core\">توضح الوحدة أن مسؤولي الشبكات يركزون كثيرًا على الحماية من Layer 3 إلى Layer 7 باستخدام VPN وFirewalls وIPS، لكن إذا تم اختراق <strong>Layer 2</strong> واستطاع المهاجم اعتراض الإطارات أو التلاعب بسلوك المحوّل، فإن الحماية الأعلى قد لا تمنع الضرر داخل LAN.</p>\n<div class=\"grid3\">\n  <div class=\"card\"><h4>MAC Table</h4><p>MAC Flooding قد يجبر المحوّل على Flooding للحركة غير المعروفة.</p></div>\n  <div class=\"card\"><h4>VLAN</h4><p>VLAN Hopping وDouble-Tagging يحاولان تجاوز حدود الفصل بين VLANs.</p></div>\n  <div class=\"card\"><h4>DHCP</h4><p>Starvation وSpoofing يستغلان آلية توزيع إعدادات IP.</p></div>\n  <div class=\"card\"><h4>ARP</h4><p>Spoofing وPoisoning يزوّران الربط بين IP وMAC.</p></div>\n  <div class=\"card\"><h4>Address Spoofing</h4><p>انتحال MAC أوIP لمحاولة الظهور بهوية جهاز آخر.</p></div>\n  <div class=\"card\"><h4>STP</h4><p>التلاعب بـBPDU لمحاولة تغيير Root Bridge ومسار الحركة.</p></div>\n</div>\n<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">Attack</div><h4>MAC / DHCP / ARP / IP</h4><p>تستهدف المعلومات التي يعتمد عليها المحوّل أو المضيف في إعادة التوجيه والتهيئة.</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">Mitigation</div><h4>Port Security / DHCP Snooping / DAI / IPSG</h4><p>كل آلية تحمي نقطة مختلفة، ولن تكون فعالة إذا بقيت إدارة الأجهزة نفسها غير مؤمنة.</p></div>\n</div>\n<div class=\"keyline\"><strong>إدارة الشبكة جزء من الحماية:</strong> توصي Cisco باستخدام SSH وSCP وSFTP وSSL/TLS، وشبكة إدارة مستقلة عند الحاجة، وManagement VLAN مخصصة، وACLs.</div>\n<div class=\"terms\"><span class=\"term\">Layer 2 Security</span><span class=\"term\">Port Security</span><span class=\"term\">DHCP Snooping</span><span class=\"term\">DAI</span><span class=\"term\">IPSG</span></div>"
+    },
+    {
+      "id": "u10s5",
+      "number": "05",
+      "toc_title": "MAC Flooding",
+      "title": "عند امتلاء جدول MAC يبدأ المحوّل بإغراق Unknown Unicast داخل VLAN",
+      "subtitle": "MAC Address Flooding يستغل السعة المحدودة لجدول MAC بإغراقه بعناوين مصدر مزيفة.",
+      "body_html": "<p class=\"core\">يبني المحوّل <strong>MAC Address Table</strong> من عناوين MAC المصدرية. ولأن الجدول محدود السعة، يستطيع مهاجم إرسال عدد كبير من الإطارات بعناوين مصدر مزيفة حتى يمتلئ الجدول. عندها يعامل المحوّل وجهات غير موجودة في الجدول كـ<strong>Unknown Unicast</strong> ويغرقها إلى المنافذ الأخرى داخل VLAN نفسها.</p>\n<div class=\"flow\">\n  <div class=\"step\"><b>1 · Fake MACs</b><span>المهاجم يرسل إطارات كثيرة بعناوين مصدر مزيفة.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>2 · Table Full</b><span>جدول MAC يفقد القدرة على تعلم مزيد من الإدخالات.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>3 · Flooding</b><span>Unknown Unicast يُرسل إلى منافذ VLAN بدل منفذ محدد.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>4 · Capture</b><span>المهاجم قد يلتقط حركة محلية لم تكن موجهة إليه.</span></div>\n</div>\n<div class=\"keyline\"><strong>النطاق:</strong> الإغراق في هذا السيناريو يبقى داخل LAN/VLAN المحلية التي يتصل بها المهاجم.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: ما آلية الحماية الأساسية التي تشير إليها الوحدة لمواجهة MAC Table Overflow؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">Port Security (أمان المنفذ)، لأنه يحد عدد عناوين MAC المصدرية المسموح بتعلمها على المنفذ.</div></div>\n<div class=\"terms\"><span class=\"term\">MAC Address Flooding</span><span class=\"term\">Unknown Unicast</span><span class=\"term\">Port Security</span></div>"
+    },
+    {
+      "id": "u10s6",
+      "number": "06",
+      "toc_title": "VLAN Attacks",
+      "title": "VLAN Hopping يحاول تجاوز حدود VLAN عبر Trunk غير مصرح أو Double-Tagging",
+      "subtitle": "الهجوم الأول يستغل DTP والتفاوض على Trunk، والثاني يستغل سلوك Native VLAN مع وسم 802.1Q مزدوج.",
+      "body_html": "<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">VLAN Hopping</div><h4>المضيف يتظاهر بأنه محوّل</h4><p>يرسل إشارات 802.1Q وDTP محاولًا جعل منفذ الوصول يصبح Trunk، وبذلك يستطيع إرسال واستقبال حركة VLANs متعددة.</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">Double-Tagging</div><h4>وسمان داخل الإطار</h4><p>يستخدم وسمًا خارجيًا للـNative VLAN ووسمًا داخليًا للـVLAN المستهدفة حتى يزيل المحوّل الأول الوسم الخارجي ويعالج الثاني الداخلي.</p></div>\n</div>\n<div class=\"flow\">\n  <div class=\"step\"><b>Outer Tag</b><span>يساوي Native VLAN على الوصلة.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Switch 1</b><span>يزيل الوسم الخارجي ولا يعيد وسم حركة Native VLAN.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Inner Tag</b><span>يبقى داخل الإطار حتى يصل إلى المحوّل التالي.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Switch 2</b><span>يرى الوسم الداخلي ويرسل إلى VLAN المستهدفة.</span></div>\n</div>\n<div class=\"keyline\"><strong>Mitigation حسب الوحدة:</strong> اجعل منافذ المستخدم Access ثابتة، عطّل Auto Trunking، فعّل Trunks يدويًا فقط، ولا تستخدم Native VLAN لحركة المستخدمين.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: لماذا يرتبط Double-Tagging بالـNative VLAN؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">لأن المحوّل الأول يزيل الوسم الخارجي الخاص بالـNative VLAN ولا يعيد وسم الإطار، فيبقى الوسم الداخلي ليقرأه المحوّل التالي.</div></div>\n<div class=\"terms\"><span class=\"term\">VLAN Hopping</span><span class=\"term\">Double-Tagging</span><span class=\"term\">DTP</span><span class=\"term\">Native VLAN</span></div>"
+    },
+    {
+      "id": "u10s7",
+      "number": "07",
+      "toc_title": "DHCP Attacks",
+      "title": "DHCP Starvation يستنزف العناوين وDHCP Spoofing يوزع إعدادات مزيفة",
+      "subtitle": "الهجومان مختلفان في الهدف لكن كلاهما يرتبط بضرورة التحكم في مصادر DHCP عبر DHCP Snooping.",
+      "body_html": "<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">DHCP Starvation</div><h4>استنزاف Pool</h4><p>يرسل المهاجم عددًا كبيرًا من DHCPDISCOVER بعناوين MAC مزيفة ليحاول استئجار جميع العناوين المتاحة ومنع العملاء الشرعيين من الحصول على IP.</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">DHCP Spoofing</div><h4>Rogue DHCP Server</h4><p>خادم DHCP غير مصرح يوزع إعدادات خاطئة مثل Default Gateway أوDNS أوIP لإحداث MITM أوDoS أو توجيه المستخدم إلى وجهة خبيثة.</p></div>\n</div>\n<div class=\"grid3\">\n  <div class=\"card\"><h4>Wrong Gateway</h4><p>قد يضع عنوان المهاجم كبوابة ويهيئ Man-in-the-Middle.</p></div>\n  <div class=\"card\"><h4>Wrong DNS</h4><p>قد يوجه العميل إلى DNS مزيف ثم مواقع خبيثة.</p></div>\n  <div class=\"card\"><h4>Wrong IP</h4><p>قد يعطي إعدادًا غير صالح فيقطع الاتصال عن العميل.</p></div>\n</div>\n<div class=\"keyline\"><strong>الحماية:</strong> DHCP Snooping (التطفل على بروتوكول DHCP) يميز المنافذ الموثوقة وغير الموثوقة ويراقب رسائل DHCP؛ تفاصيل التكوين في الوحدة 11.</div>\n<div class=\"terms\"><span class=\"term\">DHCP Starvation</span><span class=\"term\">DHCP Spoofing</span><span class=\"term\">Rogue DHCP Server</span><span class=\"term\">DHCP Snooping</span></div>"
+    },
+    {
+      "id": "u10s8",
+      "number": "08",
+      "toc_title": "ARP وAddress Spoofing",
+      "title": "تزوير الربط بين IP وMAC يمكن أن يحول المهاجم إلى وسيط داخل LAN",
+      "subtitle": "ARP Spoofing/Poisoning وMAC/IP Spoofing تستغل ثقة الطبقة الثانية بالمعلومات التي تتلقاها.",
+      "body_html": "<p class=\"core\">يمكن للجهاز إرسال <strong>Gratuitous ARP</strong> دون طلب مسبق، وقد تحفظ الأجهزة الأخرى الربط الموجود فيه. يستغل المهاجم ذلك بإرسال ARP Reply مزيف يربط عنوان IP للبوابة الافتراضية بعنوان MAC الخاص به، ما قد يهيئ <strong>Man-in-the-Middle</strong>.</p>\n<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">ARP Spoofing / Poisoning</div><h4>تزوير IP ↔ MAC</h4><p>يرسل المهاجم ردود ARP غير مطلوبة بمعلومات مزيفة. التخفيف: Dynamic ARP Inspection (فحص ARP الديناميكي).</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">Address Spoofing</div><h4>انتحال هوية جهاز</h4><p>يغير المهاجم MAC أوIP ليبدو كجهاز آخر. التخفيف الذي تعرضه الوحدة: IP Source Guard (IPSG).</p></div>\n</div>\n<div class=\"keyline\"><strong>سبب الضعف:</strong> المحوّل في Layer 2 لا يملك آلية عامة تثبت أن Source MAC الذي استقبله يمثل فعلًا الجهاز الشرعي.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: ما آلية التخفيف المرتبطة مباشرة بـARP Spoofing في منهج Cisco؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">Dynamic ARP Inspection (DAI).</div></div>\n<div class=\"terms\"><span class=\"term\">Gratuitous ARP</span><span class=\"term\">ARP Spoofing</span><span class=\"term\">ARP Poisoning</span><span class=\"term\">DAI</span><span class=\"term\">IPSG</span></div>"
+    },
+    {
+      "id": "u10s9",
+      "number": "09",
+      "toc_title": "STP وCDP",
+      "title": "المهاجم قد يغير الشجرة أو يستخدم بروتوكولات الاكتشاف للاستطلاع",
+      "subtitle": "STP Attack يحاول تزوير Root Bridge، بينما CDP/LLDP Reconnaissance يكشف معلومات مفيدة للمهاجم.",
+      "body_html": "<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">STP Attack</div><h4>Root Bridge مزيف</h4><p>يبث المهاجم BPDUs بأولوية Bridge أقل لمحاولة الفوز كـRoot Bridge وإجبار الشبكة على إعادة حساب STP، ما قد يجعل الحركة تمر عبره.</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">CDP Reconnaissance</div><h4>جمع معلومات البنية</h4><p>CDP يعلن دوريًا معلومات مثل IP وإصدار IOS والمنصة والقدرات وNative VLAN، وهي معلومات نافعة للإدارة لكنها مفيدة للمهاجم أيضًا.</p></div>\n</div>\n<div class=\"grid2\">\n  <div class=\"card\"><h4>Mitigate STP</h4><p>BPDU Guard على منافذ الوصول يمنع جهازًا طرفيًا من إدخال BPDUs غير متوقعة في التصميم.</p></div>\n  <div class=\"card\"><h4>Limit Discovery</h4><p>عطّل CDP أوLLDP على المنافذ أو الأجهزة التي لا تحتاجها، خصوصًا المنافذ المتصلة بأجهزة غير موثوقة.</p></div>\n</div>\n<pre class=\"cmd study-detail\">no cdp run\nno cdp enable\nno lldp run\nno lldp transmit\nno lldp receive</pre>\n<div class=\"keyline\"><strong>خريطة الوحدة:</strong> افهم أولًا ما الذي يثق به Layer 2، ثم اسأل: كيف يمكن تزوير هذه المعلومة؟ وأي ضابط يعيد الثقة إلى المسار؟</div>\n<div class=\"terms\"><span class=\"term\">STP Attack</span><span class=\"term\">BPDU Guard</span><span class=\"term\">CDP</span><span class=\"term\">LLDP</span><span class=\"term\">Reconnaissance</span></div>"
+    }
+  ]
+}

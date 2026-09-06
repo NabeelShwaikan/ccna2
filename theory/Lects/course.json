@@ -101,6 +101,27 @@
           "status": "available"
         }
       ]
+    },
+    {
+      "id": "06_LAN_Security",
+      "title": "أمان الشبكة المحلية",
+      "meta": "الوحدتان 10–11",
+      "modules": [
+        {
+          "number": 10,
+          "title": "مفاهيم أمان الشبكة المحلية",
+          "title_en": "LAN Security Concepts",
+          "path": "Lects/module_10.json",
+          "status": "available"
+        },
+        {
+          "number": 11,
+          "title": "تكوين أمان المحوّل",
+          "title_en": "Switch Security Configuration",
+          "path": "Lects/module_11.json",
+          "status": "available"
+        }
+      ]
     }
   ]
 }

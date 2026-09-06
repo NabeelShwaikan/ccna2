@@ -357,6 +357,162 @@
     {
       "en": "Preemption",
       "ar": "الاستباق"
+    },
+    {
+      "en": "LAN Security",
+      "ar": "أمان الشبكة المحلية"
+    },
+    {
+      "en": "Endpoint Security",
+      "ar": "أمان نقاط النهاية"
+    },
+    {
+      "en": "Data Breach",
+      "ar": "اختراق البيانات"
+    },
+    {
+      "en": "Malware",
+      "ar": "البرمجيات الضارة"
+    },
+    {
+      "en": "Next-Generation Firewall (NGFW)",
+      "ar": "جدار الحماية من الجيل التالي"
+    },
+    {
+      "en": "Network Access Control (NAC)",
+      "ar": "التحكم في الوصول إلى الشبكة"
+    },
+    {
+      "en": "Advanced Malware Protection (AMP)",
+      "ar": "الحماية المتقدمة من البرمجيات الضارة"
+    },
+    {
+      "en": "Authentication, Authorization, Accounting (AAA)",
+      "ar": "المصادقة والتفويض والمحاسبة"
+    },
+    {
+      "en": "Authentication",
+      "ar": "المصادقة"
+    },
+    {
+      "en": "Authorization",
+      "ar": "التفويض"
+    },
+    {
+      "en": "Accounting",
+      "ar": "المحاسبة"
+    },
+    {
+      "en": "RADIUS",
+      "ar": "RADIUS"
+    },
+    {
+      "en": "TACACS+",
+      "ar": "TACACS+"
+    },
+    {
+      "en": "IEEE 802.1X",
+      "ar": "التحكم في الوصول والمصادقة على مستوى المنفذ"
+    },
+    {
+      "en": "Supplicant",
+      "ar": "العميل طالب المصادقة"
+    },
+    {
+      "en": "Authenticator",
+      "ar": "المصادِق"
+    },
+    {
+      "en": "Port Security",
+      "ar": "أمان المنفذ"
+    },
+    {
+      "en": "Secure MAC Address",
+      "ar": "عنوان MAC آمن"
+    },
+    {
+      "en": "DHCP Snooping",
+      "ar": "التطفل على بروتوكول DHCP"
+    },
+    {
+      "en": "DHCP Snooping Binding Table",
+      "ar": "جدول روابط التطفل على بروتوكول DHCP"
+    },
+    {
+      "en": "Dynamic ARP Inspection (DAI)",
+      "ar": "فحص ARP الديناميكي"
+    },
+    {
+      "en": "IP Source Guard (IPSG)",
+      "ar": "واقي مصدر بروتوكول الإنترنت"
+    },
+    {
+      "en": "VLAN Hopping",
+      "ar": "التنقل غير المصرح بين شبكات VLAN"
+    },
+    {
+      "en": "VLAN Double-Tagging",
+      "ar": "الوسم المزدوج لـVLAN"
+    },
+    {
+      "en": "DHCP Starvation",
+      "ar": "استنزاف DHCP"
+    },
+    {
+      "en": "DHCP Spoofing",
+      "ar": "انتحال DHCP"
+    },
+    {
+      "en": "Rogue DHCP Server",
+      "ar": "خادم DHCP غير مصرح"
+    },
+    {
+      "en": "Gratuitous ARP",
+      "ar": "ARP غير مطلوب"
+    },
+    {
+      "en": "ARP Spoofing",
+      "ar": "انتحال ARP"
+    },
+    {
+      "en": "ARP Poisoning",
+      "ar": "تسميم ARP"
+    },
+    {
+      "en": "Cisco Discovery Protocol (CDP)",
+      "ar": "بروتوكول اكتشاف Cisco"
+    },
+    {
+      "en": "Link Layer Discovery Protocol (LLDP)",
+      "ar": "بروتوكول اكتشاف طبقة الارتباط"
+    },
+    {
+      "en": "MAC Address Flooding",
+      "ar": "إغراق جدول عناوين MAC"
+    },
+    {
+      "en": "STP Attack",
+      "ar": "هجوم على STP"
+    },
+    {
+      "en": "Trusted Port",
+      "ar": "منفذ موثوق"
+    },
+    {
+      "en": "Untrusted Port",
+      "ar": "منفذ غير موثوق"
+    },
+    {
+      "en": "Violation Mode",
+      "ar": "وضع المخالفة"
+    },
+    {
+      "en": "Port Security Aging",
+      "ar": "تقادم أمان المنفذ"
+    },
+    {
+      "en": "error-disabled",
+      "ar": "حالة تعطيل بسبب خطأ"
     }
   ]
 }
