@@ -66,6 +66,27 @@
           "status": "available"
         }
       ]
+    },
+    {
+      "id": "04_IP_Address_Assignment",
+      "title": "توزيع عناوين IP",
+      "meta": "الوحدتان 7–8",
+      "modules": [
+        {
+          "number": 7,
+          "title": "DHCPv4",
+          "title_en": "DHCPv4",
+          "path": "Lects/module_07.json",
+          "status": "available"
+        },
+        {
+          "number": 8,
+          "title": "SLAAC وDHCPv6",
+          "title_en": "SLAAC and DHCPv6",
+          "path": "Lects/module_08.json",
+          "status": "available"
+        }
+      ]
     }
   ]
 }
