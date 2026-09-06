@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "module_number": 14,
+  "group_id": "08_Routing",
+  "title": "الوحدة 14 — Routing Concepts (مفاهيم التوجيه)",
+  "title_en": "Routing Concepts",
+  "badge": "Routing",
+  "summary": "كيف يتخذ الموجّه قرار إعادة التوجيه: اختيار أفضل مسار باستخدام أطول تطابق للبادئة، بناء جدول التوجيه من الشبكات المتصلة والمسارات الثابتة والبروتوكولات الديناميكية والمسار الافتراضي، إعادة تغليف الحزمة عند كل قفزة، قراءة مكونات جدول التوجيه، والتمييز بين Longest Match وAdministrative Distance وMetric، ثم مقارنة التوجيه الثابت والديناميكي.",
+  "official_objective": "شرح كيفية استخدام الموجّهات للمعلومات الموجودة في الحزم لاتخاذ قرارات إعادة التوجيه، مع شرح تحديد المسار، وإعادة توجيه الحزم، ومراجعة إعداد الراوتر، وبنية جدول توجيه IP، ومقارنة مفاهيم التوجيه الثابت والديناميكي.",
+  "lecture": {
+    "duration": "≈ 90 دقيقة",
+    "steps": [
+      {
+        "time": "8 د",
+        "topic": "وظيفتا الموجّه: تحديد أفضل مسار ثم إعادة توجيه الحزمة."
+      },
+      {
+        "time": "12 د",
+        "topic": "Longest Match في IPv4 وIPv6 وكيف يختار الموجّه المسار الأكثر تحديدًا."
+      },
+      {
+        "time": "10 د",
+        "topic": "كيف يُبنى جدول التوجيه: Connected وStatic وDynamic وDefault."
+      },
+      {
+        "time": "12 د",
+        "topic": "قرار إعادة التوجيه: Ingress → Routing Table → Longest Match → Egress/Drop."
+      },
+      {
+        "time": "10 د",
+        "topic": "إعادة التغليف عند كل قفزة وآليات Process/Fast/CEF."
+      },
+      {
+        "time": "8 د",
+        "topic": "أوامر التحقق وفلترة مخرجات show دون إعادة شرح إعداد الراوتر من الوحدة 1."
+      },
+      {
+        "time": "12 د",
+        "topic": "قراءة Routing Table ومبادئها ومصادر المسارات."
+      },
+      {
+        "time": "10 د",
+        "topic": "Administrative Distance مقابل Metric ومتى يستخدم كل منهما."
+      },
+      {
+        "time": "8 د",
+        "topic": "Static vs Dynamic + IGP/EGP + Equal-Cost Load Balancing."
+      }
+    ]
+  },
+  "review": {
+    "committee": "theory_content_committee",
+    "status": "approved",
+    "approved": true,
+    "review_date": "2026-09-06",
+    "notes": [
+      "تمت مطابقة المحتوى مع المحاور الرسمية الخمسة: Path Determination، Packet Forwarding، Basic Router Configuration Review، IP Routing Table، Static and Dynamic Routing.",
+      "اختُصرت مراجعة Basic Router Configuration لأنها مغطاة مسبقًا في الوحدة 1، وأُبقي فقط ما يخدم التوجيه والتحقق وقراءة الجداول.",
+      "تم فصل Longest Match وAdministrative Distance وMetric بوضوح لمنع الخلط: الأول لاختيار أكثر Prefix تحديدًا، والثاني لاختيار مصدر المسار المثبت، والثالث للمفاضلة داخل بروتوكول التوجيه.",
+      "أوامر التكوين بقيت كمرجع سياقي ولم تتحول إلى محور الوحدة النظرية.",
+      "تفاصيل تكوين OSPF وغيرها من بروتوكولات التوجيه الديناميكي لم تُضف لأنها خارج نطاق هذا المقرر."
+    ]
+  },
+  "sections": [
+    {
+      "id": "u14s1",
+      "number": "01",
+      "toc_title": "وظائف الموجّه",
+      "title": "الموجّه يفعل شيئين: يختار أفضل مسار ثم يرسل الحزمة نحوه",
+      "subtitle": "Routing هو قرار، وForwarding هو تنفيذ ذلك القرار على الحزمة.",
+      "body_html": "<p class=\"core\">عندما يستقبل <strong>Router (الموجّه)</strong> حزمة IP على واجهة دخول، يبحث في <strong>Routing Table (جدول التوجيه)</strong> عن أفضل طريق للوصول إلى عنوان الوجهة. بعد اختيار المسار، يعيد توجيه الحزمة عبر واجهة الخروج المناسبة.</p>\n<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">Routing</div><h4>تحديد المسار</h4><p>يفحص عنوان IP للوجهة ويستخدم جدول التوجيه ليقرر أي Route هي الأفضل.</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">Forwarding</div><h4>إعادة التوجيه</h4><p>ينفذ القرار فعليًا بإخراج الحزمة نحو الجهاز النهائي أوNext-Hop Router.</p></div>\n</div>\n<div class=\"flow\">\n  <div class=\"step\"><b>Packet Arrives</b><span>الحزمة تصل على Ingress Interface.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Lookup</b><span>الموجّه يقرأ Destination IP ويبحث في جدول التوجيه.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Best Path</b><span>يختار أفضل Route.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Forward</b><span>يرسل الحزمة عبر Egress Interface.</span></div>\n</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: هل جدول التوجيه يحدد عنوان MAC للوجهة أم يحدد المسار نحو شبكة الوجهة؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">يحدد المسار نحو شبكة الوجهة. بعد ذلك تُستخدم آليات Layer 2 مثل ARP أوNeighbor Discovery لتحديد عنوان الطبقة الثانية المناسب للوصلة التالية.</div></div>\n<div class=\"terms\"><span class=\"term\">Routing</span><span class=\"term\">Forwarding</span><span class=\"term\">Routing Table</span><span class=\"term\">Ingress Interface</span><span class=\"term\">Egress Interface</span></div>"
+    },
+    {
+      "id": "u14s2",
+      "number": "02",
+      "toc_title": "Longest Match",
+      "title": "أفضل Route هي الأكثر تحديدًا: أطول تطابق للبادئة",
+      "subtitle": "إذا تطابقت عدة Routes مع عنوان الوجهة، يفوز Prefix ذو أكبر عدد من البتات المتطابقة.",
+      "body_html": "<p class=\"core\"><strong>Longest Match (أطول تطابق)</strong> يعني اختيار Route التي تملك أطول Prefix مطابق لعنوان IP للوجهة. المسار الأكثر تحديدًا يفوز حتى لو وُجدت Routes أوسع تشمل الوجهة نفسها.</p>\n<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">IPv4 Example</div><h4>172.16.0.10</h4><p>إذا طابقت الوجهة مسارات <code>/12</code> و<code>/18</code> و<code>/26</code>، يختار الموجّه <strong>/26</strong> لأنه أطول تطابق.</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">IPv6 Example</div><h4>2001:db8:c000::99</h4><p>إذا طابقت <code>/40</code> و<code>/48</code> فقط، فإن <strong>/48</strong> هو المسار المستخدم.</p></div>\n</div>\n<div class=\"keyline\"><strong>قاعدة ذهبية:</strong> لا يعني Prefix أكبر أن الشبكة أكبر؛ كلما زاد Prefix Length أصبحت Route أكثر تحديدًا وأصغر نطاقًا.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: أيهما يفوز لوجهة تطابق المسارين 10.0.0.0/8 و10.20.30.0/24؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">المسار 10.20.30.0/24 لأنه أكثر تحديدًا ويملك Longest Prefix Match.</div></div>\n<div class=\"terms\"><span class=\"term\">Best Path</span><span class=\"term\">Longest Match</span><span class=\"term\">Prefix</span><span class=\"term\">Prefix Length</span></div>"
+    },
+    {
+      "id": "u14s3",
+      "number": "03",
+      "toc_title": "بناء جدول التوجيه",
+      "title": "جدول التوجيه يبدأ بالمتصل مباشرة ثم يتعلم الشبكات البعيدة",
+      "subtitle": "Connected وStatic وDynamic وDefault هي المصادر الأساسية التي يحتاج الطالب لتمييزها.",
+      "body_html": "<div class=\"grid4\">\n  <div class=\"card\"><h4>Directly Connected</h4><p>تدخل تلقائيًا عندما تكون الواجهة مكوّنة بعنوان IP وحالتها <strong>up/up</strong>.</p></div>\n  <div class=\"card\"><h4>Static Route</h4><p>يضيفها مسؤول الشبكة يدويًا للوصول إلى Remote Network.</p></div>\n  <div class=\"card\"><h4>Dynamic Route</h4><p>يتعلمها الموجّه عبر Routing Protocol يتبادل معلومات الوصول مع موجّهات أخرى.</p></div>\n  <div class=\"card\"><h4>Default Route</h4><p>تُستخدم عندما لا يوجد مسار أكثر تحديدًا يطابق الوجهة.</p></div>\n</div>\n<div class=\"keyline\"><strong>Default Route:</strong> في IPv4 هي <code>0.0.0.0/0</code> وفي IPv6 هي <code>::/0</code>. Prefix /0 لا يتطلب تطابق أي بت، ولذلك هو أقل Route تحديدًا ويعمل كـGateway of Last Resort.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: متى تظهر شبكة Connected في جدول التوجيه؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">عندما تُضبط واجهة محلية بعنوان IP وPrefix وتكون الواجهة فعالة up/up.</div></div>\n<div class=\"terms\"><span class=\"term\">Directly Connected Route</span><span class=\"term\">Static Route</span><span class=\"term\">Dynamic Route</span><span class=\"term\">Default Route</span><span class=\"term\">Gateway of Last Resort</span></div>"
+    },
+    {
+      "id": "u14s4",
+      "number": "04",
+      "toc_title": "قرار Forwarding",
+      "title": "كل حزمة تمر بقرار محدد: Route مطابقة ثم Next Hop أووجهة مباشرة أوDrop",
+      "subtitle": "الموجّه لا ينظر إلى كامل المسار من البداية للنهاية؛ كل موجّه يتخذ قراره مستقلًا.",
+      "body_html": "<div class=\"flow\">\n  <div class=\"step\"><b>1 · Decapsulate</b><span>يستقبل Frame ويكشف حزمة IP داخلها.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>2 · Destination IP</b><span>يفحص عنوان الوجهة في IP Header.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>3 · Longest Match</b><span>يبحث عن Route الأكثر تحديدًا.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>4 · Re-encapsulate</b><span>يبني Frame جديدة للوصلة التالية.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>5 · Forward / Drop</b><span>يرسل عبر Egress أويسقط الحزمة إذا لا توجد Route.</span></div>\n</div>\n<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">Directly Connected Destination</div><h4>إلى الجهاز النهائي</h4><p>يحدد MAC للوجهة المحلية باستخدام ARP في IPv4 أوNeighbor Discovery في IPv6.</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">Remote Destination</div><h4>إلى Next-Hop Router</h4><p>يحدد MAC الخاص بالموجّه التالي على وصلة Ethernet، وليس MAC الخاص بالمضيف البعيد.</p></div>\n</div>\n<div class=\"keyline\"><strong>مبدأ مهم:</strong> وجود Route للذهاب لا يضمن وجود Return Route للعودة. كل Router يقرر مستقلًا اعتمادًا على جدول التوجيه الخاص به.</div>\n<div class=\"terms\"><span class=\"term\">Next-Hop Router</span><span class=\"term\">ARP</span><span class=\"term\">Neighbor Discovery</span><span class=\"term\">Return Route</span></div>"
+    },
+    {
+      "id": "u14s5",
+      "number": "05",
+      "toc_title": "CEF",
+      "title": "آليات Forwarding تطورت من Process Switching إلى CEF",
+      "subtitle": "المهم في المنهج فهم لماذا CEF أكثر كفاءة، لا حفظ التاريخ التفصيلي لكل آلية.",
+      "body_html": "<div class=\"grid3\">\n  <div class=\"card\"><h4>Process Switching</h4><p>آلية قديمة؛ CPU يعالج كل Packet ويبحث في جدول التوجيه في كل مرة.</p></div>\n  <div class=\"card\"><h4>Fast Switching</h4><p>يستخدم Cache لمعلومات Next Hop؛ أول Packet قد تُعالج بواسطة CPU ثم يعاد استخدام النتيجة للحزم التالية.</p></div>\n  <div class=\"card\"><h4>CEF</h4><p><strong>Cisco Express Forwarding</strong> هو آلية Cisco IOS الافتراضية والأكثر كفاءة في هذا المنهج، ويعتمد على FIB وAdjacency Table.</p></div>\n</div>\n<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">FIB</div><h4>Forwarding Information Base</h4><p>نسخة محسّنة من معلومات التوجيه المستخدمة لاتخاذ قرار Forwarding بسرعة.</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">Adjacency Table</div><h4>معلومات الطبقة الثانية</h4><p>تحتفظ بالمعلومات اللازمة لبناء Frame للوصلة التالية.</p></div>\n</div>\n<div class=\"keyline\"><strong>الفكرة:</strong> CEF يبني معلومات Forwarding مسبقًا ويتغير عند تغير الشبكة، وليس استجابةً لأول Packet لكل Flow كما في Fast Switching.</div>\n<div class=\"terms\"><span class=\"term\">Process Switching</span><span class=\"term\">Fast Switching</span><span class=\"term\">Cisco Express Forwarding (CEF)</span><span class=\"term\">FIB</span><span class=\"term\">Adjacency Table</span></div>"
+    },
+    {
+      "id": "u14s6",
+      "number": "06",
+      "toc_title": "التحقق والفلترة",
+      "title": "استخدم أوامر show لمعرفة ما يعرفه الراوتر بدل إعادة تكوينه من الصفر",
+      "subtitle": "هذه مراجعة مختصرة لما يخدم Routing فقط.",
+      "body_html": "<div class=\"grid3\">\n  <div class=\"card\"><h4>Interfaces</h4><p><code>show ip interface brief</code><br><code>show interfaces</code><br><code>show ip interface</code></p></div>\n  <div class=\"card\"><h4>Routing</h4><p><code>show ip route</code><br><code>show ipv6 route</code></p></div>\n  <div class=\"card\"><h4>Reachability</h4><p><code>ping</code> لاختبار Layer 3 Connectivity.</p></div>\n</div>\n<pre class=\"cmd\">show ip route | begin Gateway\nshow ip route | include 10.0.\nshow running-config | section interface</pre>\n<div class=\"grid4\">\n  <div class=\"card\"><h4>section</h4><p>يعرض القسم كاملًا بدءًا من النص المطابق.</p></div>\n  <div class=\"card\"><h4>include</h4><p>يعرض السطور التي تطابق التعبير.</p></div>\n  <div class=\"card\"><h4>exclude</h4><p>يستبعد السطور المطابقة.</p></div>\n  <div class=\"card\"><h4>begin</h4><p>يبدأ العرض من أول سطر مطابق إلى النهاية.</p></div>\n</div>\n<div class=\"terms\"><span class=\"term\">show ip route</span><span class=\"term\">show ip interface brief</span><span class=\"term\">Output Filtering</span></div>"
+    },
+    {
+      "id": "u14s7",
+      "number": "07",
+      "toc_title": "قراءة Routing Table",
+      "title": "كل سطر في جدول التوجيه يجيب: كيف تعلّمنا المسار؟ وإلى أين نرسل؟",
+      "subtitle": "Route Source وPrefix وAD وMetric وNext-Hop وExit Interface هي مفاتيح القراءة.",
+      "body_html": "<div class=\"grid4\">\n  <div class=\"card\"><h4>L</h4><p>Local Route لعنوان الواجهة نفسها: /32 في IPv4 و/128 في IPv6.</p></div>\n  <div class=\"card\"><h4>C</h4><p>Connected Network متصلة مباشرة بالراوتر.</p></div>\n  <div class=\"card\"><h4>S</h4><p>Static Route أضافها المسؤول يدويًا.</p></div>\n  <div class=\"card\"><h4>O</h4><p>Route تعلمها OSPF ديناميكيًا؛ تكوين OSPF خارج نطاق المقرر.</p></div>\n</div>\n<div class=\"keyline\"><strong>مبادئ Routing Table الثلاثة:</strong> كل Router يقرر وحده؛ جداول الراوترات ليست بالضرورة متطابقة؛ ومعرفة طريق الذهاب لا تعني وجود طريق العودة.</div>\n<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">Route Entry</div><h4>ما الذي أقرأه؟</h4><p>Source → Destination Prefix → [AD/Metric] → Next Hop → Age → Exit Interface.</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">Local vs Connected</div><h4>L ليست C</h4><p>C تمثل الشبكة المتصلة، بينما L تمثل عنوان الواجهة نفسها لتحديد الحزم الموجهة إلى الراوتر.</p></div>\n</div>\n<div class=\"terms\"><span class=\"term\">Route Source</span><span class=\"term\">Local Route</span><span class=\"term\">Connected Route</span><span class=\"term\">Next Hop</span><span class=\"term\">Exit Interface</span></div>"
+    },
+    {
+      "id": "u14s8",
+      "number": "08",
+      "toc_title": "AD مقابل Metric",
+      "title": "Longest Match وAD وMetric ثلاث مفاضلات مختلفة",
+      "subtitle": "ترتيب الأسئلة أهم من حفظ الأرقام.",
+      "body_html": "<div class=\"flow\">\n  <div class=\"step\"><b>1 · Which Prefix?</b><span><strong>Longest Match</strong> يحدد أكثر Route تطابقًا مع Destination IP.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>2 · Which Source?</b><span><strong>Administrative Distance</strong> يحدد مصدر Route الأكثر موثوقية لنفس Prefix.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>3 · Which Path?</b><span><strong>Metric</strong> يستخدمه Routing Protocol للمفاضلة بين المسارات التي تعلمها.</span></div>\n</div>\n<div class=\"grid3\">\n  <div class=\"card\"><h4>Connected AD = 0</h4><p>الأكثر موثوقية ضمن المصادر المدرجة.</p></div>\n  <div class=\"card\"><h4>Static AD = 1</h4><p>افتراضيًا أكثر تفضيلًا من كثير من Dynamic Routes.</p></div>\n  <div class=\"card\"><h4>OSPF AD = 110</h4><p>مثال على مصدر ديناميكي، بينما Metric الخاص به هو Cost.</p></div>\n</div>\n<div class=\"keyline\"><strong>لا تخلط:</strong> AD يقارن <em>مصادر Routing</em> المختلفة، أما Metric فخاص بطريقة بروتوكول التوجيه في تقييم المسارات.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: هل Route /24 ذات AD=110 تخسر أمام Route /16 ذات AD=1 للوجهة نفسها؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">لا تتم مقارنة AD قبل Longest Match. إذا كانت الوجهة تطابق /24 و/16 فإن /24 هي الأكثر تحديدًا وتُستخدم. AD يُقارن بين Routes لنفس Prefix.</div></div>\n<div class=\"terms\"><span class=\"term\">Administrative Distance (AD)</span><span class=\"term\">Metric</span><span class=\"term\">Longest Prefix Match</span></div>"
+    },
+    {
+      "id": "u14s9",
+      "number": "09",
+      "toc_title": "Static vs Dynamic",
+      "title": "الشبكات الواقعية تجمع بين Static وDynamic Routing",
+      "subtitle": "الثابت يمنح التحكم والبساطة، والديناميكي يمنح التوسع والتكيف.",
+      "body_html": "<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">Static Routing</div><h4>تحكم مباشر</h4><p>مناسب للشبكات الصغيرة وStub Networks وDefault Route والمسارات التي يريد المسؤول تحديدها صراحةً. يتطلب تعديلًا يدويًا عند تغير Topology.</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">Dynamic Routing</div><h4>تعلم وتكيف</h4><p>مناسب للشبكات الأكبر؛ يكتشف الشبكات ويحافظ على معلومات محدثة ويبحث عن مسار جديد عند تغير Topology.</p></div>\n</div>\n<div class=\"grid3\">\n  <div class=\"card\"><h4>IGP</h4><p>بروتوكولات داخل Routing Domain لمنظمة واحدة؛ مثل RIP وEIGRP وOSPF وIS-IS.</p></div>\n  <div class=\"card\"><h4>EGP</h4><p>BGP يستخدم لتبادل Routing بين Autonomous Systems ومنظمات مختلفة.</p></div>\n  <div class=\"card\"><h4>Load Balancing</h4><p>عند وجود مسارات متساوية Metric يمكن استخدام عدة Paths في الوقت نفسه.</p></div>\n</div>\n<div class=\"keyline\"><strong>Equal-Cost Load Balancing:</strong> يمكن أن يظهر مع Dynamic Routing، ويمكن تحقيقه أيضًا بمسارات ثابتة متعددة لنفس الوجهة عبر Next-Hops مختلفة.</div>\n<div class=\"terms\"><span class=\"term\">Static Routing</span><span class=\"term\">Dynamic Routing</span><span class=\"term\">IGP</span><span class=\"term\">EGP</span><span class=\"term\">Equal-Cost Load Balancing</span></div>"
+    }
+  ]
+}

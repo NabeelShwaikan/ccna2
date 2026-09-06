@@ -143,6 +143,34 @@
           "status": "available"
         }
       ]
+    },
+    {
+      "id": "08_Routing",
+      "title": "التوجيه",
+      "meta": "الوحدات 14–16",
+      "modules": [
+        {
+          "number": 14,
+          "title": "مفاهيم التوجيه",
+          "title_en": "Routing Concepts",
+          "path": "Lects/module_14.json",
+          "status": "available"
+        },
+        {
+          "number": 15,
+          "title": "التوجيه الثابت لـIP",
+          "title_en": "IP Static Routing",
+          "path": "Lects/module_15.json",
+          "status": "available"
+        },
+        {
+          "number": 16,
+          "title": "استكشاف أخطاء المسارات الثابتة والافتراضية وإصلاحها",
+          "title_en": "Troubleshoot Static and Default Routes",
+          "path": "Lects/module_16.json",
+          "status": "available"
+        }
+      ]
     }
   ]
 }

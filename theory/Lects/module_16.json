@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "module_number": 16,
+  "group_id": "08_Routing",
+  "title": "الوحدة 16 — Troubleshoot Static and Default Routes (استكشاف أخطاء المسارات الثابتة والافتراضية وإصلاحها)",
+  "title_en": "Troubleshoot Static and Default Routes",
+  "badge": "Troubleshooting",
+  "summary": "منهجية عملية لفهم أين تتوقف الحزمة عند وجود مشكلة في Static أوDefault Route: كيف يبحث الراوتر عن Specific Route ثم Default Route ثم يسقط الحزمة، كيف تتغير الإطارات عبر الموجّهات، كيف نستخدم ping وtraceroute وshow ip route وshow ip interface brief وCDP لعزل المشكلة، ثم تطبيق ذلك على سيناريو Route خاطئة وتصحيحها.",
+  "official_objective": "استكشاف أخطاء تكوين المسارات الثابتة والافتراضية وإصلاحها، مع شرح معالجة الحزم عند وجود Static Route واستكشاف المشكلات الشائعة في تكوين IPv4 Static وDefault Routes.",
+  "lecture": {
+    "duration": "≈ 60 دقيقة",
+    "steps": [
+      {
+        "time": "10 د",
+        "topic": "منطق معالجة الحزمة: Specific Static → Default → Drop."
+      },
+      {
+        "time": "10 د",
+        "topic": "رحلة الحزمة Router-by-Router وإعادة التغليف والوصول النهائي عبر ARP."
+      },
+      {
+        "time": "8 د",
+        "topic": "أسباب تغيّر الشبكة والفشل وكيف نبدأ العزل."
+      },
+      {
+        "time": "12 د",
+        "topic": "أدوات التشخيص الأساسية ووظيفة كل أمر."
+      },
+      {
+        "time": "12 د",
+        "topic": "سيناريو R1-R2-R3 وتحديد Static Route الخاطئة وتصحيحها."
+      },
+      {
+        "time": "8 د",
+        "topic": "Decision Tree للمراجعة + تطبيق المنطق نفسه على IPv6 بأوامره المكافئة."
+      }
+    ]
+  },
+  "review": {
+    "committee": "theory_content_committee",
+    "status": "approved",
+    "approved": true,
+    "review_date": "2026-09-06",
+    "notes": [
+      "تمت مطابقة المحتوى مع المحورين الرسميين: Packet Processing with Static Routes وTroubleshoot IPv4 Static and Default Route Configuration.",
+      "حافظت الوحدة على قصرها النسبي ولم تُضخم بتكرار تكوين Static Routes من الوحدة 15.",
+      "المصدر يركز في جزء Troubleshooting النظري على IPv4، بينما أنشطة Packet Tracer تشمل IPv6؛ لذلك أضيفت فقط ملاحظة تطبيق المنهجية نفسها على IPv6 دون إنشاء فصل نظري غير موجود في المصدر.",
+      "تم تصحيح وصف traceroute تقنيًا: في Cisco IOS يعتمد traceroute التقليدي على probes بقيم TTL متزايدة وردود ICMP المرتبطة بانتهاء TTL/الوصول للوجهة، وليس على ICMP Echo Reply كما يذكر جدول المصدر. سُجل ذلك كتوضيح تصحيحي للمصدر.",
+      "لم تُكرر خطوات Packet Tracer أوLab؛ استُخدم سيناريو المصدر فقط لبناء طريقة تفكير تشخيصية."
+    ]
+  },
+  "sections": [
+    {
+      "id": "u16s1",
+      "number": "01",
+      "toc_title": "منطق معالجة الحزمة",
+      "title": "Specific Route أولًا، ثم Default Route، ثم Drop",
+      "subtitle": "هذه القاعدة هي نقطة البداية لأي Troubleshooting لمسار ثابت.",
+      "body_html": "<div class=\"flow\">\n  <div class=\"step\"><b>Destination IP</b><span>الراوتر يقرأ عنوان الوجهة.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Specific Route?</b><span>إذا وجدت Route مطابقة أكثر تحديدًا يستخدمها.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Default Route?</b><span>إذا لا توجد Specific Route يبحث عن Default.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>No Match</b><span>إذا لا توجد Route مناسبة يسقط الحزمة وقد يرسل ICMP إلى المصدر.</span></div>\n</div>\n<div class=\"keyline\"><strong>التشخيص يبدأ من جدول التوجيه:</strong> قبل تغيير الكابلات أوالأوامر، اسأل: ما Route التي سيطابقها هذا Destination IP على هذا Router تحديدًا؟</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: إذا وجدت Route /24 وDefault Route /0 للوجهة نفسها، أيهما يستخدم؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">Route /24 لأنها Longest Match. Default Route تستخدم فقط عندما لا توجد Route أكثر تحديدًا.</div></div>\n<div class=\"terms\"><span class=\"term\">Specific Route</span><span class=\"term\">Default Route</span><span class=\"term\">Drop</span><span class=\"term\">ICMP</span></div>"
+    },
+    {
+      "id": "u16s2",
+      "number": "02",
+      "toc_title": "رحلة الحزمة",
+      "title": "كل Router يكرر العملية نفسها حتى تصل الحزمة إلى الشبكة النهائية",
+      "subtitle": "IP Destination يبقى هدف الرحلة، لكن Frame تتغير من وصلة إلى أخرى.",
+      "body_html": "<div class=\"flow\">\n  <div class=\"step\"><b>PC1 → R1</b><span>PC1 يرسل إلى Default Gateway.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>R1 → R2</b><span>R1 يفك Frame، يبحث في Routing Table، ثم يعيد التغليف.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>R2 → R3</b><span>R2 يكرر عملية Route Lookup نفسها.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>R3 → PC3</b><span>R3 يرى الشبكة Directly Connected ويستخدم ARP للحصول على MAC الخاص بـPC3.</span></div>\n</div>\n<div class=\"keyline\"><strong>لا تتتبع Frame واحدة من البداية للنهاية:</strong> كل Router يزيل Frame الواردة ويبني Frame جديدة مناسبة للوصلة التالية، بينما تبقى حزمة IP هي العنصر الذي يتم توجيهه نحو الوجهة.</div>\n<div class=\"terms\"><span class=\"term\">Decapsulation</span><span class=\"term\">Re-encapsulation</span><span class=\"term\">ARP</span><span class=\"term\">Next Hop</span></div>"
+    },
+    {
+      "id": "u16s3",
+      "number": "03",
+      "toc_title": "أين تبدأ المشكلة؟",
+      "title": "مشاكل Routing ليست دائمًا Route خاطئة",
+      "subtitle": "Interface أوISP Link أوازدحام أوخطأ تكوين قد ينتج العرض نفسه: لا يوجد اتصال.",
+      "body_html": "<div class=\"grid4\">\n  <div class=\"card\"><h4>Interface Failure</h4><p>واجهة Down تمنع Connected Route وقد تكسر المسار.</p></div>\n  <div class=\"card\"><h4>Provider Failure</h4><p>الوصلة مع مزود الخدمة قد تتوقف رغم صحة الإعداد المحلي.</p></div>\n  <div class=\"card\"><h4>Oversaturation</h4><p>ازدحام الرابط قد يؤدي إلى بطء أوفقد حزم.</p></div>\n  <div class=\"card\"><h4>Misconfiguration</h4><p>Prefix أوMask أوNext-Hop خاطئ قد يرسل الحركة للاتجاه الخطأ.</p></div>\n</div>\n<div class=\"keyline\"><strong>العزل أهم من التخمين:</strong> حدد آخر نقطة ناجحة في المسار وأول نقطة فاشلة، ثم افحص الموجّه أوالرابط بينهما.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: لماذا لا نبدأ مباشرة بحذف Static Routes وإعادة كتابتها؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">لأن المشكلة قد تكون Interface أوLink أوLayer 1/2 أوRoute أخرى. التغيير العشوائي قد يخفي السبب الحقيقي أوينشئ مشكلة جديدة.</div></div>\n<div class=\"terms\"><span class=\"term\">Fault Isolation</span><span class=\"term\">Misconfiguration</span><span class=\"term\">Interface Status</span></div>"
+    },
+    {
+      "id": "u16s4",
+      "number": "04",
+      "toc_title": "أدوات Troubleshooting",
+      "title": "كل أمر يجيب عن سؤال مختلف",
+      "subtitle": "استخدم الأداة المناسبة بدل تنفيذ مجموعة أوامر بلا هدف.",
+      "body_html": "<div class=\"grid3\">\n  <div class=\"card\"><h4>ping</h4><p><strong>هل يوجد Layer 3 Reachability؟</strong> ويمكن Extended Ping أن يحدد Source Interface/Address.</p></div>\n  <div class=\"card\"><h4>traceroute</h4><p><strong>أين تتوقف الرحلة؟</strong> يكشف القفزات نحو الوجهة باستخدام probes بقيم TTL متزايدة وردود ICMP المرتبطة بمسار الحزمة.</p></div>\n  <div class=\"card\"><h4>show ip route</h4><p><strong>ما Route التي يملكها الراوتر للوجهة؟</strong></p></div>\n  <div class=\"card\"><h4>show ip interface brief</h4><p><strong>هل الواجهات Up/Up وهل عناوين IP صحيحة؟</strong></p></div>\n  <div class=\"card\"><h4>show cdp neighbors</h4><p><strong>من متصل مباشرة؟</strong> يساعد على التحقق من الجوار وLayer 1/2 في بيئة Cisco.</p></div>\n  <div class=\"card\"><h4>show running-config</h4><p><strong>ما الأمر المكتوب فعليًا؟</strong> قارن Config بالتصميم المطلوب.</p></div>\n</div>\n<div class=\"keyline\"><strong>تسلسل عملي:</strong> Interface Status → Local Ping → Next-Hop Ping → Routing Table → Traceroute → Config Comparison.</div>\n<div class=\"terms\"><span class=\"term\">ping</span><span class=\"term\">Extended Ping</span><span class=\"term\">traceroute</span><span class=\"term\">show ip route</span><span class=\"term\">show ip interface brief</span><span class=\"term\">CDP</span></div>"
+    },
+    {
+      "id": "u16s5",
+      "number": "05",
+      "toc_title": "سيناريو Route خاطئة",
+      "title": "نجاح Ping إلى الجيران لا يعني أن Remote Route صحيحة",
+      "subtitle": "في سيناريو Cisco المشكلة ظهرت في R2 Routing Table رغم نجاح الوصول بين الموجّهات المجاورة.",
+      "body_html": "<p class=\"core\">في السيناريو، يفشل اتصال PC1 إلى PC3. الاختبارات من R1 إلى R2 وR3 تنجح، وهذا يقلل احتمال أن تكون المشكلة في الوصلات بين الموجّهات. فحص جدول R2 يكشف أن Route إلى شبكة <code>172.16.3.0/24</code> تشير إلى Next Hop خاطئ.</p>\n<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">Wrong Route on R2</div><h4>الاتجاه الخاطئ</h4><pre class=\"cmd\">S 172.16.3.0/24 via 192.168.1.1</pre><p>هذا Next Hop باتجاه R3 وليس نحو R1 حيث توجد الشبكة 172.16.3.0/24.</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">Correct Route</div><h4>نحو R1</h4><pre class=\"cmd\">ip route 172.16.3.0 255.255.255.0 172.16.2.1</pre><p>الـNext Hop الصحيح هو R1 على الشبكة 172.16.2.0/24.</p></div>\n</div>\n<div class=\"keyline\"><strong>طريقة التفكير:</strong> ارسم المسار ذهنيًا ثم اسأل عند كل Router: هل Next Hop المكتوب يقود فعليًا باتجاه Destination Network؟</div>\n<div class=\"terms\"><span class=\"term\">Incorrect Next Hop</span><span class=\"term\">Routing Table Verification</span><span class=\"term\">Connectivity Test</span></div>"
+    },
+    {
+      "id": "u16s6",
+      "number": "06",
+      "toc_title": "منهجية المراجعة",
+      "title": "حل المشكلة من المصدر إلى الوجهة ثم تحقق من طريق العودة",
+      "subtitle": "منهجية واحدة تصلح للمسارات الثابتة والافتراضية، ويمكن تطبيقها على IPv6 بأوامره المكافئة.",
+      "body_html": "<div class=\"flow\">\n  <div class=\"step\"><b>1 · Identify</b><span>حدد Source وDestination وعنوان Default Gateway.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>2 · Local State</b><span>تحقق من Interfaces والعناوين.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>3 · Hop-by-Hop</b><span>اختبر الوصول إلى كل Next Hop.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>4 · Route Lookup</b><span>راجع Specific/Default Route في كل Router.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>5 · Return Path</b><span>تأكد من وجود Routing عكسي.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>6 · Verify</b><span>بعد التصحيح أعد ping/traceroute وتأكد من Routing Table.</span></div>\n</div>\n<details class=\"expand study-detail\"><summary>وماذا عن IPv6؟</summary><div class=\"expand-body\">المحور النظري الرسمي في الوحدة يركز على IPv4، لكن المنهجية نفسها تنطبق على IPv6: استخدم <code>show ipv6 route</code> وIPv6 ping/traceroute وتحقق من Prefix وNext-Hop وExit Interface، خصوصًا عند استخدام Link-Local Next Hop.</div></details>\n<div class=\"keyline\"><strong>الخلاصة:</strong> Routing Troubleshooting هو قراءة متسلسلة لقرارات الموجّهات، وليس حفظ أوامر منفصلة.</div>\n<div class=\"terms\"><span class=\"term\">Troubleshooting Workflow</span><span class=\"term\">Return Path</span><span class=\"term\">IPv6 Route Verification</span></div>"
+    }
+  ]
+}

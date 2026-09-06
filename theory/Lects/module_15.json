@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "module_number": 15,
+  "group_id": "08_Routing",
+  "title": "الوحدة 15 — IP Static Routing (التوجيه الثابت لـIP)",
+  "title_en": "IP Static Routing",
+  "badge": "Static Routing",
+  "summary": "كيفية تكوين المسارات الثابتة في IPv4 وIPv6 وفهم تصنيفين مختلفين لها: حسب الغرض Standard/Default/Floating/Summary، وحسب طريقة تحديد الخطوة التالية Next-Hop/Exit-Interface/Fully-Specified؛ ثم التحقق من المسارات، واستخدام Default Route وFloating Static Route وHost Routes، مع تنبيه خاص لاستخدام IPv6 Link-Local كـNext-Hop.",
+  "official_objective": "تكوين مسارات IPv4 وIPv6 الثابتة، بما في ذلك المسارات الثابتة القياسية والافتراضية والعائمة ومسارات المضيف، والتحقق منها.",
+  "lecture": {
+    "duration": "≈ 90 دقيقة",
+    "steps": [
+      {
+        "time": "10 د",
+        "topic": "لماذا نستخدم Static Routes؟ وتصنيفها حسب الغرض."
+      },
+      {
+        "time": "12 د",
+        "topic": "تصنيفها حسب تحديد Next Hop: Next-Hop / Exit Interface / Fully Specified."
+      },
+      {
+        "time": "15 د",
+        "topic": "صيغة ip route وipv6 route وأمثلة IPv4 وIPv6."
+      },
+      {
+        "time": "8 د",
+        "topic": "التحقق باستخدام show route وping وtraceroute."
+      },
+      {
+        "time": "12 د",
+        "topic": "Default Static Route في IPv4 وIPv6 وGateway of Last Resort."
+      },
+      {
+        "time": "12 د",
+        "topic": "Floating Static Route وعلاقتها بـAdministrative Distance."
+      },
+      {
+        "time": "11 د",
+        "topic": "Host Routes: /32 و/128 وLocal Host Route."
+      },
+      {
+        "time": "10 د",
+        "topic": "الخريطة النهائية ومقارنة الأنواع والتنبيهات المهمة."
+      }
+    ]
+  },
+  "review": {
+    "committee": "theory_content_committee",
+    "status": "approved",
+    "approved": true,
+    "review_date": "2026-09-06",
+    "notes": [
+      "تمت مطابقة المحتوى مع المحاور الرسمية الخمسة: Static Routes، Configure IP Static Routes، Configure IP Default Static Routes، Configure Floating Static Routes، Configure Static Host Routes.",
+      "تم فصل تصنيف Static Routes حسب الغرض عن تصنيفها حسب طريقة تحديد Next Hop حتى لا تُخلط مفاهيم مثل Floating وFully Specified.",
+      "تم إبقاء Summary Static Route كمفهوم ضمن أنواع المسارات كما يورده المصدر دون اختراع قسم تكوين غير موجود في الوحدة.",
+      "تم الحفاظ على تنبيه المصدر بأن Exit-Interface-only يُستخدم مع Point-to-Point Serial Links، وأن Next-Hop Address هو الخيار الموصى به عمومًا.",
+      "في IPv6، تم إبراز وجوب تحديد Exit Interface عند استخدام Link-Local Address كـNext-Hop.",
+      "تم تصحيح خطأ مطبعي في ملخص المصدر [ip=address] إلى [ip-address]، مع تسجيله كملاحظة مصدر."
+    ]
+  },
+  "sections": [
+    {
+      "id": "u15s1",
+      "number": "01",
+      "toc_title": "أنواع Static Routes",
+      "title": "Static Route ليست نوعًا واحدًا؛ الغرض يحدد شكل استخدامها",
+      "subtitle": "Standard وDefault وFloating وSummary كلها Static Routes لكن لكل منها وظيفة.",
+      "body_html": "<p class=\"core\"><strong>Static Route (المسار الثابت)</strong> يضيفه مسؤول الشبكة يدويًا إلى الراوتر. وهو شائع حتى في الشبكات التي تستخدم Dynamic Routing لأنه يمنح تحكمًا مباشرًا في بعض الوجهات.</p>\n<div class=\"grid4\">\n  <div class=\"card\"><h4>Standard</h4><p>مسار ثابت إلى شبكة بعيدة محددة.</p></div>\n  <div class=\"card\"><h4>Default</h4><p>يمثل أي شبكة لا توجد لها Route أكثر تحديدًا.</p></div>\n  <div class=\"card\"><h4>Floating</h4><p>مسار احتياطي له AD أعلى من المسار الأساسي.</p></div>\n  <div class=\"card\"><h4>Summary</h4><p>Route واحدة تمثل مجموعة Prefixes عندما يسمح تصميم العناوين بذلك.</p></div>\n</div>\n<div class=\"keyline\"><strong>تنبيه:</strong> هذا تصنيف حسب <em>الغرض</em>. في القسم التالي سنرى تصنيفًا آخر حسب الطريقة التي نحدد بها Next Hop داخل الأمر.</div>\n<div class=\"terms\"><span class=\"term\">Standard Static Route</span><span class=\"term\">Default Static Route</span><span class=\"term\">Floating Static Route</span><span class=\"term\">Summary Static Route</span></div>"
+    },
+    {
+      "id": "u15s2",
+      "number": "02",
+      "toc_title": "Next-Hop Options",
+      "title": "طريقة كتابة Next Hop تنتج ثلاثة أشكال مختلفة للمسار الثابت",
+      "subtitle": "عنوان الخطوة التالية، أوواجهة الخروج، أوالاثنان معًا.",
+      "body_html": "<div class=\"grid3\">\n  <div class=\"card\"><h4>Next-Hop Route</h4><p>نكتب عنوان IP للموجّه التالي فقط، والراوتر يحدد Exit Interface للوصول إليه.</p></div>\n  <div class=\"card\"><h4>Directly Connected Static</h4><p>نكتب Exit Interface فقط. يوصي المصدر بقصر هذا الشكل على Point-to-Point Serial Interfaces.</p></div>\n  <div class=\"card\"><h4>Fully Specified</h4><p>نكتب Exit Interface وNext-Hop Address معًا؛ مفيد على Multi-Access Networks، وضروري في حالة IPv6 Link-Local Next Hop.</p></div>\n</div>\n<pre class=\"cmd\">ip route network-address subnet-mask { ip-address | exit-intf [ip-address] } [distance]\nipv6 route ipv6-prefix/prefix-length { ipv6-address | exit-intf [ipv6-address] } [distance]</pre>\n<div class=\"keyline\"><strong>التصنيفان مستقلان:</strong> يمكن أن يكون Default Route مثلًا Next-Hop Route أوFully Specified حسب كيفية كتابته.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: هل Floating Route عكس Fully Specified Route؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">لا. Floating تصف وظيفة المسار كاحتياطي، أما Fully Specified فتصف كيفية تحديد Next Hop وExit Interface في الأمر.</div></div>\n<div class=\"terms\"><span class=\"term\">Next-Hop Route</span><span class=\"term\">Directly Connected Static Route</span><span class=\"term\">Fully Specified Static Route</span></div>"
+    },
+    {
+      "id": "u15s3",
+      "number": "03",
+      "toc_title": "IPv4 وIPv6 Static",
+      "title": "الفكرة واحدة في IPv4 وIPv6، لكن صيغة Prefix تختلف",
+      "subtitle": "IPv4 يستخدم Network Address + Subnet Mask، وIPv6 يستخدم Prefix/Length.",
+      "body_html": "<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">IPv4</div><h4>Next-Hop Static</h4><pre class=\"cmd\">ip route 192.168.2.0 255.255.255.0 172.16.2.2</pre></div>\n  <div class=\"compare-box\"><div class=\"micro\">IPv6</div><h4>Next-Hop Static</h4><pre class=\"cmd\">ipv6 route 2001:db8:cafe:2::/64 2001:db8:acad:2::2</pre></div>\n</div>\n<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">Exit Interface Only</div><h4>Point-to-Point</h4><pre class=\"cmd\">ip route 192.168.2.0 255.255.255.0 s0/1/0</pre></div>\n  <div class=\"compare-box\"><div class=\"micro\">Fully Specified</div><h4>واجهة + Next Hop</h4><pre class=\"cmd\">ip route 192.168.2.0 255.255.255.0 g0/0/0 172.16.2.2</pre></div>\n</div>\n<div class=\"keyline\"><strong>IPv6 Link-Local:</strong> إذا كان Next-Hop هو Link-Local Address فيجب كتابة Exit Interface أيضًا، لأن Link-Local قد يتكرر على روابط مختلفة ولا يكون فريدًا إلا داخل وصلة محددة.</div>\n<pre class=\"cmd study-detail\">ipv6 route 2001:db8:acad:2::/64 g0/0/0 fe80::2</pre>\n<div class=\"terms\"><span class=\"term\">ip route</span><span class=\"term\">ipv6 route</span><span class=\"term\">Link-Local Next Hop</span></div>"
+    },
+    {
+      "id": "u15s4",
+      "number": "04",
+      "toc_title": "التحقق",
+      "title": "لا تعتبر Route ناجحة لمجرد قبول IOS للأمر",
+      "subtitle": "تحقق من دخولها جدول التوجيه ثم اختبر الوصول والمسار.",
+      "body_html": "<div class=\"grid3\">\n  <div class=\"card\"><h4>Routing Table</h4><p><code>show ip route</code><br><code>show ipv6 route</code></p></div>\n  <div class=\"card\"><h4>Static Only</h4><p><code>show ip route static</code><br><code>show ipv6 route static</code></p></div>\n  <div class=\"card\"><h4>Connectivity</h4><p><code>ping</code> و<code>traceroute</code> لاختبار الوصول والمسار.</p></div>\n</div>\n<pre class=\"cmd\">show ip route 192.168.2.0\nshow running-config | section ip route</pre>\n<div class=\"keyline\"><strong>سؤالان دائمًا:</strong> هل Route موجودة في Running Config؟ وهل تم تثبيتها فعلًا في Routing Table؟ وجود الأمر وحده لا يضمن أن Route قابلة للاستخدام.</div>\n<div class=\"terms\"><span class=\"term\">show ip route static</span><span class=\"term\">show ipv6 route static</span><span class=\"term\">ping</span><span class=\"term\">traceroute</span></div>"
+    },
+    {
+      "id": "u15s5",
+      "number": "05",
+      "toc_title": "Default Static Route",
+      "title": "Default Route هي Route الملاذ الأخير وليست المسار الأول",
+      "subtitle": "تطابق أي Destination فقط عندما لا توجد Route أكثر تحديدًا.",
+      "body_html": "<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">IPv4</div><h4>Quad-Zero Route</h4><pre class=\"cmd\">ip route 0.0.0.0 0.0.0.0 172.16.2.2</pre><p>تظهر في الجدول كـ<code>S*</code> عندما تكون Candidate Default Route.</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">IPv6</div><h4>::/0</h4><pre class=\"cmd\">ipv6 route ::/0 2001:db8:acad:2::2</pre><p>Prefix /0 يعني عدم اشتراط أي بت مطابق.</p></div>\n</div>\n<div class=\"keyline\"><strong>Gateway of Last Resort:</strong> إذا لم يجد الراوتر Prefix أطول من /0، يستخدم Default Route. لذلك فهي خيار أخير بعد فشل كل المسارات الأكثر تحديدًا.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: لماذا Default Route لا تتغلب على Route /24؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">لأن Longest Match يفضل /24 الأكثر تحديدًا على /0.</div></div>\n<div class=\"terms\"><span class=\"term\">Default Static Route</span><span class=\"term\">Quad-Zero Route</span><span class=\"term\">Gateway of Last Resort</span></div>"
+    },
+    {
+      "id": "u15s6",
+      "number": "06",
+      "toc_title": "Floating Static Route",
+      "title": "Floating Static Route تبقى احتياطية لأنها أقل تفضيلًا",
+      "subtitle": "نرفع Administrative Distance للمسار الاحتياطي حتى لا يُستخدم ما دام المسار الأساسي موجودًا.",
+      "body_html": "<p class=\"core\">المسار الثابت له <strong>AD = 1</strong> افتراضيًا. لإنشاء Backup Route نضبط مسارًا ثانيًا إلى الوجهة نفسها بقيمة AD أعلى من المسار الأساسي. لذلك يظل المسار الاحتياطي خارج الاختيار الطبيعي ويظهر عند فشل المسار الأفضل.</p>\n<div class=\"flow\">\n  <div class=\"step\"><b>Primary Route</b><span>AD أقل → مفضلة.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Floating Route</b><span>AD أعلى → تنتظر.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Primary Fails</b><span>المسار الأساسي يختفي.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Backup Installed</b><span>Floating Route تصبح المسار المستخدم.</span></div>\n</div>\n<pre class=\"cmd\">ip route 0.0.0.0 0.0.0.0 172.16.2.2\nip route 0.0.0.0 0.0.0.0 10.10.10.2 5\n\nipv6 route ::/0 2001:db8:acad:2::2\nipv6 route ::/0 2001:db8:feed:10::2 5</pre>\n<div class=\"keyline\"><strong>الفكرة ليست الرقم 5 تحديدًا:</strong> المطلوب أن تكون AD للمسار الاحتياطي أعلى من AD للمسار الأساسي الذي نريد الاحتفاظ به.</div>\n<div class=\"terms\"><span class=\"term\">Floating Static Route</span><span class=\"term\">Administrative Distance</span><span class=\"term\">Backup Route</span></div>"
+    },
+    {
+      "id": "u15s7",
+      "number": "07",
+      "toc_title": "Host Routes",
+      "title": "Host Route تستهدف جهازًا واحدًا لا شبكة كاملة",
+      "subtitle": "IPv4 يستخدم /32 وIPv6 يستخدم /128.",
+      "body_html": "<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">Local Host Route</div><h4>يضيفها IOS تلقائيًا</h4><p>عند تكوين عنوان على واجهة، يضيف IOS Route محلية <code>L</code> لعنوان الواجهة نفسها لتحديد الحزم الموجهة إلى الراوتر.</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">Static Host Route</div><h4>يضيفها المسؤول</h4><p>Route يدوية إلى جهاز محدد باستخدام /32 في IPv4 أو/128 في IPv6.</p></div>\n</div>\n<pre class=\"cmd\">ip route 209.165.200.238 255.255.255.255 198.51.100.2\nipv6 route 2001:db8:acad:2::238/128 2001:db8:acad:1::2</pre>\n<div class=\"keyline\"><strong>Link-Local Next Hop في IPv6:</strong> عند استخدامه مع Static Host Route يجب كتابة Exit Interface بالإضافة إلى عنوان Link-Local.</div>\n<div class=\"terms\"><span class=\"term\">Host Route</span><span class=\"term\">Local Host Route</span><span class=\"term\">Static Host Route</span><span class=\"term\">/32</span><span class=\"term\">/128</span></div>"
+    },
+    {
+      "id": "u15s8",
+      "number": "08",
+      "toc_title": "الخريطة النهائية",
+      "title": "اختر نوع Route بسؤالين: لماذا أحتاجها؟ وكيف سأحدد Next Hop؟",
+      "subtitle": "هذه الشاشة تجمع الوحدة كلها دون خلط التصنيفين.",
+      "body_html": "<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">السؤال الأول</div><h4>ما الغرض؟</h4><p>Standard للشبكة المحددة، Default لأي وجهة غير معروفة، Floating كاحتياط، Summary لتجميع Prefixes.</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">السؤال الثاني</div><h4>كيف أحدد الخطوة التالية؟</h4><p>Next-Hop Address فقط، أوExit Interface فقط على Point-to-Point، أوFully Specified بالاثنين معًا.</p></div>\n</div>\n<div class=\"grid4\">\n  <div class=\"card\"><h4>Default IPv4</h4><p><code>0.0.0.0 0.0.0.0</code></p></div>\n  <div class=\"card\"><h4>Default IPv6</h4><p><code>::/0</code></p></div>\n  <div class=\"card\"><h4>Host IPv4</h4><p><code>/32</code></p></div>\n  <div class=\"card\"><h4>Host IPv6</h4><p><code>/128</code></p></div>\n</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال مراجعة: تريد Backup Default Route لا تعمل إلا عند فشل المسار الأساسي. أي خاصية أساسية تضبط؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">تجعلها Floating Static Route عبر Administrative Distance أعلى من المسار الأساسي.</div></div>\n<div class=\"terms\"><span class=\"term\">Static Route</span><span class=\"term\">Default Route</span><span class=\"term\">Floating Route</span><span class=\"term\">Host Route</span><span class=\"term\">Fully Specified</span></div>"
+    }
+  ]
+}

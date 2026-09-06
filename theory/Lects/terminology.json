@@ -685,6 +685,206 @@
     {
       "en": "Firmware",
       "ar": "البرنامج الثابت"
+    },
+    {
+      "en": "Best Path",
+      "ar": "أفضل مسار"
+    },
+    {
+      "en": "Longest Match",
+      "ar": "أطول تطابق"
+    },
+    {
+      "en": "Longest Prefix Match",
+      "ar": "أطول تطابق للبادئة"
+    },
+    {
+      "en": "Prefix",
+      "ar": "البادئة"
+    },
+    {
+      "en": "Prefix Length",
+      "ar": "طول البادئة"
+    },
+    {
+      "en": "Next-Hop Router",
+      "ar": "موجّه الخطوة التالية"
+    },
+    {
+      "en": "Next Hop",
+      "ar": "الخطوة التالية"
+    },
+    {
+      "en": "Ingress Interface",
+      "ar": "واجهة الدخول"
+    },
+    {
+      "en": "Egress Interface",
+      "ar": "واجهة الخروج"
+    },
+    {
+      "en": "Directly Connected Route",
+      "ar": "مسار متصل مباشرة"
+    },
+    {
+      "en": "Connected Route",
+      "ar": "مسار متصل"
+    },
+    {
+      "en": "Local Route",
+      "ar": "مسار محلي"
+    },
+    {
+      "en": "Static Route",
+      "ar": "مسار ثابت"
+    },
+    {
+      "en": "Dynamic Route",
+      "ar": "مسار ديناميكي"
+    },
+    {
+      "en": "Default Route",
+      "ar": "المسار الافتراضي"
+    },
+    {
+      "en": "Gateway of Last Resort",
+      "ar": "بوابة الملاذ الأخير"
+    },
+    {
+      "en": "Route Source",
+      "ar": "مصدر المسار"
+    },
+    {
+      "en": "Administrative Distance (AD)",
+      "ar": "المسافة الإدارية"
+    },
+    {
+      "en": "Metric",
+      "ar": "المقياس"
+    },
+    {
+      "en": "Process Switching",
+      "ar": "التحويل القائم على المعالجة"
+    },
+    {
+      "en": "Fast Switching",
+      "ar": "التحويل السريع"
+    },
+    {
+      "en": "Cisco Express Forwarding (CEF)",
+      "ar": "إعادة التوجيه السريع من Cisco"
+    },
+    {
+      "en": "Forwarding Information Base (FIB)",
+      "ar": "قاعدة معلومات إعادة التوجيه"
+    },
+    {
+      "en": "Adjacency Table",
+      "ar": "جدول التجاور"
+    },
+    {
+      "en": "Static Routing",
+      "ar": "التوجيه الثابت"
+    },
+    {
+      "en": "Dynamic Routing",
+      "ar": "التوجيه الديناميكي"
+    },
+    {
+      "en": "Routing Protocol",
+      "ar": "بروتوكول التوجيه"
+    },
+    {
+      "en": "Interior Gateway Protocol (IGP)",
+      "ar": "بروتوكول بوابة داخلي"
+    },
+    {
+      "en": "Exterior Gateway Protocol (EGP)",
+      "ar": "بروتوكول بوابة خارجي"
+    },
+    {
+      "en": "Autonomous System (AS)",
+      "ar": "نظام مستقل"
+    },
+    {
+      "en": "Load Balancing",
+      "ar": "موازنة الحمل"
+    },
+    {
+      "en": "Equal-Cost Load Balancing",
+      "ar": "موازنة حمل متساوية التكلفة"
+    },
+    {
+      "en": "Unequal-Cost Load Balancing",
+      "ar": "موازنة حمل غير متساوية التكلفة"
+    },
+    {
+      "en": "Stub Network",
+      "ar": "شبكة Stub"
+    },
+    {
+      "en": "Standard Static Route",
+      "ar": "مسار ثابت قياسي"
+    },
+    {
+      "en": "Default Static Route",
+      "ar": "مسار ثابت افتراضي"
+    },
+    {
+      "en": "Floating Static Route",
+      "ar": "مسار ثابت عائم"
+    },
+    {
+      "en": "Summary Static Route",
+      "ar": "مسار ثابت ملخص"
+    },
+    {
+      "en": "Next-Hop Route",
+      "ar": "مسار الخطوة التالية"
+    },
+    {
+      "en": "Directly Connected Static Route",
+      "ar": "مسار ثابت متصل مباشرة"
+    },
+    {
+      "en": "Fully Specified Static Route",
+      "ar": "مسار ثابت محدد بالكامل"
+    },
+    {
+      "en": "Quad-Zero Route",
+      "ar": "مسار الأصفار الأربعة"
+    },
+    {
+      "en": "Host Route",
+      "ar": "مسار مضيف"
+    },
+    {
+      "en": "Local Host Route",
+      "ar": "مسار مضيف محلي"
+    },
+    {
+      "en": "Static Host Route",
+      "ar": "مسار مضيف ثابت"
+    },
+    {
+      "en": "Backup Route",
+      "ar": "مسار احتياطي"
+    },
+    {
+      "en": "Return Route",
+      "ar": "مسار العودة"
+    },
+    {
+      "en": "Fault Isolation",
+      "ar": "عزل العطل"
+    },
+    {
+      "en": "Extended Ping",
+      "ar": "اختبار Ping موسع"
+    },
+    {
+      "en": "Troubleshooting Workflow",
+      "ar": "منهجية استكشاف الأخطاء وإصلاحها"
     }
   ]
 }
