@@ -40,14 +40,16 @@
     "committee": "theory_content_committee",
     "status": "approved",
     "approved": true,
-    "review_date": "2026-09-05",
+    "review_date": "2026-09-06",
     "notes": [
       "تمت مطابقة الداتا مع المحاور الرسمية الثلاثة: Purpose of STP، STP Operations، وEvolution of STP.",
       "تم تضمين أسباب حلقات Layer 2 وآثارها، STA وBPDUs وBID، انتخاب Root Bridge وأدوار المنافذ والتكلفة وكسر التعادل، المؤقتات والحالات، PVST+/RSTP/Rapid PVST+، وPortFast وBPDU Guard.",
       "أنشطة الفيديو وPacket Tracer وأسئلة Check Your Understanding لم تُنسخ كأنشطة عملية؛ استُخدمت فقط لتحديد التركيز التعليمي.",
       "تم الحفاظ على تفاصيل الإصدارات والقيم كما وردت في Instructor Materials، مع استخدام عبارات مثل «وفق العرض» عند الحاجة لتجنب تعميم معلومات مرتبطة بالمنصة أو الإصدار.",
-      "لم يتم تعديل التصميم أو JavaScript أو CSS؛ الإضافة بيانات فقط."
-    ]
+      "لم يتم تعديل التصميم أو JavaScript أو CSS؛ الإضافة بيانات فقط.",
+      "جولة المراجعة المتقاطعة: عُدلت صياغة PortFast لتكون مرتبطة بمنافذ الأجهزة النهائية في سياق المقرر بدل عبارة مطلقة."
+    ],
+    "cross_review_corrections_applied": true
   },
   "sections": [
     {
@@ -112,7 +114,7 @@
       "toc_title": "PortFast وBPDU Guard",
       "title": "تسريع منافذ المستخدم مع إبقاء الحماية من الحلقات",
       "subtitle": "PortFast يزيل انتظار STP على منفذ المستخدم، وBPDU Guard يحميه إذا ظهر عليه محوّل بالخطأ.",
-      "body_html": "<div class=\"grid2\">\n  <div class=\"card\"><h4>PortFast</h4><p>يجعل منفذ Access ينتقل إلى Forwarding مباشرة بدل انتظار Listening ثم Learning، متجنبًا تأخيرًا تقليديًا قدره نحو 30 ثانية. يفيد خصوصًا أجهزة المستخدم وDHCP.</p></div>\n  <div class=\"card\"><h4>BPDU Guard</h4><p>إذا استقبل منفذ PortFast رسالة BPDU فهذا مؤشر على اتصال محوّل محتمل. BPDU Guard يضع المنفذ فورًا في حالة errdisabled لحماية الشبكة من حلقة محتملة.</p></div>\n</div>\n<div class=\"keyline\"><strong>قاعدة أمان:</strong> PortFast للاستخدام على Access Ports المتصلة بأجهزة نهائية فقط. تمكينه على وصلة إلى محوّل آخر قد يعرّض الشبكة لحلقة STP.</div>\n<details class=\"expand study-detail\"><summary>لماذا تتجه بعض التصاميم إلى Layer 3؟</summary><div class=\"expand-body\">يذكر العرض أن Layer 3 Routing يسمح بمسارات مكررة دون الحاجة إلى حجب منافذ كما يفعل Spanning Tree، ولذلك تتجه بعض البيئات إلى جعل الربط بين طبقتي Access وDistribution من Layer 3 مع الإبقاء على Layer 2 قرب الأجهزة النهائية.</div></details>\n<div class=\"summary-box\"><h4>ما الذي يجب أن يبقى في ذهنك؟</h4><div class=\"summary-list\">\n  <div class=\"summary-item\">التكرار يحسن الاستمرارية لكنه قد يصنع Layer 2 Loop.</div>\n  <div class=\"summary-item\">STP يمنع الحلقة باختيار Root Bridge ومسار أقل تكلفة وحجب المسار البديل.</div>\n  <div class=\"summary-item\">BPDUs وBID وPort Cost هي أساس قرارات STA.</div>\n  <div class=\"summary-item\">RSTP وRapid PVST+ يقدمان تقاربًا أسرع مع مفاهيم أدوار مشابهة.</div>\n  <div class=\"summary-item\">PortFast يسرّع منافذ المستخدم، وBPDU Guard يحميها من BPDUs غير المتوقعة.</div>\n</div></div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال ختامي: لماذا نستخدم PortFast وBPDU Guard معًا على منفذ مستخدم؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">PortFast يسرّع وصول الجهاز للشبكة، وBPDU Guard يحمي المنفذ إذا استقبل BPDU تدل على اتصال محوّل أو خطر حلقة.</div></div>\n<div class=\"terms\"><span class=\"term\">PortFast</span><span class=\"term\">BPDU Guard</span><span class=\"term\">errdisabled</span><span class=\"term\">Layer 3</span></div>"
+      "body_html": "<div class=\"grid2\">\n  <div class=\"card\"><h4>PortFast</h4><p>يجعل المنفذ الطرفي في سيناريو المقرر ينتقل إلى Forwarding مباشرة بدل انتظار Listening ثم Learning، متجنبًا تأخيرًا تقليديًا قدره نحو 30 ثانية. يفيد خصوصًا أجهزة المستخدم وDHCP.</p></div>\n  <div class=\"card\"><h4>BPDU Guard</h4><p>إذا استقبل منفذ PortFast رسالة BPDU فهذا مؤشر على اتصال محوّل محتمل. BPDU Guard يضع المنفذ فورًا في حالة errdisabled لحماية الشبكة من حلقة محتملة.</p></div>\n</div>\n<div class=\"keyline\"><strong>قاعدة أمان:</strong> في سياق هذا المقرر، يُستخدم PortFast على المنافذ الطرفية المتصلة بالأجهزة النهائية، وليس على الروابط بين المحوّلات. تمكينه على وصلة محوّلات قد يعرّض الشبكة لحلقة STP.</div>\n<details class=\"expand study-detail\"><summary>لماذا تتجه بعض التصاميم إلى Layer 3؟</summary><div class=\"expand-body\">يذكر العرض أن Layer 3 Routing يسمح بمسارات مكررة دون الحاجة إلى حجب منافذ كما يفعل Spanning Tree، ولذلك تتجه بعض البيئات إلى جعل الربط بين طبقتي Access وDistribution من Layer 3 مع الإبقاء على Layer 2 قرب الأجهزة النهائية.</div></details>\n<div class=\"summary-box\"><h4>ما الذي يجب أن يبقى في ذهنك؟</h4><div class=\"summary-list\">\n  <div class=\"summary-item\">التكرار يحسن الاستمرارية لكنه قد يصنع Layer 2 Loop.</div>\n  <div class=\"summary-item\">STP يمنع الحلقة باختيار Root Bridge ومسار أقل تكلفة وحجب المسار البديل.</div>\n  <div class=\"summary-item\">BPDUs وBID وPort Cost هي أساس قرارات STA.</div>\n  <div class=\"summary-item\">RSTP وRapid PVST+ يقدمان تقاربًا أسرع مع مفاهيم أدوار مشابهة.</div>\n  <div class=\"summary-item\">PortFast يسرّع منافذ المستخدم، وBPDU Guard يحميها من BPDUs غير المتوقعة.</div>\n</div></div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال ختامي: لماذا نستخدم PortFast وBPDU Guard معًا على منفذ مستخدم؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">PortFast يسرّع وصول الجهاز للشبكة، وBPDU Guard يحمي المنفذ إذا استقبل BPDU تدل على اتصال محوّل أو خطر حلقة.</div></div>\n<div class=\"terms\"><span class=\"term\">PortFast</span><span class=\"term\">BPDU Guard</span><span class=\"term\">errdisabled</span><span class=\"term\">Layer 3</span></div>"
     }
   ]
 }
