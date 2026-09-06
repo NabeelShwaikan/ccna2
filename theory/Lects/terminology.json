@@ -261,6 +261,102 @@
     {
       "en": "LACP",
       "ar": "بروتوكول التحكم في تجميع الروابط"
+    },
+    {
+      "en": "DHCPv4",
+      "ar": "بروتوكول التكوين الديناميكي للمضيف الإصدار الرابع"
+    },
+    {
+      "en": "DHCP Lease",
+      "ar": "تأجير DHCP"
+    },
+    {
+      "en": "DHCP Pool",
+      "ar": "مجمع عناوين DHCP"
+    },
+    {
+      "en": "DHCP Relay",
+      "ar": "ترحيل DHCP"
+    },
+    {
+      "en": "SLAAC",
+      "ar": "التكوين التلقائي للعناوين دون حالة"
+    },
+    {
+      "en": "Global Unicast Address (GUA)",
+      "ar": "عنوان أحادي الإرسال العام"
+    },
+    {
+      "en": "Link-Local Address (LLA)",
+      "ar": "عنوان الارتباط المحلي"
+    },
+    {
+      "en": "Router Solicitation (RS)",
+      "ar": "طلب الموجّه"
+    },
+    {
+      "en": "Router Advertisement (RA)",
+      "ar": "إعلان الموجّه"
+    },
+    {
+      "en": "Duplicate Address Detection (DAD)",
+      "ar": "اكتشاف العنوان المكرر"
+    },
+    {
+      "en": "Stateless DHCPv6",
+      "ar": "DHCPv6 دون حالة"
+    },
+    {
+      "en": "Stateful DHCPv6",
+      "ar": "DHCPv6 ذو حالة"
+    },
+    {
+      "en": "DHCPv6 Relay Agent",
+      "ar": "وكيل ترحيل DHCPv6"
+    },
+    {
+      "en": "First Hop Redundancy Protocol (FHRP)",
+      "ar": "بروتوكول تكرار الخطوة الأولى"
+    },
+    {
+      "en": "Router Redundancy",
+      "ar": "تكرار الموجّهات"
+    },
+    {
+      "en": "Virtual Router",
+      "ar": "الموجّه الظاهري"
+    },
+    {
+      "en": "Active Router",
+      "ar": "الموجّه النشط"
+    },
+    {
+      "en": "Standby Router",
+      "ar": "الموجّه الاحتياطي"
+    },
+    {
+      "en": "Hot Standby Router Protocol (HSRP)",
+      "ar": "بروتوكول الموجّه الاحتياطي الفعال"
+    },
+    {
+      "en": "Virtual Router Redundancy Protocol (VRRP)",
+      "ar": "بروتوكول تكرار الموجّه الظاهري"
+    },
+    {
+      "en": "Gateway Load Balancing Protocol (GLBP)",
+      "ar": "بروتوكول موازنة حمل البوابة"
+    },
+    {
+      "en": "ICMP Router Discovery Protocol (IRDP)",
+      "ar": "بروتوكول اكتشاف موجّه ICMP"
+    },
+    {
+      "en": "HSRP Priority",
+      "ar": "أولوية HSRP"
+    },
+    {
+      "en": "Preemption",
+      "ar": "الاستباق"
     }
   ]
 }

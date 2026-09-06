@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "module_number": 9,
+  "group_id": "05_First_Hop_Redundancy",
+  "title": "الوحدة 9 — FHRP Concepts (مفاهيم بروتوكولات تكرار الخطوة الأولى)",
+  "title_en": "FHRP Concepts",
+  "badge": "FHRP",
+  "summary": "لماذا تمثل البوابة الافتراضية الواحدة نقطة فشل، وكيف تجعل بروتوكولات FHRP عدة موجّهات تظهر للمضيفين كموجّه ظاهري واحد، ثم كيف يعمل HSRP باستخدام Active وStandby وVirtual IP/MAC، وكيف تتحكم Priority وPreemption في اختيار الموجّه النشط، وما حالات HSRP ومؤقتاته الأساسية.",
+  "official_objective": "شرح كيف توفر بروتوكولات FHRP خدمات البوابة الافتراضية في شبكة ذات تكرار، مع شرح الغرض من بروتوكولات تكرار الخطوة الأولى وتشغيلها، وكيف يعمل HSRP.",
+  "lecture": {
+    "duration": "≈ 80 دقيقة",
+    "steps": [
+      {
+        "time": "10 د",
+        "topic": "محدودية البوابة الافتراضية الواحدة ولماذا تصبح Single Point of Failure."
+      },
+      {
+        "time": "12 د",
+        "topic": "فكرة Virtual Router ومشاركة Virtual IP وVirtual MAC وشفافية الموجّه الفعلي عن المضيف."
+      },
+      {
+        "time": "10 د",
+        "topic": "تسلسل Failover عند فشل الموجّه النشط."
+      },
+      {
+        "time": "10 د",
+        "topic": "خيارات FHRP: HSRP وVRRP وGLBP وIRDP والفروق العامة بينها."
+      },
+      {
+        "time": "12 د",
+        "topic": "HSRP: Active وStandby وكيف يحقق تكرار الخطوة الأولى."
+      },
+      {
+        "time": "12 د",
+        "topic": "HSRP Priority وPreemption والتحكم في الموجّه النشط."
+      },
+      {
+        "time": "14 د",
+        "topic": "HSRP States وHello/Hold Timers + مراجعة مفاهيم الوحدة."
+      }
+    ]
+  },
+  "review": {
+    "committee": "theory_content_committee",
+    "status": "approved",
+    "approved": true,
+    "review_date": "2026-09-06",
+    "notes": [
+      "تمت مطابقة الداتا مع المحورين الرسميين في الوحدة: First Hop Redundancy Protocols وHSRP.",
+      "اعتمدت ترجمة Cisco العربية «بروتوكول تكرار الخطوة الأولى» لـFHRP، و«بروتوكول الموجّه الاحتياطي الفعال» لـHSRP.",
+      "تم إبقاء HSRP وVRRP وGLBP وIRDP بالاختصارات الأصلية مع شرح عربي واضح بدل ترجمة كل اختصار داخل كل جملة.",
+      "أنشطة Packet Tracer لم تُكرر كخطوات عملية؛ استُخدمت فقط لتأكيد ما ينبغي أن يفهمه المتدرب قبل التطبيق.",
+      "جدول حالات HSRP في Instructor PPT يسرد Initial وLearn وListen وSpeak وStandby ولا يسرد Active؛ أضيفت Active بوضوح كإضافة استكمال من وثائق Cisco الرسمية.",
+      "تم تصحيح خطأ HRSP إلى HSRP في وصف خيارات FHRP، وتصحيح Hot Standby Routing Protocol إلى Hot Standby Router Protocol، مع تسجيلهما كملاحظتي مصدر.",
+      "لم يتم تعديل أي HTML أو JavaScript أو CSS؛ هذه الإضافة بيانات فقط."
+    ]
+  },
+  "sections": [
+    {
+      "id": "u9s1",
+      "number": "01",
+      "toc_title": "مشكلة البوابة الواحدة",
+      "title": "بوابة افتراضية واحدة قد تصبح نقطة فشل واحدة",
+      "subtitle": "وجود راوتر ثانٍ لا يفيد المضيف تلقائيًا إذا ظل Default Gateway مضبوطًا على الراوتر الذي تعطل.",
+      "body_html": "<p class=\"core\">عادةً يملك الجهاز النهائي عنوان <strong>Default Gateway (البوابة الافتراضية)</strong> واحدًا. إذا تعطلت واجهة الموجّه التي تمثل هذه البوابة، يفقد المضيف الاتصال بالشبكات خارج LAN حتى لو كان هناك موجّه آخر أو Layer 3 Switch قادر على التوجيه.</p>\n<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">بدون FHRP</div><h4>العنوان ثابت على جهاز واحد</h4><p>تعطل الموجّه يعني أن الأجهزة لا تعرف تلقائيًا أن عليها الانتقال إلى بوابة أخرى.</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">مع FHRP</div><h4>بوابة بديلة جاهزة</h4><p>تعمل عدة موجّهات معًا لتقديم خدمة Default Gateway مستمرة للمضيفين.</p></div>\n</div>\n<div class=\"keyline\"><strong>المشكلة ليست غياب المسار البديل فقط:</strong> قد يكون الراوتر البديل موجودًا فعليًا، لكن المضيف ما زال يرسل إلى عنوان البوابة التي فشلت.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: إذا كان لدى الشبكة راوتران لكن أجهزة المستخدمين تستخدم عنوان R1 كبوابة افتراضية، ماذا يحدث عند فشل R1 دون FHRP؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">تفقد الأجهزة الاتصال خارج LAN لأن إعداد Default Gateway لديها ما زال يشير إلى R1.</div></div>\n<div class=\"terms\"><span class=\"term\">Default Gateway</span><span class=\"term\">FHRP</span><span class=\"term\">Redundancy</span><span class=\"term\">Single Point of Failure</span></div>"
+    },
+    {
+      "id": "u9s2",
+      "number": "02",
+      "toc_title": "Virtual Router",
+      "title": "عدة موجّهات تظهر للمضيف وكأنها موجّه واحد",
+      "subtitle": "FHRP يستخدم Virtual IP وVirtual MAC ليبقى عنوان البوابة ثابتًا حتى لو تغيّر الموجّه الذي يمرر الحركة فعليًا.",
+      "body_html": "<p class=\"core\">يُنشئ FHRP مفهوم <strong>Virtual Router (الموجّه الظاهري)</strong>. تتعاون عدة موجّهات فعلية لتقديم عنوان IPv4 ظاهري واحد وعنوان MAC ظاهري واحد أمام أجهزة LAN. يضبط المضيف <strong>Virtual IP</strong> كـDefault Gateway ولا يحتاج إلى معرفة أي موجّه فعلي يقوم بالتوجيه في هذه اللحظة.</p>\n<div class=\"flow\">\n  <div class=\"step\"><b>1 · Host</b><span>يرسل إلى عنوان Default Gateway الظاهري.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>2 · ARP</b><span>يحوّل Virtual IP إلى Virtual MAC.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>3 · Active Router</b><span>الموجّه النشط يعالج الإطار المرسل إلى Virtual MAC.</span></div>\n</div>\n<div class=\"swipe-hint\">↔ اسحب لرؤية بقية الفكرة</div>\n<div class=\"grid2\">\n  <div class=\"card\"><h4>Virtual IP</h4><p>هو عنوان البوابة الافتراضية الذي يبقى ثابتًا في إعدادات المضيفين.</p></div>\n  <div class=\"card\"><h4>Virtual MAC</h4><p>هو عنوان MAC المرتبط بالبوابة الظاهرية والذي تستخدمه الأجهزة عند إرسال الإطارات.</p></div>\n</div>\n<div class=\"keyline\"><strong>الفكرة الأساسية:</strong> الذي يتغير عند Failover هو الموجّه الفعلي الذي يقوم بالتمرير، وليس هوية البوابة التي يعرفها المضيف.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: لماذا لا يحتاج المستخدم إلى تغيير Default Gateway عند انتقال الدور إلى الراوتر الاحتياطي؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">لأن المضيف يستخدم Virtual IP وVirtual MAC، وهما يبقيان ممثلين للبوابة الظاهرية حتى يتغير الموجّه الفعلي الذي يخدمهما.</div></div>\n<div class=\"terms\"><span class=\"term\">Virtual Router</span><span class=\"term\">Virtual IP</span><span class=\"term\">Virtual MAC</span><span class=\"term\">ARP</span></div>"
+    },
+    {
+      "id": "u9s3",
+      "number": "03",
+      "toc_title": "Failover",
+      "title": "عند الفشل ينتقل دور التوجيه إلى Standby دون تغيير البوابة عند المضيف",
+      "subtitle": "الراوتر الاحتياطي يراقب Hello Messages، وعند فقدها يتولى دور Forwarding Router.",
+      "body_html": "<p class=\"core\">يحدد بروتوكول التكرار أي موجّه يكون <strong>Active</strong> وأي موجّه يكون <strong>Standby</strong>. إذا تعطل الموجّه النشط، ينتقل دور إعادة التوجيه إلى الاحتياطي بصورة شفافة للأجهزة النهائية.</p>\n<div class=\"flow\">\n  <div class=\"step\"><b>1 · Active يعمل</b><span>يرسل Hello Messages ويقوم بتمرير حركة Virtual Router.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>2 · تتوقف Hello</b><span>Standby لا يعود يرى رسائل الموجّه النشط.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>3 · Standby يتولى</b><span>يتحول إلى الموجّه الذي يقوم بإعادة التوجيه.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>4 · الهوية تبقى</b><span>Virtual IP وVirtual MAC يستمران أمام المضيفين.</span></div>\n</div>\n<div class=\"swipe-hint\">↔ اسحب لرؤية تسلسل Failover</div>\n<div class=\"keyline\"><strong>First-Hop Redundancy:</strong> قدرة الشبكة على التعافي ديناميكيًا من فشل الجهاز الذي يؤدي دور Default Gateway.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: ما الإشارة الأساسية التي يعتمد عليها Standby في السيناريو المبسط داخل الوحدة لاكتشاف فشل Active؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">توقف وصول Hello Messages من الموجّه النشط.</div></div>\n<div class=\"terms\"><span class=\"term\">Failover</span><span class=\"term\">Active Router</span><span class=\"term\">Standby Router</span><span class=\"term\">Hello</span></div>"
+    },
+    {
+      "id": "u9s4",
+      "number": "04",
+      "toc_title": "خيارات FHRP",
+      "title": "FHRP عائلة بروتوكولات وليست بروتوكولًا واحدًا",
+      "subtitle": "HSRP وVRRP وGLBP تحقق الفكرة نفسها بدرجات مختلفة، بينما IRDP حل قديم لاكتشاف الموجّهات.",
+      "body_html": "<div class=\"grid2\">\n  <div class=\"card\"><h4>HSRP</h4><p><strong>Hot Standby Router Protocol</strong> خاص بـCisco. يختار Active وStandby ويتيح Failover شفافًا للبوابة الأولى.</p></div>\n  <div class=\"card\"><h4>VRRPv2 / VRRPv3</h4><p><strong>Virtual Router Redundancy Protocol</strong> غير مملوك لبائع واحد. VRRPv2 لـIPv4، وVRRPv3 يدعم IPv4 وIPv6 وبيئات متعددة الشركات.</p></div>\n  <div class=\"card\"><h4>GLBP</h4><p><strong>Gateway Load Balancing Protocol</strong> خاص بـCisco، ويضيف إلى التكرار إمكانية Load Balancing بين مجموعة من الموجّهات.</p></div>\n  <div class=\"card\"><h4>IRDP</h4><p><strong>ICMP Router Discovery Protocol</strong> حل Legacy موصوف في RFC 1256 يسمح لمضيفي IPv4 باكتشاف الموجّهات.</p></div>\n</div>\n<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">HSRP / VRRP</div><h4>التركيز على التكرار</h4><p>هوية بوابة افتراضية مع جهاز يقوم بالدور الفعلي وآخر مستعد للاستلام.</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">GLBP</div><h4>تكرار + توزيع حمل</h4><p>يحافظ على التكرار مع الاستفادة من عدة موجّهات في تمرير الحركة.</p></div>\n</div>\n<details class=\"expand study-detail\"><summary>ماذا عن IPv6؟</summary><div class=\"expand-body\">تذكر الوحدة HSRP for IPv6 وGLBP for IPv6، كما أن VRRPv3 يدعم IPv4 وIPv6. الهدف هنا هو التعرف على الخيارات، وليس الدخول في تفاصيل تكوينها.</div></details>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: أي خيار في جدول الوحدة يجمع بين التكرار وLoad Balancing؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">GLBP.</div></div>\n<div class=\"terms\"><span class=\"term\">HSRP</span><span class=\"term\">VRRP</span><span class=\"term\">GLBP</span><span class=\"term\">IRDP</span></div>"
+    },
+    {
+      "id": "u9s5",
+      "number": "05",
+      "toc_title": "كيف يعمل HSRP",
+      "title": "HSRP يختار Active Router وStandby Router خلف بوابة ظاهرية واحدة",
+      "subtitle": "الموجّه النشط يمرر الحزم، والاحتياطي يراقب المجموعة ويتولى المسؤولية سريعًا عند الفشل.",
+      "body_html": "<p class=\"core\"><strong>HSRP — بروتوكول الموجّه الاحتياطي الفعال</strong> هو FHRP خاص بـCisco يحقق تكرار الخطوة الأولى للمضيفين الذين يستخدمون Default Gateway. يعمل ضمن مجموعة من الموجّهات ويختار أحدها Active وآخر Standby.</p>\n<div class=\"grid3\">\n  <div class=\"card\"><h4>Active Router</h4><p>الموجّه الذي يقوم فعليًا بإعادة توجيه الحزم المرسلة إلى Virtual Router.</p></div>\n  <div class=\"card\"><h4>Standby Router</h4><p>يراقب الحالة ويكون المرشح المباشر لتولي مسؤولية التوجيه عند فشل Active.</p></div>\n  <div class=\"card\"><h4>Virtual Router</h4><p>الهوية المشتركة أمام المضيفين، وتتكون من Virtual IP وVirtual MAC.</p></div>\n</div>\n<div class=\"keyline\"><strong>High Availability:</strong> HSRP لا يطلب من الأجهزة النهائية تعلم مسار احتياطي أو تغيير إعداداتها؛ التغيير يحدث داخل مجموعة الموجّهات.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: أي جهاز يرسل حركة المستخدمين فعليًا في الحالة الطبيعية ضمن مجموعة HSRP؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">Active Router.</div></div>\n<div class=\"terms\"><span class=\"term\">HSRP</span><span class=\"term\">Active</span><span class=\"term\">Standby</span><span class=\"term\">High Availability</span></div>"
+    },
+    {
+      "id": "u9s6",
+      "number": "06",
+      "toc_title": "Priority وPreemption",
+      "title": "Priority تختار الأفضل… وPreemption تسمح له باستعادة دور Active",
+      "subtitle": "الأولوية الأعلى تفوز، لكن رجوع راوتر أعلى أولوية لا يزيح Active الحالي إلا عند تفعيل Preemption.",
+      "body_html": "<p class=\"core\">يمكن التحكم في اختيار HSRP Active Router باستخدام <strong>HSRP Priority</strong>. القيمة الافتراضية هي <strong>100</strong> والمدى <strong>0–255</strong>. الموجّه ذو الأولوية الأعلى يصبح Active. وإذا تساوت الأولويات، يُستخدم عنوان IPv4 الأعلى رقميًا لكسر التعادل.</p>\n<div class=\"compare\">\n  <div class=\"compare-box\"><div class=\"micro\">Priority</div><h4>من الأفضل أن يكون Active؟</h4><p>القيمة الأعلى تفوز. مثال الوحدة: R1 أولوية 150 وR2 أولوية 100، لذلك R1 هو Active.</p></div>\n  <div class=\"compare-box\"><div class=\"micro\">Preemption</div><h4>ماذا لو عاد الراوتر الأفضل؟</h4><p>بدون Preemption يبقى Active الحالي في دوره. مع Preemption يستطيع الراوتر ذو الأولوية الأعلى أن يستعيد دور Active.</p></div>\n</div>\n<pre class=\"cmd study-detail\">standby priority\nstandby preempt</pre>\n<div class=\"keyline\"><strong>انتبه:</strong> Preemption لا يجعل الراوتر يفوز لمجرد أن عنوان IPv4 لديه أعلى عند تساوي الأولوية؛ الاستباق يتطلب أولوية أعلى من Active الحالي.</div>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سيناريو: R2 أصبح Active أثناء تعطل R1. عاد R1 بأولوية 150 مقابل 100 لـR2. هل يستعيد Active تلقائيًا؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">فقط إذا كان Preemption مفعّلًا على R1.</div></div>\n<div class=\"terms\"><span class=\"term\">HSRP Priority</span><span class=\"term\">Preemption</span><span class=\"term\">standby priority</span><span class=\"term\">standby preempt</span></div>"
+    },
+    {
+      "id": "u9s7",
+      "number": "07",
+      "toc_title": "الحالات والمؤقتات",
+      "title": "HSRP يمر بحالات تشغيل واضحة ويستخدم Hello/Hold لاكتشاف الفشل",
+      "subtitle": "Hello الافتراضي 3 ثوانٍ وHold الافتراضي 10 ثوانٍ؛ غياب Hello يؤدي إلى انتقال Standby ليصبح Active.",
+      "body_html": "<p class=\"core\">يرسل Active وStandby رسائل <strong>Hello</strong> إلى مجموعة HSRP كل <strong>3 ثوانٍ</strong> افتراضيًا. إذا لم تصل Hello من Active لمدة <strong>10 ثوانٍ</strong> افتراضيًا، يستطيع Standby الانتقال إلى Active.</p>\n<div class=\"flow\">\n  <div class=\"step\"><b>Initial</b><span>بداية الحالة بعد تغيير تكوين أو عند توفر الواجهة.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Learn</b><span>لم يعرف Virtual IP بعد وينتظر رسالة من Active.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Listen</b><span>يعرف Virtual IP لكنه ليس Active ولا Standby.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Speak</b><span>يرسل Hello ويشارك في انتخاب Active/Standby.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Standby</b><span>المرشح التالي لتولي دور Active ويرسل Hello دوريًا.</span></div><div class=\"arrow\">←</div>\n  <div class=\"step\"><b>Active</b><span>الموجّه الذي يمرر الحزم المرسلة إلى Virtual Router.</span></div>\n</div>\n<div class=\"swipe-hint\">↔ اسحب لرؤية حالات HSRP</div>\n<div class=\"keyline\"><strong>إضافة استكمال من Cisco:</strong> جدول Instructor PPT يسرد Initial وLearn وListen وSpeak وStandby، لكنه لا يسرد Active رغم أن النص في بقية الوحدة يعتمد عليها. أضيفت Active هنا لاستكمال دورة الحالات من وثائق Cisco الرسمية.</div>\n<details class=\"expand study-detail\"><summary>هل يمكن تقليل المؤقتات؟</summary><div class=\"expand-body\">تذكر الوحدة أنه يمكن خفض Hello/Hold لتسريع Failover أو Preemption، لكنها تحذر من خفض Hello عن 1 ثانية أو Hold عن 4 ثوانٍ لتجنب زيادة CPU وتغييرات الحالة غير الضرورية. الهدف هنا فهم العلاقة بين سرعة الاكتشاف وكلفة التشغيل، وليس حفظ إعدادات متقدمة.</div></details>\n<div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال مراجعة: إذا كانت Priority متساوية، فما عامل كسر التعادل في HSRP وفق الوحدة؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">عنوان IPv4 الأعلى رقميًا.</div></div>\n<div class=\"terms\"><span class=\"term\">Initial</span><span class=\"term\">Learn</span><span class=\"term\">Listen</span><span class=\"term\">Speak</span><span class=\"term\">Standby</span><span class=\"term\">Active</span><span class=\"term\">Hello 3s</span><span class=\"term\">Hold 10s</span></div>"
+    }
+  ]
+}

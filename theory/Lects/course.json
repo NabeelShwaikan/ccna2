@@ -87,6 +87,20 @@
           "status": "available"
         }
       ]
+    },
+    {
+      "id": "05_First_Hop_Redundancy",
+      "title": "بروتوكولات تكرار الخطوة الأولى",
+      "meta": "الوحدة 9",
+      "modules": [
+        {
+          "number": 9,
+          "title": "مفاهيم بروتوكولات تكرار الخطوة الأولى",
+          "title_en": "FHRP Concepts",
+          "path": "Lects/module_09.json",
+          "status": "available"
+        }
+      ]
     }
   ]
 }
