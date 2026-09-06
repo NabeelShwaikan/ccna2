@@ -122,6 +122,27 @@
           "status": "available"
         }
       ]
+    },
+    {
+      "id": "07_WLAN",
+      "title": "الشبكات المحلية اللاسلكية",
+      "meta": "الوحدتان 12–13",
+      "modules": [
+        {
+          "number": 12,
+          "title": "مفاهيم الشبكات المحلية اللاسلكية",
+          "title_en": "WLAN Concepts",
+          "path": "Lects/module_12.json",
+          "status": "available"
+        },
+        {
+          "number": 13,
+          "title": "تكوين الشبكات المحلية اللاسلكية",
+          "title_en": "WLAN Configuration",
+          "path": "Lects/module_13.json",
+          "status": "available"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "module_number": 12,
+  "group_id": "07_WLAN",
+  "title": "الوحدة 12 — WLAN Concepts (مفاهيم الشبكات المحلية اللاسلكية)",
+  "title_en": "WLAN Concepts",
+  "badge": "WLAN",
+  "summary": "كيف تعمل الشبكات المحلية اللاسلكية: أنواع الشبكات اللاسلكية ومعايير 802.11، المكونات والهوائيات، أوضاع التشغيل BSS/ESS، CSMA/CA، اكتشاف نقطة الوصول والارتباط بها، الإدارة المركزية عبر CAPWAP وWLC، إدارة القنوات والتغطية، ثم التهديدات وآليات الأمان من WEP حتى WPA3.",
+  "official_objective": "شرح كيف تتيح الشبكات المحلية اللاسلكية (WLANs) الاتصال بالشبكة، مع وصف تقنية WLAN ومعاييرها ومكوناتها وتشغيلها وCAPWAP وإدارة القنوات والتهديدات وآليات الأمان.",
+  "lecture": {
+    "duration": "≈ 90 دقيقة",
+    "steps": [
+      {
+        "time": "8 د",
+        "topic": "أنواع الشبكات اللاسلكية وفوائد WLAN."
+      },
+      {
+        "time": "10 د",
+        "topic": "معايير 802.11 ونطاقات 2.4 و5 GHz والمنظمات المؤثرة في المعايير."
+      },
+      {
+        "time": "10 د",
+        "topic": "مكونات WLAN والهوائيات وAutonomous AP مقابل Controller-Based AP."
+      },
+      {
+        "time": "10 د",
+        "topic": "أوضاع Ad Hoc وInfrastructure وBSS وESS."
+      },
+      {
+        "time": "12 د",
+        "topic": "CSMA/CA وAssociation وPassive/Active Discovery."
+      },
+      {
+        "time": "12 د",
+        "topic": "CAPWAP وSplit MAC وDTLS وFlexConnect."
+      },
+      {
+        "time": "10 د",
+        "topic": "إدارة القنوات والتداخل وتخطيط التغطية."
+      },
+      {
+        "time": "8 د",
+        "topic": "تهديدات WLAN: Rogue AP وMITM وDoS."
+      },
+      {
+        "time": "10 د",
+        "topic": "تطور أمان WLAN من WEP إلى WPA3 وPersonal مقابل Enterprise."
+      }
+    ]
+  },
+  "review": {
+    "committee": "theory_content_committee",
+    "status": "approved",
+    "approved": true,
+    "review_date": "2026-09-06",
+    "notes": [
+      "تمت مطابقة الداتا مع المحاور الرسمية السبعة للوحدة.",
+      "تم إصلاح خطأ Template الذي يشير إلى Module 6 Planning Guide.",
+      "تم تصحيح WLAC إلى WLC في قائمة المصطلحات.",
+      "تم تصحيح DLTS إلى DTLS.",
+      "تم تقديم LWAPP بوصفه السابق التاريخي، مع اعتماد CAPWAP كآلية الإدارة المركزية في شرح الوحدة.",
+      "لم تُنقل عبارة 802.11ax المتعلقة بـ1 و7 GHz بصيغتها الأصلية؛ تم الاكتفاء بالنطاقين 2.4 و5 GHz ضمن سياق الوحدة.",
+      "لم تُنقل عبارة WPA2 is no longer considered secure بصياغتها المطلقة؛ تم تقديم WPA3 بوصفه الجيل الأحدث عند توفر الدعم.",
+      "أنشطة الفيديو وCheck Your Understanding لم تُنسخ حرفيًا؛ حُولت أفكارها إلى أسئلة فهم داخلية."
+    ]
+  },
+  "sections": [
+    {
+      "id": "u12s1",
+      "number": "01",
+      "toc_title": "مقدمة إلى Wireless",
+      "title": "WLAN تعطي المستخدم حرية الحركة داخل مساحة التغطية",
+      "subtitle": "الشبكات اللاسلكية تختلف أساسًا في نطاق التغطية والتقنية المستخدمة.",
+      "body_html": "<p class=\"core\"><strong>Wireless LAN (WLAN)</strong> شبكة لاسلكية تُستخدم عادةً في المنازل والمكاتب والحرم الجامعي. ميزتها الأساسية أنها تسمح للمستخدم بالحركة داخل منطقة التغطية مع استمرار الاتصال بالشبكة.</p><div class=\"grid4\"><div class=\"card\"><h4>WPAN</h4><p>مدى قصير واستهلاك منخفض للطاقة. أمثلة: Bluetooth وZigbee.</p></div><div class=\"card\"><h4>WLAN</h4><p>شبكة محلية تعتمد على IEEE 802.11 وتعمل غالبًا في 2.4 و5 GHz.</p></div><div class=\"card\"><h4>WMAN</h4><p>يغطي مساحة أكبر مثل مدينة أو منطقة حضرية.</p></div><div class=\"card\"><h4>WWAN</h4><p>يغطي مساحات وطنية أو عالمية باستخدام بنى اتصالات واسعة.</p></div></div><div class=\"keyline\"><strong>الفكرة:</strong> WLAN هي الفئة التي يركز عليها هذا المقرر.</div><div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: ما الفرق الأساسي بين WLAN وWPAN؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">WLAN تغطي مساحة محلية أكبر وتعتمد على IEEE 802.11، بينما WPAN قصيرة المدى وتقنيات مثل Bluetooth.</div></div><div class=\"terms\"><span class=\"term\">WPAN</span><span class=\"term\">WLAN</span><span class=\"term\">WMAN</span><span class=\"term\">WWAN</span></div>"
+    },
+    {
+      "id": "u12s2",
+      "number": "02",
+      "toc_title": "802.11 والترددات",
+      "title": "معايير 802.11 تحدد كيف تستخدم WLAN الترددات الراديوية",
+      "subtitle": "أغلب شبكات WLAN في هذا المنهج تعمل في نطاقي 2.4 GHz و5 GHz.",
+      "body_html": "<div class=\"compare\"><div class=\"compare-box\"><div class=\"micro\">2.4 GHz</div><h4>مدى أفضل وازدحام أكبر</h4><p>يستخدمه 802.11b/g/n/ax.</p></div><div class=\"compare-box\"><div class=\"micro\">5 GHz</div><h4>قنوات أكثر وازدحام أقل</h4><p>يستخدمه 802.11a/n/ac/ax.</p></div></div><div class=\"grid3\"><div class=\"card\"><h4>IEEE</h4><p>يضع معايير 802.11.</p></div><div class=\"card\"><h4>ITU</h4><p>ينظم توزيع الطيف الراديوي والمدارات.</p></div><div class=\"card\"><h4>Wi‑Fi Alliance</h4><p>تعزز التوافق بين المنتجات المبنية على 802.11.</p></div></div><div class=\"keyline\"><strong>الأهم:</strong> التعرف على تطور المعايير وربطها بالترددات والتوافق، لا حفظ كل سرعة.</div><div class=\"terms\"><span class=\"term\">IEEE 802.11</span><span class=\"term\">2.4 GHz</span><span class=\"term\">5 GHz</span><span class=\"term\">Wi‑Fi Alliance</span></div>"
+    },
+    {
+      "id": "u12s3",
+      "number": "03",
+      "toc_title": "مكونات WLAN",
+      "title": "العميل يحتاج Wireless NIC، والشبكة تحتاج AP وهوائيات مناسبة",
+      "subtitle": "في البيئات الصغيرة قد يجمع Wireless Router وظائف AP وSwitch وRouter في جهاز واحد.",
+      "body_html": "<div class=\"grid3\"><div class=\"card\"><h4>Wireless NIC</h4><p>مرسل ومستقبل راديوي مدمج أوUSB.</p></div><div class=\"card\"><h4>Wireless AP</h4><p>نقطة الوصول التي يكتشفها العميل ثم يرتبط بها.</p></div><div class=\"card\"><h4>Wireless Router</h4><p>يجمع AP + Switch + Router في المنزل.</p></div></div><div class=\"compare\"><div class=\"compare-box\"><div class=\"micro\">Autonomous AP</div><h4>إدارة مستقلة</h4><p>كل AP يُكوَّن ويدار منفردًا.</p></div><div class=\"compare-box\"><div class=\"micro\">Controller-Based AP</div><h4>إدارة مركزية</h4><p>Lightweight AP يُدار من WLC.</p></div></div><div class=\"grid3\"><div class=\"card\"><h4>Omnidirectional</h4><p>تغطية 360°.</p></div><div class=\"card\"><h4>Directional</h4><p>يركز الإشارة باتجاه محدد.</p></div><div class=\"card\"><h4>MIMO</h4><p>عدة هوائيات لزيادة السعة والأداء.</p></div></div><div class=\"terms\"><span class=\"term\">Wireless NIC</span><span class=\"term\">AP</span><span class=\"term\">Autonomous AP</span><span class=\"term\">Lightweight AP</span><span class=\"term\">MIMO</span></div>"
+    },
+    {
+      "id": "u12s4",
+      "number": "04",
+      "toc_title": "BSS وESS",
+      "title": "Infrastructure Mode هو النموذج المعتاد، وBSS وESS يصفان نطاقات الخدمة",
+      "subtitle": "Ad Hoc يربط الأجهزة مباشرة، أما Infrastructure فيعتمد على AP.",
+      "body_html": "<div class=\"compare\"><div class=\"compare-box\"><div class=\"micro\">Ad Hoc</div><h4>Peer-to-Peer</h4><p>أجهزة تتصل مباشرة دون AP.</p></div><div class=\"compare-box\"><div class=\"micro\">Infrastructure</div><h4>Client ↔ AP ↔ Network</h4><p>النموذج المعتاد للوصول إلى الشبكة عبر نقطة وصول.</p></div></div><div class=\"flow\"><div class=\"step\"><b>BSS</b><span>AP واحد والعملاء المرتبطون به.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>Distribution System</b><span>يربط عدة BSS.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>ESS</b><span>اتحاد BSS متعددة لتغطية أوسع.</span></div></div><div class=\"keyline\"><strong>Tethering</strong> مثال قريب من Ad Hoc عندما يحول الهاتف اتصال البيانات إلى Hotspot.</div><div class=\"terms\"><span class=\"term\">Ad Hoc</span><span class=\"term\">Infrastructure Mode</span><span class=\"term\">BSS</span><span class=\"term\">ESS</span></div>"
+    },
+    {
+      "id": "u12s5",
+      "number": "05",
+      "toc_title": "CSMA/CA والارتباط",
+      "title": "WLAN تتجنب التصادم بدل أن تكتشفه",
+      "subtitle": "بسبب Half-Duplex يستخدم 802.11 آلية CSMA/CA ثم يمر العميل بمراحل Discover وAuthenticate وAssociate.",
+      "body_html": "<p class=\"core\">العميل اللاسلكي لا يستطيع الإرسال والاستماع في اللحظة نفسها، لذلك يعتمد على <strong>CSMA/CA</strong>.</p><div class=\"flow\"><div class=\"step\"><b>Listen</b><span>تحقق أن القناة خالية.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>RTS</b><span>طلب الإذن.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>CTS</b><span>السماح بالإرسال.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>Transmit</b><span>إرسال البيانات.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>ACK</b><span>تأكيد الاستلام.</span></div></div><div class=\"grid2\"><div class=\"card\"><h4>Passive Discovery</h4><p>AP يرسل Beacon دوريًا.</p></div><div class=\"card\"><h4>Active Discovery</h4><p>العميل يرسل Probe Request.</p></div></div><div class=\"keyline\"><strong>Association:</strong> Discover AP → Authenticate → Associate، مع توافق SSID وكلمة المرور والمعيار والأمان والقناة.</div><div class=\"terms\"><span class=\"term\">CSMA/CA</span><span class=\"term\">RTS</span><span class=\"term\">CTS</span><span class=\"term\">Beacon</span><span class=\"term\">Association</span></div>"
+    },
+    {
+      "id": "u12s6",
+      "number": "06",
+      "toc_title": "CAPWAP وWLC",
+      "title": "CAPWAP يفصل وظائف WLAN بين AP وWLC ويجعل الإدارة مركزية",
+      "subtitle": "الـAP يهتم بالوظائف القريبة من الراديو، بينما WLC يدير وظائف مركزية.",
+      "body_html": "<p class=\"core\"><strong>CAPWAP</strong> يتيح لـ<strong>WLC</strong> إدارة عدة APs وWLANs مركزيًا، وهو التطور اللاحق لـLWAPP.</p><div class=\"compare\"><div class=\"compare-box\"><div class=\"micro\">AP MAC Functions</div><h4>قريب من الراديو</h4><p>Beacon/Probe Responses، ACK/Retransmission، Queueing وبعض وظائف التشفير.</p></div><div class=\"compare-box\"><div class=\"micro\">WLC MAC Functions</div><h4>إدارة مركزية</h4><p>Authentication، Association/Reassociation، وترجمة الإطارات وإنهاء 802.11.</p></div></div><div class=\"grid3\"><div class=\"card\"><h4>UDP 5246</h4><p>Control.</p></div><div class=\"card\"><h4>UDP 5247</h4><p>Data.</p></div><div class=\"card\"><h4>DTLS</h4><p>يحمي قناة التحكم بين AP وWLC.</p></div></div><div class=\"compare\"><div class=\"compare-box\"><div class=\"micro\">FlexConnect Connected</div><p>WLC متاح والـAP متصل عبر CAPWAP.</p></div><div class=\"compare-box\"><div class=\"micro\">FlexConnect Standalone</div><p>WLC غير متاح والـAP ينفذ بعض الوظائف محليًا.</p></div></div><div class=\"terms\"><span class=\"term\">CAPWAP</span><span class=\"term\">WLC</span><span class=\"term\">Split MAC</span><span class=\"term\">DTLS</span><span class=\"term\">FlexConnect</span></div>"
+    },
+    {
+      "id": "u12s7",
+      "number": "07",
+      "toc_title": "إدارة القنوات",
+      "title": "اختيار القناة ومكان AP جزء أساسي من تصميم WLAN",
+      "subtitle": "التداخل والازدحام وعدد المستخدمين ومعدلات البيانات كلها عوامل تصميم.",
+      "body_html": "<p class=\"core\">إذا زاد الطلب على قناة معينة قد تصبح مشبعة وتنخفض جودة الاتصال.</p><div class=\"grid3\"><div class=\"card\"><h4>DSSS</h4><p>نشر الإشارة على نطاق أوسع.</p></div><div class=\"card\"><h4>FHSS</h4><p>القفز بين عدة قنوات بتسلسل متزامن.</p></div><div class=\"card\"><h4>OFDM</h4><p>تقسيم القناة إلى Subchannels متعددة.</p></div></div><div class=\"keyline\"><strong>2.4 GHz:</strong> القنوات 1 و6 و11 هي الاختيار التعليمي الشائع غير المتداخل في المنهج.</div><div class=\"grid2\"><div class=\"card\"><h4>Coverage</h4><p>المبنى والعوائق وموقع AP وقوة الإرسال.</p></div><div class=\"card\"><h4>Capacity</h4><p>عدد المستخدمين ومعدلات البيانات والقنوات غير المتداخلة.</p></div></div><div class=\"terms\"><span class=\"term\">DSSS</span><span class=\"term\">FHSS</span><span class=\"term\">OFDM</span><span class=\"term\">Channels 1/6/11</span></div>"
+    },
+    {
+      "id": "u12s8",
+      "number": "08",
+      "toc_title": "تهديدات WLAN",
+      "title": "الهواء وسط مشترك؛ أي جهاز داخل التغطية قد يحاول الاستماع أو التداخل أو الانتحال",
+      "subtitle": "أبرز التهديدات: Interception وIntruders وDoS وRogue AP وEvil Twin.",
+      "body_html": "<div class=\"grid3\"><div class=\"card\"><h4>Interception</h4><p>التقاط الحركة إذا كانت الحماية ضعيفة.</p></div><div class=\"card\"><h4>DoS</h4><p>تداخل متعمد أو غير متعمد أو إعدادات خاطئة.</p></div><div class=\"card\"><h4>Rogue AP</h4><p>AP غير مصرح قد يفتح مسارًا للهجوم.</p></div></div><div class=\"keyline\"><strong>Evil Twin:</strong> Rogue AP بنفس SSID لشبكة شرعية لجذب العملاء وتنفيذ MITM.</div><div class=\"terms\"><span class=\"term\">Rogue AP</span><span class=\"term\">Evil Twin</span><span class=\"term\">MITM</span><span class=\"term\">DoS</span></div>"
+    },
+    {
+      "id": "u12s9",
+      "number": "09",
+      "toc_title": "أمان WLAN",
+      "title": "الأمان الحقيقي يعتمد على المصادقة والتشفير لا على إخفاء SSID وحده",
+      "subtitle": "تطور الأمان من WEP إلى WPA ثم WPA2 وWPA3، مع Personal وEnterprise.",
+      "body_html": "<div class=\"compare\"><div class=\"compare-box\"><div class=\"micro\">Early Controls</div><h4>SSID Cloaking / MAC Filtering</h4><p>ليست بديلًا عن مصادقة وتشفير قويين.</p></div><div class=\"compare-box\"><div class=\"micro\">Real Security</div><h4>Authentication + Encryption</h4><p>الأساس الفعلي لحماية WLAN.</p></div></div><div class=\"flow\"><div class=\"step\"><b>WEP</b><span>قديم وغير موصى به.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>WPA</b><span>تحسين انتقالي باستخدام TKIP.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>WPA2</b><span>AES/CCMP.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>WPA3</b><span>الجيل الأحدث مثل SAE وPMF.</span></div></div><div class=\"compare\"><div class=\"compare-box\"><div class=\"micro\">Personal</div><h4>PSK</h4><p>لا يحتاج خادم مصادقة.</p></div><div class=\"compare-box\"><div class=\"micro\">Enterprise</div><h4>RADIUS + 802.1X/EAP</h4><p>مصادقة مركزية وهوية فردية.</p></div></div><div class=\"terms\"><span class=\"term\">WEP</span><span class=\"term\">WPA</span><span class=\"term\">WPA2</span><span class=\"term\">WPA3</span><span class=\"term\">PSK</span><span class=\"term\">RADIUS</span></div>"
+    }
+  ]
+}

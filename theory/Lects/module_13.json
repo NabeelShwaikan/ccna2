@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "module_number": 13,
+  "group_id": "07_WLAN",
+  "title": "الوحدة 13 — WLAN Configuration (تكوين الشبكات المحلية اللاسلكية)",
+  "title_en": "WLAN Configuration",
+  "badge": "WLAN Config",
+  "summary": "كيف تُنفذ WLAN على مستوى المفهوم: إعداد Wireless Router للموقع البعيد، SSID والقناة والأمان، فهم Mesh وNAT وQoS وPort Forwarding، ثم إدارة عدة APs مركزيًا عبر WLC، إنشاء WLAN وربطها بواجهة VLAN، واستخدام RADIUS وWPA2-Enterprise، ثم اتباع منهجية منظمة لاستكشاف أخطاء WLAN وتحسين الأداء.",
+  "official_objective": "تنفيذ WLAN باستخدام Wireless Router وWLC، مع تكوين WLAN لموقع بعيد، وتكوين Basic WLAN على WLC باستخدام WPA2-PSK، وتكوين WPA2 Enterprise WLAN باستخدام VLAN وDHCP وRADIUS، واستكشاف مشاكل WLAN.",
+  "lecture": {
+    "duration": "≈ 90 دقيقة",
+    "steps": [
+      {
+        "time": "10 د",
+        "topic": "Wireless Router للموقع البعيد وتغيير الإعدادات الافتراضية."
+      },
+      {
+        "time": "10 د",
+        "topic": "Basic Wireless Setup: Mode وSSID وChannel وSecurity وPassphrase."
+      },
+      {
+        "time": "10 د",
+        "topic": "Mesh وNAT وQoS وPort Forwarding."
+      },
+      {
+        "time": "12 د",
+        "topic": "WLC وLightweight AP وبنية WLAN مركزية."
+      },
+      {
+        "time": "12 د",
+        "topic": "Basic WLAN على WLC."
+      },
+      {
+        "time": "16 د",
+        "topic": "WPA2 Enterprise: VLAN Interface + DHCP + RADIUS + 802.1X."
+      },
+      {
+        "time": "10 د",
+        "topic": "منهجية Troubleshooting ذات الخطوات الست."
+      },
+      {
+        "time": "10 د",
+        "topic": "مشاكل الاتصال والبطء والتغطية والتداخل والFirmware."
+      }
+    ]
+  },
+  "review": {
+    "committee": "theory_content_committee",
+    "status": "approved",
+    "approved": true,
+    "review_date": "2026-09-06",
+    "notes": [
+      "تمت مطابقة الداتا مع المحاور الرسمية الأربعة للوحدة.",
+      "تم تحويل تسلسل GUI الطويل إلى منطق تكوين قابل للتعليم دون نسخ لقطات الشاشة أو خطوات Packet Tracer.",
+      "تم تصحيح Name Address Translation إلى Network Address Translation (NAT).",
+      "تم الحفاظ على AAA = Authentication, Authorization, Accounting وعدم نقل صياغة الملخص الخاطئة التي تستبدل Authorization بـAuditing.",
+      "تم ربط WLAN بواجهة VLAN وبخادم DHCP وRADIUS بصورة مفاهيمية.",
+      "لم تُكرر خطوات Packet Tracer أوLab."
+    ]
+  },
+  "sections": [
+    {
+      "id": "u13s1",
+      "number": "01",
+      "toc_title": "Wireless Router",
+      "title": "Wireless Router في الموقع البعيد يجمع عدة وظائف في جهاز واحد",
+      "subtitle": "Switch وAP وRouter وDHCP وNAT ووظائف أمان في منصة واحدة.",
+      "body_html": "<p class=\"core\">في المنزل والمكتب الصغير والموقع البعيد يُستخدم غالبًا <strong>Wireless Router</strong> متكامل يجمع منافذ سلكية وWAN وAP وDHCP وNAT وQoS.</p><div class=\"keyline\"><strong>أول إجراء أمني:</strong> غيّر بيانات الدخول الافتراضية فورًا.</div><div class=\"flow\"><div class=\"step\"><b>Login</b><span>الدخول إلى GUI.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>Change Credentials</b><span>استبدال الافتراضي.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>LAN/DHCP</b><span>تعديل شبكة LAN ونطاق DHCP.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>Renew</b><span>تجديد عنوان العميل.</span></div></div><div class=\"terms\"><span class=\"term\">Wireless Router</span><span class=\"term\">WAN</span><span class=\"term\">DHCP</span><span class=\"term\">NAT</span></div>"
+    },
+    {
+      "id": "u13s2",
+      "number": "02",
+      "toc_title": "Basic Wireless Setup",
+      "title": "أي WLAN أساسية تحتاج خمسة قرارات واضحة",
+      "subtitle": "Mode وSSID وChannel وSecurity Mode وPassphrase.",
+      "body_html": "<div class=\"flow\"><div class=\"step\"><b>Network Mode</b><span>معيار 802.11.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>SSID</b><span>اسم الشبكة.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>Channel</b><span>تقليل التداخل.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>Security Mode</b><span>Open/WPA/WPA2/WPA3.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>Passphrase</b><span>المفتاح المطلوب.</span></div></div><div class=\"keyline\"><strong>التصميم قبل التكوين:</strong> القناة والأمان يؤثران مباشرةً على الجودة والأمان.</div><div class=\"terms\"><span class=\"term\">SSID</span><span class=\"term\">Channel</span><span class=\"term\">Security Mode</span><span class=\"term\">Passphrase</span></div>"
+    },
+    {
+      "id": "u13s3",
+      "number": "03",
+      "toc_title": "Mesh وNAT وQoS",
+      "title": "الراوتر اللاسلكي قد يقدم خدمات إضافية تتجاوز Wi‑Fi نفسها",
+      "subtitle": "Mesh للتغطية، NAT للإنترنت، QoS للأولوية، وPort Forwarding لاتصالات واردة محددة.",
+      "body_html": "<div class=\"grid4\"><div class=\"card\"><h4>Wireless Mesh</h4><p>إضافة APs متناسقة وقنوات مختلفة لتمديد التغطية.</p></div><div class=\"card\"><h4>NAT</h4><p>ترجمة العناوين الخاصة إلى عنوان عام.</p></div><div class=\"card\"><h4>QoS</h4><p>أولوية للصوت والفيديو.</p></div><div class=\"card\"><h4>Port Forwarding</h4><p>توجيه حركة واردة محددة إلى جهاز داخلي؛ Port Triggering يفتح مؤقتًا وفق طلب صادر.</p></div></div><div class=\"keyline\"><strong>لا تخلط الوظائف:</strong> هذه خدمات في Wireless Router وليست جزءًا من 802.11 نفسها.</div><div class=\"terms\"><span class=\"term\">Wireless Mesh Network</span><span class=\"term\">NAT</span><span class=\"term\">QoS</span><span class=\"term\">Port Forwarding</span></div>"
+    },
+    {
+      "id": "u13s4",
+      "number": "04",
+      "toc_title": "WLC وLightweight AP",
+      "title": "WLC يجعل إدارة عدد كبير من APs مركزية بدل تكوين كل AP يدويًا",
+      "subtitle": "Lightweight AP ينضم إلى WLC، والـWLC يدير الشبكات والعملاء والإعدادات.",
+      "body_html": "<p class=\"core\"><strong>WLC</strong> محور الإدارة في البيئات ذات عدد كبير من نقاط الوصول.</p><div class=\"flow\"><div class=\"step\"><b>WLC</b><span>إدارة وسياسات وWLANs.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>Controller-Based APs</b><span>تُدار مركزيًا.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>Clients</b><span>يتصلون بالـSSID.</span></div></div><div class=\"keyline\"><strong>التوسع:</strong> منفذ WLC يمكنه دعم عدة APs وWLANs، وكل AP قد يخدم عدة WLANs.</div><div class=\"terms\"><span class=\"term\">WLC</span><span class=\"term\">Lightweight AP</span><span class=\"term\">Controller-Based AP</span></div>"
+    },
+    {
+      "id": "u13s5",
+      "number": "05",
+      "toc_title": "Basic WLAN على WLC",
+      "title": "إنشاء WLAN على WLC هو سلسلة منطقية من سبع خطوات",
+      "subtitle": "Create → Enable → Interface → Security → Verify → Monitor → Clients.",
+      "body_html": "<div class=\"flow\"><div class=\"step\"><b>Create WLAN</b><span>Profile/SSID.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>Enable</b><span>تفعيل WLAN.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>Interface</b><span>اختيار الواجهة.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>Security</b><span>تحديد الحماية.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>Verify</b><span>Operational.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>Monitor</b><span>مراقبة الشبكة.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>Clients</b><span>تفاصيل الأجهزة.</span></div></div><div class=\"keyline\"><strong>الفكرة:</strong> WLAN ليست SSID فقط؛ يجب ربطها بواجهة وأمان ومسار نحو الشبكة السلكية.</div><div class=\"terms\"><span class=\"term\">WLAN Profile</span><span class=\"term\">SSID</span><span class=\"term\">Interface</span></div>"
+    },
+    {
+      "id": "u13s6",
+      "number": "06",
+      "toc_title": "WPA2 Enterprise",
+      "title": "WPA2 Enterprise يربط هوية المستخدم بـRADIUS بدل مفتاح مشترك واحد للجميع",
+      "subtitle": "WLAN → VLAN Interface → DHCP → RADIUS → 802.1X/AES.",
+      "body_html": "<p class=\"core\">في Enterprise WLAN يستخدم WLC خادم <strong>RADIUS</strong> لخدمات AAA، ويجب ربط WLAN بواجهة VLAN وتوفير DHCP ثم تحديد RADIUS.</p><div class=\"flow\"><div class=\"step\"><b>Client</b><span>بيانات اعتماد المستخدم.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>AP</b><span>الوصول اللاسلكي.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>WLC</b><span>WLAN/VLAN/Policy.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>RADIUS</b><span>التحقق عبر 802.1X.</span></div></div><div class=\"grid3\"><div class=\"card\"><h4>VLAN Interface</h4><p>واجهة منطقية لهوية VLAN.</p></div><div class=\"card\"><h4>DHCP</h4><p>عناوين العملاء.</p></div><div class=\"card\"><h4>RADIUS</h4><p>مصادقة مركزية.</p></div></div><div class=\"keyline\"><strong>في مثال Cisco:</strong> AES و802.1X هما الإعدادان الافتراضيان عند إنشاء WLAN Enterprise جديدة على WLC.</div><div class=\"terms\"><span class=\"term\">WPA2 Enterprise</span><span class=\"term\">RADIUS</span><span class=\"term\">802.1X</span><span class=\"term\">AES</span><span class=\"term\">VLAN Interface</span></div>"
+    },
+    {
+      "id": "u13s7",
+      "number": "07",
+      "toc_title": "Troubleshooting Method",
+      "title": "استكشاف الأعطال الناجح عملية منهجية لا تجربة عشوائية",
+      "subtitle": "ست خطوات تبدأ بتحديد المشكلة وتنتهي بالتوثيق.",
+      "body_html": "<div class=\"flow\"><div class=\"step\"><b>1</b><span>Identify</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>2</b><span>Theory</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>3</b><span>Test</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>4</b><span>Plan & Implement</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>5</b><span>Verify & Prevent</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>6</b><span>Document</span></div></div><div class=\"keyline\"><strong>قاعدة:</strong> لا تقفز إلى تغيير الإعدادات؛ حدد المشكلة، كوّن فرضية، اختبرها، ثم نفذ وتحقق ووثق.</div><div class=\"terms\"><span class=\"term\">Troubleshooting</span><span class=\"term\">Theory of Probable Cause</span><span class=\"term\">Verification</span></div>"
+    },
+    {
+      "id": "u13s8",
+      "number": "08",
+      "toc_title": "مشاكل WLAN الشائعة",
+      "title": "ابدأ من العميل ثم التغطية ثم AP ثم الشبكة السلكية",
+      "subtitle": "المشكلة قد تكون إعدادًا أوNIC أوأمانًا أوتغطية أوتداخلًا أوFirmware.",
+      "body_html": "<div class=\"flow\"><div class=\"step\"><b>Client Config</b><span>IP/SSID/Security.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>Wireless NIC</b><span>Driver/NIC.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>Coverage / Channel</b><span>BSA/Interference.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>AP</b><span>Power/Configuration.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>Wired LAN</b><span>Ping/Cables/Links.</span></div></div><div class=\"compare\"><div class=\"compare-box\"><div class=\"micro\">Slow WLAN</div><h4>Legacy Clients</h4><p>الأجهزة الأقدم قد تخفض الأداء العام.</p></div><div class=\"compare-box\"><div class=\"micro\">Slow WLAN</div><h4>Split Bands</h4><p>وزع الحمل بين 2.4 و5 GHz.</p></div></div><div class=\"keyline\"><strong>Firmware:</strong> التحديثات قد تحتوي إصلاحات أعطال وثغرات أمنية.</div><div class=\"terms\"><span class=\"term\">BSA</span><span class=\"term\">Interference</span><span class=\"term\">Dual-Band</span><span class=\"term\">Firmware</span></div>"
+    }
+  ]
+}

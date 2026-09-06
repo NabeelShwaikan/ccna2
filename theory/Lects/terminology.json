@@ -513,6 +513,178 @@
     {
       "en": "error-disabled",
       "ar": "حالة تعطيل بسبب خطأ"
+    },
+    {
+      "en": "Wireless LAN (WLAN)",
+      "ar": "الشبكة المحلية اللاسلكية"
+    },
+    {
+      "en": "Wireless LAN Controller (WLC)",
+      "ar": "وحدة التحكم في الشبكة المحلية اللاسلكية"
+    },
+    {
+      "en": "Wireless NIC",
+      "ar": "بطاقة واجهة شبكة لاسلكية"
+    },
+    {
+      "en": "Wireless Access Point (AP)",
+      "ar": "نقطة وصول لاسلكية"
+    },
+    {
+      "en": "Autonomous AP",
+      "ar": "نقطة وصول مستقلة"
+    },
+    {
+      "en": "Controller-Based AP",
+      "ar": "نقطة وصول مُدارة بوحدة تحكم"
+    },
+    {
+      "en": "Lightweight AP (LAP)",
+      "ar": "نقطة وصول خفيفة"
+    },
+    {
+      "en": "Omnidirectional Antenna",
+      "ar": "هوائي متعدد الاتجاهات"
+    },
+    {
+      "en": "Directional Antenna",
+      "ar": "هوائي اتجاهي"
+    },
+    {
+      "en": "MIMO",
+      "ar": "الإدخال المتعدد والإخراج المتعدد"
+    },
+    {
+      "en": "Ad Hoc Mode",
+      "ar": "الوضع المباشر"
+    },
+    {
+      "en": "Infrastructure Mode",
+      "ar": "وضع البنية التحتية"
+    },
+    {
+      "en": "Basic Service Set (BSS)",
+      "ar": "مجموعة الخدمات الأساسية"
+    },
+    {
+      "en": "Extended Service Set (ESS)",
+      "ar": "مجموعة الخدمات الممتدة"
+    },
+    {
+      "en": "Carrier Sense Multiple Access with Collision Avoidance (CSMA/CA)",
+      "ar": "الوصول المتعدد مع تحسس الحامل وتجنب التصادم"
+    },
+    {
+      "en": "Control and Provisioning of Wireless Access Points (CAPWAP)",
+      "ar": "التحكم في نقاط الوصول اللاسلكية وتوفيرها"
+    },
+    {
+      "en": "Datagram Transport Layer Security (DTLS)",
+      "ar": "أمان طبقة نقل مخططات البيانات"
+    },
+    {
+      "en": "FlexConnect",
+      "ar": "FlexConnect"
+    },
+    {
+      "en": "Direct-Sequence Spread Spectrum (DSSS)",
+      "ar": "طيف منتشر بالتسلسل المباشر"
+    },
+    {
+      "en": "Frequency-Hopping Spread Spectrum (FHSS)",
+      "ar": "طيف منتشر بالقفز الترددي"
+    },
+    {
+      "en": "Orthogonal Frequency-Division Multiplexing (OFDM)",
+      "ar": "التضمين المتعامد بتقسيم التردد"
+    },
+    {
+      "en": "Rogue Access Point",
+      "ar": "نقطة وصول غير مصرح بها"
+    },
+    {
+      "en": "Evil Twin AP",
+      "ar": "نقطة وصول توأم خبيثة"
+    },
+    {
+      "en": "SSID Cloaking",
+      "ar": "إخفاء SSID"
+    },
+    {
+      "en": "MAC Address Filtering",
+      "ar": "ترشيح عناوين MAC"
+    },
+    {
+      "en": "Wired Equivalent Privacy (WEP)",
+      "ar": "خصوصية مكافئة للشبكات السلكية"
+    },
+    {
+      "en": "Wi-Fi Protected Access (WPA)",
+      "ar": "الوصول المحمي لشبكات Wi‑Fi"
+    },
+    {
+      "en": "WPA2",
+      "ar": "WPA2"
+    },
+    {
+      "en": "WPA3",
+      "ar": "WPA3"
+    },
+    {
+      "en": "Pre-Shared Key (PSK)",
+      "ar": "مفتاح مشترك مسبقًا"
+    },
+    {
+      "en": "Extensible Authentication Protocol (EAP)",
+      "ar": "بروتوكول المصادقة القابل للتوسعة"
+    },
+    {
+      "en": "Wireless Mesh Network (WMN)",
+      "ar": "شبكة لاسلكية متداخلة"
+    },
+    {
+      "en": "Network Address Translation (NAT)",
+      "ar": "ترجمة عناوين الشبكة"
+    },
+    {
+      "en": "Quality of Service (QoS)",
+      "ar": "جودة الخدمة"
+    },
+    {
+      "en": "Port Forwarding",
+      "ar": "إعادة توجيه المنفذ"
+    },
+    {
+      "en": "Port Triggering",
+      "ar": "تشغيل المنفذ عند الطلب"
+    },
+    {
+      "en": "WLAN Profile",
+      "ar": "ملف تعريف WLAN"
+    },
+    {
+      "en": "VLAN Interface",
+      "ar": "واجهة VLAN"
+    },
+    {
+      "en": "DHCP Scope",
+      "ar": "نطاق DHCP"
+    },
+    {
+      "en": "WPA2 Enterprise",
+      "ar": "WPA2 للمؤسسات"
+    },
+    {
+      "en": "Troubleshooting",
+      "ar": "استكشاف الأخطاء وإصلاحها"
+    },
+    {
+      "en": "Dual-Band",
+      "ar": "ثنائي النطاق"
+    },
+    {
+      "en": "Firmware",
+      "ar": "البرنامج الثابت"
     }
   ]
 }
