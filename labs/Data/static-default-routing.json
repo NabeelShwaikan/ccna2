@@ -9,7 +9,7 @@
       "pages": 4
     },
     "review": {
-      "status": "expert-reviewed",
+      "status": "committee-reviewed",
       "basis": "المحتوى الأساسي مأخوذ من الملف المرفق، مع الحفاظ على أمثلته وتقسيمه إلى مسارات ثابتة وافتراضية والتحقق. التصحيحات أو التوضيحات خارج نص المصدر موثقة هنا.",
       "adjustments": [
         {
@@ -35,6 +35,18 @@
           "source": "يستخدم المصدر show ip route وshow ipv6 route للتحقق.",
           "site": "تم الإبقاء عليهما كما هما، مع توضيح أن S يشير إلى Static وأن S* في IPv4 يدل على المسار الثابت المرشح كمسار افتراضي.",
           "reason": "هذه الدلالة مذكورة أصلًا في وصف المصدر وتفيد المتدرب أثناء القراءة."
+        },
+        {
+          "id": "ipv6-unicast-routing-prerequisite",
+          "source": "لا يورد المصدر ipv6 unicast-routing ضمن مثال المسار الثابت أوالافتراضي.",
+          "site": "أضيف كمتطلب تمهيدي في مقاطع IPv6.",
+          "reason": "Cisco تشترط تمكين IPv6 forwarding قبل تشغيل IPv6 static routing."
+        },
+        {
+          "id": "ipv6-running-config-verification",
+          "source": "قسم التحقق يرشح running-config لمسارات IPv4 فقط.",
+          "site": "أضيف show running-config | include ^ipv6 route لمسارات IPv6.",
+          "reason": "تحقيق تماثل التحقق بين IPv4 وIPv6."
         }
       ]
     },
@@ -104,8 +116,8 @@
             }
           ],
           "note": {
-            "label": "ملاحظة خبير",
-            "text": "تم فقط ترتيب نص الأمر بسبب تداخل اتجاه العربية مع IPv6 في ملف PDF؛ قيم المثال نفسها لم تتغير."
+            "label": "متطلب تشغيل",
+            "text": "أضيف ipv6 unicast-routing كمتطلب خبير لأن Cisco تشترط تمكين IPv6 forwarding قبل استخدام IPv6 static routes."
           }
         },
         "terminal": {
@@ -114,6 +126,13 @@
             {
               "id": "cmd-01",
               "order": 1,
+              "prompt": "R1(config)#",
+              "command": "ipv6 unicast-routing",
+              "description": "متطلب خبير: يمكّن توجيه IPv6 على الراوتر."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
               "prompt": "R1(config)#",
               "command": "ipv6 route 2001:db8:2::/64 2001:db8:1::2",
               "description": "ينشئ مسارًا ثابتًا إلى 2001:db8:2::/64 عبر 2001:db8:1::2."
@@ -182,8 +201,8 @@
             }
           ],
           "note": {
-            "label": "الفكرة العملية",
-            "text": "وظيفته في IPv6 تماثل وظيفة 0.0.0.0/0 في IPv4."
+            "label": "متطلب تشغيل",
+            "text": "أضيف ipv6 unicast-routing كمتطلب خبير لأن Cisco تشترط تمكين IPv6 forwarding قبل استخدام IPv6 static routes."
           }
         },
         "terminal": {
@@ -192,6 +211,13 @@
             {
               "id": "cmd-01",
               "order": 1,
+              "prompt": "R1(config)#",
+              "command": "ipv6 unicast-routing",
+              "description": "متطلب خبير: يمكّن توجيه IPv6 على الراوتر."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
               "prompt": "R1(config)#",
               "command": "ipv6 route ::/0 2001:db8:1::1",
               "description": "ينشئ مسار IPv6 افتراضيًا عبر 2001:db8:1::1."
@@ -263,12 +289,19 @@
               "id": "cmd-04",
               "order": 4,
               "prompt": "R1#",
-              "command": "ping 192.168.2.1",
-              "description": "مثال لاختبار اتصال IPv4."
+              "command": "show running-config | include ^ipv6 route",
+              "description": "يعرض أسطر المسارات الثابتة IPv6 في running-config."
             },
             {
               "id": "cmd-05",
               "order": 5,
+              "prompt": "R1#",
+              "command": "ping 192.168.2.1",
+              "description": "مثال لاختبار اتصال IPv4."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
               "prompt": "R1#",
               "command": "ping ipv6 2001:db8:2::1",
               "description": "مثال لاختبار اتصال IPv6 وفق صيغة الملف."

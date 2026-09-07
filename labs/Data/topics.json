@@ -14,7 +14,7 @@
     {
       "id": "ssh",
       "order": 2,
-      "title": " تأمين الاتصال الاداري عن بعد SSH",
+      "title": "تأمين الاتصال الاداري عن بعد SSH",
       "short_description": "تهيئة SSHv2، مفاتيح RSA، المستخدم المحلي، وتأمين خطوط VTY.",
       "data_file": "ssh.json",
       "status": "ready"
@@ -30,7 +30,7 @@
     {
       "id": "stp",
       "order": 4,
-      "title": "بروتوكول الشجرة الممتدة  STP",
+      "title": "بروتوكول الشجرة الممتدة STP",
       "short_description": "الجسر الجذري، أدوار المنافذ، الحماية، والمراقبة.",
       "data_file": "stp.json",
       "status": "ready"
@@ -46,7 +46,7 @@
     {
       "id": "port-security",
       "order": 6,
-      "title": "تأمين منافذ المحولات  Port Security",
+      "title": "تأمين منافذ المحولات Port Security",
       "short_description": "تأمين منافذ Access، عناوين MAC، وأنماط المخالفات.",
       "data_file": "port-security.json",
       "status": "ready"
@@ -62,11 +62,15 @@
     {
       "id": "static-default-routing",
       "order": 8,
-      "title": "التوجيه الثابت والافتراضيStatic & Default Routing",
+      "title": "التوجيه الثابت والافتراضي Static & Default Routing",
       "short_description": "المسارات الثابتة والافتراضية في IPv4 وIPv6.",
       "data_file": "static-default-routing.json",
       "status": "ready"
     }
-
-  ]
+  ],
+  "review": {
+    "status": "committee-reviewed",
+    "date": "2026-09-07",
+    "basis": "تمت مراجعة ملفات العملي بعد جولة التصحيح البنيوي والتقني. تبقى حالة ready متوافقة مع واجهة الموقع، ويُحسم الاعتماد النهائي في تقرير اللجنة بعد اختبارات الاتساق."
+  }
 }

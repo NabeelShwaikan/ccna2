@@ -9,7 +9,7 @@
       "pages": 3
     },
     "review": {
-      "status": "expert-reviewed",
+      "status": "committee-reviewed",
       "basis": "المحتوى الأساسي مأخوذ من الملف المرفق، مع فصل التكوين والمراقبة والاستعادة، وتوثيق التصحيحات التي أُجريت بعد مراجعة أوامر Cisco.",
       "adjustments": [
         {
@@ -35,6 +35,24 @@
           "source": "يعرض المصدر clear port-security sticky interface <interface-id>.",
           "site": "تم الإبقاء على الأمر في قسم الاستكشاف مع توضيح أنه يزيل عناوين Sticky المتعلمة على المنفذ المحدد.",
           "reason": "حتى لا يُفهم الأمر على أنه تعطيل لـPort Security نفسه."
+        },
+        {
+          "id": "violation-modes-separated",
+          "source": "يعرض المصدر Protect وRestrict وShutdown ضمن قائمة واحدة.",
+          "site": "فُصل كل وضع مخالفة إلى سيناريو مستقل.",
+          "reason": "الأوضاع بدائل لقيمة واحدة وليست أوامر متتابعة."
+        },
+        {
+          "id": "recovery-paths-separated",
+          "source": "يعرض المصدر الاستعادة التلقائية واليدوية.",
+          "site": "فُصلت الاستعادة التلقائية عن الاستعادة اليدوية إلى قسمين.",
+          "reason": "حتى لا يفهم المتدرب أن تفعيل errdisable recovery ثم shutdown/no shutdown تسلسل إلزامي واحد."
+        },
+        {
+          "id": "secure-mac-methods-separated",
+          "source": "يعرض المصدر Static MAC وSticky ضمن موضوع واحد.",
+          "site": "فُصلت الطريقتان إلى سيناريو Static وسيناريو Sticky مستقلين.",
+          "reason": "حتى لا يُفهم أن إدخال عنوان MAC يدويًا ثم تفعيل Sticky تسلسل إلزامي واحد."
         }
       ]
     },
@@ -175,31 +193,27 @@
         }
       },
       {
-        "id": "port-security-mac-learning",
+        "id": "port-security-mac-static",
         "order": 3,
-        "title": "تحديد عناوين MAC المسموح بها",
-        "subtitle": "Static أوSticky",
+        "title": "تحديد Secure MAC يدويًا",
+        "subtitle": "Static Secure MAC لعنوان معروف مسبقًا",
         "source_page": 2,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "يمكن تحديد عنوان MAC يدويًا كعنوان آمن، أو استخدام Sticky ليقوم السويتش بتعلم العناوين وتحويلها إلى عناوين آمنة مرتبطة بالمنفذ.",
+          "intro": "إذا كان عنوان MAC المسموح معروفًا مسبقًا، يمكن تثبيته يدويًا كعنوان آمن على المنفذ.",
           "points": [
             {
-              "id": "static",
-              "text": "الطريقة Static مناسبة عندما تعرف عنوان MAC المطلوب مسبقًا."
+              "id": "static-known",
+              "text": "استخدم الطريقة Static عندما تعرف عنوان MAC المطلوب مسبقًا."
             },
             {
-              "id": "sticky",
-              "text": "Sticky تجعل السويتش يتعلم عنوان MAC تلقائيًا بدل إدخاله يدويًا."
-            },
-            {
-              "id": "save-config",
-              "text": "إذا أردت بقاء عناوين Sticky بعد إعادة التشغيل، احفظ التكوين بعد تعلمها."
+              "id": "maximum-context",
+              "text": "العنوان اليدوي يحتسب ضمن الحد الأقصى لعناوين MAC الآمنة على المنفذ."
             }
           ],
           "note": {
-            "label": "الفكرة العملية",
-            "text": "Sticky مفيدة في المختبرات لأنها تجمع بين التعلم التلقائي وإمكانية تثبيت العنوان في التكوين."
+            "label": "سيناريو مستقل",
+            "text": "هذه طريقة مستقلة عن Sticky في المختبر؛ اختر الأسلوب المناسب بدل تنفيذ الطريقتين تلقائيًا معًا."
           }
         },
         "terminal": {
@@ -210,27 +224,57 @@
               "order": 1,
               "prompt": "S1(config-if)#",
               "command": "switchport port-security mac-address 0011.2233.4455",
-              "description": "مثال لتحديد عنوان MAC آمن يدويًا."
-            },
-            {
-              "id": "cmd-02",
-              "order": 2,
-              "prompt": "S1(config-if)#",
-              "command": "switchport port-security mac-address sticky",
-              "description": "يفعّل التعلم التلقائي لعناوين Sticky."
+              "description": "يضيف عنوان MAC محددًا يدويًا إلى العناوين الآمنة على المنفذ."
             }
           ]
         }
       },
       {
-        "id": "port-security-violation",
+        "id": "port-security-mac-sticky",
         "order": 4,
-        "title": "أوضاع المخالفة الأمنية",
-        "subtitle": "Protect وRestrict وShutdown",
+        "title": "تعلم Secure MAC باستخدام Sticky",
+        "subtitle": "تعلم تلقائي ثم حفظ التكوين عند الحاجة",
         "source_page": 2,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "Violation Mode يحدد ما يفعله السويتش عندما تظهر حركة من عنوان MAC غير مسموح به بعد الوصول إلى الحد الأمني.",
+          "intro": "Sticky يجعل السويتش يتعلم عنوان MAC من الحركة الفعلية ويضيفه كعنوان آمن Sticky.",
+          "points": [
+            {
+              "id": "sticky-learn",
+              "text": "Sticky يتعلم عنوان MAC تلقائيًا بدل إدخاله يدويًا."
+            },
+            {
+              "id": "save",
+              "text": "إذا أردت بقاء عناوين Sticky بعد إعادة التشغيل، احفظ running-config في startup-config بعد تعلمها."
+            }
+          ],
+          "note": {
+            "label": "سيناريو مستقل",
+            "text": "ابدأ بمنفذ مهيأ بـPort Security ثم اختر Sticky كطريقة التعلم في هذا السيناريو."
+          }
+        },
+        "terminal": {
+          "label": "S1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "S1(config-if)#",
+              "command": "switchport port-security mac-address sticky",
+              "description": "يفعّل تعلم عناوين MAC الآمنة بطريقة Sticky."
+            }
+          ]
+        }
+      },
+      {
+        "id": "port-security-violation-protect",
+        "order": 5,
+        "title": "وضع المخالفة Protect",
+        "subtitle": "إسقاط الحركة المخالفة دون إشعار أو زيادة عداد المخالفات.",
+        "source_page": 2,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "إسقاط الحركة المخالفة دون إشعار أو زيادة عداد المخالفات.",
           "points": [
             {
               "id": "protect",
@@ -246,8 +290,8 @@
             }
           ],
           "note": {
-            "label": "تصحيح خبير",
-            "text": "وصف Protect في ملف المصدر غير دقيق؛ الحركة غير المصرح بها تُسقط، والاختلاف الأساسي أنه لا يقدم الإشعارات وعداد المخالفات مثل Restrict."
+            "label": "سيناريو مستقل",
+            "text": "اختر هذا الوضع فقط إذا كان هذا السلوك هو المطلوب؛ لا تنفذ بعده Restrict أوShutdown كخطوات تالية."
           }
         },
         "terminal": {
@@ -258,34 +302,102 @@
               "order": 1,
               "prompt": "S1(config-if)#",
               "command": "switchport port-security violation protect",
-              "description": "يستخدم وضع Protect."
-            },
-            {
-              "id": "cmd-02",
-              "order": 2,
-              "prompt": "S1(config-if)#",
-              "command": "switchport port-security violation restrict",
-              "description": "يستخدم وضع Restrict."
-            },
-            {
-              "id": "cmd-03",
-              "order": 3,
-              "prompt": "S1(config-if)#",
-              "command": "switchport port-security violation shutdown",
-              "description": "يستخدم وضع Shutdown، وهو الوضع الافتراضي."
+              "description": "يضبط وضع المخالفة على Protect."
             }
           ]
         }
       },
       {
-        "id": "port-security-recovery",
-        "order": 5,
-        "title": "استكشاف المخالفات واستعادة المنفذ",
-        "subtitle": "Err-disabled وإزالة Sticky MAC",
+        "id": "port-security-violation-restrict",
+        "order": 6,
+        "title": "وضع المخالفة Restrict",
+        "subtitle": "إسقاط الحركة المخالفة مع تسجيل المخالفة والإشعار بحسب المنصة.",
+        "source_page": 2,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "إسقاط الحركة المخالفة مع تسجيل المخالفة والإشعار بحسب المنصة.",
+          "points": [
+            {
+              "id": "protect",
+              "text": "Protect يسقط الحركة المخالفة، لكنه لا يولد تنبيهًا ولا يزيد عداد المخالفات."
+            },
+            {
+              "id": "restrict",
+              "text": "Restrict يسقط الحركة المخالفة ويُسجل المخالفة ويولد إشعارات بحسب إمكانات المنصة."
+            },
+            {
+              "id": "shutdown",
+              "text": "Shutdown يعطل المنفذ ويضعه في حالة err-disabled عند حدوث مخالفة، وهو الوضع الافتراضي."
+            }
+          ],
+          "note": {
+            "label": "سيناريو مستقل",
+            "text": "هذا بديل لـProtect وShutdown."
+          }
+        },
+        "terminal": {
+          "label": "S1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "S1(config-if)#",
+              "command": "switchport port-security violation restrict",
+              "description": "يضبط وضع المخالفة على Restrict."
+            }
+          ]
+        }
+      },
+      {
+        "id": "port-security-violation-shutdown",
+        "order": 7,
+        "title": "وضع المخالفة Shutdown",
+        "subtitle": "تعطيل المنفذ ووضعه في err-disabled عند المخالفة؛ وهو الوضع الافتراضي.",
+        "source_page": 2,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "تعطيل المنفذ ووضعه في err-disabled عند المخالفة؛ وهو الوضع الافتراضي.",
+          "points": [
+            {
+              "id": "protect",
+              "text": "Protect يسقط الحركة المخالفة، لكنه لا يولد تنبيهًا ولا يزيد عداد المخالفات."
+            },
+            {
+              "id": "restrict",
+              "text": "Restrict يسقط الحركة المخالفة ويُسجل المخالفة ويولد إشعارات بحسب إمكانات المنصة."
+            },
+            {
+              "id": "shutdown",
+              "text": "Shutdown يعطل المنفذ ويضعه في حالة err-disabled عند حدوث مخالفة، وهو الوضع الافتراضي."
+            }
+          ],
+          "note": {
+            "label": "سيناريو مستقل",
+            "text": "هذا بديل لـProtect وRestrict، ولا يلزم ضبطه صراحة إذا كان السلوك الافتراضي مناسبًا."
+          }
+        },
+        "terminal": {
+          "label": "S1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "S1(config-if)#",
+              "command": "switchport port-security violation shutdown",
+              "description": "يضبط وضع المخالفة على Shutdown."
+            }
+          ]
+        }
+      },
+      {
+        "id": "port-security-recovery-auto",
+        "order": 8,
+        "title": "الاستعادة التلقائية بعد Port Security Violation",
+        "subtitle": "errdisable recovery بمدة محددة",
         "source_page": 3,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "إذا تسبب Port Security في تعطيل منفذ، افحص حالة err-disabled والسجلات أولًا، ثم عالج سبب المخالفة قبل إعادة تمكين المنفذ.",
+          "intro": "بعد إزالة سبب المخالفة يمكن إعداد IOS لإعادة محاولة تمكين المنفذ تلقائيًا بعد مدة محددة.",
           "points": [
             {
               "id": "err-disabled",
@@ -296,21 +408,13 @@
               "text": "show logging يساعد في معرفة الحدث الذي أدى إلى المخالفة."
             },
             {
-              "id": "clear-sticky",
-              "text": "يمكن حذف عناوين Sticky من منفذ محدد إذا احتجت إلى إعادة تعلم أجهزة جديدة."
-            },
-            {
-              "id": "manual-recovery",
-              "text": "بعد إزالة سبب المشكلة يمكن إعادة المنفذ يدويًا باستخدام shutdown ثم no shutdown."
-            },
-            {
               "id": "automatic-recovery",
               "text": "يمكن إعداد errdisable recovery لإعادة محاولة تمكين المنافذ التي تعطلت بسبب psecure-violation بعد فترة محددة."
             }
           ],
           "note": {
-            "label": "ملاحظة خبير",
-            "text": "لا تعِد تمكين المنفذ قبل فهم سبب المخالفة؛ وإلا قد يعود مباشرة إلى err-disabled."
+            "label": "قبل التفعيل",
+            "text": "تحقق أولًا من سبب المخالفة باستخدام show port-security وshow logging؛ الاستعادة التلقائية لا تعالج السبب الأساسي."
           }
         },
         "terminal": {
@@ -321,56 +425,111 @@
               "order": 1,
               "prompt": "S1#",
               "command": "show interfaces status err-disabled",
-              "description": "يعرض المنافذ الموجودة في حالة err-disabled."
+              "description": "يعرض المنافذ الموجودة في err-disabled."
             },
             {
               "id": "cmd-02",
               "order": 2,
               "prompt": "S1#",
               "command": "show logging",
-              "description": "يعرض السجلات التي قد تتضمن تفاصيل المخالفة."
+              "description": "يراجع سجل سبب المخالفة."
             },
             {
               "id": "cmd-03",
               "order": 3,
               "prompt": "S1#",
-              "command": "clear port-security sticky interface fastethernet 0/1",
-              "description": "يزيل عناوين Sticky الآمنة من المنفذ المحدد."
+              "command": "configure terminal",
+              "description": "يدخل إلى Global Configuration قبل تعديل الإعدادات."
             },
             {
               "id": "cmd-04",
               "order": 4,
               "prompt": "S1(config)#",
               "command": "errdisable recovery cause psecure-violation",
-              "description": "يفعّل الاستعادة التلقائية للمنافذ المعطلة بسبب Port Security."
+              "description": "يسمح بالاستعادة التلقائية لمخالفات Port Security."
             },
             {
               "id": "cmd-05",
               "order": 5,
               "prompt": "S1(config)#",
               "command": "errdisable recovery interval 300",
-              "description": "مثال يحدد زمن محاولة الاستعادة التلقائية بـ300 ثانية."
+              "description": "يضبط مدة الانتظار على 300 ثانية قبل محاولة الاستعادة."
+            }
+          ]
+        }
+      },
+      {
+        "id": "port-security-recovery-manual",
+        "order": 9,
+        "title": "الاستعادة اليدوية للمنفذ",
+        "subtitle": "إزالة السبب ثم shutdown / no shutdown",
+        "source_page": 3,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "إذا عالجت سبب المخالفة وتريد إعادة المنفذ فورًا، أعد تهيئته إداريًا يدويًا.",
+          "points": [
+            {
+              "id": "verify",
+              "text": "تحقق من سبب المخالفة والعناوين الآمنة قبل إعادة التمكين."
             },
             {
-              "id": "cmd-06",
-              "order": 6,
+              "id": "sticky-clear",
+              "text": "إذا كان السيناريو يتطلب تعلم جهاز جديد، يمكن حذف عناوين Sticky على المنفذ المحدد."
+            },
+            {
+              "id": "bounce",
+              "text": "استخدم shutdown ثم no shutdown بعد إزالة سبب المشكلة."
+            }
+          ],
+          "note": {
+            "label": "تنبيه",
+            "text": "إذا بقي سبب المخالفة فسيعود المنفذ إلى err-disabled بعد إعادة تشغيله."
+          }
+        },
+        "terminal": {
+          "label": "S1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "S1#",
+              "command": "show port-security interface fastethernet 0/1",
+              "description": "يتحقق من حالة Port Security والمخالفة."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "S1#",
+              "command": "clear port-security sticky interface fastethernet 0/1",
+              "description": "اختياري: يحذف عناوين Sticky إذا كان ذلك جزءًا من معالجة السبب."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "S1#",
+              "command": "configure terminal",
+              "description": "يدخل إلى Global Configuration قبل تعديل الإعدادات."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
               "prompt": "S1(config)#",
               "command": "interface fastethernet 0/1",
-              "description": "يدخل إلى المنفذ للاستعادة اليدوية."
+              "description": "يدخل إلى المنفذ بعد إزالة سبب المخالفة."
             },
             {
-              "id": "cmd-07",
-              "order": 7,
+              "id": "cmd-05",
+              "order": 5,
               "prompt": "S1(config-if)#",
               "command": "shutdown",
               "description": "يعطل المنفذ إداريًا."
             },
             {
-              "id": "cmd-08",
-              "order": 8,
+              "id": "cmd-06",
+              "order": 6,
               "prompt": "S1(config-if)#",
               "command": "no shutdown",
-              "description": "يعيد تمكين المنفذ يدويًا بعد معالجة سبب المخالفة."
+              "description": "يعيد تمكين المنفذ."
             }
           ]
         }

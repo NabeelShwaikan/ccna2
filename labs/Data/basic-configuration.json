@@ -34,6 +34,10 @@
             {
               "id": "save-config",
               "text": "بعد الانتهاء احفظ running-config في startup-config حتى تبقى الإعدادات بعد إعادة التشغيل."
+            },
+            {
+              "id": "save-alternative",
+              "text": "write memory بديل مختصر شائع للحفظ على بعض منصات IOS، لكنه ليس خطوة إضافية بعد copy running-config startup-config."
             }
           ],
           "note": {
@@ -85,13 +89,6 @@
               "prompt": "Router#",
               "command": "copy running-config startup-config",
               "description": "يحفظ التكوين الحالي في الذاكرة الدائمة."
-            },
-            {
-              "id": "cmd-07",
-              "order": 7,
-              "prompt": "Router#",
-              "command": "write memory",
-              "description": "طريقة مختصرة لحفظ التكوين الحالي."
             }
           ]
         }
@@ -274,12 +271,12 @@
       {
         "id": "basic-security",
         "order": 4,
-        "title": "الأمان الأساسي وخطوط VTY",
-        "subtitle": "حماية الامتياز وتقييد الوصول البعيد",
+        "title": "الأمان الأساسي للجهاز",
+        "subtitle": "Enable Secret وتشفير كلمات المرور ورسالة التحذير",
         "source_page": 4,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "الإعدادات الأساسية هنا تقلل مخاطر الوصول غير المصرح به، ثم تقيّد بروتوكول الوصول البعيد على خطوط VTY.",
+          "intro": "ابدأ بحماية الوصول المحلي للجهاز قبل الانتقال إلى موضوع الإدارة البعيدة عبر SSH.",
           "points": [
             {
               "id": "enable-secret",
@@ -294,13 +291,13 @@
               "text": "أضف رسالة تحذيرية تظهر عند تسجيل الدخول."
             },
             {
-              "id": "vty",
-              "text": "اضبط خطوط VTY ثم قيد بروتوكول النقل إلى SSH."
+              "id": "ssh-deferred",
+              "text": "إعداد خطوط VTY والوصول الآمن عبر SSH يُنفذ في موضوع SSH المستقل حتى يكون التسلسل كاملًا وغير مجتزأ."
             }
           ],
           "note": {
-            "label": "ملاحظة خبير",
-            "text": "transport input ssh يمنع Telnet لكنه لا يُكمل إعداد SSH وحده. إعداد SSH الكامل يحتاج عناصر إضافية مثل اسم النطاق ومفاتيح RSA وحساب مستخدم محلي، وهي أنسب لموضوع SSH المستقل."
+            "label": "حدود هذا القسم",
+            "text": "لا يعرض هذا القسم transport input ssh منفردًا؛ ملف SSH يضم اسم النطاق ومفاتيح RSA والمستخدم المحلي وlogin local وVTY ضمن تسلسل واحد قابل للتنفيذ."
           }
         },
         "terminal": {
@@ -326,55 +323,6 @@
               "prompt": "Router(config)#",
               "command": "banner motd # Unauthorized Access Prohibited! #",
               "description": "يضيف رسالة تحذيرية عند تسجيل الدخول."
-            },
-            {
-              "id": "cmd-04",
-              "order": 4,
-              "prompt": "Router(config)#",
-              "command": "line vty 0 4",
-              "description": "يدخل إلى تكوين خطوط VTY."
-            },
-            {
-              "id": "cmd-05",
-              "order": 5,
-              "prompt": "Router(config-line)#",
-              "command": "password cisco",
-              "description": "يضبط كلمة مرور للوصول البعيد في المثال."
-            },
-            {
-              "id": "cmd-06",
-              "order": 6,
-              "prompt": "Router(config-line)#",
-              "command": "login",
-              "description": "يفرض استخدام كلمة المرور عند الاتصال."
-            },
-            {
-              "id": "cmd-07",
-              "order": 7,
-              "prompt": "Router(config-line)#",
-              "command": "transport input ssh",
-              "description": "يسمح باتصالات SSH ويمنع Telnet."
-            },
-            {
-              "id": "cmd-08",
-              "order": 8,
-              "prompt": "Router(config-line)#",
-              "command": "end",
-              "description": "يعود إلى Privileged EXEC."
-            },
-            {
-              "id": "cmd-09",
-              "order": 9,
-              "prompt": "Router#",
-              "command": "configure terminal",
-              "description": "يدخل إلى وضع التكوين العام."
-            },
-            {
-              "id": "cmd-10",
-              "order": 10,
-              "prompt": "Router(config)#",
-              "command": "ip ssh version 2",
-              "description": "يفرض استخدام SSH الإصدار 2."
             }
           ]
         }
@@ -445,6 +393,24 @@
           ]
         }
       }
-    ]
+    ],
+    "review": {
+      "status": "committee-reviewed",
+      "basis": "المحتوى الأساسي مأخوذ من الملف المرفق، مع تصحيح الجولة النهائية لتمييز التسلسل التنفيذي عن البدائل وإحالة إعداد SSH الكامل إلى ملفه المستقل.",
+      "adjustments": [
+        {
+          "id": "save-command-alternative",
+          "source": "يعرض المصدر طريقتين لحفظ التكوين: copy running-config startup-config وwrite memory.",
+          "site": "أبقي copy running-config startup-config داخل التسلسل التنفيذي، ونُقل write memory إلى الشرح كبديل مختصر.",
+          "reason": "حتى لا يفهم المتدرب أن تنفيذ الأمرين مطلوب في كل مرة."
+        },
+        {
+          "id": "ssh-scope-separated",
+          "source": "يتضمن المصدر أوامر VTY وSSH ضمن التكوين الأساسي.",
+          "site": "أبقي الأمان المحلي الأساسي هنا، وأحيل تهيئة SSH الكاملة إلى ssh.json بدل عرض تسلسل SSH ناقص.",
+          "reason": "transport input ssh لا يكفي وحده لتشغيل SSH ويحتاج Domain/RSA/User ومصادقة محلية."
+        }
+      ]
+    }
   }
 }

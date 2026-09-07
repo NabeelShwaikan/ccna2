@@ -9,7 +9,7 @@
       "pages": 5
     },
     "review": {
-      "status": "expert-reviewed",
+      "status": "committee-reviewed",
       "basis": "المحتوى الأساسي مأخوذ من الملف، مع إبقاء تصحيحات خبير Cisco منفصلة وواضحة وعدم إدراج الصيغ غير الصحيحة في محاكاة CLI.",
       "adjustments": [
         {
@@ -47,6 +47,24 @@
           "source": "يصف الملف spanning-tree bpdufilter enable بأنه يمنع إرسال أو استقبال BPDUs على المنفذ.",
           "site": "أبقي الأمر مع تحذير صريح من استخدامه إلا عند فهم أثره.",
           "reason": "إخفاء BPDUs قد يمنع STP من اكتشاف حلقة فعلية، لذلك هو أكثر خطورة من BPDU Guard في منافذ المستخدمين."
+        },
+        {
+          "id": "guards-separated-final",
+          "source": "يعرض المصدر عدة أوامر حماية STP متجاورة.",
+          "site": "فُصل Root Guard وLoop Guard وBPDU Filter إلى سيناريوهات مستقلة.",
+          "reason": "Cisco تنص على أن Root Guard وLoop Guard متنافيان ولا يمكن تمكينهما معًا على المنفذ نفسه."
+        },
+        {
+          "id": "edge-global-default-separated",
+          "source": "يعرض المصدر PortFast/BPDU Guard على المنفذ وعلى مستوى الإعداد الافتراضي.",
+          "site": "فُصل تطبيق المنفذ الواحد عن التفعيل الافتراضي لمنافذ Access.",
+          "reason": "تمييز طريقتين للتطبيق بدل إظهارهما كتسلسل إلزامي واحد."
+        },
+        {
+          "id": "mst-reference-only",
+          "source": "يعرض المصدر أوامر MST دون Region Name وRevision وVLAN-to-Instance Mapping.",
+          "site": "حُوّل قسم MST إلى مرجع إضافي للتحقق وحدود المصدر بدل تقديمه كمختبر تكوين مكتمل.",
+          "reason": "تجنب إعطاء انطباع أن دخول mst configuration وحده يكفي لبناء MST Region صالحة."
         }
       ],
       "legacy_source_commands": [
@@ -210,8 +228,8 @@
       {
         "id": "stp-edge-protection",
         "order": 3,
-        "title": "PortFast وBPDU Guard لمنافذ المستخدمين",
-        "subtitle": "تسريع منفذ الطرف النهائي مع حماية من توصيل سويتش بالخطأ",
+        "title": "PortFast وBPDU Guard على منفذ مستخدم",
+        "subtitle": "حماية منفذ Access طرفي بصورة مباشرة",
         "source_page": 3,
         "explanation": {
           "label": "شرح خبير Cisco",
@@ -258,29 +276,59 @@
               "prompt": "SW1(config-if)#",
               "command": "spanning-tree bpduguard enable",
               "description": "يفعّل BPDU Guard على المنفذ."
-            },
-            {
-              "id": "cmd-04",
-              "order": 4,
-              "prompt": "SW1(config)#",
-              "command": "spanning-tree portfast default",
-              "description": "يفعّل PortFast افتراضيًا على المنافذ غير الـTrunk في المنصات التي تدعم هذه الصيغة."
-            },
-            {
-              "id": "cmd-05",
-              "order": 5,
-              "prompt": "SW1(config)#",
-              "command": "spanning-tree portfast bpduguard default",
-              "description": "يفعّل BPDU Guard افتراضيًا على منافذ PortFast."
             }
           ]
         }
       },
       {
-        "id": "stp-guards",
+        "id": "stp-edge-protection-default",
         "order": 4,
-        "title": "Root Guard وLoop Guard وBPDU Filter",
-        "subtitle": "حمايات STP للمنافذ الحساسة",
+        "title": "تفعيل PortFast وBPDU Guard افتراضيًا",
+        "subtitle": "سياسة عامة لمنافذ Access المؤهلة",
+        "source_page": 3,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "يمكن تطبيق PortFast وBPDU Guard افتراضيًا بدل تكرار الأوامر على كل منفذ Access مؤهل.",
+          "points": [
+            {
+              "id": "portfast-default",
+              "text": "spanning-tree portfast default يطبق PortFast افتراضيًا على المنافذ المناسبة بحسب سلوك المنصة."
+            },
+            {
+              "id": "bpduguard-default",
+              "text": "spanning-tree portfast bpduguard default يفعّل BPDU Guard افتراضيًا على منافذ PortFast."
+            }
+          ],
+          "note": {
+            "label": "بديل تنظيمي",
+            "text": "هذا أسلوب تطبيق عام، وليس خطوة لازمة بعد ضبط spanning-tree portfast وbpduguard enable يدويًا على منفذ بعينه."
+          }
+        },
+        "terminal": {
+          "label": "SW1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "SW1(config)#",
+              "command": "spanning-tree portfast default",
+              "description": "يفعّل PortFast افتراضيًا على المنافذ المؤهلة."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "SW1(config)#",
+              "command": "spanning-tree portfast bpduguard default",
+              "description": "يفعّل BPDU Guard افتراضيًا مع PortFast."
+            }
+          ]
+        }
+      },
+      {
+        "id": "stp-root-guard",
+        "order": 5,
+        "title": "Root Guard",
+        "subtitle": "منع Root Bridge غير مرغوب عبر منفذ محدد",
         "source_pages": [
           3,
           4,
@@ -288,7 +336,7 @@
         ],
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "توفر Cisco حمايات إضافية لمنع تغيّر غير مرغوب في الجذر أو تجنب بعض حالات الفشل أحادي الاتجاه، لكن لكل ميزة موضع استخدام مختلف.",
+          "intro": "Root Guard يحافظ على المنفذ كمنفذ Designated ويمنع استقبال Superior BPDU من تغيير موضع الجذر.",
           "points": [
             {
               "id": "root-guard",
@@ -304,8 +352,8 @@
             }
           ],
           "note": {
-            "label": "تصحيح خبير",
-            "text": "اعتمدنا spanning-tree guard root وspanning-tree guard loop. لم نستخدم الصيغتين rootguard وloopguard enable الواردتين في الصفحة الأخيرة من المصدر."
+            "label": "سيناريو مستقل",
+            "text": "لا تجمع Root Guard وLoop Guard على المنفذ نفسه؛ اختر الحماية المناسبة لدور المنفذ."
           }
         },
         "terminal": {
@@ -316,35 +364,125 @@
               "order": 1,
               "prompt": "SW1(config)#",
               "command": "interface gigabitethernet 0/2",
-              "description": "يدخل إلى المنفذ المراد حمايته."
+              "description": "يدخل إلى المنفذ المراد تطبيق الحماية عليه."
             },
             {
               "id": "cmd-02",
               "order": 2,
               "prompt": "SW1(config-if)#",
               "command": "spanning-tree guard root",
-              "description": "يفعّل Root Guard على المنفذ."
+              "description": "منع Root Bridge غير مرغوب عبر منفذ محدد"
+            }
+          ]
+        }
+      },
+      {
+        "id": "stp-loop-guard",
+        "order": 6,
+        "title": "Loop Guard",
+        "subtitle": "حماية منافذ Root/Alternate من فقد BPDUs",
+        "source_pages": [
+          3,
+          4,
+          5
+        ],
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "Loop Guard يمنع الانتقال غير الآمن إلى Forwarding عند توقف BPDUs على منفذ غير Designated.",
+          "points": [
+            {
+              "id": "root-guard",
+              "text": "Root Guard يمنع المنفذ من أن يصبح مسارًا نحو Root Bridge غير مرغوب فيه."
             },
             {
-              "id": "cmd-03",
-              "order": 3,
+              "id": "loop-guard",
+              "text": "Loop Guard يحمي من انتقال منفذ Root أوAlternate إلى Forwarding عند توقف BPDUs بصورة غير طبيعية."
+            },
+            {
+              "id": "bpdu-filter",
+              "text": "BPDU Filter يمنع BPDUs على المنفذ، ولذلك استخدامه أكثر حساسية وقد يخفي حلقة من STP."
+            }
+          ],
+          "note": {
+            "label": "سيناريو مستقل",
+            "text": "هذا سيناريو مستقل عن Root Guard؛ الميزتان متنافيتان على المنفذ نفسه."
+          }
+        },
+        "terminal": {
+          "label": "SW1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "SW1(config)#",
+              "command": "interface gigabitethernet 0/2",
+              "description": "يدخل إلى المنفذ المراد تطبيق الحماية عليه."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
               "prompt": "SW1(config-if)#",
               "command": "spanning-tree guard loop",
-              "description": "يفعّل Loop Guard على المنفذ بدل صيغة loopguard enable غير المعتمدة هنا."
+              "description": "حماية منافذ Root/Alternate من فقد BPDUs"
+            }
+          ]
+        }
+      },
+      {
+        "id": "stp-bpdu-filter",
+        "order": 7,
+        "title": "BPDU Filter",
+        "subtitle": "إيقاف BPDUs مع تحذير أمني واضح",
+        "source_pages": [
+          3,
+          4,
+          5
+        ],
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "BPDU Filter يمنع BPDUs على المنفذ وقد يخفي حلقة Layer 2 إذا استُخدم في موضع غير مناسب.",
+          "points": [
+            {
+              "id": "root-guard",
+              "text": "Root Guard يمنع المنفذ من أن يصبح مسارًا نحو Root Bridge غير مرغوب فيه."
             },
             {
-              "id": "cmd-04",
-              "order": 4,
+              "id": "loop-guard",
+              "text": "Loop Guard يحمي من انتقال منفذ Root أوAlternate إلى Forwarding عند توقف BPDUs بصورة غير طبيعية."
+            },
+            {
+              "id": "bpdu-filter",
+              "text": "BPDU Filter يمنع BPDUs على المنفذ، ولذلك استخدامه أكثر حساسية وقد يخفي حلقة من STP."
+            }
+          ],
+          "note": {
+            "label": "سيناريو مستقل",
+            "text": "لا تستخدم BPDU Filter كبديل تلقائي لـBPDU Guard؛ نفذه فقط عندما يكون أثر إخفاء BPDUs مفهومًا ومقصودًا."
+          }
+        },
+        "terminal": {
+          "label": "SW1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "SW1(config)#",
+              "command": "interface gigabitethernet 0/2",
+              "description": "يدخل إلى المنفذ المراد تطبيق الحماية عليه."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
               "prompt": "SW1(config-if)#",
               "command": "spanning-tree bpdufilter enable",
-              "description": "يفعّل BPDU Filter؛ يستخدم بحذر شديد."
+              "description": "إيقاف BPDUs مع تحذير أمني واضح"
             }
           ]
         }
       },
       {
         "id": "stp-path-timers",
-        "order": 5,
+        "order": 8,
         "title": "التحكم في اختيار المسار ومؤقتات STP",
         "subtitle": "Cost وPort Priority والمؤقتات عند الحاجة",
         "source_pages": [
@@ -400,20 +538,27 @@
             {
               "id": "cmd-04",
               "order": 4,
-              "prompt": "SW1(config)#",
-              "command": "spanning-tree vlan 10 hello-time 2",
-              "description": "يضبط Hello Time لـVLAN 10 كمثال."
+              "prompt": "SW1(config-if)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration قبل ضبط مؤقتات VLAN."
             },
             {
               "id": "cmd-05",
               "order": 5,
               "prompt": "SW1(config)#",
-              "command": "spanning-tree vlan 10 forward-time 15",
-              "description": "يضبط Forward Time لـVLAN 10."
+              "command": "spanning-tree vlan 10 hello-time 2",
+              "description": "يضبط Hello Time لـVLAN 10 كمثال."
             },
             {
               "id": "cmd-06",
               "order": 6,
+              "prompt": "SW1(config)#",
+              "command": "spanning-tree vlan 10 forward-time 15",
+              "description": "يضبط Forward Time لـVLAN 10."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
               "prompt": "SW1(config)#",
               "command": "spanning-tree vlan 10 max-age 20",
               "description": "يضبط Max Age لـVLAN 10."
@@ -423,16 +568,16 @@
       },
       {
         "id": "stp-mst",
-        "order": 6,
-        "title": "MST ومراقبة الإعداد",
-        "subtitle": "الأوامر الأساسية الواردة في المصدر لـMultiple Spanning Tree",
+        "order": 9,
+        "title": "MST — مرجع إضافي وحدود المصدر",
+        "subtitle": "المصدر لا يوفر عناصر Region كاملة لبناء مختبر MST متكامل",
         "source_pages": [
           1,
           4
         ],
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "يتضمن المصدر أوامر MSTP، وهي تُستخدم عندما تجمع عدة VLANs داخل عدد أقل من مثيلات Spanning Tree بدل إنشاء شجرة مستقلة لكل VLAN.",
+          "intro": "يعرض المصدر أوامر مرتبطة بـMST لكنه لا يحدد اسم المنطقة أوRevision أوربط VLANs بالمثيلات، لذلك لا نقدم هذا الجزء كسيناريو تكوين كامل.",
           "points": [
             {
               "id": "mst-mode",
@@ -453,7 +598,7 @@
           ],
           "note": {
             "label": "حدود المصدر",
-            "text": "الملف لا يشرح تكوين اسم منطقة MST أوRevision أوربط VLANs بالمثيلات؛ لذلك لم نضف هذه الخطوات من خارج الملف إلى المحاكاة."
+            "text": "أوامر إنشاء MST Region الكاملة غير متوفرة في المصدر؛ أبقينا أوامر التحقق فقط في Terminal، بينما أوامر mode/configuration/priority موضحة في الشرح كمرجع للمصدر."
           }
         },
         "terminal": {
@@ -462,37 +607,16 @@
             {
               "id": "cmd-01",
               "order": 1,
-              "prompt": "SW1(config)#",
-              "command": "spanning-tree mode mst",
-              "description": "يحول السويتش إلى وضع MST."
+              "prompt": "SW1#",
+              "command": "show spanning-tree mst configuration",
+              "description": "يعرض إعداد منطقة MST الحالي."
             },
             {
               "id": "cmd-02",
               "order": 2,
-              "prompt": "SW1(config)#",
-              "command": "spanning-tree mst configuration",
-              "description": "يدخل إلى وضع تكوين MST."
-            },
-            {
-              "id": "cmd-03",
-              "order": 3,
-              "prompt": "SW1(config)#",
-              "command": "spanning-tree mst 1 priority 24576",
-              "description": "يضبط أولوية الجسر لمثيل MST 1 كمثال على الصيغة الواردة في المصدر."
-            },
-            {
-              "id": "cmd-04",
-              "order": 4,
-              "prompt": "SW1#",
-              "command": "show spanning-tree mst configuration",
-              "description": "يعرض تكوين منطقة MST."
-            },
-            {
-              "id": "cmd-05",
-              "order": 5,
               "prompt": "SW1#",
               "command": "show spanning-tree mst",
-              "description": "يعرض حالة مثيلات MST."
+              "description": "يعرض حالة MST والمثيلات الحالية."
             }
           ]
         }

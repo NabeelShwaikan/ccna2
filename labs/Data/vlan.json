@@ -9,7 +9,7 @@
       "pages": 2
     },
     "review": {
-      "status": "expert-reviewed",
+      "status": "committee-reviewed",
       "basis": "المحتوى الأساسي مأخوذ من الملف، مع إبراز تصحيحات خبير Cisco بدل نقل الأخطاء كما هي.",
       "adjustments": [
         {
@@ -35,6 +35,18 @@
           "source": "يظهر Prompt المنفذ الفرعي في الملف بصيغة config-if.",
           "site": "تعرض المحاكاة Prompt بصيغة config-subif.",
           "reason": "هذا هو الـPrompt المعتاد عند تكوين Router subinterface في Cisco IOS."
+        },
+        {
+          "id": "cli-mode-transitions",
+          "source": "يعرض المصدر الأوامر مجمعة وقد تُفقد بعض انتقالات CLI بسبب تنسيق PDF.",
+          "site": "أضيفت أوامر exit اللازمة بين أوضاع VLAN وinterface-range وsubinterface.",
+          "reason": "جعل تسلسل Terminal قابلًا للتنفيذ حرفيًا من الـPrompt المعروض."
+        },
+        {
+          "id": "vlan-verification-section",
+          "source": "يركز المصدر على التكوين ولا يجمع مرحلة تحقق مستقلة كاملة.",
+          "site": "أضيف قسم تحقق بأوامر show القياسية دون تغيير قيم التكوين.",
+          "reason": "المختبر العملي يجب أن يثبت إنشاء VLANs وTrunk وSVI وSubinterfaces بعد التنفيذ."
         }
       ]
     },
@@ -92,40 +104,61 @@
               "id": "cmd-03",
               "order": 3,
               "prompt": "S1(config-vlan)#",
-              "command": "vlan 10",
-              "description": "ينتقل إلى إنشاء VLAN 10."
+              "command": "exit",
+              "description": "يعود إلى Global Configuration قبل إنشاء VLAN أخرى."
             },
             {
               "id": "cmd-04",
               "order": 4,
-              "prompt": "S1(config-vlan)#",
-              "command": "name Students",
-              "description": "يسمي VLAN 10 باسم Students."
+              "prompt": "S1(config)#",
+              "command": "vlan 10",
+              "description": "ينتقل إلى إنشاء VLAN 10."
             },
             {
               "id": "cmd-05",
               "order": 5,
               "prompt": "S1(config-vlan)#",
-              "command": "vlan 20",
-              "description": "ينتقل إلى إنشاء VLAN 20."
+              "command": "name Students",
+              "description": "يسمي VLAN 10 باسم Students."
             },
             {
               "id": "cmd-06",
               "order": 6,
               "prompt": "S1(config-vlan)#",
-              "command": "name Instructors",
-              "description": "يسمي VLAN 20 باسم Instructors."
+              "command": "exit",
+              "description": "يعود إلى Global Configuration قبل إنشاء VLAN أخرى."
             },
             {
               "id": "cmd-07",
               "order": 7,
-              "prompt": "S1(config-vlan)#",
-              "command": "vlan 30",
-              "description": "ينتقل إلى إنشاء VLAN 30."
+              "prompt": "S1(config)#",
+              "command": "vlan 20",
+              "description": "ينتقل إلى إنشاء VLAN 20."
             },
             {
               "id": "cmd-08",
               "order": 8,
+              "prompt": "S1(config-vlan)#",
+              "command": "name Instructors",
+              "description": "يسمي VLAN 20 باسم Instructors."
+            },
+            {
+              "id": "cmd-09",
+              "order": 9,
+              "prompt": "S1(config-vlan)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration قبل إنشاء VLAN أخرى."
+            },
+            {
+              "id": "cmd-10",
+              "order": 10,
+              "prompt": "S1(config)#",
+              "command": "vlan 30",
+              "description": "ينتقل إلى إنشاء VLAN 30."
+            },
+            {
+              "id": "cmd-11",
+              "order": 11,
               "prompt": "S1(config-vlan)#",
               "command": "name Guests",
               "description": "يسمي VLAN 30 باسم Guests."
@@ -243,41 +276,55 @@
             {
               "id": "cmd-04",
               "order": 4,
+              "prompt": "S1(config-if-range)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration قبل تحديد نطاق منافذ جديد."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
               "prompt": "S1(config)#",
               "command": "interface range fastethernet 0/11-17",
               "description": "يحدد منافذ المدربين."
             },
             {
-              "id": "cmd-05",
-              "order": 5,
+              "id": "cmd-06",
+              "order": 6,
               "prompt": "S1(config-if-range)#",
               "command": "switchport mode access",
               "description": "يضبط المنافذ على وضع Access بعد تصحيح خطأ المصدر."
             },
             {
-              "id": "cmd-06",
-              "order": 6,
+              "id": "cmd-07",
+              "order": 7,
               "prompt": "S1(config-if-range)#",
               "command": "switchport access vlan 20",
               "description": "يسند المنافذ إلى VLAN 20."
             },
             {
-              "id": "cmd-07",
-              "order": 7,
+              "id": "cmd-08",
+              "order": 8,
+              "prompt": "S1(config-if-range)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration قبل تحديد نطاق منافذ جديد."
+            },
+            {
+              "id": "cmd-09",
+              "order": 9,
               "prompt": "S1(config)#",
               "command": "interface range fastethernet 0/18-24",
               "description": "يحدد منافذ الضيوف."
             },
             {
-              "id": "cmd-08",
-              "order": 8,
+              "id": "cmd-10",
+              "order": 10,
               "prompt": "S1(config-if-range)#",
               "command": "switchport mode access",
               "description": "يضبط المنافذ على وضع Access."
             },
             {
-              "id": "cmd-09",
-              "order": 9,
+              "id": "cmd-11",
+              "order": 11,
               "prompt": "S1(config-if-range)#",
               "command": "switchport access vlan 30",
               "description": "يسند المنافذ إلى VLAN 30."
@@ -392,86 +439,184 @@
             {
               "id": "cmd-03",
               "order": 3,
+              "prompt": "R1(config-if)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration قبل الدخول إلى Subinterface التالية."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
               "prompt": "R1(config)#",
               "command": "interface gigabitethernet 0/0.99",
               "description": "ينشئ Subinterface الخاصة بـVLAN 99."
             },
             {
-              "id": "cmd-04",
-              "order": 4,
+              "id": "cmd-05",
+              "order": 5,
               "prompt": "R1(config-subif)#",
               "command": "encapsulation dot1q 99 native",
               "description": "يربط Subinterface بـVLAN 99 ويحددها Native."
             },
             {
-              "id": "cmd-05",
-              "order": 5,
+              "id": "cmd-06",
+              "order": 6,
               "prompt": "R1(config-subif)#",
               "command": "ip address 192.168.99.1 255.255.255.0",
               "description": "يضبط بوابة VLAN 99."
             },
             {
-              "id": "cmd-06",
-              "order": 6,
+              "id": "cmd-07",
+              "order": 7,
+              "prompt": "R1(config-subif)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration قبل الدخول إلى Subinterface التالية."
+            },
+            {
+              "id": "cmd-08",
+              "order": 8,
               "prompt": "R1(config)#",
               "command": "interface gigabitethernet 0/0.10",
               "description": "ينشئ Subinterface الخاصة بـVLAN 10."
             },
             {
-              "id": "cmd-07",
-              "order": 7,
+              "id": "cmd-09",
+              "order": 9,
               "prompt": "R1(config-subif)#",
               "command": "encapsulation dot1q 10",
               "description": "يربط Subinterface بـVLAN 10."
             },
             {
-              "id": "cmd-08",
-              "order": 8,
+              "id": "cmd-10",
+              "order": 10,
               "prompt": "R1(config-subif)#",
               "command": "ip address 192.168.10.1 255.255.255.0",
               "description": "يضبط بوابة VLAN 10."
             },
             {
-              "id": "cmd-09",
-              "order": 9,
-              "prompt": "R1(config)#",
-              "command": "interface gigabitethernet 0/0.20",
-              "description": "ينشئ Subinterface الخاصة بـVLAN 20."
-            },
-            {
-              "id": "cmd-10",
-              "order": 10,
-              "prompt": "R1(config-subif)#",
-              "command": "encapsulation dot1q 20",
-              "description": "يربط Subinterface بـVLAN 20."
-            },
-            {
               "id": "cmd-11",
               "order": 11,
               "prompt": "R1(config-subif)#",
-              "command": "ip address 192.168.20.1 255.255.255.0",
-              "description": "يضبط بوابة VLAN 20."
+              "command": "exit",
+              "description": "يعود إلى Global Configuration قبل الدخول إلى Subinterface التالية."
             },
             {
               "id": "cmd-12",
               "order": 12,
               "prompt": "R1(config)#",
-              "command": "interface gigabitethernet 0/0.30",
-              "description": "ينشئ Subinterface الخاصة بـVLAN 30."
+              "command": "interface gigabitethernet 0/0.20",
+              "description": "ينشئ Subinterface الخاصة بـVLAN 20."
             },
             {
               "id": "cmd-13",
               "order": 13,
               "prompt": "R1(config-subif)#",
-              "command": "encapsulation dot1q 30",
-              "description": "يربط Subinterface بـVLAN 30."
+              "command": "encapsulation dot1q 20",
+              "description": "يربط Subinterface بـVLAN 20."
             },
             {
               "id": "cmd-14",
               "order": 14,
               "prompt": "R1(config-subif)#",
+              "command": "ip address 192.168.20.1 255.255.255.0",
+              "description": "يضبط بوابة VLAN 20."
+            },
+            {
+              "id": "cmd-15",
+              "order": 15,
+              "prompt": "R1(config-subif)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration قبل الدخول إلى Subinterface التالية."
+            },
+            {
+              "id": "cmd-16",
+              "order": 16,
+              "prompt": "R1(config)#",
+              "command": "interface gigabitethernet 0/0.30",
+              "description": "ينشئ Subinterface الخاصة بـVLAN 30."
+            },
+            {
+              "id": "cmd-17",
+              "order": 17,
+              "prompt": "R1(config-subif)#",
+              "command": "encapsulation dot1q 30",
+              "description": "يربط Subinterface بـVLAN 30."
+            },
+            {
+              "id": "cmd-18",
+              "order": 18,
+              "prompt": "R1(config-subif)#",
               "command": "ip address 192.168.30.1 255.255.255.0",
               "description": "يضبط بوابة VLAN 30."
+            }
+          ]
+        }
+      },
+      {
+        "id": "vlan-verification",
+        "order": 6,
+        "title": "التحقق من VLAN وTrunk وInter-VLAN Routing",
+        "subtitle": "تأكد من التكوين قبل اختبار الاتصال بين الأجهزة",
+        "source_page": 2,
+        "explanation": {
+          "label": "إضافة خبير للتحقق",
+          "intro": "بعد تنفيذ التكوين، راجع VLANs والـTrunks وواجهات الإدارة والـSubinterfaces قبل الانتقال إلى Ping بين الشبكات.",
+          "points": [
+            {
+              "id": "show-vlan",
+              "text": "show vlan brief يؤكد إنشاء VLANs وربط منافذ Access بها."
+            },
+            {
+              "id": "show-trunk",
+              "text": "show interfaces trunk يؤكد حالة Trunk والـNative VLAN."
+            },
+            {
+              "id": "switch-ip",
+              "text": "show ip interface brief على السويتش يوضح حالة SVI الخاصة بالإدارة."
+            },
+            {
+              "id": "router-subifs",
+              "text": "show ip interface brief على الراوتر يوضح حالة Subinterfaces الخاصة بـRouter-on-a-Stick."
+            },
+            {
+              "id": "ping",
+              "text": "بعد ضبط Default Gateway على أجهزة النهاية، استخدم ping بين VLANs للتحقق من التوجيه."
+            }
+          ],
+          "note": {
+            "label": "قاعدة عملية",
+            "text": "إذا فشل الاتصال، افحص أولًا VLAN membership ثم Trunk ثم عناوين Subinterfaces والبوابات الافتراضية قبل تغيير التكوين."
+          }
+        },
+        "terminal": {
+          "label": "S1 / R1",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "S1#",
+              "command": "show vlan brief",
+              "description": "يعرض VLANs ومنافذ Access."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "S1#",
+              "command": "show interfaces trunk",
+              "description": "يعرض حالة وصلات Trunk والـNative VLAN."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "S1#",
+              "command": "show ip interface brief",
+              "description": "يتحقق من حالة SVI وعنوان إدارة السويتش."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "R1#",
+              "command": "show ip interface brief",
+              "description": "يتحقق من حالة الواجهة الفيزيائية والـSubinterfaces على الراوتر."
             }
           ]
         }

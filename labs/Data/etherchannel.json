@@ -9,7 +9,7 @@
       "pages": 2
     },
     "review": {
-      "status": "expert-reviewed",
+      "status": "committee-reviewed",
       "basis": "المحتوى الأساسي مأخوذ من الملف المرفق، مع تنظيم الأوامر حسب موضع استخدامها وشرح الفروق بين أوضاع EtherChannel دون تغيير مقصود للمحتوى الأصلي.",
       "adjustments": [
         {
@@ -35,6 +35,18 @@
           "source": "الملف يركز على أوامر الإنشاء والضبط دون إبراز شرط تطابق إعدادات المنافذ.",
           "site": "أضيفت ملاحظة خبير بأن منافذ القناة يجب أن تكون متوافقة في إعداداتها الأساسية.",
           "reason": "هذه نقطة تشغيلية مهمة لفهم سبب فشل تكوين EtherChannel عند وجود اختلافات بين الأعضاء."
+        },
+        {
+          "id": "separate-pagp-static",
+          "source": "يعرض الملف PAgP والوضع On ضمن قسم واحد.",
+          "site": "فُصل PAgP عن Static On إلى سيناريوهين مستقلين.",
+          "reason": "mode on لا يستخدم PAgP أوLACP ويجب ألا يظهر كخطوة تالية لـchannel-protocol pagp."
+        },
+        {
+          "id": "two-sided-channel-scenarios",
+          "source": "يعرض المصدر أوامر إنشاء القناة من منظور جهاز واحد.",
+          "site": "أضيف الطرف الثاني في سيناريوهات LACP وPAgP وStatic لإظهار زوج تفاوض قابل للاختبار.",
+          "reason": "EtherChannel لا يكتمل عمليًا دون توافق الطرف المقابل."
         }
       ]
     },
@@ -130,48 +142,69 @@
           }
         },
         "terminal": {
-          "label": "S1",
+          "label": "S1 / S2",
           "commands": [
             {
               "id": "cmd-01",
               "order": 1,
               "prompt": "S1(config)#",
               "command": "interface range gigabitethernet 0/1-2",
-              "description": "يحدد المنفذين اللذين سيصبحان أعضاء في القناة."
+              "description": "يحدد أعضاء القناة على S1."
             },
             {
               "id": "cmd-02",
               "order": 2,
               "prompt": "S1(config-if-range)#",
               "command": "channel-protocol lacp",
-              "description": "يفرض استخدام LACP على المنافذ المحددة."
+              "description": "يحدد LACP كبروتوكول التفاوض على S1."
             },
             {
               "id": "cmd-03",
               "order": 3,
               "prompt": "S1(config-if-range)#",
               "command": "channel-group 1 mode active",
-              "description": "ينشئ EtherChannel رقم 1 باستخدام LACP في الوضع Active."
+              "description": "يجعل S1 يبدأ تفاوض LACP."
             },
             {
               "id": "cmd-04",
               "order": 4,
-              "prompt": "S1(config)#",
-              "command": "interface port-channel 1",
-              "description": "يدخل إلى واجهة Port-Channel المنطقية."
+              "prompt": "S1(config-if-range)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration على S1."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "S2(config)#",
+              "command": "interface range gigabitethernet 0/1-2",
+              "description": "يحدد الأعضاء المقابلين على S2."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "S2(config-if-range)#",
+              "command": "channel-protocol lacp",
+              "description": "يحدد LACP على S2."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
+              "prompt": "S2(config-if-range)#",
+              "command": "channel-group 1 mode passive",
+              "description": "يجعل S2 يستجيب لتفاوض LACP الذي يبدأه S1."
             }
           ]
         }
       },
       {
-        "id": "etherchannel-pagp-static",
+        "id": "etherchannel-pagp",
         "order": 3,
-        "title": "PAgP والوضع الثابت",
-        "subtitle": "Desirable وAuto وOn",
+        "title": "إنشاء EtherChannel باستخدام PAgP",
+        "subtitle": "Desirable مع Auto في سيناريو تفاوض مستقل",
         "source_page": 1,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "يوفر الملف خيارين إضافيين: PAgP للتفاوض باستخدام Desirable وAuto، أو الوضع On الذي يجمع المنافذ دون بروتوكول تفاوض.",
+          "intro": "PAgP بروتوكول تفاوض خاص بـCisco؛ Desirable يبدأ التفاوض بينما Auto ينتظر الطرف المقابل.",
           "points": [
             {
               "id": "desirable",
@@ -179,55 +212,141 @@
             },
             {
               "id": "auto",
-              "text": "Auto ينتظر تفاوض PAgP من الطرف الآخر."
+              "text": "Auto يستجيب لتفاوض PAgP ولا يبدأه وحده."
             },
             {
-              "id": "on",
-              "text": "On يفعّل التجميع بصورة ثابتة دون LACP أو PAgP."
+              "id": "pairing",
+              "text": "Desirable مع Auto أوDesirable مع Desirable يمكن أن ينشئا القناة؛ Auto مع Auto لا يبدأ التفاوض."
             }
           ],
           "note": {
-            "label": "ملاحظة خبير",
-            "text": "لا تخلط بروتوكولات التفاوض بين طرفي الوصلة؛ LACP وPAgP طريقتان مختلفتان، أما On فلا يستخدم تفاوضًا أصلًا."
+            "label": "سيناريو مستقل",
+            "text": "لا تستخدم أوضاع LACP أوmode on داخل هذا السيناريو."
           }
         },
         "terminal": {
-          "label": "S1",
+          "label": "S1 / S2",
           "commands": [
             {
               "id": "cmd-01",
               "order": 1,
               "prompt": "S1(config)#",
               "command": "interface range gigabitethernet 0/1-2",
-              "description": "يحدد أعضاء القناة."
+              "description": "يحدد أعضاء القناة على S1."
             },
             {
               "id": "cmd-02",
               "order": 2,
               "prompt": "S1(config-if-range)#",
               "command": "channel-protocol pagp",
-              "description": "يفرض استخدام PAgP."
+              "description": "يحدد PAgP على S1."
             },
             {
               "id": "cmd-03",
               "order": 3,
               "prompt": "S1(config-if-range)#",
               "command": "channel-group 1 mode desirable",
-              "description": "ينشئ القناة باستخدام PAgP في وضع Desirable."
+              "description": "يجعل S1 يبدأ تفاوض PAgP."
             },
             {
               "id": "cmd-04",
               "order": 4,
               "prompt": "S1(config-if-range)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration على S1."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "S2(config)#",
+              "command": "interface range gigabitethernet 0/1-2",
+              "description": "يحدد الأعضاء المقابلين على S2."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "S2(config-if-range)#",
+              "command": "channel-protocol pagp",
+              "description": "يحدد PAgP على S2."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
+              "prompt": "S2(config-if-range)#",
+              "command": "channel-group 1 mode auto",
+              "description": "يجعل S2 يستجيب لتفاوض PAgP الذي يبدأه S1."
+            }
+          ]
+        }
+      },
+      {
+        "id": "etherchannel-static",
+        "order": 4,
+        "title": "إنشاء EtherChannel بالوضع الثابت On",
+        "subtitle": "تجميع بدون LACP أوPAgP",
+        "source_page": 1,
+        "explanation": {
+          "label": "شرح خبير Cisco",
+          "intro": "الوضع On يفرض إنشاء EtherChannel دون بروتوكول تفاوض؛ يجب ضبط الطرفين بصورة متطابقة.",
+          "points": [
+            {
+              "id": "on-no-negotiation",
+              "text": "mode on لا يرسل رسائل LACP أوPAgP."
+            },
+            {
+              "id": "both-sides",
+              "text": "يجب أن يستخدم الطرف المقابل وضع On أيضًا حتى يكون السيناريو متسقًا."
+            }
+          ],
+          "note": {
+            "label": "تنبيه",
+            "text": "لا تسبق mode on بالأمر channel-protocol lacp أوchannel-protocol pagp."
+          }
+        },
+        "terminal": {
+          "label": "S1 / S2",
+          "commands": [
+            {
+              "id": "cmd-01",
+              "order": 1,
+              "prompt": "S1(config)#",
+              "command": "interface range gigabitethernet 0/1-2",
+              "description": "يحدد أعضاء القناة على S1."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "S1(config-if-range)#",
               "command": "channel-group 1 mode on",
-              "description": "مثال بديل لإنشاء EtherChannel ثابت دون تفاوض؛ لا يُستخدم مع أمر PAgP السابق في التكوين نفسه."
+              "description": "ينشئ EtherChannel ثابتًا على S1 دون تفاوض."
+            },
+            {
+              "id": "cmd-03",
+              "order": 3,
+              "prompt": "S1(config-if-range)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration على S1."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "S2(config)#",
+              "command": "interface range gigabitethernet 0/1-2",
+              "description": "يحدد الأعضاء المقابلين على S2."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "S2(config-if-range)#",
+              "command": "channel-group 1 mode on",
+              "description": "ينشئ EtherChannel ثابتًا على S2 دون تفاوض."
             }
           ]
         }
       },
       {
         "id": "etherchannel-portchannel-settings",
-        "order": 4,
+        "order": 5,
         "title": "ضبط واجهة Port-Channel",
         "subtitle": "Access أوTrunk وVLANs",
         "source_page": 2,
@@ -254,35 +373,63 @@
           }
         },
         "terminal": {
-          "label": "S1",
+          "label": "S1 / S2",
           "commands": [
             {
               "id": "cmd-01",
               "order": 1,
               "prompt": "S1(config)#",
               "command": "interface port-channel 1",
-              "description": "يدخل إلى Port-Channel 1."
+              "description": "يدخل إلى Port-Channel 1 على S1."
             },
             {
               "id": "cmd-02",
               "order": 2,
               "prompt": "S1(config-if)#",
               "command": "switchport mode trunk",
-              "description": "يضبط القناة كـTrunk."
+              "description": "يجعل القناة Trunk على S1."
             },
             {
               "id": "cmd-03",
               "order": 3,
               "prompt": "S1(config-if)#",
               "command": "switchport trunk allowed vlan 10,20,30",
-              "description": "مثال يحدد VLANs المسموح بمرورها."
+              "description": "يسمح بمرور VLANs المطلوبة على S1."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "S1(config-if)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration على S1."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "S2(config)#",
+              "command": "interface port-channel 1",
+              "description": "يدخل إلى Port-Channel 1 على S2."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "S2(config-if)#",
+              "command": "switchport mode trunk",
+              "description": "يجعل القناة Trunk على S2."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
+              "prompt": "S2(config-if)#",
+              "command": "switchport trunk allowed vlan 10,20,30",
+              "description": "يطابق قائمة VLANs المسموح بها على الطرف الآخر."
             }
           ]
         }
       },
       {
         "id": "etherchannel-troubleshooting",
-        "order": 5,
+        "order": 6,
         "title": "استكشاف الأخطاء وضبط LACP",
         "subtitle": "التحقق من الأعضاء وSTP وأولويات LACP",
         "source_page": 2,
@@ -309,7 +456,7 @@
           ],
           "note": {
             "label": "ملاحظة خبير",
-            "text": "أوامر debug قد تولد مخرجات كثيرة؛ استخدمها عند الحاجة وبعد أوامر show الأساسية."
+            "text": "ابدأ بأوامر show. أوامر LACP المتقدمة مثل system-priority وport-priority وmax-bundle تعتمد على المنصة وإصدار IOS؛ تعامل معها كمرجع متقدم لا كشرط لإنشاء EtherChannel الأساسي."
           }
         },
         "terminal": {
@@ -339,34 +486,48 @@
             {
               "id": "cmd-04",
               "order": 4,
-              "prompt": "S1(config)#",
-              "command": "lacp system-priority 100",
-              "description": "مثال لضبط أولوية LACP على مستوى الجهاز."
+              "prompt": "S1#",
+              "command": "configure terminal",
+              "description": "يدخل إلى Global Configuration قبل أوامر ضبط LACP المتقدمة."
             },
             {
               "id": "cmd-05",
               "order": 5,
               "prompt": "S1(config)#",
-              "command": "interface gigabitethernet 0/1",
-              "description": "يدخل إلى منفذ عضو لضبط أولوية LACP الخاصة به."
+              "command": "lacp system-priority 100",
+              "description": "مثال لضبط أولوية LACP على مستوى الجهاز."
             },
             {
               "id": "cmd-06",
               "order": 6,
+              "prompt": "S1(config)#",
+              "command": "interface gigabitethernet 0/1",
+              "description": "يدخل إلى منفذ عضو لضبط أولوية LACP الخاصة به."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
               "prompt": "S1(config-if)#",
               "command": "lacp port-priority 100",
               "description": "مثال لضبط أولوية المنفذ في LACP."
             },
             {
-              "id": "cmd-07",
-              "order": 7,
+              "id": "cmd-08",
+              "order": 8,
+              "prompt": "S1(config-if)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration قبل الانتقال إلى Port-Channel."
+            },
+            {
+              "id": "cmd-09",
+              "order": 9,
               "prompt": "S1(config)#",
               "command": "interface port-channel 1",
               "description": "يدخل إلى القناة المنطقية لضبط الحد الأقصى للأعضاء النشطين."
             },
             {
-              "id": "cmd-08",
-              "order": 8,
+              "id": "cmd-10",
+              "order": 10,
               "prompt": "S1(config-if)#",
               "command": "lacp max-bundle 4",
               "description": "مثال لتحديد الحد الأقصى لعدد المنافذ النشطة في LACP."
