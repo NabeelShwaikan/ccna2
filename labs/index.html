@@ -455,15 +455,28 @@
     }
 
   
-    /* ===== منع نسخ أوامر Cisco فقط — مطابق لعناصر الطرفية الفعلية ===== */
-    .term-line,
-    .term-line *,
-    .prompt,
-    .typed {
+    /* ===== منع النسخ والتحديد على كامل صفحة العملي ===== */
+    html,
+    body,
+    body *:not(input):not(textarea):not([contenteditable="true"]) {
       -webkit-user-select: none !important;
       user-select: none !important;
       -webkit-touch-callout: none !important;
       -webkit-user-drag: none !important;
+    }
+
+    img,
+    svg {
+      -webkit-user-drag: none !important;
+      user-drag: none !important;
+    }
+
+    input,
+    textarea,
+    [contenteditable="true"] {
+      -webkit-user-select: text !important;
+      user-select: text !important;
+      -webkit-touch-callout: default !important;
     }
 
 </style>
@@ -762,113 +775,98 @@
 
   <script>
     (() => {
-      const protectedSelector = '.term-line, .prompt, .typed';
+      const isEditable = (target) =>
+        target instanceof Element &&
+        Boolean(target.closest('input, textarea, [contenteditable="true"]'));
 
-      const elementFromNode = (node) => {
-        if (!node) return null;
-        return node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
+      const clearSelection = () => {
+        const selection = window.getSelection?.();
+        if (selection && selection.rangeCount) selection.removeAllRanges();
       };
 
-      const isProtectedElement = (node) => {
-        const el = elementFromNode(node);
-        return Boolean(el && el.closest(protectedSelector));
-      };
+      const blockEvent = (event) => {
+        if (isEditable(event.target)) return;
 
-      const selectionTouchesCommand = () => {
-        const selection = window.getSelection();
-        if (!selection || selection.rangeCount === 0) return false;
+        event.preventDefault();
+        event.stopPropagation();
+        if (typeof event.stopImmediatePropagation === 'function') {
+          event.stopImmediatePropagation();
+        }
 
-        if (
-          isProtectedElement(selection.anchorNode) ||
-          isProtectedElement(selection.focusNode)
-        ) return true;
-
-        const range = selection.getRangeAt(0);
-        const lines = document.querySelectorAll('.term-line');
-
-        for (const line of lines) {
+        if (event.clipboardData) {
           try {
-            if (range.intersectsNode(line)) return true;
+            event.clipboardData.setData('text/plain', '');
+            event.clipboardData.setData('text/html', '');
           } catch (_) {}
         }
+
+        clearSelection();
         return false;
       };
 
-      const eventTouchesCommand = (event) =>
-        isProtectedElement(event.target) || selectionTouchesCommand();
+      // منع النسخ/القص/القائمة السياقية/التحديد/السحب على كامل الصفحة.
+      ['copy', 'cut', 'contextmenu', 'selectstart', 'dragstart']
+        .forEach(type => {
+          document.addEventListener(type, blockEvent, true);
+          window.addEventListener(type, blockEvent, true);
+        });
 
-      // Copy / Cut: block and explicitly clear clipboard payload.
-      ['copy', 'cut'].forEach(type => {
-        document.addEventListener(type, (event) => {
-          if (!eventTouchesCommand(event)) return;
-
-          event.preventDefault();
-          event.stopImmediatePropagation();
-
-          if (event.clipboardData) {
-            event.clipboardData.setData('text/plain', '');
-            event.clipboardData.setData('text/html', '');
-          }
-        }, true);
-      });
-
-      // Desktop context menu, text-selection start, and drag.
-      ['contextmenu', 'selectstart', 'dragstart'].forEach(type => {
-        document.addEventListener(type, (event) => {
-          if (!isProtectedElement(event.target)) return;
-          event.preventDefault();
-          event.stopImmediatePropagation();
-        }, true);
-      });
-
-      // Keyboard copy/cut/select-all while the selection is inside a command line.
+      // منع اختصارات النسخ والتحديد والحفظ والطباعة وعرض المصدر الشائعة.
       document.addEventListener('keydown', (event) => {
-        const modifier = event.ctrlKey || event.metaKey;
-        const key = event.key.toLowerCase();
+        if (isEditable(event.target)) return;
 
-        if (!modifier || !['c', 'x', 'a'].includes(key)) return;
-        if (!selectionTouchesCommand()) return;
+        const key = String(event.key || '').toLowerCase();
+        const mod = event.ctrlKey || event.metaKey;
 
-        event.preventDefault();
-        event.stopImmediatePropagation();
-
-        const selection = window.getSelection();
-        selection?.removeAllRanges();
+        if (
+          (mod && ['c', 'x', 'a', 's', 'p', 'u'].includes(key)) ||
+          (event.ctrlKey && event.key === 'Insert') ||
+          (event.shiftKey && event.key === 'Insert')
+        ) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          clearSelection();
+        }
       }, true);
 
-      // If a browser/WebView still creates a selection, remove only selections
-      // touching CLI command lines. Normal page text remains selectable.
+      // إزالة أي تحديد نصي يتم إنشاؤه رغم CSS.
       document.addEventListener('selectionchange', () => {
-        if (!selectionTouchesCommand()) return;
-        window.getSelection()?.removeAllRanges();
+        const active = document.activeElement;
+        if (isEditable(active)) return;
+        clearSelection();
       });
 
-      // Harden dynamically generated CLI lines as they appear from JSON.
+      // دعم WebView والجوال: منع الضغط المطول الذي يفتح أدوات النسخ.
+      let longPressTimer = null;
+
+      document.addEventListener('touchstart', (event) => {
+        if (isEditable(event.target)) return;
+        clearTimeout(longPressTimer);
+        longPressTimer = setTimeout(() => {
+          clearSelection();
+        }, 250);
+      }, { capture: true, passive: true });
+
+      document.addEventListener('touchend', () => {
+        clearTimeout(longPressTimer);
+      }, true);
+
+      document.addEventListener('touchcancel', () => {
+        clearTimeout(longPressTimer);
+      }, true);
+
+      // تعطيل native draggable على العناصر الحالية والمضافة لاحقًا.
       const harden = (root = document) => {
-        const lines = [];
-
-        if (root instanceof Element && root.matches('.term-line')) {
-          lines.push(root);
-        }
-
-        root.querySelectorAll?.('.term-line').forEach(line => lines.push(line));
-
-        lines.forEach(line => {
-          line.setAttribute('draggable', 'false');
-          line.setAttribute('data-copy-protected-command', 'true');
-
-          // Direct element handlers add another layer for mobile/WebViews.
-          line.oncopy = () => false;
-          line.oncut = () => false;
-          line.oncontextmenu = () => false;
-          line.ondragstart = () => false;
-          line.onselectstart = () => false;
+        root.querySelectorAll?.('*').forEach(el => {
+          if (!el.matches('input, textarea, [contenteditable="true"]')) {
+            el.setAttribute('draggable', 'false');
+          }
         });
       };
 
       harden();
 
-      const observer = new MutationObserver((mutations) => {
+      const observer = new MutationObserver(mutations => {
         for (const mutation of mutations) {
           for (const node of mutation.addedNodes) {
             if (node instanceof Element) harden(node);
@@ -876,10 +874,7 @@
         }
       });
 
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true
-      });
+      observer.observe(document.body, { childList: true, subtree: true });
     })();
   </script>
 
