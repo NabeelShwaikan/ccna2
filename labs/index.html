@@ -454,7 +454,30 @@
       }
     }
 
-  </style>
+  
+    /* ===== منع نسخ محتوى صفحة العملي ===== */
+    html,
+    body,
+    body *:not(input):not(textarea):not([contenteditable="true"]) {
+      -webkit-user-select: none !important;
+      user-select: none !important;
+      -webkit-touch-callout: none !important;
+    }
+
+    body img {
+      -webkit-user-drag: none !important;
+      user-drag: none !important;
+    }
+
+    input,
+    textarea,
+    [contenteditable="true"] {
+      -webkit-user-select: text !important;
+      user-select: text !important;
+      -webkit-touch-callout: default !important;
+    }
+
+</style>
 
 </head>
 <body>
@@ -743,6 +766,77 @@
       });
 
       updateUi(0);
+    })();
+  </script>
+
+
+
+  <script>
+    (() => {
+      const editable = (target) =>
+        target instanceof Element &&
+        Boolean(target.closest('input, textarea, [contenteditable="true"]'));
+
+      const block = (event) => {
+        if (editable(event.target)) return;
+        event.preventDefault();
+        event.stopPropagation();
+      };
+
+      // الكمبيوتر والجوال: منع النسخ والقص والقائمة السياقية
+      // والتحديد والسحب والضغط المطول الذي يفتح أدوات النسخ.
+      ['copy', 'cut', 'contextmenu', 'selectstart', 'dragstart']
+        .forEach(type => document.addEventListener(type, block, true));
+
+      // منع اختصارات النسخ/التحديد/الحفظ والطباعة الشائعة.
+      document.addEventListener('keydown', (event) => {
+        if (editable(event.target)) return;
+
+        const key = event.key.toLowerCase();
+        const modifier = event.ctrlKey || event.metaKey;
+
+        if (
+          (modifier && ['c', 'x', 'a', 's', 'p', 'u'].includes(key)) ||
+          (event.ctrlKey && event.key === 'Insert') ||
+          (event.shiftKey && event.key === 'Insert')
+        ) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      }, true);
+
+      // إزالة أي تحديد نصي قد ينجح في بعض المتصفحات أو WebViews.
+      document.addEventListener('selectionchange', () => {
+        const selection = window.getSelection();
+        if (!selection || selection.rangeCount === 0) return;
+
+        const active = document.activeElement;
+        if (editable(active)) return;
+
+        selection.removeAllRanges();
+      });
+
+      // تعطيل native drag للصور الحالية والمضافة ديناميكيًا.
+      const hardenImages = (root = document) => {
+        root.querySelectorAll?.('img').forEach(img => {
+          img.draggable = false;
+        });
+      };
+
+      hardenImages();
+
+      const observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+          for (const node of mutation.addedNodes) {
+            if (node instanceof Element) hardenImages(node);
+          }
+        }
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
     })();
   </script>
 
