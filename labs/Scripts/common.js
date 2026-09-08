@@ -205,7 +205,106 @@
     }
   }
 
+
+  function initCopyProtection(){
+    const isEditable = target => {
+      if(!(target instanceof Element)) return false;
+      return Boolean(target.closest('input, textarea, select, [contenteditable="true"]'));
+    };
+
+    const clearSelection = () => {
+      const selection = window.getSelection?.();
+      if(selection && selection.rangeCount) selection.removeAllRanges();
+    };
+
+    const block = event => {
+      if(isEditable(event.target)) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+      if(typeof event.stopImmediatePropagation === 'function'){
+        event.stopImmediatePropagation();
+      }
+
+      if(event.clipboardData){
+        try{
+          event.clipboardData.setData('text/plain','');
+          event.clipboardData.setData('text/html','');
+        }catch(error){}
+      }
+
+      clearSelection();
+      return false;
+    };
+
+    ['copy','cut','contextmenu','selectstart','dragstart'].forEach(type => {
+      document.addEventListener(type,block,true);
+    });
+
+    document.addEventListener('keydown', event => {
+      if(isEditable(event.target)) return;
+
+      const key = String(event.key || '').toLowerCase();
+      const modifier = event.ctrlKey || event.metaKey;
+
+      if(
+        (modifier && ['c','x','a','s','p','u'].includes(key)) ||
+        (event.ctrlKey && event.key === 'Insert') ||
+        (event.shiftKey && event.key === 'Insert')
+      ){
+        event.preventDefault();
+        event.stopPropagation();
+        if(typeof event.stopImmediatePropagation === 'function'){
+          event.stopImmediatePropagation();
+        }
+        clearSelection();
+      }
+    },true);
+
+    document.addEventListener('selectionchange',() => {
+      const active = document.activeElement;
+      if(active && isEditable(active)) return;
+      clearSelection();
+    });
+
+    let longPressTimer = null;
+
+    document.addEventListener('touchstart',event => {
+      if(isEditable(event.target)) return;
+      clearTimeout(longPressTimer);
+      longPressTimer = setTimeout(clearSelection,250);
+    },{capture:true,passive:true});
+
+    document.addEventListener('touchend',() => {
+      clearTimeout(longPressTimer);
+    },true);
+
+    document.addEventListener('touchcancel',() => {
+      clearTimeout(longPressTimer);
+    },true);
+
+    const harden = root => {
+      if(!(root instanceof Document || root instanceof Element)) return;
+      root.querySelectorAll?.('img').forEach(img => {
+        img.draggable = false;
+      });
+    };
+
+    harden(document);
+
+    const observer = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
+        mutation.addedNodes.forEach(node => {
+          if(node instanceof Element) harden(node);
+        });
+      });
+    });
+
+    observer.observe(document.documentElement,{childList:true,subtree:true});
+  }
+
   window.CiscoApp = {
+    initCopyProtection,
     escapeHtml,
     initTheme,
     fetchJson,
@@ -216,4 +315,11 @@
     countStudentNotes,
     replaceStudentNotes
   };
+
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded',initCopyProtection,{once:true});
+  }else{
+    initCopyProtection();
+  }
 })();
