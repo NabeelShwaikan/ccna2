@@ -7,6 +7,294 @@
   <meta name="theme-color" content="#F6F8FB">
   <title>أوامر Cisco</title>
   <link rel="stylesheet" href="Style/main.css">
+
+  <style>
+    /* ===== Scenario 1: responsive topology preview ===== */
+    .scenario-section {
+      margin-block: 22px 26px;
+    }
+
+    .scenario-card {
+      overflow: hidden;
+      border: 1px solid rgba(127, 127, 127, .22);
+      border-radius: 18px;
+      background: var(--card-bg, rgba(127, 127, 127, .045));
+      box-shadow: 0 10px 30px rgba(15, 23, 42, .06);
+    }
+
+    .scenario-card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 16px 18px 12px;
+    }
+
+    .scenario-card-copy {
+      min-width: 0;
+    }
+
+    .scenario-kicker {
+      display: inline-block;
+      margin-bottom: 4px;
+      font-size: .78rem;
+      font-weight: 800;
+      color: #087ea4;
+    }
+
+    .scenario-card h3 {
+      margin: 0;
+      font-size: clamp(1rem, 2.2vw, 1.35rem);
+      line-height: 1.5;
+    }
+
+    .scenario-card p {
+      margin: 5px 0 0;
+      font-size: .86rem;
+      line-height: 1.7;
+      opacity: .72;
+    }
+
+    .scenario-open-btn {
+      flex: 0 0 auto;
+      min-height: 40px;
+      padding: 8px 13px;
+      border: 1px solid rgba(8, 126, 164, .28);
+      border-radius: 12px;
+      background: rgba(8, 126, 164, .09);
+      color: inherit;
+      font: inherit;
+      font-size: .78rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .scenario-open-btn:hover,
+    .scenario-open-btn:focus-visible {
+      background: rgba(8, 126, 164, .15);
+      outline: none;
+    }
+
+    .scenario-preview-btn {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      border-top: 1px solid rgba(127, 127, 127, .14);
+      border-bottom: 1px solid rgba(127, 127, 127, .14);
+      background: #fff;
+      cursor: zoom-in;
+    }
+
+    .scenario-preview {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+      background: #fff;
+    }
+
+    .scenario-preview-hint {
+      position: absolute;
+      inset-inline-end: 12px;
+      bottom: 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(8, 15, 25, .76);
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 700;
+      backdrop-filter: blur(7px);
+    }
+
+    .scenario-topics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      padding: 12px 16px 15px;
+    }
+
+    .scenario-topics span {
+      padding: 5px 9px;
+      border: 1px solid rgba(127, 127, 127, .16);
+      border-radius: 999px;
+      background: rgba(127, 127, 127, .07);
+      font-size: .7rem;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    /* Full-screen topology viewer */
+    .scenario-dialog {
+      width: 100vw;
+      height: 100dvh;
+      max-width: none;
+      max-height: none;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: #0c1118;
+      color: #fff;
+    }
+
+    .scenario-dialog::backdrop {
+      background: rgba(0, 0, 0, .82);
+    }
+
+    .scenario-dialog-bar {
+      position: sticky;
+      top: 0;
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 56px;
+      padding:
+        max(8px, env(safe-area-inset-top))
+        max(10px, env(safe-area-inset-right))
+        8px
+        max(10px, env(safe-area-inset-left));
+      background: rgba(12, 17, 24, .94);
+      border-bottom: 1px solid rgba(255, 255, 255, .12);
+      backdrop-filter: blur(10px);
+    }
+
+    .scenario-dialog-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: .86rem;
+      font-weight: 800;
+    }
+
+    .scenario-dialog-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      direction: ltr;
+    }
+
+    .scenario-dialog-actions button {
+      min-width: 38px;
+      height: 38px;
+      padding: 0 10px;
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, .08);
+      color: #fff;
+      font: inherit;
+      font-size: .78rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .scenario-viewer {
+      height: calc(100dvh - 56px);
+      overflow: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+      background: #0c1118;
+    }
+
+    .scenario-viewer-inner {
+      min-width: 100%;
+      min-height: 100%;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 14px;
+    }
+
+    .scenario-full-image {
+      display: block;
+      width: min(1600px, calc(100vw - 28px));
+      max-width: none;
+      height: auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 16px 50px rgba(0, 0, 0, .34);
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .scenario-dialog[data-view="detail"] .scenario-full-image {
+      width: 1500px;
+    }
+
+    @media (max-width: 700px) {
+      .scenario-section {
+        margin-block: 16px 20px;
+      }
+
+      .scenario-card {
+        border-radius: 14px;
+      }
+
+      .scenario-card-head {
+        padding: 13px 12px 10px;
+      }
+
+      .scenario-card p {
+        font-size: .78rem;
+      }
+
+      .scenario-open-btn {
+        display: none;
+      }
+
+      .scenario-preview-hint {
+        inset-inline-end: 8px;
+        bottom: 8px;
+        font-size: .66rem;
+      }
+
+      .scenario-topics {
+        gap: 5px;
+        padding: 10px;
+      }
+
+      .scenario-topics span {
+        font-size: .64rem;
+        padding: 5px 7px;
+      }
+
+      .scenario-dialog-title {
+        max-width: 42vw;
+        font-size: .75rem;
+      }
+
+      .scenario-dialog-actions button {
+        min-width: 36px;
+        height: 36px;
+        padding-inline: 8px;
+      }
+
+      .scenario-viewer-inner {
+        padding: 8px;
+      }
+
+      .scenario-full-image {
+        width: calc(100vw - 16px);
+        border-radius: 6px;
+      }
+
+      .scenario-dialog[data-view="detail"] .scenario-full-image {
+        width: 1450px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scenario-card,
+      .scenario-open-btn {
+        scroll-behavior: auto;
+        transition: none;
+      }
+    }
+  </style>
+
 </head>
 <body>
   <div class="shell">
@@ -24,6 +312,74 @@
       <h1 id="pageTitle">مرجع أوامر Cisco</h1>
       <p>اختر الموضوع، افهم الفكرة، ثم شاهد الأوامر كما تُكتب في Cisco IOS.</p>
     </section>
+
+
+    <div class="section-head"><h2>سيناريوهات العملي</h2></div>
+
+    <section class="scenario-section" aria-labelledby="scenario1Title">
+      <article class="scenario-card">
+        <div class="scenario-card-head">
+          <div class="scenario-card-copy">
+            <span class="scenario-kicker">السيناريو الأول</span>
+            <h3 id="scenario1Title">الشبكة المحلية المتكاملة</h3>
+            <p>المخطط المرجعي لبناء الشبكة ومتابعة المنافذ، VLANs، STP، EtherChannel وDHCP.</p>
+          </div>
+
+          <button class="scenario-open-btn" id="scenarioOpenBtn" type="button">
+            عرض المخطط
+          </button>
+        </div>
+
+        <button
+          class="scenario-preview-btn"
+          id="scenarioPreviewBtn"
+          type="button"
+          aria-label="فتح مخطط السيناريو الأول بالحجم الكامل"
+        >
+          <img
+            class="scenario-preview"
+            src="Images/scenario-1.png"
+            alt="مخطط السيناريو الأول للشبكة المحلية المتكاملة"
+            loading="eager"
+            decoding="async"
+          >
+          <span class="scenario-preview-hint">اضغط للتكبير</span>
+        </button>
+
+        <div class="scenario-topics" aria-label="موضوعات السيناريو الأول">
+          <span>Basic Configuration</span>
+          <span>SSH</span>
+          <span>VLAN &amp; Inter-VLAN</span>
+          <span>STP</span>
+          <span>EtherChannel</span>
+          <span>DHCP</span>
+        </div>
+      </article>
+    </section>
+
+    <dialog class="scenario-dialog" id="scenarioDialog" aria-labelledby="scenarioDialogTitle">
+      <div class="scenario-dialog-bar">
+        <div class="scenario-dialog-title" id="scenarioDialogTitle">السيناريو الأول: الشبكة المحلية المتكاملة</div>
+
+        <div class="scenario-dialog-actions">
+          <button id="scenarioFitBtn" type="button" title="ملاءمة الشاشة">ملاءمة</button>
+          <button id="scenarioDetailBtn" type="button" title="تكبير التفاصيل">تكبير</button>
+          <button id="scenarioCloseBtn" type="button" aria-label="إغلاق" title="إغلاق">✕</button>
+        </div>
+      </div>
+
+      <div class="scenario-viewer" id="scenarioViewer">
+        <div class="scenario-viewer-inner">
+          <img
+            class="scenario-full-image"
+            src="Images/scenario-1.png"
+            alt="المخطط الكامل للسيناريو الأول"
+            draggable="false"
+          >
+        </div>
+      </div>
+    </dialog>
+
 
     <div class="section-head"><h2>الموضوعات</h2></div>
     <main class="subjects" id="subjects" aria-live="polite">
@@ -45,6 +401,61 @@
       <div class="backup-status" id="backupStatus" role="status" aria-live="polite"></div>
     </section>
   </div>
+
+
+  <script>
+    (() => {
+      const dialog = document.getElementById('scenarioDialog');
+      const openBtn = document.getElementById('scenarioOpenBtn');
+      const previewBtn = document.getElementById('scenarioPreviewBtn');
+      const closeBtn = document.getElementById('scenarioCloseBtn');
+      const fitBtn = document.getElementById('scenarioFitBtn');
+      const detailBtn = document.getElementById('scenarioDetailBtn');
+      const viewer = document.getElementById('scenarioViewer');
+
+      if (!dialog || !previewBtn) return;
+
+      const setView = (mode) => {
+        dialog.dataset.view = mode;
+        if (viewer) {
+          viewer.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+        }
+      };
+
+      const openDialog = () => {
+        setView('fit');
+        if (typeof dialog.showModal === 'function') {
+          dialog.showModal();
+        } else {
+          dialog.setAttribute('open', '');
+        }
+      };
+
+      const closeDialog = () => {
+        if (typeof dialog.close === 'function') {
+          dialog.close();
+        } else {
+          dialog.removeAttribute('open');
+        }
+      };
+
+      openBtn?.addEventListener('click', openDialog);
+      previewBtn.addEventListener('click', openDialog);
+      closeBtn?.addEventListener('click', closeDialog);
+      fitBtn?.addEventListener('click', () => setView('fit'));
+      detailBtn?.addEventListener('click', () => setView('detail'));
+
+      dialog.addEventListener('click', (event) => {
+        if (event.target === dialog) closeDialog();
+      });
+
+      dialog.addEventListener('cancel', (event) => {
+        event.preventDefault();
+        closeDialog();
+      });
+    })();
+  </script>
+
 
   <script src="Scripts/common.js" defer></script>
   <script src="Scripts/index.js" defer></script>
