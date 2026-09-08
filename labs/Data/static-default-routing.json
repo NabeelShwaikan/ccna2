@@ -3,14 +3,14 @@
   "topic": {
     "id": "static-default-routing",
     "title": "Static & Default Routing",
-    "subtitle": "إنشاء المسارات الثابتة والافتراضية في IPv4 وIPv6، ثم التحقق من جدول التوجيه والاتصال.",
+    "subtitle": "تطبيق Static & Default Routing على السيناريو الثاني: R1 يستخدم Default Route نحو R2، وR2 يستخدم Static Routes للوصول إلى شبكات R1، مع إبقاء IPv6 كمرجع مستقل.",
     "source": {
       "file_name": "Static and Default Routing.pdf",
       "pages": 4
     },
     "review": {
-      "status": "committee-reviewed",
-      "basis": "المحتوى الأساسي مأخوذ من الملف المرفق، مع الحفاظ على أمثلته وتقسيمه إلى مسارات ثابتة وافتراضية والتحقق. التصحيحات أو التوضيحات خارج نص المصدر موثقة هنا.",
+      "status": "committee-reviewed-scenario-aligned",
+      "basis": "حُفظ ترتيب أقسام الملف ومحتواه المرجعي، وأعيدت مواءمة أمثلة IPv4 والتحقق فقط مع السيناريو الثاني المعتمد. أقسام IPv6 بقيت مرجعًا مستقلاً خارج السيناريو الحالي.",
       "adjustments": [
         {
           "id": "running-config-filter",
@@ -47,6 +47,30 @@
           "source": "قسم التحقق يرشح running-config لمسارات IPv4 فقط.",
           "site": "أضيف show running-config | include ^ipv6 route لمسارات IPv6.",
           "reason": "تحقيق تماثل التحقق بين IPv4 وIPv6."
+        },
+        {
+          "id": "scenario2-ipv4-topology",
+          "source": "يعرض المصدر أمثلة IPv4 عامة على شبكات 192.168.1.0/24 و192.168.2.0/24.",
+          "site": "اعتمد السيناريو الثاني الشبكات: R1 LANs = 192.168.10.0/24 و192.168.20.0/24، WAN = 10.10.10.0/30، R2 LANs = 172.16.1.0/24 و172.16.2.0/24.",
+          "reason": "مطابقة أمثلة التوجيه مع المخطط العملي المعتمد."
+        },
+        {
+          "id": "scenario2-default-route-r1",
+          "source": "يعرض المصدر Default Route عامًّا عبر 192.168.1.1.",
+          "site": "يستخدم R1 المسار الافتراضي 0.0.0.0/0 عبر R2 عند 10.10.10.2.",
+          "reason": "R1 هو طرف الفرع في السيناريو ويُرسل الشبكات غير المعروفة إلى R2."
+        },
+        {
+          "id": "scenario2-static-routes-r2",
+          "source": "يعرض المصدر مسارًا ثابتًا واحدًا إلى شبكة بعيدة كمثال.",
+          "site": "يستخدم R2 مسارين ثابتين إلى 192.168.10.0/24 و192.168.20.0/24 عبر R1 عند 10.10.10.1.",
+          "reason": "توفير Return Routes صريحة إلى شبكات الفرع وإظهار Static Routing عمليًا."
+        },
+        {
+          "id": "scenario2-ipv6-reference-only",
+          "source": "يتضمن المصدر أمثلة IPv6 Static وDefault Routing.",
+          "site": "أبقيت أقسام IPv6 كما هي، مع وسمها كمرجع مستقل خارج السيناريو الثاني الحالي.",
+          "reason": "السيناريو الثاني المصمم حاليًا IPv4 ولا نريد خلط هدفه التعليمي."
         }
       ]
     },
@@ -54,40 +78,47 @@
       {
         "id": "ipv4-static-route",
         "order": 1,
-        "title": "المسار الثابت في IPv4",
-        "subtitle": "توجيه شبكة محددة عبر Next-Hop",
+        "title": "المسارات الثابتة في IPv4 — R2",
+        "subtitle": "الوصول إلى شبكتي الفرع عبر R1",
         "source_page": 1,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "المسار الثابت في IPv4 يخبر الراوتر كيف يصل إلى شبكة محددة عندما لا يكون لديه مسار متعلم إليها بطريقة أخرى.",
+          "intro": "في السيناريو الثاني يعرف R2 شبكاته المحلية مباشرة، لكنه يحتاج مسارات ثابتة للوصول إلى شبكتي R1 عبر وصلة 10.10.10.0/30.",
           "points": [
             {
-              "id": "destination-network",
-              "text": "نحدد أولًا شبكة الوجهة وقناعها."
+              "id": "destination-network-1",
+              "text": "شبكة الوجهة الأولى هي 192.168.10.0/24."
+            },
+            {
+              "id": "destination-network-2",
+              "text": "شبكة الوجهة الثانية هي 192.168.20.0/24."
             },
             {
               "id": "next-hop",
-              "text": "بعد ذلك نحدد عنوان الـNext-Hop الذي سترسل إليه الحزم للوصول إلى تلك الشبكة."
-            },
-            {
-              "id": "source-example",
-              "text": "في مثال الملف، الشبكة 192.168.2.0/24 تُوجَّه عبر الراوتر المجاور 192.168.1.2."
+              "text": "الـNext-Hop في الحالتين هو R1 عند العنوان 10.10.10.1."
             }
           ],
           "note": {
             "label": "الفكرة العملية",
-            "text": "المسار الثابت لا يُنشئ الاتصال بحد ذاته؛ يجب أن يكون الـNext-Hop قابلًا للوصول من الراوتر."
+            "text": "هذه المسارات تمثل Return Routes من R2 إلى شبكات R1؛ من دونها لن تكتمل الاستجابة للاتصالات القادمة من جهة الفرع."
           }
         },
         "terminal": {
-          "label": "R1",
+          "label": "R2",
           "commands": [
             {
               "id": "cmd-01",
               "order": 1,
-              "prompt": "R1(config)#",
-              "command": "ip route 192.168.2.0 255.255.255.0 192.168.1.2",
-              "description": "ينشئ مسارًا ثابتًا إلى الشبكة 192.168.2.0/24 عبر 192.168.1.2."
+              "prompt": "R2(config)#",
+              "command": "ip route 192.168.10.0 255.255.255.0 10.10.10.1",
+              "description": "ينشئ مسارًا ثابتًا إلى شبكة 192.168.10.0/24 عبر R1."
+            },
+            {
+              "id": "cmd-02",
+              "order": 2,
+              "prompt": "R2(config)#",
+              "command": "ip route 192.168.20.0 255.255.255.0 10.10.10.1",
+              "description": "ينشئ مسارًا ثابتًا إلى شبكة 192.168.20.0/24 عبر R1."
             }
           ]
         }
@@ -95,8 +126,8 @@
       {
         "id": "ipv6-static-route",
         "order": 2,
-        "title": "المسار الثابت في IPv6",
-        "subtitle": "توجيه Prefix محدد عبر Next-Hop IPv6",
+        "title": "المسار الثابت في IPv6 — مرجع مستقل",
+        "subtitle": "خارج السيناريو الثاني الحالي",
         "source_page": 1,
         "explanation": {
           "label": "شرح خبير Cisco",
@@ -116,8 +147,8 @@
             }
           ],
           "note": {
-            "label": "متطلب تشغيل",
-            "text": "أضيف ipv6 unicast-routing كمتطلب خبير لأن Cisco تشترط تمكين IPv6 forwarding قبل استخدام IPv6 static routes."
+            "label": "مرجع مستقل",
+            "text": "هذا القسم محفوظ من المصدر كمثال IPv6 مستقل ولا يطبق ضمن السيناريو الثاني الحالي. أضيف ipv6 unicast-routing كمتطلب خبير لأن Cisco تشترط تمكين IPv6 forwarding قبل استخدام IPv6 static routes."
           }
         },
         "terminal": {
@@ -143,29 +174,29 @@
       {
         "id": "ipv4-default-route",
         "order": 3,
-        "title": "المسار الافتراضي في IPv4",
-        "subtitle": "وجهة لكل الشبكات غير المعروفة",
+        "title": "المسار الافتراضي في IPv4 — R1",
+        "subtitle": "إرسال الشبكات غير المعروفة إلى R2",
         "source_page": 2,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "المسار الافتراضي يُستخدم عندما لا يجد الراوتر مسارًا أكثر تحديدًا للوجهة، فيرسل الحركة إلى Next-Hop محدد.",
+          "intro": "في السيناريو الثاني يستخدم R1 مسارًا افتراضيًا بدل إنشاء مسار ثابت منفصل لكل شبكة خلف R2.",
           "points": [
             {
               "id": "default-network",
-              "text": "0.0.0.0 0.0.0.0 تمثل جميع وجهات IPv4 غير المعروفة."
+              "text": "0.0.0.0 0.0.0.0 تمثل جميع وجهات IPv4 التي لا يوجد لها مسار أكثر تحديدًا على R1."
             },
             {
               "id": "default-next-hop",
-              "text": "في مثال الملف تُرسل هذه الحركة إلى 192.168.1.1."
+              "text": "الـNext-Hop هو R2 عند العنوان 10.10.10.2."
             },
             {
-              "id": "edge-use",
-              "text": "يشير الملف إلى شيوع هذا النوع في الراوترات الحدودية المتصلة بالإنترنت أو بشبكة أكبر."
+              "id": "scenario-use",
+              "text": "بهذا المسار يستطيع R1 إرسال الحركة إلى شبكات 172.16.1.0/24 و172.16.2.0/24 عبر R2."
             }
           ],
           "note": {
             "label": "الفكرة العملية",
-            "text": "يستخدم الراوتر المسار الافتراضي فقط إذا لم يجد مسارًا أكثر تحديدًا يطابق عنوان الوجهة."
+            "text": "هذا يوضح الفرق بين Default Route على R1 وStatic Routes المحددة على R2 داخل شبكة واحدة."
           }
         },
         "terminal": {
@@ -175,8 +206,8 @@
               "id": "cmd-01",
               "order": 1,
               "prompt": "R1(config)#",
-              "command": "ip route 0.0.0.0 0.0.0.0 192.168.1.1",
-              "description": "ينشئ مسار IPv4 افتراضيًا عبر 192.168.1.1."
+              "command": "ip route 0.0.0.0 0.0.0.0 10.10.10.2",
+              "description": "ينشئ Default Route على R1 نحو R2."
             }
           ]
         }
@@ -184,8 +215,8 @@
       {
         "id": "ipv6-default-route",
         "order": 4,
-        "title": "المسار الافتراضي في IPv6",
-        "subtitle": "::/0 لجميع الوجهات غير المعروفة",
+        "title": "المسار الافتراضي في IPv6 — مرجع مستقل",
+        "subtitle": "خارج السيناريو الثاني الحالي",
         "source_page": 2,
         "explanation": {
           "label": "شرح خبير Cisco",
@@ -201,8 +232,8 @@
             }
           ],
           "note": {
-            "label": "متطلب تشغيل",
-            "text": "أضيف ipv6 unicast-routing كمتطلب خبير لأن Cisco تشترط تمكين IPv6 forwarding قبل استخدام IPv6 static routes."
+            "label": "مرجع مستقل",
+            "text": "هذا القسم محفوظ من المصدر كمثال IPv6 مستقل ولا يطبق ضمن السيناريو الثاني الحالي. أضيف ipv6 unicast-routing كمتطلب خبير لأن Cisco تشترط تمكين IPv6 forwarding قبل استخدام IPv6 static routes."
           }
         },
         "terminal": {
@@ -228,83 +259,97 @@
       {
         "id": "routing-verification",
         "order": 5,
-        "title": "التحقق واستكشاف المسارات",
-        "subtitle": "جدول التوجيه وRunning Configuration وPing",
+        "title": "التحقق واستكشاف التوجيه في السيناريو الثاني",
+        "subtitle": "R1 Default Route + R2 Static Routes + Ping",
         "source_page": 3,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "بعد إضافة المسار لا نكتفي بحفظ التكوين؛ يجب التأكد من ظهوره في جدول التوجيه ثم اختبار الوصول إلى الوجهة.",
+          "intro": "بعد إضافة المسارات تحقق من جدول التوجيه على الراوترين، ثم اختبر الوصول في الاتجاهين بين شبكات الموقعين.",
           "points": [
             {
-              "id": "ipv4-table",
-              "text": "show ip route يعرض جدول IPv4؛ ويظهر المسار الثابت بالرمز S، بينما يظهر المسار الافتراضي الثابت عادة بعلامة S*."
+              "id": "r1-table",
+              "text": "على R1 يجب أن يظهر المسار الافتراضي الثابت بعلامة S* عبر 10.10.10.2."
             },
             {
-              "id": "ipv6-table",
-              "text": "show ipv6 route يعرض جدول توجيه IPv6 والمسارات الثابتة الموجودة فيه."
+              "id": "r2-table",
+              "text": "على R2 يجب أن تظهر المسارات الثابتة S إلى 192.168.10.0/24 و192.168.20.0/24 عبر 10.10.10.1."
             },
             {
-              "id": "running-routes",
-              "text": "يمكن تصفية running-config لإظهار أسطر ip route بسرعة."
+              "id": "r1-ping",
+              "text": "اختبر من R1 الوصول إلى البوابتين 172.16.1.1 و172.16.2.1."
             },
             {
-              "id": "ping-test",
-              "text": "استخدم ping بعد التحقق من الجدول لتأكيد وجود اتصال فعلي بالوجهة."
+              "id": "r2-ping",
+              "text": "اختبر من R2 الوصول إلى البوابتين 192.168.10.1 و192.168.20.1."
             },
             {
               "id": "return-route",
-              "text": "يشدد الملف على ضرورة وجود Return Route في الطرف الآخر حتى تنجح الاستجابة."
+              "text": "نجاح الاتصال يعتمد على وجود مسار ذهاب ومسار عودة معًا."
             }
           ],
           "note": {
-            "label": "نصيحة عملية",
-            "text": "المسارات الثابتة لا تتكيف تلقائيًا مع تغير الشبكة؛ إذا تغير الـNext-Hop أو التصميم يجب تحديثها يدويًا."
+            "label": "ترتيب التشخيص",
+            "text": "تحقق أولًا من وصلة 10.10.10.0/30 ثم من جدول التوجيه، وبعدها نفذ Ping إلى البوابات البعيدة."
           }
         },
         "terminal": {
-          "label": "R1",
+          "label": "R1 / R2",
           "commands": [
             {
               "id": "cmd-01",
               "order": 1,
               "prompt": "R1#",
               "command": "show ip route",
-              "description": "يعرض جدول توجيه IPv4."
+              "description": "يتحقق من وجود Default Route على R1."
             },
             {
               "id": "cmd-02",
               "order": 2,
               "prompt": "R1#",
-              "command": "show ipv6 route",
-              "description": "يعرض جدول توجيه IPv6."
+              "command": "show running-config | include ip route",
+              "description": "يعرض سطر Default Route في running-config على R1."
             },
             {
               "id": "cmd-03",
               "order": 3,
               "prompt": "R1#",
-              "command": "show running-config | include ip route",
-              "description": "يعرض أسطر المسارات الثابتة IPv4 في running-config بعد تصحيح صيغة الفلتر."
+              "command": "ping 172.16.1.1",
+              "description": "يختبر الوصول من R1 إلى شبكة LAN الأولى خلف R2."
             },
             {
               "id": "cmd-04",
               "order": 4,
               "prompt": "R1#",
-              "command": "show running-config | include ^ipv6 route",
-              "description": "يعرض أسطر المسارات الثابتة IPv6 في running-config."
+              "command": "ping 172.16.2.1",
+              "description": "يختبر الوصول من R1 إلى شبكة LAN الثانية خلف R2."
             },
             {
               "id": "cmd-05",
               "order": 5,
-              "prompt": "R1#",
-              "command": "ping 192.168.2.1",
-              "description": "مثال لاختبار اتصال IPv4."
+              "prompt": "R2#",
+              "command": "show ip route",
+              "description": "يتحقق من وجود المسارات الثابتة على R2."
             },
             {
               "id": "cmd-06",
               "order": 6,
-              "prompt": "R1#",
-              "command": "ping ipv6 2001:db8:2::1",
-              "description": "مثال لاختبار اتصال IPv6 وفق صيغة الملف."
+              "prompt": "R2#",
+              "command": "show running-config | include ip route",
+              "description": "يعرض المسارات الثابتة IPv4 في running-config على R2."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
+              "prompt": "R2#",
+              "command": "ping 192.168.10.1",
+              "description": "يختبر الوصول من R2 إلى شبكة LAN الأولى خلف R1."
+            },
+            {
+              "id": "cmd-08",
+              "order": 8,
+              "prompt": "R2#",
+              "command": "ping 192.168.20.1",
+              "description": "يختبر الوصول من R2 إلى شبكة LAN الثانية خلف R1."
             }
           ]
         }
