@@ -293,6 +293,167 @@
         transition: none;
       }
     }
+
+    /* ===== Scenario cards layout: 2 columns desktop / 1 column mobile ===== */
+    .scenarios-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-block: 22px 26px;
+    }
+
+    .scenarios-grid .scenario-section {
+      margin: 0;
+      min-width: 0;
+    }
+
+    @media (max-width: 900px) {
+      .scenarios-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-block: 16px 20px;
+      }
+    }
+
+
+    /* ===== Single-place swipe carousel for practical scenarios ===== */
+    .scenario-carousel {
+      margin-block: 22px 26px;
+    }
+
+    .scenario-carousel-frame {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(127, 127, 127, .22);
+      border-radius: 18px;
+      background: var(--card-bg, rgba(127, 127, 127, .045));
+      box-shadow: 0 10px 30px rgba(15, 23, 42, .06);
+    }
+
+    .scenario-carousel-track {
+      display: flex;
+      direction: ltr;
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      overscroll-behavior-x: contain;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-x pan-y pinch-zoom;
+    }
+
+    .scenario-carousel-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .scenario-slide {
+      flex: 0 0 100%;
+      min-width: 100%;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      direction: rtl;
+      background: transparent;
+    }
+
+    .scenario-carousel .scenario-preview {
+      max-height: 560px;
+      object-fit: contain;
+    }
+
+    .scenario-nav {
+      position: absolute;
+      top: 50%;
+      z-index: 3;
+      width: 42px;
+      height: 42px;
+      transform: translateY(-50%);
+      border: 1px solid rgba(255,255,255,.32);
+      border-radius: 50%;
+      background: rgba(8, 15, 25, .66);
+      color: #fff;
+      font: inherit;
+      font-size: 1.8rem;
+      line-height: 1;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+    }
+
+    .scenario-nav:hover,
+    .scenario-nav:focus-visible {
+      background: rgba(8, 15, 25, .82);
+      outline: none;
+    }
+
+    .scenario-nav-prev { left: 12px; }
+    .scenario-nav-next { right: 12px; }
+
+    .scenario-carousel-footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-height: 38px;
+      padding: 8px 6px 0;
+    }
+
+    .scenario-dots {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      direction: ltr;
+    }
+
+    .scenario-dot {
+      width: 9px;
+      height: 9px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(127,127,127,.35);
+      cursor: pointer;
+      transition: width .2s ease, background .2s ease;
+    }
+
+    .scenario-dot.active {
+      width: 24px;
+      background: #087ea4;
+    }
+
+    .scenario-swipe-hint {
+      font-size: .72rem;
+      opacity: .62;
+    }
+
+    @media (max-width: 700px) {
+      .scenario-carousel {
+        margin-block: 16px 20px;
+      }
+
+      .scenario-carousel-frame {
+        border-radius: 14px;
+      }
+
+      .scenario-nav {
+        display: none;
+      }
+
+      .scenario-carousel .scenario-preview {
+        max-height: none;
+      }
+
+      .scenario-carousel-footer {
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .scenario-swipe-hint {
+        font-size: .66rem;
+      }
+    }
+
   </style>
 
 </head>
@@ -316,66 +477,81 @@
 
     <div class="section-head"><h2>سيناريوهات العملي</h2></div>
 
-    <section class="scenario-section" aria-labelledby="scenario1Title">
-      <article class="scenario-card">
-        <div class="scenario-card-head">
-          <div class="scenario-card-copy">
-            <span class="scenario-kicker">السيناريو الأول</span>
-            <h3 id="scenario1Title">الشبكة المحلية المتكاملة</h3>
-            <p>المخطط المرجعي لبناء الشبكة ومتابعة المنافذ، VLANs، STP، EtherChannel وDHCP.</p>
-          </div>
+    <section class="scenario-carousel" aria-label="سيناريوهات العملي">
+      <div class="scenario-carousel-frame">
+        <div class="scenario-carousel-track" id="scenarioTrack">
 
-          <button class="scenario-open-btn" id="scenarioOpenBtn" type="button">
-            عرض المخطط
-          </button>
+          <article class="scenario-slide" data-index="0" data-title="السيناريو الأول: الشبكة المحلية المتكاملة" data-image="Images/scenario-1.png">
+            <div class="scenario-card-head">
+              <div class="scenario-card-copy">
+                <span class="scenario-kicker">السيناريو الأول</span>
+                <h3>الشبكة المحلية المتكاملة</h3>
+                <p>Basic Configuration • SSH • VLAN &amp; Inter-VLAN • STP • EtherChannel • DHCP</p>
+              </div>
+              <button class="scenario-open-btn scenario-full-btn" type="button" data-slide="0">عرض المخطط</button>
+            </div>
+
+            <button class="scenario-preview-btn scenario-full-btn" type="button" data-slide="0" aria-label="فتح مخطط السيناريو الأول بالحجم الكامل">
+              <img
+                class="scenario-preview"
+                src="Images/scenario-1.png"
+                alt="مخطط السيناريو الأول للشبكة المحلية المتكاملة"
+                loading="eager"
+                decoding="async"
+              >
+              <span class="scenario-preview-hint">اضغط للتكبير</span>
+            </button>
+          </article>
+
+          <article class="scenario-slide" data-index="1" data-title="السيناريو الثاني: Static & Default Routing" data-image="Images/scenario-2.png">
+            <div class="scenario-card-head">
+              <div class="scenario-card-copy">
+                <span class="scenario-kicker">السيناريو الثاني</span>
+                <h3>Static &amp; Default Routing</h3>
+                <p>ربط موقعين باستخدام Static Routing وDefault Routing والتحقق من الاتصال.</p>
+              </div>
+              <button class="scenario-open-btn scenario-full-btn" type="button" data-slide="1">عرض المخطط</button>
+            </div>
+
+            <button class="scenario-preview-btn scenario-full-btn" type="button" data-slide="1" aria-label="فتح مخطط السيناريو الثاني بالحجم الكامل">
+              <img
+                class="scenario-preview"
+                src="Images/scenario-2.png"
+                alt="مخطط السيناريو الثاني للتوجيه الثابت والمسار الافتراضي"
+                loading="lazy"
+                decoding="async"
+              >
+              <span class="scenario-preview-hint">اضغط للتكبير</span>
+            </button>
+          </article>
+
         </div>
 
-        <button
-          class="scenario-preview-btn"
-          id="scenarioPreviewBtn"
-          type="button"
-          aria-label="فتح مخطط السيناريو الأول بالحجم الكامل"
-        >
-          <img
-            class="scenario-preview"
-            src="Images/scenario-1.png"
-            alt="مخطط السيناريو الأول للشبكة المحلية المتكاملة"
-            loading="eager"
-            decoding="async"
-          >
-          <span class="scenario-preview-hint">اضغط للتكبير</span>
-        </button>
+        <button class="scenario-nav scenario-nav-prev" id="scenarioPrevBtn" type="button" aria-label="السيناريو السابق">‹</button>
+        <button class="scenario-nav scenario-nav-next" id="scenarioNextBtn" type="button" aria-label="السيناريو التالي">›</button>
+      </div>
 
-        <div class="scenario-topics" aria-label="موضوعات السيناريو الأول">
-          <span>Basic Configuration</span>
-          <span>SSH</span>
-          <span>VLAN &amp; Inter-VLAN</span>
-          <span>STP</span>
-          <span>EtherChannel</span>
-          <span>DHCP</span>
+      <div class="scenario-carousel-footer">
+        <div class="scenario-dots" role="tablist" aria-label="اختيار السيناريو">
+          <button class="scenario-dot active" type="button" data-go="0" aria-label="السيناريو الأول" aria-selected="true"></button>
+          <button class="scenario-dot" type="button" data-go="1" aria-label="السيناريو الثاني" aria-selected="false"></button>
         </div>
-      </article>
+        <span class="scenario-swipe-hint">اسحب الصورة يمينًا أو يسارًا للتنقل بين السيناريوهات</span>
+      </div>
     </section>
 
     <dialog class="scenario-dialog" id="scenarioDialog" aria-labelledby="scenarioDialogTitle">
       <div class="scenario-dialog-bar">
-        <div class="scenario-dialog-title" id="scenarioDialogTitle">السيناريو الأول: الشبكة المحلية المتكاملة</div>
-
+        <div class="scenario-dialog-title" id="scenarioDialogTitle">مخطط السيناريو</div>
         <div class="scenario-dialog-actions">
           <button id="scenarioFitBtn" type="button" title="ملاءمة الشاشة">ملاءمة</button>
           <button id="scenarioDetailBtn" type="button" title="تكبير التفاصيل">تكبير</button>
           <button id="scenarioCloseBtn" type="button" aria-label="إغلاق" title="إغلاق">✕</button>
         </div>
       </div>
-
       <div class="scenario-viewer" id="scenarioViewer">
         <div class="scenario-viewer-inner">
-          <img
-            class="scenario-full-image"
-            src="Images/scenario-1.png"
-            alt="المخطط الكامل للسيناريو الأول"
-            draggable="false"
-          >
+          <img class="scenario-full-image" id="scenarioFullImage" src="Images/scenario-1.png" alt="المخطط الكامل للسيناريو" draggable="false">
         </div>
       </div>
     </dialog>
@@ -401,17 +577,15 @@
       <div class="backup-status" id="backupStatus" role="status" aria-live="polite"></div>
     </section>
   </div>
-
-
-  <script>
+<script>
     (() => {
-      const dialog = document.getElementById('scenarioDialog');
-      const openBtn = document.getElementById('scenarioOpenBtn');
-      const previewBtn = document.getElementById('scenarioPreviewBtn');
-      const closeBtn = document.getElementById('scenarioCloseBtn');
-      const fitBtn = document.getElementById('scenarioFitBtn');
-      const detailBtn = document.getElementById('scenarioDetailBtn');
-      const viewer = document.getElementById('scenarioViewer');
+      const dialog = document.getElementById('scenario2Dialog');
+      const openBtn = document.getElementById('scenario2OpenBtn');
+      const previewBtn = document.getElementById('scenario2PreviewBtn');
+      const closeBtn = document.getElementById('scenario2CloseBtn');
+      const fitBtn = document.getElementById('scenario2FitBtn');
+      const detailBtn = document.getElementById('scenario2DetailBtn');
+      const viewer = document.getElementById('scenario2Viewer');
 
       if (!dialog || !previewBtn) return;
 
@@ -453,6 +627,122 @@
         event.preventDefault();
         closeDialog();
       });
+    })();
+  </script>
+
+
+
+  <script>
+    (() => {
+      const track = document.getElementById('scenarioTrack');
+      const slides = [...document.querySelectorAll('.scenario-slide')];
+      const dots = [...document.querySelectorAll('.scenario-dot')];
+      const prevBtn = document.getElementById('scenarioPrevBtn');
+      const nextBtn = document.getElementById('scenarioNextBtn');
+
+      const dialog = document.getElementById('scenarioDialog');
+      const dialogTitle = document.getElementById('scenarioDialogTitle');
+      const fullImage = document.getElementById('scenarioFullImage');
+      const viewer = document.getElementById('scenarioViewer');
+      const closeBtn = document.getElementById('scenarioCloseBtn');
+      const fitBtn = document.getElementById('scenarioFitBtn');
+      const detailBtn = document.getElementById('scenarioDetailBtn');
+
+      if (!track || !slides.length) return;
+
+      let current = 0;
+      let scrollTimer;
+
+      const updateUi = (index) => {
+        current = Math.max(0, Math.min(slides.length - 1, index));
+        dots.forEach((dot, i) => {
+          const active = i === current;
+          dot.classList.toggle('active', active);
+          dot.setAttribute('aria-selected', String(active));
+        });
+      };
+
+      const goTo = (index) => {
+        const target = Math.max(0, Math.min(slides.length - 1, index));
+        track.scrollTo({
+          left: slides[target].offsetLeft,
+          behavior: 'smooth'
+        });
+        updateUi(target);
+      };
+
+      const detectCurrent = () => {
+        const center = track.scrollLeft + track.clientWidth / 2;
+        let nearest = 0;
+        let nearestDistance = Infinity;
+
+        slides.forEach((slide, i) => {
+          const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
+          const distance = Math.abs(center - slideCenter);
+          if (distance < nearestDistance) {
+            nearestDistance = distance;
+            nearest = i;
+          }
+        });
+
+        updateUi(nearest);
+      };
+
+      track.addEventListener('scroll', () => {
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(detectCurrent, 80);
+      }, { passive: true });
+
+      prevBtn?.addEventListener('click', () => goTo(current - 1));
+      nextBtn?.addEventListener('click', () => goTo(current + 1));
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => goTo(Number(dot.dataset.go)));
+      });
+
+      const setDialogView = (mode) => {
+        dialog.dataset.view = mode;
+        viewer?.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      };
+
+      const openFull = (index) => {
+        const slide = slides[index];
+        if (!slide || !dialog || !fullImage) return;
+
+        dialogTitle.textContent = slide.dataset.title || 'مخطط السيناريو';
+        fullImage.src = slide.dataset.image;
+        fullImage.alt = `المخطط الكامل لـ${slide.dataset.title || 'السيناريو'}`;
+        setDialogView('fit');
+
+        if (typeof dialog.showModal === 'function') {
+          dialog.showModal();
+        } else {
+          dialog.setAttribute('open', '');
+        }
+      };
+
+      document.querySelectorAll('.scenario-full-btn').forEach(btn => {
+        btn.addEventListener('click', () => openFull(Number(btn.dataset.slide)));
+      });
+
+      closeBtn?.addEventListener('click', () => {
+        if (typeof dialog.close === 'function') dialog.close();
+        else dialog.removeAttribute('open');
+      });
+
+      fitBtn?.addEventListener('click', () => setDialogView('fit'));
+      detailBtn?.addEventListener('click', () => setDialogView('detail'));
+
+      dialog?.addEventListener('click', event => {
+        if (event.target === dialog) dialog.close();
+      });
+
+      dialog?.addEventListener('cancel', event => {
+        event.preventDefault();
+        dialog.close();
+      });
+
+      updateUi(0);
     })();
   </script>
 
