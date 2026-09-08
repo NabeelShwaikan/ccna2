@@ -455,46 +455,14 @@
     }
 
   
-    /* ===== منع نسخ أوامر Cisco فقط ===== */
-    pre,
-    code,
-    .terminal,
-    .terminal *,
-    .terminal-window,
-    .terminal-window *,
-    .terminal-line,
-    .terminal-line *,
-    .cli,
-    .cli *,
-    .command,
-    .command *,
-    .command-line,
-    .command-line *,
-    .command-row,
-    .command-row *,
-    [data-command],
-    [data-command] *,
-    [class*="terminal"],
-    [class*="terminal"] *,
-    [class*="command"],
-    [class*="command"] * {
+    /* ===== منع نسخ أوامر Cisco فقط — مطابق لعناصر الطرفية الفعلية ===== */
+    .term-line,
+    .term-line *,
+    .prompt,
+    .typed {
       -webkit-user-select: none !important;
       user-select: none !important;
       -webkit-touch-callout: none !important;
-    }
-
-    pre,
-    code,
-    .terminal,
-    .terminal-window,
-    .terminal-line,
-    .cli,
-    .command,
-    .command-line,
-    .command-row,
-    [data-command],
-    [class*="terminal"],
-    [class*="command"] {
       -webkit-user-drag: none !important;
     }
 
@@ -794,105 +762,116 @@
 
   <script>
     (() => {
-      const commandSelector = [
-        'pre',
-        'code',
-        '.terminal',
-        '.terminal-window',
-        '.terminal-line',
-        '.cli',
-        '.command',
-        '.command-line',
-        '.command-row',
-        '[data-command]',
-        '[class*="terminal"]',
-        '[class*="command"]'
-      ].join(',');
+      const protectedSelector = '.term-line, .prompt, .typed';
 
-      const commandArea = (target) =>
-        target instanceof Element && Boolean(target.closest(commandSelector));
-
-      const stopInCommands = (event) => {
-        if (!commandArea(event.target)) return;
-        event.preventDefault();
-        event.stopPropagation();
+      const elementFromNode = (node) => {
+        if (!node) return null;
+        return node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
       };
 
-      // منع النسخ والقص والتحديد والقائمة السياقية والسحب داخل الأوامر فقط.
-      ['copy', 'cut', 'contextmenu', 'selectstart', 'dragstart']
-        .forEach(type =>
-          document.addEventListener(type, stopInCommands, true)
-        );
+      const isProtectedElement = (node) => {
+        const el = elementFromNode(node);
+        return Boolean(el && el.closest(protectedSelector));
+      };
 
-      // منع اختصارات النسخ الشائعة عندما يكون المستخدم داخل منطقة أوامر فقط.
-      document.addEventListener('keydown', (event) => {
+      const selectionTouchesCommand = () => {
         const selection = window.getSelection();
-        const selectedElement =
-          selection?.anchorNode?.nodeType === Node.ELEMENT_NODE
-            ? selection.anchorNode
-            : selection?.anchorNode?.parentElement;
-
-        const insideCommands =
-          commandArea(event.target) ||
-          (selectedElement instanceof Element && commandArea(selectedElement));
-
-        if (!insideCommands) return;
-
-        const key = event.key.toLowerCase();
-        const modifier = event.ctrlKey || event.metaKey;
+        if (!selection || selection.rangeCount === 0) return false;
 
         if (
-          (modifier && ['c', 'x', 'a'].includes(key)) ||
-          (event.ctrlKey && event.key === 'Insert')
-        ) {
+          isProtectedElement(selection.anchorNode) ||
+          isProtectedElement(selection.focusNode)
+        ) return true;
+
+        const range = selection.getRangeAt(0);
+        const lines = document.querySelectorAll('.term-line');
+
+        for (const line of lines) {
+          try {
+            if (range.intersectsNode(line)) return true;
+          } catch (_) {}
+        }
+        return false;
+      };
+
+      const eventTouchesCommand = (event) =>
+        isProtectedElement(event.target) || selectionTouchesCommand();
+
+      // Copy / Cut: block and explicitly clear clipboard payload.
+      ['copy', 'cut'].forEach(type => {
+        document.addEventListener(type, (event) => {
+          if (!eventTouchesCommand(event)) return;
+
           event.preventDefault();
-          event.stopPropagation();
-        }
-      }, true);
+          event.stopImmediatePropagation();
 
-      // إزالة أي تحديد نصي يتقاطع مع الأوامر فقط.
-      document.addEventListener('selectionchange', () => {
-        const selection = window.getSelection();
-        if (!selection || selection.rangeCount === 0) return;
-
-        const anchor =
-          selection.anchorNode?.nodeType === Node.ELEMENT_NODE
-            ? selection.anchorNode
-            : selection.anchorNode?.parentElement;
-
-        const focus =
-          selection.focusNode?.nodeType === Node.ELEMENT_NODE
-            ? selection.focusNode
-            : selection.focusNode?.parentElement;
-
-        if (
-          (anchor instanceof Element && commandArea(anchor)) ||
-          (focus instanceof Element && commandArea(focus))
-        ) {
-          selection.removeAllRanges();
-        }
+          if (event.clipboardData) {
+            event.clipboardData.setData('text/plain', '');
+            event.clipboardData.setData('text/html', '');
+          }
+        }, true);
       });
 
-      // تعطيل السحب داخل عناصر الأوامر الحالية أو التي تُحمّل لاحقًا من JSON.
+      // Desktop context menu, text-selection start, and drag.
+      ['contextmenu', 'selectstart', 'dragstart'].forEach(type => {
+        document.addEventListener(type, (event) => {
+          if (!isProtectedElement(event.target)) return;
+          event.preventDefault();
+          event.stopImmediatePropagation();
+        }, true);
+      });
+
+      // Keyboard copy/cut/select-all while the selection is inside a command line.
+      document.addEventListener('keydown', (event) => {
+        const modifier = event.ctrlKey || event.metaKey;
+        const key = event.key.toLowerCase();
+
+        if (!modifier || !['c', 'x', 'a'].includes(key)) return;
+        if (!selectionTouchesCommand()) return;
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+
+        const selection = window.getSelection();
+        selection?.removeAllRanges();
+      }, true);
+
+      // If a browser/WebView still creates a selection, remove only selections
+      // touching CLI command lines. Normal page text remains selectable.
+      document.addEventListener('selectionchange', () => {
+        if (!selectionTouchesCommand()) return;
+        window.getSelection()?.removeAllRanges();
+      });
+
+      // Harden dynamically generated CLI lines as they appear from JSON.
       const harden = (root = document) => {
-        root.querySelectorAll?.(commandSelector).forEach(el => {
-          el.setAttribute('draggable', 'false');
-          el.setAttribute('data-copy-protected-command', 'true');
+        const lines = [];
+
+        if (root instanceof Element && root.matches('.term-line')) {
+          lines.push(root);
+        }
+
+        root.querySelectorAll?.('.term-line').forEach(line => lines.push(line));
+
+        lines.forEach(line => {
+          line.setAttribute('draggable', 'false');
+          line.setAttribute('data-copy-protected-command', 'true');
+
+          // Direct element handlers add another layer for mobile/WebViews.
+          line.oncopy = () => false;
+          line.oncut = () => false;
+          line.oncontextmenu = () => false;
+          line.ondragstart = () => false;
+          line.onselectstart = () => false;
         });
       };
 
       harden();
 
-      const observer = new MutationObserver(mutations => {
+      const observer = new MutationObserver((mutations) => {
         for (const mutation of mutations) {
           for (const node of mutation.addedNodes) {
-            if (node instanceof Element) {
-              if (node.matches?.(commandSelector)) {
-                node.setAttribute('draggable', 'false');
-                node.setAttribute('data-copy-protected-command', 'true');
-              }
-              harden(node);
-            }
+            if (node instanceof Element) harden(node);
           }
         }
       });
