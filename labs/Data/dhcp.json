@@ -3,14 +3,14 @@
   "topic": {
     "id": "dhcp",
     "title": "DHCP و SLAAC",
-    "subtitle": "توزيع عناوين IPv4 وIPv6 تلقائيًا، وضبط DHCPv4 وDHCPv6 وSLAAC ومراقبتها.",
+    "subtitle": "توزيع عناوين IPv4 تلقائيًا على VLANs 10 و20 و30 في السيناريو المتكامل، مع إبقاء VLAN 99 للإدارة بعناوين ثابتة، والحفاظ على DHCPv6 وSLAAC كسيناريوهات مستقلة.",
     "source": {
       "file_name": "DHCP.pdf",
       "pages": 6
     },
     "review": {
-      "status": "committee-reviewed",
-      "basis": "المحتوى الأساسي مأخوذ من الملف المرفق، مع تنظيم DHCPv4 وDHCPv6 وSLAAC في وحدات مستقلة. أي إضافة أو تصحيح خارج نص المصدر موثق هنا بوضوح.",
+      "status": "committee-reviewed-scenario-aligned",
+      "basis": "حُفظت بنية الملف والمحتوى المرجعي الأصلي، وأعيدت مواءمة مثال DHCPv4 فقط مع سيناريو المنصة المعتمد. جميع القيم التي تختلف عن مثال المصدر موثقة ضمن adjustments.",
       "adjustments": [
         {
           "id": "dhcpv4-relay-separated",
@@ -59,6 +59,36 @@
           "source": "يعرض المصدر/النسخة السابقة debug ipv6 dhcp server ضمن الاستكشاف.",
           "site": "صُححت المحاكاة إلى debug ipv6 dhcp detail، وأضيف undebug all بعد مرحلة التشخيص.",
           "reason": "Cisco IOS يوثق debug ipv6 dhcp [detail] ولا يوثق server ككلمة اختيار لهذا الأمر؛ وإيقاف debug يمنع استمرار المخرجات بعد الاختبار."
+        },
+        {
+          "id": "scenario-dhcpv4-vlans",
+          "source": "يعرض المصدر DHCPv4 على شبكة واحدة 192.168.1.0/24 وبوابة 192.168.1.1.",
+          "site": "أصبح R1 خادم DHCP لثلاث شبكات: VLAN 10 = 192.168.10.0/24، VLAN 20 = 192.168.20.0/24، VLAN 30 = 192.168.30.0/24.",
+          "reason": "مطابقة DHCP مع VLAN وRouter-on-a-Stick في السيناريو نفسه."
+        },
+        {
+          "id": "scenario-dhcpv4-gateways",
+          "source": "يضبط المصدر البوابة 192.168.1.1 على الواجهة الفيزيائية في المثال.",
+          "site": "يعتمد السيناريو البوابات الموجودة مسبقًا على R1: 192.168.10.1 و192.168.20.1 و192.168.30.1، ولا يعيد قسم DHCP تكوين G0/0.",
+          "reason": "منع التعارض مع Router-on-a-Stick الذي تم إنشاؤه في مرحلة VLAN & Inter-VLAN."
+        },
+        {
+          "id": "scenario-dhcpv4-exclusions",
+          "source": "يستثني مثال المصدر العناوين .1 إلى .10.",
+          "site": "طُبق المنطق نفسه على VLANs 10 و20 و30: .1 إلى .10 مستثناة من كل شبكة.",
+          "reason": "الحفاظ على نمط المصدر مع تكييفه لشبكات السيناريو."
+        },
+        {
+          "id": "scenario-vlan99-static",
+          "source": "لا يتناول مثال DHCP الأصلي VLAN 99 الخاصة بالسيناريو.",
+          "site": "VLAN 99 = 192.168.99.0/24 شبكة إدارة ثابتة ولا يُنشأ لها DHCP Pool.",
+          "reason": "الحفاظ على ثبات عناوين إدارة أجهزة الشبكة."
+        },
+        {
+          "id": "scenario-dhcp-relay-reference",
+          "source": "يتضمن المصدر ip helper-address كسيناريو DHCP Relay.",
+          "site": "أُبقي DHCP Relay كمرجع مستقل فقط ولا يطبق في الشبكة الرئيسية.",
+          "reason": "R1 نفسه هو DHCP Server وبوابات VLANs موجودة عليه، لذلك لا يلزم Relay."
         }
       ]
     },
@@ -66,33 +96,33 @@
       {
         "id": "dhcp-monitor",
         "order": 1,
-        "title": "مراقبة DHCP وSLAAC",
-        "subtitle": "معرفة العناوين الموزعة وحالة المجمعات والعملاء",
+        "title": "مراقبة DHCP في السيناريو",
+        "subtitle": "Bindings وPools وإحصائيات R1 بعد تشغيل VLANs 10 و20 و30",
         "source_page": 1,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "أوامر show تعطيك صورة سريعة عن العناوين التي تم توزيعها ومجمعات DHCP والأجهزة المرتبطة بـIPv6.",
+          "intro": "بعد تحويل أجهزة المستخدمين إلى DHCP، ابدأ بأوامر show للتأكد من أن R1 وزع العناوين من الـPool الصحيح لكل VLAN.",
           "points": [
             {
-              "id": "dhcpv4-bindings",
-              "text": "show ip dhcp binding يعرض عناوين IPv4 التي منحها DHCPv4 للعملاء."
+              "id": "bindings",
+              "text": "show ip dhcp binding يعرض العناوين التي منحها R1 للعملاء."
             },
             {
-              "id": "dhcpv4-pool",
-              "text": "show ip dhcp pool يعرض تفاصيل مجمعات DHCPv4 على الراوتر."
+              "id": "pools",
+              "text": "show ip dhcp pool يعرض STUDENTS وINSTRUCTORS وGUESTS وحالة العناوين المتاحة."
             },
             {
-              "id": "dhcpv6-bindings",
-              "text": "show ipv6 dhcp binding يعرض ارتباطات DHCPv6 التي أنشأها الخادم."
+              "id": "stats",
+              "text": "show ip dhcp server statistics يعرض إحصائيات DHCPv4 على R1."
             },
             {
-              "id": "ipv6-neighbors",
-              "text": "show ipv6 neighbors يساعد في رؤية الجيران الذين تعلمهم الراوتر على شبكات IPv6."
+              "id": "ipv6-reference",
+              "text": "أوامر DHCPv6/SLAAC تبقى مرتبطة بالأقسام المستقلة وليست جزءًا من شبكة VLAN الرئيسية الحالية."
             }
           ],
           "note": {
             "label": "الفكرة العملية",
-            "text": "ابدأ بأوامر show قبل debug؛ غالبًا تكفي لمعرفة هل المشكلة في المجمع أو العناوين أو وصول العميل."
+            "text": "إذا لم يحصل جهاز على عنوان، تحقق من VLAN وTrunk وSubinterface والبوابة قبل استخدام debug."
           }
         },
         "terminal": {
@@ -146,37 +176,45 @@
       {
         "id": "dhcpv4-server",
         "order": 2,
-        "title": "تكوين DHCPv4",
-        "subtitle": "استثناء العناوين وإنشاء Pool وتحديد خيارات العملاء",
+        "title": "تكوين DHCPv4 لشبكات VLAN في السيناريو",
+        "subtitle": "R1 يوزع العناوين على الطلاب والمدربين والضيوف",
         "source_page": 2,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "في DHCPv4 نحدد أولًا العناوين التي لا نريد توزيعها، ثم ننشئ Pool ونحدد الشبكة والبوابة وDNS ومدة التأجير.",
+          "intro": "في الشبكة المعتمدة يعمل R1 كخادم DHCPv4. سبق تكوين Router-on-a-Stick على G0/0، لذلك تركز هذه المرحلة على الاستثناءات وإنشاء Pools الخاصة بـVLANs 10 و20 و30.",
           "points": [
             {
-              "id": "excluded-addresses",
-              "text": "العناوين 192.168.1.1 إلى 192.168.1.10 مستثناة من التوزيع في مثال الملف."
+              "id": "topology",
+              "text": "R1 G0/0 متصل بـSW1 F0/5، والـSubinterfaces الخاصة بالـVLANs سبق إنشاؤها في مرحلة VLAN."
             },
             {
-              "id": "pool-network",
-              "text": "Pool باسم LAN يوزع عناوين من الشبكة 192.168.1.0/24."
+              "id": "excluded",
+              "text": "تُستثنى العناوين .1 إلى .10 من شبكات VLAN 10 و20 و30."
             },
             {
-              "id": "client-options",
-              "text": "default-router وdns-server وdomain-name ترسل للعملاء إعدادات الشبكة المطلوبة."
+              "id": "students",
+              "text": "Pool STUDENTS: الشبكة 192.168.10.0/24 والبوابة 192.168.10.1."
             },
             {
-              "id": "lease",
-              "text": "lease 7 يحدد مدة تأجير العنوان بسبعة أيام في المثال."
+              "id": "instructors",
+              "text": "Pool INSTRUCTORS: الشبكة 192.168.20.0/24 والبوابة 192.168.20.1."
             },
             {
-              "id": "relay",
-              "text": "ip helper-address 192.168.2.1 يُستخدم عندما يكون خادم DHCP موجودًا في شبكة أخرى ويجب ترحيل طلبات العملاء إليه."
+              "id": "guests",
+              "text": "Pool GUESTS: الشبكة 192.168.30.0/24 والبوابة 192.168.30.1."
+            },
+            {
+              "id": "management",
+              "text": "VLAN 99 = 192.168.99.0/24 للإدارة بعناوين Static ولا يوجد لها DHCP Pool."
+            },
+            {
+              "id": "clients",
+              "text": "العملاء المثبتون حاليًا: PC0 وPC3 في VLAN 10، وPC1 في VLAN 20، وPC2 في VLAN 30."
             }
           ],
           "note": {
-            "label": "ملاحظة خبير",
-            "text": "ip helper-address ليس مطلوبًا عندما يكون الراوتر نفسه هو خادم DHCP المحلي لهذه الشبكة؛ هو وظيفة Relay لسيناريو مختلف."
+            "label": "قرار السيناريو",
+            "text": "لا تستخدم ip helper-address هنا لأن R1 نفسه هو DHCP Server."
           }
         },
         "terminal": {
@@ -186,78 +224,169 @@
               "id": "cmd-01",
               "order": 1,
               "prompt": "R1(config)#",
-              "command": "ip dhcp excluded-address 192.168.1.1 192.168.1.10",
-              "description": "يستثني نطاق العناوين من التوزيع."
+              "command": "ip dhcp excluded-address 192.168.10.1 192.168.10.10",
+              "description": "يستثني العناوين .1 إلى .10 من شبكة VLAN 10."
             },
             {
               "id": "cmd-02",
               "order": 2,
               "prompt": "R1(config)#",
-              "command": "ip dhcp pool LAN",
-              "description": "ينشئ مجمع DHCPv4 باسم LAN."
+              "command": "ip dhcp excluded-address 192.168.20.1 192.168.20.10",
+              "description": "يستثني العناوين .1 إلى .10 من شبكة VLAN 20."
             },
             {
               "id": "cmd-03",
               "order": 3,
-              "prompt": "R1(dhcp-config)#",
-              "command": "network 192.168.1.0 255.255.255.0",
-              "description": "يحدد الشبكة التي ستوزع منها العناوين."
+              "prompt": "R1(config)#",
+              "command": "ip dhcp excluded-address 192.168.30.1 192.168.30.10",
+              "description": "يستثني العناوين .1 إلى .10 من شبكة VLAN 30."
             },
             {
               "id": "cmd-04",
               "order": 4,
-              "prompt": "R1(dhcp-config)#",
-              "command": "default-router 192.168.1.1",
-              "description": "يحدد البوابة الافتراضية للعملاء."
+              "prompt": "R1(config)#",
+              "command": "ip dhcp pool STUDENTS",
+              "description": "ينشئ Pool باسم STUDENTS لخدمة الطلاب."
             },
             {
               "id": "cmd-05",
               "order": 5,
               "prompt": "R1(dhcp-config)#",
-              "command": "dns-server 8.8.8.8",
-              "description": "يحدد خادم DNS للعملاء."
+              "command": "network 192.168.10.0 255.255.255.0",
+              "description": "يحدد شبكة VLAN 10."
             },
             {
               "id": "cmd-06",
               "order": 6,
               "prompt": "R1(dhcp-config)#",
-              "command": "lease 7",
-              "description": "يضبط مدة التأجير على سبعة أيام."
+              "command": "default-router 192.168.10.1",
+              "description": "يحدد بوابة VLAN 10."
             },
             {
               "id": "cmd-07",
               "order": 7,
               "prompt": "R1(dhcp-config)#",
-              "command": "domain-name example.com",
-              "description": "يحدد اسم النطاق للعملاء."
+              "command": "dns-server 8.8.8.8",
+              "description": "يحدد خادم DNS كما في مثال المصدر."
             },
             {
               "id": "cmd-08",
               "order": 8,
               "prompt": "R1(dhcp-config)#",
-              "command": "exit",
-              "description": "يعود إلى Global Configuration قبل الدخول إلى الواجهة."
+              "command": "lease 7",
+              "description": "يضبط مدة التأجير على سبعة أيام كما في المصدر."
             },
             {
               "id": "cmd-09",
               "order": 9,
-              "prompt": "R1(config)#",
-              "command": "interface gigabitethernet 0/0",
-              "description": "يدخل إلى واجهة الشبكة في مثال المصدر."
+              "prompt": "R1(dhcp-config)#",
+              "command": "domain-name example.com",
+              "description": "يرسل اسم النطاق كما في مثال المصدر."
             },
             {
               "id": "cmd-10",
               "order": 10,
-              "prompt": "R1(config-if)#",
-              "command": "ip address 192.168.1.1 255.255.255.0",
-              "description": "يضبط عنوان البوابة على الواجهة."
+              "prompt": "R1(dhcp-config)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
             },
             {
               "id": "cmd-11",
               "order": 11,
-              "prompt": "R1(config-if)#",
-              "command": "no shutdown",
-              "description": "يفعّل واجهة شبكة العملاء إذا كانت معطلة."
+              "prompt": "R1(config)#",
+              "command": "ip dhcp pool INSTRUCTORS",
+              "description": "ينشئ Pool باسم INSTRUCTORS لخدمة المدربين."
+            },
+            {
+              "id": "cmd-12",
+              "order": 12,
+              "prompt": "R1(dhcp-config)#",
+              "command": "network 192.168.20.0 255.255.255.0",
+              "description": "يحدد شبكة VLAN 20."
+            },
+            {
+              "id": "cmd-13",
+              "order": 13,
+              "prompt": "R1(dhcp-config)#",
+              "command": "default-router 192.168.20.1",
+              "description": "يحدد بوابة VLAN 20."
+            },
+            {
+              "id": "cmd-14",
+              "order": 14,
+              "prompt": "R1(dhcp-config)#",
+              "command": "dns-server 8.8.8.8",
+              "description": "يحدد خادم DNS كما في مثال المصدر."
+            },
+            {
+              "id": "cmd-15",
+              "order": 15,
+              "prompt": "R1(dhcp-config)#",
+              "command": "lease 7",
+              "description": "يضبط مدة التأجير على سبعة أيام كما في المصدر."
+            },
+            {
+              "id": "cmd-16",
+              "order": 16,
+              "prompt": "R1(dhcp-config)#",
+              "command": "domain-name example.com",
+              "description": "يرسل اسم النطاق كما في مثال المصدر."
+            },
+            {
+              "id": "cmd-17",
+              "order": 17,
+              "prompt": "R1(dhcp-config)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
+            },
+            {
+              "id": "cmd-18",
+              "order": 18,
+              "prompt": "R1(config)#",
+              "command": "ip dhcp pool GUESTS",
+              "description": "ينشئ Pool باسم GUESTS لخدمة الضيوف."
+            },
+            {
+              "id": "cmd-19",
+              "order": 19,
+              "prompt": "R1(dhcp-config)#",
+              "command": "network 192.168.30.0 255.255.255.0",
+              "description": "يحدد شبكة VLAN 30."
+            },
+            {
+              "id": "cmd-20",
+              "order": 20,
+              "prompt": "R1(dhcp-config)#",
+              "command": "default-router 192.168.30.1",
+              "description": "يحدد بوابة VLAN 30."
+            },
+            {
+              "id": "cmd-21",
+              "order": 21,
+              "prompt": "R1(dhcp-config)#",
+              "command": "dns-server 8.8.8.8",
+              "description": "يحدد خادم DNS كما في مثال المصدر."
+            },
+            {
+              "id": "cmd-22",
+              "order": 22,
+              "prompt": "R1(dhcp-config)#",
+              "command": "lease 7",
+              "description": "يضبط مدة التأجير على سبعة أيام كما في المصدر."
+            },
+            {
+              "id": "cmd-23",
+              "order": 23,
+              "prompt": "R1(dhcp-config)#",
+              "command": "domain-name example.com",
+              "description": "يرسل اسم النطاق كما في مثال المصدر."
+            },
+            {
+              "id": "cmd-24",
+              "order": 24,
+              "prompt": "R1(dhcp-config)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
             }
           ]
         }
@@ -265,12 +394,12 @@
       {
         "id": "dhcpv4-relay",
         "order": 3,
-        "title": "DHCP Relay باستخدام ip helper-address",
-        "subtitle": "ترحيل طلبات العملاء إلى خادم DHCP في شبكة أخرى",
+        "title": "DHCP Relay باستخدام ip helper-address — مرجع مستقل",
+        "subtitle": "غير مستخدم في السيناريو الرئيسي",
         "source_page": 2,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "عندما لا يكون خادم DHCP في شبكة العملاء نفسها، يوضع ip helper-address على واجهة الراوتر المواجهة للعملاء لترحيل رسائل DHCP إلى عنوان الخادم.",
+          "intro": "يستخدم DHCP Relay فقط عندما يكون خادم DHCP في شبكة أخرى. في السيناريو الرئيسي لا يلزم Relay لأن R1 نفسه هو خادم DHCP.",
           "points": [
             {
               "id": "client-facing-interface",
@@ -282,8 +411,8 @@
             }
           ],
           "note": {
-            "label": "سيناريو مستقل",
-            "text": "لا تنفذ هذا القسم مع سيناريو DHCPv4 المحلي السابق إلا إذا كان تصميم الشبكة يحتوي فعلًا على خادم DHCP في شبكة أخرى."
+            "label": "لا تنفذه في السيناريو الحالي",
+            "text": "لا تضف ip helper-address إلى Subinterfaces الخاصة بـVLANs 10 أو20 أو30 ما دام R1 هو الخادم."
           }
         },
         "terminal": {
@@ -302,7 +431,7 @@
       {
         "id": "dhcpv6-stateful",
         "order": 4,
-        "title": "DHCPv6 Stateful",
+        "title": "DHCPv6 Stateful — سيناريو مستقل",
         "subtitle": "الحصول على عنوان IPv6 والإعدادات من DHCPv6",
         "source_page": 3,
         "explanation": {
@@ -327,8 +456,8 @@
             }
           ],
           "note": {
-            "label": "إضافة خبير",
-            "text": "أضيف ipv6 unicast-routing كمطلب تمهيدي في المحاكاة؛ لا يورده ملف المصدر، لكنه موجود في أمثلة Cisco الرسمية لـDHCPv6."
+            "label": "خارج شبكة VLAN الرئيسية",
+            "text": "هذا القسم محفوظ من المحتوى المرجعي للملف ويُنفذ كتجربة مستقلة، ولا يضاف تلقائيًا إلى سيناريو VLANs 10 و20 و30. أضيف ipv6 unicast-routing كمطلب تمهيدي في المحاكاة؛ لا يورده ملف المصدر، لكنه موجود في أمثلة Cisco الرسمية لـDHCPv6."
           }
         },
         "terminal": {
@@ -417,7 +546,7 @@
       {
         "id": "dhcpv6-stateless-slaac",
         "order": 5,
-        "title": "SLAAC وDHCPv6 Stateless",
+        "title": "SLAAC وDHCPv6 Stateless — سيناريو مستقل",
         "subtitle": "العنوان من SLAAC والمعلومات الإضافية من DHCPv6",
         "source_page": 4,
         "explanation": {
@@ -442,8 +571,8 @@
             }
           ],
           "note": {
-            "label": "سيناريو مستقل",
-            "text": "يستخدم هذا القسم Pool مختلفًا باسم STATELESS_POOL ولا يحتوي address prefix؛ عنوان العميل يأتي من SLAAC، بينما DHCPv6 يزوّده بالمعلومات الإضافية."
+            "label": "خارج شبكة VLAN الرئيسية",
+            "text": "هذا القسم محفوظ من المحتوى المرجعي للملف ويُنفذ كتجربة مستقلة، ولا يضاف تلقائيًا إلى سيناريو VLANs 10 و20 و30. يستخدم هذا القسم Pool مختلفًا باسم STATELESS_POOL ولا يحتوي address prefix؛ عنوان العميل يأتي من SLAAC، بينما DHCPv6 يزوّده بالمعلومات الإضافية."
           }
         },
         "terminal": {
@@ -532,7 +661,7 @@
       {
         "id": "dhcp-client",
         "order": 6,
-        "title": "الراوتر كعميل DHCP",
+        "title": "الراوتر كعميل DHCP — سيناريو مستقل",
         "subtitle": "الحصول على IPv4 أوIPv6 تلقائيًا",
         "source_page": 5,
         "explanation": {
@@ -549,8 +678,8 @@
             }
           ],
           "note": {
-            "label": "الفكرة العملية",
-            "text": "هذا السيناريو مختلف عن عمل الراوتر كخادم DHCP؛ هنا الواجهة نفسها هي العميل."
+            "label": "خارج شبكة VLAN الرئيسية",
+            "text": "هذا القسم محفوظ من المحتوى المرجعي للملف ويُنفذ كتجربة مستقلة، ولا يضاف تلقائيًا إلى سيناريو VLANs 10 و20 و30. هذا السيناريو مختلف عن عمل الراوتر كخادم DHCP؛ هنا الواجهة نفسها هي العميل."
           }
         },
         "terminal": {
@@ -590,33 +719,37 @@
       {
         "id": "dhcp-troubleshooting",
         "order": 7,
-        "title": "استكشاف أخطاء DHCP",
-        "subtitle": "Bindings وPools وDebug ومسح الارتباطات",
+        "title": "استكشاف أخطاء DHCP في السيناريو",
+        "subtitle": "VLAN ثم البوابة ثم Pool ثم Binding ثم Debug",
         "source_page": 6,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "عند تعطل التوزيع نراجع أولًا الـBindings والـPools والجيران، ثم نستخدم debug عند الحاجة، ويمكن مسح الارتباطات لإجبار العملاء على الحصول على تخصيص جديد.",
+          "intro": "تعامل مع فشل DHCP كسلسلة مترابطة. قبل تعديل الـPool تأكد أن الجهاز في VLAN الصحيحة وأن المسار حتى R1 والـSubinterface يعملان.",
           "points": [
             {
-              "id": "bindings",
-              "text": "تحقق من وجود Binding للعميل قبل افتراض أن الخادم لم يوزع عنوانًا."
+              "id": "vlan",
+              "text": "تحقق من أن منفذ العميل Access في VLAN 10 أو20 أو30 الصحيحة."
             },
             {
-              "id": "pools",
-              "text": "راجع حالة الـPool لمعرفة توفر العناوين وإحصائيات الاستخدام."
+              "id": "gateway",
+              "text": "تحقق من عمل Subinterface والبوابة الخاصة بتلك VLAN على R1."
+            },
+            {
+              "id": "pool",
+              "text": "show ip dhcp pool يوضح وجود الـPool والعناوين المتبقية."
+            },
+            {
+              "id": "binding",
+              "text": "show ip dhcp binding يوضح العنوان الممنوح للعميل."
             },
             {
               "id": "debug",
-              "text": "debug يعرض أحداث DHCP بالتفصيل، لذلك يستخدم بعد أوامر show الأساسية."
-            },
-            {
-              "id": "clear",
-              "text": "أوامر clear تمسح الارتباطات الحالية، لذا تستخدم بحذر أثناء الاستكشاف أو المختبر."
+              "text": "استخدم debug ip dhcp server events بعد أوامر show، ثم أوقفه باستخدام undebug all."
             }
           ],
           "note": {
-            "label": "ملاحظة خبير",
-            "text": "ابدأ بأوامر show، ثم استخدم debug عند الحاجة فقط، وبعد جمع المعلومات أوقفه باستخدام undebug all قبل متابعة المختبر."
+            "label": "ترتيب التشخيص",
+            "text": "قد يبدو DHCP معطلًا بينما السبب الحقيقي VLAN أوTrunk أوRouter-on-a-Stick."
           }
         },
         "terminal": {

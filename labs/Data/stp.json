@@ -3,14 +3,14 @@
   "topic": {
     "id": "stp",
     "title": "STP",
-    "subtitle": "منع الحلقات في الشبكات المحولة، اختيار Root Bridge، وحماية منافذ الوصول.",
+    "subtitle": "Rapid-PVST+ على الشبكة المتكاملة: SW1 جذر أساسي لـVLANs 10 و20 و30، وSW2 جذر أساسي لـVLAN 99، مع حماية منافذ المستخدمين المثبتة.",
     "source": {
       "file_name": "STP.pdf",
       "pages": 5
     },
     "review": {
-      "status": "committee-reviewed",
-      "basis": "المحتوى الأساسي مأخوذ من الملف، مع إبقاء تصحيحات خبير Cisco منفصلة وواضحة وعدم إدراج الصيغ غير الصحيحة في محاكاة CLI.",
+      "status": "committee-reviewed-scenario-aligned",
+      "basis": "حُفظت مفاهيم وأوامر STP المرجعية، وأعيدت مواءمة أمثلة التنفيذ الأساسية مع أسماء الأجهزة والمنافذ وتوزيع Root Bridge المعتمد في السيناريو.",
       "adjustments": [
         {
           "id": "stp-mode-syntax",
@@ -65,6 +65,30 @@
           "source": "يعرض المصدر أوامر MST دون Region Name وRevision وVLAN-to-Instance Mapping.",
           "site": "حُوّل قسم MST إلى مرجع إضافي للتحقق وحدود المصدر بدل تقديمه كمختبر تكوين مكتمل.",
           "reason": "تجنب إعطاء انطباع أن دخول mst configuration وحده يكفي لبناء MST Region صالحة."
+        },
+        {
+          "id": "scenario-stp-roots",
+          "source": "يعرض المصدر أمثلة عامة لـroot primary وroot secondary وpriority.",
+          "site": "SW1 Root Primary لـVLANs 10 و20 و30 وSW2 Root Secondary لها؛ SW2 Root Primary لـVLAN 99 وSW1 Root Secondary لها.",
+          "reason": "إظهار Per-VLAN STP وجعل VLAN 99 على مسار جذري مختلف."
+        },
+        {
+          "id": "scenario-stp-ports",
+          "source": "تستخدم أمثلة المصدر منافذ عامة لا تطابق الشبكة الحالية.",
+          "site": "وصلات السويتشات المعتمدة: SW1 F0/1-2↔SW2 F0/1-2، SW1 F0/3-4↔SW3 F0/1-2، SW2 F0/3-4↔SW3 F0/3-4.",
+          "reason": "مطابقة أوامر وملاحظات STP مع الشبكة الفعلية."
+        },
+        {
+          "id": "scenario-stp-edge",
+          "source": "يعرض المصدر PortFast وBPDU Guard على منفذ مستخدم كمثال.",
+          "site": "التطبيق المباشر على SW2 F0/6 وF0/11 وF0/18 وSW3 F0/6 فقط.",
+          "reason": "هذه هي منافذ المستخدمين المثبتة حاليًا؛ لم تُفترض منافذ PC4 وPC5."
+        },
+        {
+          "id": "scenario-stp-no-fixed-block",
+          "source": "يشرح المصدر أدوار وحالات STP.",
+          "site": "لا يثبت الملف منفذًا بعينه على أنه Blocking مسبقًا.",
+          "reason": "الحالة الفعلية تُستنتج من Bridge IDs والتكاليف ويجب أن يتحقق منها المتدرب بأوامر show."
         }
       ],
       "legacy_source_commands": [
@@ -82,79 +106,146 @@
       {
         "id": "stp-monitoring",
         "order": 1,
-        "title": "فهم حالة STP والتحقق منها",
-        "subtitle": "ابدأ بالمراقبة قبل تغيير أي إعداد",
+        "title": "فهم حالة STP والتحقق منها في السيناريو",
+        "subtitle": "قارن VLANs 10 و20 و30 مع مسار VLAN 99",
         "source_page": 1,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "قبل تعديل STP اعرض الحالة الحالية لتعرف Root Bridge وأدوار المنافذ والمسارات المحجوبة لكل VLAN.",
+          "intro": "قبل وبعد ضبط الجذور، افحص كل VLAN على حدة. الهدف هو إثبات أن SW1 جذر شبكات المستخدمين بينما SW2 جذر شبكة الإدارة VLAN 99.",
           "points": [
             {
-              "id": "show-all",
-              "text": "show spanning-tree يعطي نظرة عامة على حالة STP والـVLANs والمنافذ."
+              "id": "v10",
+              "text": "تحقق أن Root Bridge لـVLAN 10 هو SW1."
             },
             {
-              "id": "show-vlan",
-              "text": "show spanning-tree vlan <VLAN_ID> يعزل التحليل على VLAN محددة."
+              "id": "v20",
+              "text": "تحقق أن Root Bridge لـVLAN 20 هو SW1."
             },
             {
-              "id": "show-root",
-              "text": "show spanning-tree root يساعدك على معرفة الجسر الجذري الحالي ومعلومات المسار إليه."
+              "id": "v30",
+              "text": "تحقق أن Root Bridge لـVLAN 30 هو SW1."
             },
             {
-              "id": "show-interface",
-              "text": "show spanning-tree interface <interface-id> يعرض دور المنفذ وحالته وتفاصيل STP الخاصة به."
+              "id": "v99",
+              "text": "تحقق أن Root Bridge لـVLAN 99 هو SW2."
+            },
+            {
+              "id": "ports",
+              "text": "راقب أدوار وحالات المنافذ على الوصلات بين SW1 وSW2 وSW3 ولا تفترض المنفذ المحجوب مسبقًا."
             }
           ],
           "note": {
             "label": "الفكرة العملية",
-            "text": "في استكشاف الأعطال لا تبدأ بتغيير الأولويات؛ حدّد أولًا من هو Root Bridge وما المنافذ Forwarding أوBlocking."
+            "text": "استخدم show spanning-tree لاكتشاف Forwarding/Discarding الفعلي بدل الاعتماد على الرسم."
           }
         },
         "terminal": {
-          "label": "SW1",
+          "label": "SW1 / SW2 / SW3",
           "commands": [
             {
               "id": "cmd-01",
               "order": 1,
               "prompt": "SW1#",
-              "command": "show spanning-tree",
-              "description": "يعرض حالة STP العامة."
+              "command": "show spanning-tree vlan 10",
+              "description": "يعرض STP لـVLAN 10 على SW1."
             },
             {
               "id": "cmd-02",
               "order": 2,
               "prompt": "SW1#",
-              "command": "show spanning-tree vlan 10",
-              "description": "يعرض تفاصيل STP لـVLAN 10 كمثال."
+              "command": "show spanning-tree vlan 20",
+              "description": "يعرض STP لـVLAN 20 على SW1."
             },
             {
               "id": "cmd-03",
               "order": 3,
               "prompt": "SW1#",
-              "command": "show spanning-tree summary",
-              "description": "يعرض ملخصًا لحالة STP على السويتش."
+              "command": "show spanning-tree vlan 30",
+              "description": "يعرض STP لـVLAN 30 على SW1."
             },
             {
               "id": "cmd-04",
               "order": 4,
               "prompt": "SW1#",
-              "command": "show spanning-tree root",
-              "description": "يعرض معلومات Root Bridge والمسار إليه."
+              "command": "show spanning-tree vlan 99",
+              "description": "يعرض STP لـVLAN 99 على SW1."
             },
             {
               "id": "cmd-05",
               "order": 5,
               "prompt": "SW1#",
               "command": "show spanning-tree blockedports",
-              "description": "يعرض المنافذ الموجودة في حالة حجب بسبب STP."
+              "description": "يعرض المنافذ المحجوبة على SW1 إن وجدت."
             },
             {
               "id": "cmd-06",
               "order": 6,
-              "prompt": "SW1#",
-              "command": "show spanning-tree interface gigabitethernet 0/1",
-              "description": "يعرض تفاصيل STP لمنفذ محدد."
+              "prompt": "SW2#",
+              "command": "show spanning-tree vlan 10",
+              "description": "يعرض STP لـVLAN 10 على SW2."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
+              "prompt": "SW2#",
+              "command": "show spanning-tree vlan 20",
+              "description": "يعرض STP لـVLAN 20 على SW2."
+            },
+            {
+              "id": "cmd-08",
+              "order": 8,
+              "prompt": "SW2#",
+              "command": "show spanning-tree vlan 30",
+              "description": "يعرض STP لـVLAN 30 على SW2."
+            },
+            {
+              "id": "cmd-09",
+              "order": 9,
+              "prompt": "SW2#",
+              "command": "show spanning-tree vlan 99",
+              "description": "يعرض STP لـVLAN 99 على SW2."
+            },
+            {
+              "id": "cmd-10",
+              "order": 10,
+              "prompt": "SW2#",
+              "command": "show spanning-tree blockedports",
+              "description": "يعرض المنافذ المحجوبة على SW2 إن وجدت."
+            },
+            {
+              "id": "cmd-11",
+              "order": 11,
+              "prompt": "SW3#",
+              "command": "show spanning-tree vlan 10",
+              "description": "يعرض STP لـVLAN 10 على SW3."
+            },
+            {
+              "id": "cmd-12",
+              "order": 12,
+              "prompt": "SW3#",
+              "command": "show spanning-tree vlan 20",
+              "description": "يعرض STP لـVLAN 20 على SW3."
+            },
+            {
+              "id": "cmd-13",
+              "order": 13,
+              "prompt": "SW3#",
+              "command": "show spanning-tree vlan 30",
+              "description": "يعرض STP لـVLAN 30 على SW3."
+            },
+            {
+              "id": "cmd-14",
+              "order": 14,
+              "prompt": "SW3#",
+              "command": "show spanning-tree vlan 99",
+              "description": "يعرض STP لـVLAN 99 على SW3."
+            },
+            {
+              "id": "cmd-15",
+              "order": 15,
+              "prompt": "SW3#",
+              "command": "show spanning-tree blockedports",
+              "description": "يعرض المنافذ المحجوبة على SW3 إن وجدت."
             }
           ]
         }
@@ -162,65 +253,118 @@
       {
         "id": "stp-mode-root",
         "order": 2,
-        "title": "اختيار وضع STP وتحديد Root Bridge",
-        "subtitle": "التحكم في نقطة المرجع التي تبني عليها الشجرة",
+        "title": "اختيار Rapid-PVST+ وتوزيع Root Bridge",
+        "subtitle": "SW1 لشبكات المستخدمين وSW2 لشبكة الإدارة",
         "source_page": 3,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "يعمل STP بصورة أفضل عندما تختار Root Bridge مقصودًا بدل ترك الاختيار للمصادفة، وتحدد وضع STP الملائم للبيئة.",
+          "intro": "يستخدم السيناريو Rapid-PVST+ على السويتشات الثلاثة، مع توزيع الجذر حسب VLAN حتى يكون لـVLAN 99 مسار مختلف عن VLANs 10 و20 و30.",
           "points": [
             {
               "id": "mode",
-              "text": "على Catalyst IOS الشائع تكون خيارات الوضع PVST+ أوRapid-PVST+ أوMST."
+              "text": "فعّل rapid-pvst على SW1 وSW2 وSW3."
             },
             {
-              "id": "root-primary",
-              "text": "root primary يضبط أولوية مناسبة تجعل السويتش مرشحًا قويًا ليصبح Root Bridge للـVLAN المحددة."
+              "id": "sw1-primary",
+              "text": "SW1 هو Root Primary لـVLANs 10 و20 و30."
             },
             {
-              "id": "root-secondary",
-              "text": "root secondary يجهز سويتشًا احتياطيًا إذا فقد الجسر الجذري الأساسي."
+              "id": "sw2-secondary",
+              "text": "SW2 هو Root Secondary لـVLANs 10 و20 و30."
             },
             {
-              "id": "manual-priority",
-              "text": "يمكن استخدام priority عندما تريد التحكم العددي المباشر في Bridge Priority؛ القيمة الأقل أكثر تفضيلًا."
+              "id": "sw2-primary99",
+              "text": "SW2 هو Root Primary لـVLAN 99."
+            },
+            {
+              "id": "sw1-secondary99",
+              "text": "SW1 هو Root Secondary لـVLAN 99."
             }
           ],
           "note": {
-            "label": "تصحيح خبير",
-            "text": "المصدر يضع stp وrstp ضمن خيارات spanning-tree mode؛ في الموقع اعتمدنا pvst وrapid-pvst وmst فقط."
+            "label": "قرار السيناريو",
+            "text": "توزيع VLAN 99 على Root مختلف مقصود لإظهار Per-VLAN STP عمليًا."
           }
         },
         "terminal": {
-          "label": "SW1",
+          "label": "SW1 / SW2 / SW3",
           "commands": [
             {
               "id": "cmd-01",
               "order": 1,
               "prompt": "SW1(config)#",
               "command": "spanning-tree mode rapid-pvst",
-              "description": "يختار Rapid-PVST+ كمثال لوضع STP."
+              "description": "يفعّل Rapid-PVST+ على SW1."
             },
             {
               "id": "cmd-02",
               "order": 2,
-              "prompt": "SW1(config)#",
-              "command": "spanning-tree vlan 10 root primary",
-              "description": "يجعل SW1 المرشح الأساسي ليكون Root Bridge لـVLAN 10."
+              "prompt": "SW2(config)#",
+              "command": "spanning-tree mode rapid-pvst",
+              "description": "يفعّل Rapid-PVST+ على SW2."
             },
             {
               "id": "cmd-03",
               "order": 3,
-              "prompt": "SW2(config)#",
-              "command": "spanning-tree vlan 10 root secondary",
-              "description": "يجعل SW2 مرشحًا احتياطيًا لـVLAN 10."
+              "prompt": "SW3(config)#",
+              "command": "spanning-tree mode rapid-pvst",
+              "description": "يفعّل Rapid-PVST+ على SW3."
             },
             {
               "id": "cmd-04",
               "order": 4,
               "prompt": "SW1(config)#",
-              "command": "spanning-tree vlan 20 priority 24576",
-              "description": "مثال على ضبط Bridge Priority يدويًا لـVLAN 20."
+              "command": "spanning-tree vlan 10 root primary",
+              "description": "يجعل SW1 Root Primary لـVLAN 10."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "SW2(config)#",
+              "command": "spanning-tree vlan 10 root secondary",
+              "description": "يجعل SW2 Root Secondary لـVLAN 10."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "SW1(config)#",
+              "command": "spanning-tree vlan 20 root primary",
+              "description": "يجعل SW1 Root Primary لـVLAN 20."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
+              "prompt": "SW2(config)#",
+              "command": "spanning-tree vlan 20 root secondary",
+              "description": "يجعل SW2 Root Secondary لـVLAN 20."
+            },
+            {
+              "id": "cmd-08",
+              "order": 8,
+              "prompt": "SW1(config)#",
+              "command": "spanning-tree vlan 30 root primary",
+              "description": "يجعل SW1 Root Primary لـVLAN 30."
+            },
+            {
+              "id": "cmd-09",
+              "order": 9,
+              "prompt": "SW2(config)#",
+              "command": "spanning-tree vlan 30 root secondary",
+              "description": "يجعل SW2 Root Secondary لـVLAN 30."
+            },
+            {
+              "id": "cmd-10",
+              "order": 10,
+              "prompt": "SW2(config)#",
+              "command": "spanning-tree vlan 99 root primary",
+              "description": "يجعل SW2 Root Primary لـVLAN 99."
+            },
+            {
+              "id": "cmd-11",
+              "order": 11,
+              "prompt": "SW1(config)#",
+              "command": "spanning-tree vlan 99 root secondary",
+              "description": "يجعل SW1 Root Secondary لـVLAN 99."
             }
           ]
         }
@@ -228,54 +372,153 @@
       {
         "id": "stp-edge-protection",
         "order": 3,
-        "title": "PortFast وBPDU Guard على منفذ مستخدم",
-        "subtitle": "حماية منفذ Access طرفي بصورة مباشرة",
+        "title": "PortFast وBPDU Guard على منافذ المستخدمين",
+        "subtitle": "تطبيق مباشر على المنافذ المثبتة في السيناريو",
         "source_page": 3,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "على منفذ موصل بجهاز طرفي يمكن استخدام PortFast لتجاوز انتظار حالات STP التقليدية، ويضاف BPDU Guard لحماية الشبكة إذا ظهر BPDU على منفذ لا يفترض أن يتصل بسويتش.",
+          "intro": "طبّق PortFast وBPDU Guard فقط على منافذ الأجهزة الطرفية المعروفة، ولا تطبقهما على الروابط بين السويتشات أو على SW1 F0/5 المتصل بالراوتر.",
           "points": [
             {
-              "id": "portfast",
-              "text": "PortFast مناسب للمنافذ المواجهة لأجهزة المستخدمين، وليس للوصلات بين السويتشات."
+              "id": "pc0",
+              "text": "PC0 ↔ SW2 F0/6 — VLAN 10."
             },
             {
-              "id": "bpduguard",
-              "text": "BPDU Guard يضع المنفذ في err-disabled إذا استقبل BPDU عند تفعيله على المنفذ."
+              "id": "pc1",
+              "text": "PC1 ↔ SW2 F0/11 — VLAN 20."
             },
             {
-              "id": "together",
-              "text": "الجمع بين PortFast وBPDU Guard نمط حماية شائع لمنافذ Access الطرفية."
+              "id": "pc2",
+              "text": "PC2 ↔ SW2 F0/18 — VLAN 30."
+            },
+            {
+              "id": "pc3",
+              "text": "PC3 ↔ SW3 F0/6 — VLAN 10."
+            },
+            {
+              "id": "pending",
+              "text": "لا تُضاف منافذ PC4 وPC5 حتى يتم تثبيتها رسميًا."
             }
           ],
           "note": {
             "label": "تنبيه",
-            "text": "لا تفعّل PortFast على وصلة يمكن أن تُنشئ حلقة Layer 2 ما لم تكن متأكدًا من طبيعتها."
+            "text": "PortFast مخصص لمنافذ الطرف النهائي وليس لوصلات SW1↔SW2 أوSW1↔SW3 أوSW2↔SW3."
           }
         },
         "terminal": {
-          "label": "SW1",
+          "label": "SW2 / SW3",
           "commands": [
             {
               "id": "cmd-01",
               "order": 1,
-              "prompt": "SW1(config)#",
-              "command": "interface gigabitethernet 0/10",
-              "description": "يدخل إلى منفذ مستخدم كمثال."
+              "prompt": "SW2(config)#",
+              "command": "interface fastethernet 0/6",
+              "description": "يدخل إلى منفذ PC0."
             },
             {
               "id": "cmd-02",
               "order": 2,
-              "prompt": "SW1(config-if)#",
+              "prompt": "SW2(config-if)#",
               "command": "spanning-tree portfast",
-              "description": "يفعّل PortFast على المنفذ."
+              "description": "يفعّل PortFast على منفذ PC0."
             },
             {
               "id": "cmd-03",
               "order": 3,
-              "prompt": "SW1(config-if)#",
+              "prompt": "SW2(config-if)#",
               "command": "spanning-tree bpduguard enable",
-              "description": "يفعّل BPDU Guard على المنفذ."
+              "description": "يفعّل BPDU Guard على منفذ PC0."
+            },
+            {
+              "id": "cmd-04",
+              "order": 4,
+              "prompt": "SW2(config-if)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "SW2(config)#",
+              "command": "interface fastethernet 0/11",
+              "description": "يدخل إلى منفذ PC1."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "SW2(config-if)#",
+              "command": "spanning-tree portfast",
+              "description": "يفعّل PortFast على منفذ PC1."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
+              "prompt": "SW2(config-if)#",
+              "command": "spanning-tree bpduguard enable",
+              "description": "يفعّل BPDU Guard على منفذ PC1."
+            },
+            {
+              "id": "cmd-08",
+              "order": 8,
+              "prompt": "SW2(config-if)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
+            },
+            {
+              "id": "cmd-09",
+              "order": 9,
+              "prompt": "SW2(config)#",
+              "command": "interface fastethernet 0/18",
+              "description": "يدخل إلى منفذ PC2."
+            },
+            {
+              "id": "cmd-10",
+              "order": 10,
+              "prompt": "SW2(config-if)#",
+              "command": "spanning-tree portfast",
+              "description": "يفعّل PortFast على منفذ PC2."
+            },
+            {
+              "id": "cmd-11",
+              "order": 11,
+              "prompt": "SW2(config-if)#",
+              "command": "spanning-tree bpduguard enable",
+              "description": "يفعّل BPDU Guard على منفذ PC2."
+            },
+            {
+              "id": "cmd-12",
+              "order": 12,
+              "prompt": "SW2(config-if)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
+            },
+            {
+              "id": "cmd-13",
+              "order": 13,
+              "prompt": "SW3(config)#",
+              "command": "interface fastethernet 0/6",
+              "description": "يدخل إلى منفذ PC3."
+            },
+            {
+              "id": "cmd-14",
+              "order": 14,
+              "prompt": "SW3(config-if)#",
+              "command": "spanning-tree portfast",
+              "description": "يفعّل PortFast على منفذ PC3."
+            },
+            {
+              "id": "cmd-15",
+              "order": 15,
+              "prompt": "SW3(config-if)#",
+              "command": "spanning-tree bpduguard enable",
+              "description": "يفعّل BPDU Guard على منفذ PC3."
+            },
+            {
+              "id": "cmd-16",
+              "order": 16,
+              "prompt": "SW3(config-if)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
             }
           ]
         }
@@ -283,7 +526,7 @@
       {
         "id": "stp-edge-protection-default",
         "order": 4,
-        "title": "تفعيل PortFast وBPDU Guard افتراضيًا",
+        "title": "تفعيل PortFast وBPDU Guard افتراضيًا — مرجع مستقل",
         "subtitle": "سياسة عامة لمنافذ Access المؤهلة",
         "source_page": 3,
         "explanation": {
@@ -300,8 +543,8 @@
             }
           ],
           "note": {
-            "label": "بديل تنظيمي",
-            "text": "هذا أسلوب تطبيق عام، وليس خطوة لازمة بعد ضبط spanning-tree portfast وbpduguard enable يدويًا على منفذ بعينه."
+            "label": "خارج خطوات السيناريو الأساسية",
+            "text": "هذا القسم محفوظ كمرجع أو تجربة مستقلة ولا يطبق تلقائيًا على وصلات السيناريو الرئيسية. هذا أسلوب تطبيق عام، وليس خطوة لازمة بعد ضبط spanning-tree portfast وbpduguard enable يدويًا على منفذ بعينه."
           }
         },
         "terminal": {
@@ -327,7 +570,7 @@
       {
         "id": "stp-root-guard",
         "order": 5,
-        "title": "Root Guard",
+        "title": "Root Guard — مرجع مستقل",
         "subtitle": "منع Root Bridge غير مرغوب عبر منفذ محدد",
         "source_pages": [
           3,
@@ -352,8 +595,8 @@
             }
           ],
           "note": {
-            "label": "سيناريو مستقل",
-            "text": "لا تجمع Root Guard وLoop Guard على المنفذ نفسه؛ اختر الحماية المناسبة لدور المنفذ."
+            "label": "خارج خطوات السيناريو الأساسية",
+            "text": "هذا القسم محفوظ كمرجع أو تجربة مستقلة ولا يطبق تلقائيًا على وصلات السيناريو الرئيسية. لا تجمع Root Guard وLoop Guard على المنفذ نفسه؛ اختر الحماية المناسبة لدور المنفذ."
           }
         },
         "terminal": {
@@ -379,7 +622,7 @@
       {
         "id": "stp-loop-guard",
         "order": 6,
-        "title": "Loop Guard",
+        "title": "Loop Guard — مرجع مستقل",
         "subtitle": "حماية منافذ Root/Alternate من فقد BPDUs",
         "source_pages": [
           3,
@@ -404,8 +647,8 @@
             }
           ],
           "note": {
-            "label": "سيناريو مستقل",
-            "text": "هذا سيناريو مستقل عن Root Guard؛ الميزتان متنافيتان على المنفذ نفسه."
+            "label": "خارج خطوات السيناريو الأساسية",
+            "text": "هذا القسم محفوظ كمرجع أو تجربة مستقلة ولا يطبق تلقائيًا على وصلات السيناريو الرئيسية. هذا سيناريو مستقل عن Root Guard؛ الميزتان متنافيتان على المنفذ نفسه."
           }
         },
         "terminal": {
@@ -431,7 +674,7 @@
       {
         "id": "stp-bpdu-filter",
         "order": 7,
-        "title": "BPDU Filter",
+        "title": "BPDU Filter — مرجع مستقل",
         "subtitle": "إيقاف BPDUs مع تحذير أمني واضح",
         "source_pages": [
           3,
@@ -456,8 +699,8 @@
             }
           ],
           "note": {
-            "label": "سيناريو مستقل",
-            "text": "لا تستخدم BPDU Filter كبديل تلقائي لـBPDU Guard؛ نفذه فقط عندما يكون أثر إخفاء BPDUs مفهومًا ومقصودًا."
+            "label": "خارج خطوات السيناريو الأساسية",
+            "text": "هذا القسم محفوظ كمرجع أو تجربة مستقلة ولا يطبق تلقائيًا على وصلات السيناريو الرئيسية. لا تستخدم BPDU Filter كبديل تلقائي لـBPDU Guard؛ نفذه فقط عندما يكون أثر إخفاء BPDUs مفهومًا ومقصودًا."
           }
         },
         "terminal": {
@@ -483,7 +726,7 @@
       {
         "id": "stp-path-timers",
         "order": 8,
-        "title": "التحكم في اختيار المسار ومؤقتات STP",
+        "title": "التحكم في اختيار المسار ومؤقتات STP — مرجع مستقل",
         "subtitle": "Cost وPort Priority والمؤقتات عند الحاجة",
         "source_pages": [
           4,
@@ -507,8 +750,8 @@
             }
           ],
           "note": {
-            "label": "ملاحظة خبير",
-            "text": "لا تحاول إجبار منفذ على أن يصبح Designated Port بأمر مباشر؛ STP ينتخب الدور نتيجة المقارنة بين معلومات الجسور والمسارات والمنافذ."
+            "label": "خارج خطوات السيناريو الأساسية",
+            "text": "هذا القسم محفوظ كمرجع أو تجربة مستقلة ولا يطبق تلقائيًا على وصلات السيناريو الرئيسية. لا تحاول إجبار منفذ على أن يصبح Designated Port بأمر مباشر؛ STP ينتخب الدور نتيجة المقارنة بين معلومات الجسور والمسارات والمنافذ."
           }
         },
         "terminal": {
@@ -569,7 +812,7 @@
       {
         "id": "stp-mst",
         "order": 9,
-        "title": "MST — مرجع إضافي وحدود المصدر",
+        "title": "MST — مرجع إضافي وحدود المصدر — مرجع مستقل",
         "subtitle": "المصدر لا يوفر عناصر Region كاملة لبناء مختبر MST متكامل",
         "source_pages": [
           1,
@@ -597,8 +840,8 @@
             }
           ],
           "note": {
-            "label": "حدود المصدر",
-            "text": "أوامر إنشاء MST Region الكاملة غير متوفرة في المصدر؛ أبقينا أوامر التحقق فقط في Terminal، بينما أوامر mode/configuration/priority موضحة في الشرح كمرجع للمصدر."
+            "label": "خارج خطوات السيناريو الأساسية",
+            "text": "هذا القسم محفوظ كمرجع أو تجربة مستقلة ولا يطبق تلقائيًا على وصلات السيناريو الرئيسية. أوامر إنشاء MST Region الكاملة غير متوفرة في المصدر؛ أبقينا أوامر التحقق فقط في Terminal، بينما أوامر mode/configuration/priority موضحة في الشرح كمرجع للمصدر."
           }
         },
         "terminal": {

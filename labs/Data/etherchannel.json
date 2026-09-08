@@ -3,14 +3,14 @@
   "topic": {
     "id": "etherchannel",
     "title": "EtherChannel",
-    "subtitle": "تجميع عدة وصلات في قناة منطقية واحدة باستخدام LACP أو PAgP أو الوضع الثابت.",
+    "subtitle": "ثلاث قنوات EtherChannel في السيناريو: Po1 وPo2 باستخدام PAgP، وPo3 باستخدام LACP، على المنافذ الفعلية للسويتشات الثلاثة.",
     "source": {
       "file_name": "EtherChannel.pdf",
       "pages": 2
     },
     "review": {
-      "status": "committee-reviewed",
-      "basis": "المحتوى الأساسي مأخوذ من الملف المرفق، مع تنظيم الأوامر حسب موضع استخدامها وشرح الفروق بين أوضاع EtherChannel دون تغيير مقصود للمحتوى الأصلي.",
+      "status": "committee-reviewed-scenario-aligned",
+      "basis": "حُفظت مفاهيم LACP وPAgP والوضع On وأوامر التحقق، وأعيدت مواءمة التنفيذ الرئيسي مع منافذ وأسماء الأجهزة والـVLANs المعتمدة في السيناريو.",
       "adjustments": [
         {
           "id": "lacp-command-scope",
@@ -47,6 +47,24 @@
           "source": "يعرض المصدر أوامر إنشاء القناة من منظور جهاز واحد.",
           "site": "أضيف الطرف الثاني في سيناريوهات LACP وPAgP وStatic لإظهار زوج تفاوض قابل للاختبار.",
           "reason": "EtherChannel لا يكتمل عمليًا دون توافق الطرف المقابل."
+        },
+        {
+          "id": "scenario-etherchannel-map",
+          "source": "تعرض الأمثلة الأصلية منافذ عامة على S1 وS2.",
+          "site": "Po1: SW1 F0/1-2↔SW2 F0/1-2 بـPAgP؛ Po2: SW1 F0/3-4↔SW3 F0/1-2 بـPAgP؛ Po3: SW2 F0/3-4↔SW3 F0/3-4 بـLACP.",
+          "reason": "مطابقة أوامر EtherChannel مع الشبكة التي يبنيها المتدرب."
+        },
+        {
+          "id": "scenario-etherchannel-trunks",
+          "source": "يعرض المصدر Port-Channel كـTrunk مع Allowed VLANs كمثال.",
+          "site": "جميع Po1 وPo2 وPo3 تحمل VLANs 10,20,30,99 وVLAN 99 هي Native VLAN.",
+          "reason": "مطابقة EtherChannel مع تصميم VLAN وInter-VLAN المعتمد."
+        },
+        {
+          "id": "scenario-etherchannel-protocols",
+          "source": "يتناول المصدر PAgP وLACP وmode on كبدائل.",
+          "site": "السيناريو الرئيسي يستخدم PAgP في Po1/Po2 وLACP في Po3؛ mode on مرجع مستقل فقط.",
+          "reason": "إظهار بروتوكولي التفاوض عمليًا دون خلطهما بالوضع الثابت."
         }
       ]
     },
@@ -54,61 +72,79 @@
       {
         "id": "etherchannel-overview",
         "order": 1,
-        "title": "فكرة EtherChannel والتحقق منه",
-        "subtitle": "قناة منطقية تجمع عدة وصلات فعلية",
+        "title": "فكرة EtherChannel والتحقق من القنوات الثلاث",
+        "subtitle": "Po1 وPo2 عبر PAgP، وPo3 عبر LACP",
         "source_page": 1,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "EtherChannel يجمع عدة منافذ فعلية في Port-Channel واحد، فيتعامل STP وبقية الشبكة مع المجموعة كوصلة منطقية واحدة.",
+          "intro": "يجمع السيناريو الوصلات المتوازية بين السويتشات في ثلاث Port-Channels، فيتعامل STP مع كل مجموعة كوصلة منطقية واحدة.",
           "points": [
             {
-              "id": "summary",
-              "text": "show etherchannel summary هو أسرع أمر لمعرفة القنوات والمنافذ الأعضاء وحالتها."
+              "id": "po1",
+              "text": "Po1: SW1 F0/1-2 ↔ SW2 F0/1-2 — PAgP."
             },
             {
-              "id": "port-channel-info",
-              "text": "يمكن عرض معلومات Port-Channel أو واجهته المنطقية للتأكد من أن التجميع يعمل كما هو متوقع."
+              "id": "po2",
+              "text": "Po2: SW1 F0/3-4 ↔ SW3 F0/1-2 — PAgP."
             },
             {
-              "id": "load-balance",
-              "text": "show etherchannel load-balance يعرض آلية توزيع الحركة المستخدمة عبر أعضاء القناة."
+              "id": "po3",
+              "text": "Po3: SW2 F0/3-4 ↔ SW3 F0/3-4 — LACP."
+            },
+            {
+              "id": "stp",
+              "text": "بعد التجميع يتعامل STP مع Port-Channel بدل كل وصلة عضو منفردة."
             }
           ],
           "note": {
             "label": "الفكرة العملية",
-            "text": "ابدأ دائمًا بـ show etherchannel summary قبل الدخول في تفاصيل الاستكشاف؛ فهو يعطي صورة سريعة عن حالة التجميع."
+            "text": "ابدأ بـshow etherchannel summary على كل سويتش وتأكد أن المنافذ أعضاء فعليًا في القناة."
           }
         },
         "terminal": {
-          "label": "S1",
+          "label": "SW1 / SW2 / SW3",
           "commands": [
             {
               "id": "cmd-01",
               "order": 1,
-              "prompt": "S1#",
+              "prompt": "SW1#",
               "command": "show etherchannel summary",
-              "description": "يعرض ملخص EtherChannels والمنافذ الأعضاء."
+              "description": "يعرض ملخص القنوات على SW1."
             },
             {
               "id": "cmd-02",
               "order": 2,
-              "prompt": "S1#",
-              "command": "show etherchannel port-channel",
-              "description": "يعرض معلومات القنوات المنطقية Port-Channel."
+              "prompt": "SW2#",
+              "command": "show etherchannel summary",
+              "description": "يعرض ملخص القنوات على SW2."
             },
             {
               "id": "cmd-03",
               "order": 3,
-              "prompt": "S1#",
-              "command": "show etherchannel load-balance",
-              "description": "يعرض طريقة توزيع الحمل."
+              "prompt": "SW3#",
+              "command": "show etherchannel summary",
+              "description": "يعرض ملخص القنوات على SW3."
             },
             {
               "id": "cmd-04",
               "order": 4,
-              "prompt": "S1#",
+              "prompt": "SW1#",
               "command": "show interfaces port-channel 1",
-              "description": "يعرض معلومات تفصيلية عن Port-Channel 1."
+              "description": "يعرض تفاصيل Po1."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "SW1#",
+              "command": "show interfaces port-channel 2",
+              "description": "يعرض تفاصيل Po2."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "SW2#",
+              "command": "show interfaces port-channel 3",
+              "description": "يعرض تفاصيل Po3."
             }
           ]
         }
@@ -116,82 +152,89 @@
       {
         "id": "etherchannel-lacp",
         "order": 2,
-        "title": "إنشاء EtherChannel باستخدام LACP",
-        "subtitle": "Active وPassive",
+        "title": "إنشاء Po3 باستخدام LACP",
+        "subtitle": "SW2 F0/3-4 ↔ SW3 F0/3-4",
         "source_page": 1,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "LACP بروتوكول تفاوض لإنشاء EtherChannel. الوضع Active يبدأ التفاوض، بينما Passive ينتظر رسائل LACP من الطرف الآخر.",
+          "intro": "القناة الثالثة في السيناريو تستخدم LACP. يبدأ SW2 التفاوض بوضع Active ويستجيب SW3 بوضع Passive.",
           "points": [
             {
-              "id": "active-active",
-              "text": "Active مع Active ينشئ القناة."
+              "id": "sw2",
+              "text": "SW2 F0/3-4 ضمن channel-group 3 بوضع active."
             },
             {
-              "id": "active-passive",
-              "text": "Active مع Passive ينشئ القناة أيضًا."
+              "id": "sw3",
+              "text": "SW3 F0/3-4 ضمن channel-group 3 بوضع passive."
             },
             {
-              "id": "passive-passive",
-              "text": "Passive مع Passive لا يبدأ التفاوض، لذلك لا تتكون القناة."
+              "id": "pairing",
+              "text": "Active مع Passive تكوين LACP متوافق ويكوّن القناة."
             }
           ],
           "note": {
-            "label": "ملاحظة خبير",
-            "text": "تأكد من توافق إعدادات المنافذ الأعضاء مثل وضع Access/Trunk وVLANs والسرعة والـDuplex حسب المنصة قبل جمعها في القناة."
+            "label": "مطابق للسيناريو",
+            "text": "لا تستخدم PAgP أوmode on على أعضاء Po3."
           }
         },
         "terminal": {
-          "label": "S1 / S2",
+          "label": "SW2 / SW3",
           "commands": [
             {
               "id": "cmd-01",
               "order": 1,
-              "prompt": "S1(config)#",
-              "command": "interface range gigabitethernet 0/1-2",
-              "description": "يحدد أعضاء القناة على S1."
+              "prompt": "SW2(config)#",
+              "command": "interface range fastethernet 0/3-4",
+              "description": "يحدد أعضاء Po3 على SW2."
             },
             {
               "id": "cmd-02",
               "order": 2,
-              "prompt": "S1(config-if-range)#",
+              "prompt": "SW2(config-if-range)#",
               "command": "channel-protocol lacp",
-              "description": "يحدد LACP كبروتوكول التفاوض على S1."
+              "description": "يحدد LACP كبروتوكول التفاوض."
             },
             {
               "id": "cmd-03",
               "order": 3,
-              "prompt": "S1(config-if-range)#",
-              "command": "channel-group 1 mode active",
-              "description": "يجعل S1 يبدأ تفاوض LACP."
+              "prompt": "SW2(config-if-range)#",
+              "command": "channel-group 3 mode active",
+              "description": "يضيف المنافذ إلى Po3 بوضع active."
             },
             {
               "id": "cmd-04",
               "order": 4,
-              "prompt": "S1(config-if-range)#",
+              "prompt": "SW2(config-if-range)#",
               "command": "exit",
-              "description": "يعود إلى Global Configuration على S1."
+              "description": "يعود إلى Global Configuration."
             },
             {
               "id": "cmd-05",
               "order": 5,
-              "prompt": "S2(config)#",
-              "command": "interface range gigabitethernet 0/1-2",
-              "description": "يحدد الأعضاء المقابلين على S2."
+              "prompt": "SW3(config)#",
+              "command": "interface range fastethernet 0/3-4",
+              "description": "يحدد أعضاء Po3 على SW3."
             },
             {
               "id": "cmd-06",
               "order": 6,
-              "prompt": "S2(config-if-range)#",
+              "prompt": "SW3(config-if-range)#",
               "command": "channel-protocol lacp",
-              "description": "يحدد LACP على S2."
+              "description": "يحدد LACP كبروتوكول التفاوض."
             },
             {
               "id": "cmd-07",
               "order": 7,
-              "prompt": "S2(config-if-range)#",
-              "command": "channel-group 1 mode passive",
-              "description": "يجعل S2 يستجيب لتفاوض LACP الذي يبدأه S1."
+              "prompt": "SW3(config-if-range)#",
+              "command": "channel-group 3 mode passive",
+              "description": "يضيف المنافذ إلى Po3 بوضع passive."
+            },
+            {
+              "id": "cmd-08",
+              "order": 8,
+              "prompt": "SW3(config-if-range)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
             }
           ]
         }
@@ -199,82 +242,145 @@
       {
         "id": "etherchannel-pagp",
         "order": 3,
-        "title": "إنشاء EtherChannel باستخدام PAgP",
-        "subtitle": "Desirable مع Auto في سيناريو تفاوض مستقل",
+        "title": "إنشاء Po1 وPo2 باستخدام PAgP",
+        "subtitle": "Po1 بين SW1 وSW2، وPo2 بين SW1 وSW3",
         "source_page": 1,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "PAgP بروتوكول تفاوض خاص بـCisco؛ Desirable يبدأ التفاوض بينما Auto ينتظر الطرف المقابل.",
+          "intro": "يستخدم السيناريو PAgP في القناتين Po1 وPo2. يبدأ SW1 التفاوض بوضع Desirable ويستجيب الطرف المقابل بوضع Auto.",
           "points": [
             {
-              "id": "desirable",
-              "text": "Desirable يبدأ تفاوض PAgP."
+              "id": "po1",
+              "text": "Po1: SW1 F0/1-2 desirable ↔ SW2 F0/1-2 auto."
             },
             {
-              "id": "auto",
-              "text": "Auto يستجيب لتفاوض PAgP ولا يبدأه وحده."
+              "id": "po2",
+              "text": "Po2: SW1 F0/3-4 desirable ↔ SW3 F0/1-2 auto."
             },
             {
-              "id": "pairing",
-              "text": "Desirable مع Auto أوDesirable مع Desirable يمكن أن ينشئا القناة؛ Auto مع Auto لا يبدأ التفاوض."
+              "id": "consistency",
+              "text": "يجب أن تتطابق إعدادات منافذ كل مجموعة على الطرفين."
             }
           ],
           "note": {
-            "label": "سيناريو مستقل",
-            "text": "لا تستخدم أوضاع LACP أوmode on داخل هذا السيناريو."
+            "label": "مطابق للسيناريو",
+            "text": "لا تستخدم LACP أوmode on على أعضاء Po1 أوPo2."
           }
         },
         "terminal": {
-          "label": "S1 / S2",
+          "label": "SW1 / SW2 / SW3",
           "commands": [
             {
               "id": "cmd-01",
               "order": 1,
-              "prompt": "S1(config)#",
-              "command": "interface range gigabitethernet 0/1-2",
-              "description": "يحدد أعضاء القناة على S1."
+              "prompt": "SW1(config)#",
+              "command": "interface range fastethernet 0/1-2",
+              "description": "يحدد أعضاء Po1 على SW1."
             },
             {
               "id": "cmd-02",
               "order": 2,
-              "prompt": "S1(config-if-range)#",
+              "prompt": "SW1(config-if-range)#",
               "command": "channel-protocol pagp",
-              "description": "يحدد PAgP على S1."
+              "description": "يحدد PAgP كبروتوكول التفاوض."
             },
             {
               "id": "cmd-03",
               "order": 3,
-              "prompt": "S1(config-if-range)#",
+              "prompt": "SW1(config-if-range)#",
               "command": "channel-group 1 mode desirable",
-              "description": "يجعل S1 يبدأ تفاوض PAgP."
+              "description": "يضيف المنافذ إلى Po1 بوضع desirable."
             },
             {
               "id": "cmd-04",
               "order": 4,
-              "prompt": "S1(config-if-range)#",
+              "prompt": "SW1(config-if-range)#",
               "command": "exit",
-              "description": "يعود إلى Global Configuration على S1."
+              "description": "يعود إلى Global Configuration."
             },
             {
               "id": "cmd-05",
               "order": 5,
-              "prompt": "S2(config)#",
-              "command": "interface range gigabitethernet 0/1-2",
-              "description": "يحدد الأعضاء المقابلين على S2."
+              "prompt": "SW2(config)#",
+              "command": "interface range fastethernet 0/1-2",
+              "description": "يحدد أعضاء Po1 على SW2."
             },
             {
               "id": "cmd-06",
               "order": 6,
-              "prompt": "S2(config-if-range)#",
+              "prompt": "SW2(config-if-range)#",
               "command": "channel-protocol pagp",
-              "description": "يحدد PAgP على S2."
+              "description": "يحدد PAgP كبروتوكول التفاوض."
             },
             {
               "id": "cmd-07",
               "order": 7,
-              "prompt": "S2(config-if-range)#",
+              "prompt": "SW2(config-if-range)#",
               "command": "channel-group 1 mode auto",
-              "description": "يجعل S2 يستجيب لتفاوض PAgP الذي يبدأه S1."
+              "description": "يضيف المنافذ إلى Po1 بوضع auto."
+            },
+            {
+              "id": "cmd-08",
+              "order": 8,
+              "prompt": "SW2(config-if-range)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
+            },
+            {
+              "id": "cmd-09",
+              "order": 9,
+              "prompt": "SW1(config)#",
+              "command": "interface range fastethernet 0/3-4",
+              "description": "يحدد أعضاء Po2 على SW1."
+            },
+            {
+              "id": "cmd-10",
+              "order": 10,
+              "prompt": "SW1(config-if-range)#",
+              "command": "channel-protocol pagp",
+              "description": "يحدد PAgP كبروتوكول التفاوض."
+            },
+            {
+              "id": "cmd-11",
+              "order": 11,
+              "prompt": "SW1(config-if-range)#",
+              "command": "channel-group 2 mode desirable",
+              "description": "يضيف المنافذ إلى Po2 بوضع desirable."
+            },
+            {
+              "id": "cmd-12",
+              "order": 12,
+              "prompt": "SW1(config-if-range)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
+            },
+            {
+              "id": "cmd-13",
+              "order": 13,
+              "prompt": "SW3(config)#",
+              "command": "interface range fastethernet 0/1-2",
+              "description": "يحدد أعضاء Po2 على SW3."
+            },
+            {
+              "id": "cmd-14",
+              "order": 14,
+              "prompt": "SW3(config-if-range)#",
+              "command": "channel-protocol pagp",
+              "description": "يحدد PAgP كبروتوكول التفاوض."
+            },
+            {
+              "id": "cmd-15",
+              "order": 15,
+              "prompt": "SW3(config-if-range)#",
+              "command": "channel-group 2 mode auto",
+              "description": "يضيف المنافذ إلى Po2 بوضع auto."
+            },
+            {
+              "id": "cmd-16",
+              "order": 16,
+              "prompt": "SW3(config-if-range)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
             }
           ]
         }
@@ -282,8 +388,8 @@
       {
         "id": "etherchannel-static",
         "order": 4,
-        "title": "إنشاء EtherChannel بالوضع الثابت On",
-        "subtitle": "تجميع بدون LACP أوPAgP",
+        "title": "إنشاء EtherChannel بالوضع الثابت On — مرجع مستقل",
+        "subtitle": "غير مستخدم في القنوات الثلاث للسيناريو",
         "source_page": 1,
         "explanation": {
           "label": "شرح خبير Cisco",
@@ -299,8 +405,8 @@
             }
           ],
           "note": {
-            "label": "تنبيه",
-            "text": "لا تسبق mode on بالأمر channel-protocol lacp أوchannel-protocol pagp."
+            "label": "خارج السيناريو الرئيسي",
+            "text": "Po1 وPo2 يستخدمان PAgP وPo3 يستخدم LACP. هذا القسم مرجع للوضع On فقط. لا تسبق mode on بالأمر channel-protocol lacp أوchannel-protocol pagp."
           }
         },
         "terminal": {
@@ -347,82 +453,243 @@
       {
         "id": "etherchannel-portchannel-settings",
         "order": 5,
-        "title": "ضبط واجهة Port-Channel",
-        "subtitle": "Access أوTrunk وVLANs",
+        "title": "ضبط Po1 وPo2 وPo3 كوصلات Trunk",
+        "subtitle": "Allowed VLANs 10,20,30,99 — Native VLAN 99",
         "source_page": 2,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "بعد تكوين القناة، تُعامل واجهة Port-Channel كواجهة منطقية واحدة ويمكن ضبطها كـTrunk أوAccess حسب تصميم الشبكة.",
+          "intro": "بعد إنشاء القنوات، اضبط واجهات Port-Channel المنطقية نفسها كـTrunk على طرفي كل قناة وبالإعدادات المتطابقة.",
           "points": [
             {
-              "id": "trunk",
-              "text": "switchport mode trunk يجعل القناة تحمل عدة VLANs."
+              "id": "allowed",
+              "text": "Po1 وPo2 وPo3 تسمح بمرور VLANs 10 و20 و30 و99."
             },
             {
-              "id": "allowed-vlan",
-              "text": "switchport trunk allowed vlan يحدد VLANs المسموح بمرورها على القناة عند العمل كـTrunk."
+              "id": "native",
+              "text": "VLAN 99 هي Native VLAN على القنوات الثلاث."
             },
             {
-              "id": "access",
-              "text": "في وضع Access يمكن ربط Port-Channel بـVLAN واحدة باستخدام switchport access vlan."
+              "id": "both",
+              "text": "الإعداد نفسه يجب أن يوجد على طرفي كل Port-Channel."
             }
           ],
           "note": {
-            "label": "الفكرة العملية",
-            "text": "يفضل تطبيق إعدادات Layer 2 المتطابقة على واجهة Port-Channel بحيث تتعامل مع القناة كوحدة واحدة."
+            "label": "اتساق",
+            "text": "اختلاف Native VLAN أوAllowed VLANs بين الطرفين يسبب مشاكل Trunk/EtherChannel."
           }
         },
         "terminal": {
-          "label": "S1 / S2",
+          "label": "SW1 / SW2 / SW3",
           "commands": [
             {
               "id": "cmd-01",
               "order": 1,
-              "prompt": "S1(config)#",
+              "prompt": "SW1(config)#",
               "command": "interface port-channel 1",
-              "description": "يدخل إلى Port-Channel 1 على S1."
+              "description": "يدخل إلى Po1 على SW1."
             },
             {
               "id": "cmd-02",
               "order": 2,
-              "prompt": "S1(config-if)#",
+              "prompt": "SW1(config-if)#",
               "command": "switchport mode trunk",
-              "description": "يجعل القناة Trunk على S1."
+              "description": "يضبط القناة كـTrunk."
             },
             {
               "id": "cmd-03",
               "order": 3,
-              "prompt": "S1(config-if)#",
-              "command": "switchport trunk allowed vlan 10,20,30",
-              "description": "يسمح بمرور VLANs المطلوبة على S1."
+              "prompt": "SW1(config-if)#",
+              "command": "switchport trunk native vlan 99",
+              "description": "يحدد VLAN 99 كـNative VLAN."
             },
             {
               "id": "cmd-04",
               "order": 4,
-              "prompt": "S1(config-if)#",
-              "command": "exit",
-              "description": "يعود إلى Global Configuration على S1."
+              "prompt": "SW1(config-if)#",
+              "command": "switchport trunk allowed vlan 10,20,30,99",
+              "description": "يسمح بمرور VLANs المعتمدة في السيناريو."
             },
             {
               "id": "cmd-05",
               "order": 5,
-              "prompt": "S2(config)#",
-              "command": "interface port-channel 1",
-              "description": "يدخل إلى Port-Channel 1 على S2."
+              "prompt": "SW1(config-if)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
             },
             {
               "id": "cmd-06",
               "order": 6,
-              "prompt": "S2(config-if)#",
-              "command": "switchport mode trunk",
-              "description": "يجعل القناة Trunk على S2."
+              "prompt": "SW2(config)#",
+              "command": "interface port-channel 1",
+              "description": "يدخل إلى Po1 على SW2."
             },
             {
               "id": "cmd-07",
               "order": 7,
-              "prompt": "S2(config-if)#",
-              "command": "switchport trunk allowed vlan 10,20,30",
-              "description": "يطابق قائمة VLANs المسموح بها على الطرف الآخر."
+              "prompt": "SW2(config-if)#",
+              "command": "switchport mode trunk",
+              "description": "يضبط القناة كـTrunk."
+            },
+            {
+              "id": "cmd-08",
+              "order": 8,
+              "prompt": "SW2(config-if)#",
+              "command": "switchport trunk native vlan 99",
+              "description": "يحدد VLAN 99 كـNative VLAN."
+            },
+            {
+              "id": "cmd-09",
+              "order": 9,
+              "prompt": "SW2(config-if)#",
+              "command": "switchport trunk allowed vlan 10,20,30,99",
+              "description": "يسمح بمرور VLANs المعتمدة في السيناريو."
+            },
+            {
+              "id": "cmd-10",
+              "order": 10,
+              "prompt": "SW2(config-if)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
+            },
+            {
+              "id": "cmd-11",
+              "order": 11,
+              "prompt": "SW1(config)#",
+              "command": "interface port-channel 2",
+              "description": "يدخل إلى Po2 على SW1."
+            },
+            {
+              "id": "cmd-12",
+              "order": 12,
+              "prompt": "SW1(config-if)#",
+              "command": "switchport mode trunk",
+              "description": "يضبط القناة كـTrunk."
+            },
+            {
+              "id": "cmd-13",
+              "order": 13,
+              "prompt": "SW1(config-if)#",
+              "command": "switchport trunk native vlan 99",
+              "description": "يحدد VLAN 99 كـNative VLAN."
+            },
+            {
+              "id": "cmd-14",
+              "order": 14,
+              "prompt": "SW1(config-if)#",
+              "command": "switchport trunk allowed vlan 10,20,30,99",
+              "description": "يسمح بمرور VLANs المعتمدة في السيناريو."
+            },
+            {
+              "id": "cmd-15",
+              "order": 15,
+              "prompt": "SW1(config-if)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
+            },
+            {
+              "id": "cmd-16",
+              "order": 16,
+              "prompt": "SW3(config)#",
+              "command": "interface port-channel 2",
+              "description": "يدخل إلى Po2 على SW3."
+            },
+            {
+              "id": "cmd-17",
+              "order": 17,
+              "prompt": "SW3(config-if)#",
+              "command": "switchport mode trunk",
+              "description": "يضبط القناة كـTrunk."
+            },
+            {
+              "id": "cmd-18",
+              "order": 18,
+              "prompt": "SW3(config-if)#",
+              "command": "switchport trunk native vlan 99",
+              "description": "يحدد VLAN 99 كـNative VLAN."
+            },
+            {
+              "id": "cmd-19",
+              "order": 19,
+              "prompt": "SW3(config-if)#",
+              "command": "switchport trunk allowed vlan 10,20,30,99",
+              "description": "يسمح بمرور VLANs المعتمدة في السيناريو."
+            },
+            {
+              "id": "cmd-20",
+              "order": 20,
+              "prompt": "SW3(config-if)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
+            },
+            {
+              "id": "cmd-21",
+              "order": 21,
+              "prompt": "SW2(config)#",
+              "command": "interface port-channel 3",
+              "description": "يدخل إلى Po3 على SW2."
+            },
+            {
+              "id": "cmd-22",
+              "order": 22,
+              "prompt": "SW2(config-if)#",
+              "command": "switchport mode trunk",
+              "description": "يضبط القناة كـTrunk."
+            },
+            {
+              "id": "cmd-23",
+              "order": 23,
+              "prompt": "SW2(config-if)#",
+              "command": "switchport trunk native vlan 99",
+              "description": "يحدد VLAN 99 كـNative VLAN."
+            },
+            {
+              "id": "cmd-24",
+              "order": 24,
+              "prompt": "SW2(config-if)#",
+              "command": "switchport trunk allowed vlan 10,20,30,99",
+              "description": "يسمح بمرور VLANs المعتمدة في السيناريو."
+            },
+            {
+              "id": "cmd-25",
+              "order": 25,
+              "prompt": "SW2(config-if)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
+            },
+            {
+              "id": "cmd-26",
+              "order": 26,
+              "prompt": "SW3(config)#",
+              "command": "interface port-channel 3",
+              "description": "يدخل إلى Po3 على SW3."
+            },
+            {
+              "id": "cmd-27",
+              "order": 27,
+              "prompt": "SW3(config-if)#",
+              "command": "switchport mode trunk",
+              "description": "يضبط القناة كـTrunk."
+            },
+            {
+              "id": "cmd-28",
+              "order": 28,
+              "prompt": "SW3(config-if)#",
+              "command": "switchport trunk native vlan 99",
+              "description": "يحدد VLAN 99 كـNative VLAN."
+            },
+            {
+              "id": "cmd-29",
+              "order": 29,
+              "prompt": "SW3(config-if)#",
+              "command": "switchport trunk allowed vlan 10,20,30,99",
+              "description": "يسمح بمرور VLANs المعتمدة في السيناريو."
+            },
+            {
+              "id": "cmd-30",
+              "order": 30,
+              "prompt": "SW3(config-if)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
             }
           ]
         }
@@ -430,107 +697,104 @@
       {
         "id": "etherchannel-troubleshooting",
         "order": 6,
-        "title": "استكشاف الأخطاء وضبط LACP",
-        "subtitle": "التحقق من الأعضاء وSTP وأولويات LACP",
+        "title": "استكشاف أخطاء Po1 وPo2 وPo3",
+        "subtitle": "تحقق من البروتوكول والأعضاء والـTrunk وSTP",
         "source_page": 2,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "عند فشل EtherChannel نتحقق أولًا من حالة الأعضاء وإعدادات Port-Channel، ثم من STP وتطابق إعدادات المنافذ.",
+          "intro": "ابدأ بملخص EtherChannel ثم افحص كل Port-Channel وإعدادات Trunk. لا تستخدم أوامر LACP المتقدمة قبل استبعاد mismatch في المنافذ أوالبروتوكول.",
           "points": [
             {
-              "id": "member-state",
-              "text": "show etherchannel summary يوضح المنافذ المنضمة فعليًا للقناة والمنافذ التي لم تنضم."
+              "id": "po1",
+              "text": "Po1: PAgP على F0/1-2 بين SW1 وSW2."
             },
             {
-              "id": "switchport-check",
-              "text": "show interfaces port-channel 1 switchport يساعد في التحقق من إعدادات Layer 2 للقناة."
+              "id": "po2",
+              "text": "Po2: PAgP على SW1 F0/3-4 وSW3 F0/1-2."
             },
             {
-              "id": "stp-role",
-              "text": "show spanning-tree interface port-channel 1 يوضح تعامل STP مع القناة المنطقية."
+              "id": "po3",
+              "text": "Po3: LACP على F0/3-4 بين SW2 وSW3."
             },
             {
-              "id": "lacp-tuning",
-              "text": "الملف يتضمن أوامر LACP لتحديد الحد الأقصى للأعضاء والأولوية على مستوى النظام والمنفذ."
+              "id": "trunk",
+              "text": "تحقق من Native VLAN 99 وAllowed VLANs 10,20,30,99 على الطرفين."
+            },
+            {
+              "id": "stp",
+              "text": "بعد نجاح القناة راقب STP على Port-Channel بدل الأعضاء الفيزيائيين."
             }
           ],
           "note": {
-            "label": "ملاحظة خبير",
-            "text": "ابدأ بأوامر show. أوامر LACP المتقدمة مثل system-priority وport-priority وmax-bundle تعتمد على المنصة وإصدار IOS؛ تعامل معها كمرجع متقدم لا كشرط لإنشاء EtherChannel الأساسي."
+            "label": "ترتيب التشخيص",
+            "text": "ابدأ بـshow etherchannel summary ثم Port-Channel ثم Trunk ثم STP."
           }
         },
         "terminal": {
-          "label": "S1",
+          "label": "SW1 / SW2 / SW3",
           "commands": [
             {
               "id": "cmd-01",
               "order": 1,
-              "prompt": "S1#",
+              "prompt": "SW1#",
               "command": "show etherchannel summary",
-              "description": "يفحص حالة القناة والأعضاء."
+              "description": "يفحص القنوات على SW1."
             },
             {
               "id": "cmd-02",
               "order": 2,
-              "prompt": "S1#",
-              "command": "show interfaces port-channel 1 switchport",
-              "description": "يعرض إعدادات Switchport للقناة."
+              "prompt": "SW2#",
+              "command": "show etherchannel summary",
+              "description": "يفحص القنوات على SW2."
             },
             {
               "id": "cmd-03",
               "order": 3,
-              "prompt": "S1#",
-              "command": "show spanning-tree interface port-channel 1",
-              "description": "يعرض دور STP للقناة."
+              "prompt": "SW3#",
+              "command": "show etherchannel summary",
+              "description": "يفحص القنوات على SW3."
             },
             {
               "id": "cmd-04",
               "order": 4,
-              "prompt": "S1#",
-              "command": "configure terminal",
-              "description": "يدخل إلى Global Configuration قبل أوامر ضبط LACP المتقدمة."
+              "prompt": "SW1#",
+              "command": "show interfaces port-channel 1 switchport",
+              "description": "يتحقق من إعدادات Layer 2 على Po1."
             },
             {
               "id": "cmd-05",
               "order": 5,
-              "prompt": "S1(config)#",
-              "command": "lacp system-priority 100",
-              "description": "مثال لضبط أولوية LACP على مستوى الجهاز."
+              "prompt": "SW1#",
+              "command": "show spanning-tree interface port-channel 1",
+              "description": "يعرض تعامل STP مع Po1."
             },
             {
               "id": "cmd-06",
               "order": 6,
-              "prompt": "S1(config)#",
-              "command": "interface gigabitethernet 0/1",
-              "description": "يدخل إلى منفذ عضو لضبط أولوية LACP الخاصة به."
+              "prompt": "SW1#",
+              "command": "show interfaces port-channel 2 switchport",
+              "description": "يتحقق من إعدادات Layer 2 على Po2."
             },
             {
               "id": "cmd-07",
               "order": 7,
-              "prompt": "S1(config-if)#",
-              "command": "lacp port-priority 100",
-              "description": "مثال لضبط أولوية المنفذ في LACP."
+              "prompt": "SW1#",
+              "command": "show spanning-tree interface port-channel 2",
+              "description": "يعرض تعامل STP مع Po2."
             },
             {
               "id": "cmd-08",
               "order": 8,
-              "prompt": "S1(config-if)#",
-              "command": "exit",
-              "description": "يعود إلى Global Configuration قبل الانتقال إلى Port-Channel."
+              "prompt": "SW2#",
+              "command": "show interfaces port-channel 3 switchport",
+              "description": "يتحقق من إعدادات Layer 2 على Po3."
             },
             {
               "id": "cmd-09",
               "order": 9,
-              "prompt": "S1(config)#",
-              "command": "interface port-channel 1",
-              "description": "يدخل إلى القناة المنطقية لضبط الحد الأقصى للأعضاء النشطين."
-            },
-            {
-              "id": "cmd-10",
-              "order": 10,
-              "prompt": "S1(config-if)#",
-              "command": "lacp max-bundle 4",
-              "description": "مثال لتحديد الحد الأقصى لعدد المنافذ النشطة في LACP."
+              "prompt": "SW2#",
+              "command": "show spanning-tree interface port-channel 3",
+              "description": "يعرض تعامل STP مع Po3."
             }
           ]
         }

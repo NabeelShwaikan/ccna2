@@ -3,7 +3,7 @@
   "topic": {
     "id": "basic-configuration",
     "title": "التكوين الأساسي",
-    "subtitle": "افهم الفكرة أولًا، ثم شاهد تسلسل الأوامر كما يظهر في Cisco IOS.",
+    "subtitle": "التكوين الأساسي لأجهزة السيناريو المتكامل R1 وSW1 وSW2 وSW3، مع اعتماد VLAN 99 للإدارة دون تغيير ترتيب موضوعات المنصة.",
     "source": {
       "file_name": "Basic Configuration.pdf",
       "pages": 5
@@ -46,47 +46,47 @@
           }
         },
         "terminal": {
-          "label": "Router",
+          "label": "R1",
           "commands": [
             {
               "id": "cmd-01",
               "order": 1,
-              "prompt": "Router>",
+              "prompt": "R1>",
               "command": "enable",
               "description": "يدخل إلى وضع الامتياز Privileged EXEC."
             },
             {
               "id": "cmd-02",
               "order": 2,
-              "prompt": "Router#",
+              "prompt": "R1#",
               "command": "configure terminal",
               "description": "يدخل إلى وضع التكوين العام."
             },
             {
               "id": "cmd-03",
               "order": 3,
-              "prompt": "Router(config)#",
+              "prompt": "R1(config)#",
               "command": "exit",
               "description": "يخرج من الوضع الحالي إلى المستوى السابق."
             },
             {
               "id": "cmd-04",
               "order": 4,
-              "prompt": "Router#",
+              "prompt": "R1#",
               "command": "configure terminal",
               "description": "يدخل مرة أخرى إلى وضع التكوين العام لعرض وظيفة end."
             },
             {
               "id": "cmd-05",
               "order": 5,
-              "prompt": "Router(config)#",
+              "prompt": "R1(config)#",
               "command": "end",
               "description": "يعود مباشرةً إلى Privileged EXEC."
             },
             {
               "id": "cmd-06",
               "order": 6,
-              "prompt": "Router#",
+              "prompt": "R1#",
               "command": "copy running-config startup-config",
               "description": "يحفظ التكوين الحالي في الذاكرة الدائمة."
             }
@@ -96,79 +96,230 @@
       {
         "id": "basic-switch",
         "order": 2,
-        "title": "التكوين الأساسي للسويتش",
-        "subtitle": "اسم الجهاز وواجهة الإدارة SVI",
+        "title": "التكوين الأساسي لسويتشات السيناريو",
+        "subtitle": "SW1 وSW2 وSW3 — VLAN 99 للإدارة",
         "source_page": 2,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "السويتش من الطبقة الثانية لا يحتاج عنوان IP لتمرير الإطارات داخل الشبكة، لكنه يحتاج عنوان إدارة إذا أردنا الوصول إليه عبر الشبكة.",
+          "intro": "تستخدم السويتشات الثلاثة VLAN 99 كشبكة إدارة. تُضبط أسماء الأجهزة وعناوين SVI الثابتة هنا، بينما تصبح SVI قابلة للوصول بعد إنشاء VLAN 99 والـTrunks في موضوع VLAN.",
           "points": [
             {
-              "id": "hostname",
-              "text": "غيّر اسم الجهاز أولًا حتى يصبح الـ Prompt واضحًا أثناء العمل."
+              "id": "hostnames",
+              "text": "استخدم أسماء الأجهزة المعتمدة SW1 وSW2 وSW3."
             },
             {
-              "id": "svi",
-              "text": "عنوان الإدارة يوضع على واجهة SVI مثل interface vlan 1 في هذا المثال."
+              "id": "management-vlan",
+              "text": "واجهة الإدارة هي interface vlan 99 وليست VLAN 1 في هذا السيناريو."
             },
             {
-              "id": "management-ip",
-              "text": "عيّن عنوان IPv4 وقناع الشبكة على واجهة الإدارة."
+              "id": "management-addresses",
+              "text": "SW1=192.168.99.2، SW2=192.168.99.3، SW3=192.168.99.4 بقناع /24."
             },
             {
-              "id": "enable-svi",
-              "text": "فعّل الواجهة بالأمر no shutdown."
+              "id": "default-gateway",
+              "text": "البوابة الافتراضية للسويتشات الثلاثة هي 192.168.99.1 على R1."
+            },
+            {
+              "id": "prerequisite",
+              "text": "حالة SVI قد تبقى down حتى تُنشأ VLAN 99 وتوجد وصلة Layer 2 فعالة تحملها."
             }
           ],
           "note": {
-            "label": "الفكرة العملية",
-            "text": "التكوين هنا يجهز السويتش للإدارة عبر الشبكة، ولا يغيّر وظيفة تحويل الإطارات بين المنافذ."
+            "label": "ارتباط بالسيناريو",
+            "text": "لا تغيّر ترتيب الموضوعات؛ اعتبر قابلية الوصول عبر VLAN 99 متطلبًا يكتمل عند تنفيذ موضوع VLAN."
           }
         },
         "terminal": {
-          "label": "Switch",
+          "label": "SW1 / SW2 / SW3",
           "commands": [
             {
               "id": "cmd-01",
               "order": 1,
               "prompt": "Switch>",
               "command": "enable",
-              "description": "يدخل إلى وضع الامتياز."
+              "description": "يدخل إلى Privileged EXEC على SW1."
             },
             {
               "id": "cmd-02",
               "order": 2,
               "prompt": "Switch#",
               "command": "configure terminal",
-              "description": "يدخل إلى وضع التكوين العام."
+              "description": "يدخل إلى Global Configuration على SW1."
             },
             {
               "id": "cmd-03",
               "order": 3,
               "prompt": "Switch(config)#",
               "command": "hostname SW1",
-              "description": "يغيّر اسم السويتش إلى SW1."
+              "description": "يغيّر اسم الجهاز إلى SW1."
             },
             {
               "id": "cmd-04",
               "order": 4,
               "prompt": "SW1(config)#",
-              "command": "interface vlan 1",
-              "description": "يدخل إلى واجهة VLAN 1 الخاصة بالإدارة."
+              "command": "interface vlan 99",
+              "description": "يدخل إلى SVI الخاصة بشبكة الإدارة."
             },
             {
               "id": "cmd-05",
               "order": 5,
               "prompt": "SW1(config-if)#",
-              "command": "ip address 192.168.1.1 255.255.255.0",
-              "description": "يضبط عنوان IPv4 للإدارة على VLAN 1."
+              "command": "ip address 192.168.99.2 255.255.255.0",
+              "description": "يضبط عنوان إدارة SW1."
             },
             {
               "id": "cmd-06",
               "order": 6,
               "prompt": "SW1(config-if)#",
               "command": "no shutdown",
-              "description": "يفعّل واجهة SVI إذا كانت معطلة."
+              "description": "يفعّل SVI إداريًا."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
+              "prompt": "SW1(config-if)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
+            },
+            {
+              "id": "cmd-08",
+              "order": 8,
+              "prompt": "SW1(config)#",
+              "command": "ip default-gateway 192.168.99.1",
+              "description": "يضبط بوابة الإدارة نحو R1."
+            },
+            {
+              "id": "cmd-09",
+              "order": 9,
+              "prompt": "SW1(config)#",
+              "command": "end",
+              "description": "يعود إلى Privileged EXEC."
+            },
+            {
+              "id": "cmd-10",
+              "order": 10,
+              "prompt": "Switch>",
+              "command": "enable",
+              "description": "يدخل إلى Privileged EXEC على SW2."
+            },
+            {
+              "id": "cmd-11",
+              "order": 11,
+              "prompt": "Switch#",
+              "command": "configure terminal",
+              "description": "يدخل إلى Global Configuration على SW2."
+            },
+            {
+              "id": "cmd-12",
+              "order": 12,
+              "prompt": "Switch(config)#",
+              "command": "hostname SW2",
+              "description": "يغيّر اسم الجهاز إلى SW2."
+            },
+            {
+              "id": "cmd-13",
+              "order": 13,
+              "prompt": "SW2(config)#",
+              "command": "interface vlan 99",
+              "description": "يدخل إلى SVI الخاصة بشبكة الإدارة."
+            },
+            {
+              "id": "cmd-14",
+              "order": 14,
+              "prompt": "SW2(config-if)#",
+              "command": "ip address 192.168.99.3 255.255.255.0",
+              "description": "يضبط عنوان إدارة SW2."
+            },
+            {
+              "id": "cmd-15",
+              "order": 15,
+              "prompt": "SW2(config-if)#",
+              "command": "no shutdown",
+              "description": "يفعّل SVI إداريًا."
+            },
+            {
+              "id": "cmd-16",
+              "order": 16,
+              "prompt": "SW2(config-if)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
+            },
+            {
+              "id": "cmd-17",
+              "order": 17,
+              "prompt": "SW2(config)#",
+              "command": "ip default-gateway 192.168.99.1",
+              "description": "يضبط بوابة الإدارة نحو R1."
+            },
+            {
+              "id": "cmd-18",
+              "order": 18,
+              "prompt": "SW2(config)#",
+              "command": "end",
+              "description": "يعود إلى Privileged EXEC."
+            },
+            {
+              "id": "cmd-19",
+              "order": 19,
+              "prompt": "Switch>",
+              "command": "enable",
+              "description": "يدخل إلى Privileged EXEC على SW3."
+            },
+            {
+              "id": "cmd-20",
+              "order": 20,
+              "prompt": "Switch#",
+              "command": "configure terminal",
+              "description": "يدخل إلى Global Configuration على SW3."
+            },
+            {
+              "id": "cmd-21",
+              "order": 21,
+              "prompt": "Switch(config)#",
+              "command": "hostname SW3",
+              "description": "يغيّر اسم الجهاز إلى SW3."
+            },
+            {
+              "id": "cmd-22",
+              "order": 22,
+              "prompt": "SW3(config)#",
+              "command": "interface vlan 99",
+              "description": "يدخل إلى SVI الخاصة بشبكة الإدارة."
+            },
+            {
+              "id": "cmd-23",
+              "order": 23,
+              "prompt": "SW3(config-if)#",
+              "command": "ip address 192.168.99.4 255.255.255.0",
+              "description": "يضبط عنوان إدارة SW3."
+            },
+            {
+              "id": "cmd-24",
+              "order": 24,
+              "prompt": "SW3(config-if)#",
+              "command": "no shutdown",
+              "description": "يفعّل SVI إداريًا."
+            },
+            {
+              "id": "cmd-25",
+              "order": 25,
+              "prompt": "SW3(config-if)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
+            },
+            {
+              "id": "cmd-26",
+              "order": 26,
+              "prompt": "SW3(config)#",
+              "command": "ip default-gateway 192.168.99.1",
+              "description": "يضبط بوابة الإدارة نحو R1."
+            },
+            {
+              "id": "cmd-27",
+              "order": 27,
+              "prompt": "SW3(config)#",
+              "command": "end",
+              "description": "يعود إلى Privileged EXEC."
             }
           ]
         }
@@ -176,94 +327,93 @@
       {
         "id": "basic-router",
         "order": 3,
-        "title": "التكوين الأساسي للراوتر",
-        "subtitle": "الواجهات وعناوين IPv4 وIPv6",
+        "title": "التكوين الأساسي للراوتر R1",
+        "subtitle": "اسم الجهاز وتجهيز G0/0 لـRouter-on-a-Stick",
         "source_page": 3,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "الراوتر يربط شبكات مختلفة، لذلك تُضبط عناوين IP على الواجهات التي تشارك في التوجيه.",
+          "intro": "في السيناريو R1 يتصل بـSW1 عبر G0/0 ↔ F0/5. تُفعّل الواجهة الفيزيائية هنا دون عنوان IPv4 مباشر، لأن عناوين البوابات ستوضع على Subinterfaces في موضوع VLAN.",
           "points": [
             {
               "id": "hostname",
-              "text": "ابدأ باسم واضح للجهاز لتسهيل التعرف عليه أثناء الإدارة."
+              "text": "اسم الراوتر المعتمد هو R1."
             },
             {
-              "id": "select-interface",
-              "text": "ادخل إلى الواجهة المطلوبة قبل ضبط عنوانها."
+              "id": "physical-link",
+              "text": "R1 G0/0 متصل بـSW1 F0/5."
             },
             {
-              "id": "ipv4",
-              "text": "عيّن عنوان IPv4 وقناع الشبكة ثم فعّل الواجهة."
+              "id": "parent-interface",
+              "text": "G0/0 واجهة Parent لـRouter-on-a-Stick ولا تحمل عنوان IPv4 مباشرًا في السيناريو."
             },
             {
-              "id": "ipv6",
-              "text": "يمكن إضافة عنوان IPv6 على الواجهة نفسها عند الحاجة."
+              "id": "subinterfaces",
+              "text": "عناوين 192.168.10.1 و192.168.20.1 و192.168.30.1 و192.168.99.1 تُنشأ لاحقًا على G0/0.10/.20/.30/.99."
             }
           ],
           "note": {
-            "label": "تنبيه خبير",
-            "text": "ورد في المصدر الأمر ip default-gateway، لكنه ليس الطريقة المعتادة لتحديد المسار الافتراضي على راوتر يقوم بالتوجيه؛ لذلك لم يُدرج ضمن تسلسل التنفيذ هنا."
+            "label": "منع التعارض",
+            "text": "لا تنفذ ip address مباشرة على G0/0 في السيناريو؛ اكتفِ بتفعيلها ثم أكمل العناوين في موضوع VLAN."
           }
         },
         "terminal": {
-          "label": "Router",
+          "label": "R1",
           "commands": [
             {
               "id": "cmd-01",
               "order": 1,
               "prompt": "Router>",
               "command": "enable",
-              "description": "يدخل إلى وضع الامتياز."
+              "description": "يدخل إلى Privileged EXEC."
             },
             {
               "id": "cmd-02",
               "order": 2,
               "prompt": "Router#",
               "command": "configure terminal",
-              "description": "يدخل إلى وضع التكوين العام."
+              "description": "يدخل إلى Global Configuration."
             },
             {
               "id": "cmd-03",
               "order": 3,
               "prompt": "Router(config)#",
-              "command": "hostname R2",
-              "description": "يغيّر اسم الراوتر إلى R2."
+              "command": "hostname R1",
+              "description": "يعتمد اسم الراوتر في السيناريو."
             },
             {
               "id": "cmd-04",
               "order": 4,
-              "prompt": "R2(config)#",
-              "command": "interface GigabitEthernet0/0",
-              "description": "يدخل إلى تكوين الواجهة GigabitEthernet0/0."
+              "prompt": "R1(config)#",
+              "command": "interface gigabitethernet 0/0",
+              "description": "يدخل إلى المنفذ المتصل بـSW1 F0/5."
             },
             {
               "id": "cmd-05",
               "order": 5,
-              "prompt": "R2(config-if)#",
-              "command": "ip address 192.168.1.1 255.255.255.0",
-              "description": "يضبط عنوان IPv4 للواجهة."
+              "prompt": "R1(config-if)#",
+              "command": "no shutdown",
+              "description": "يفعّل الواجهة الفيزيائية."
             },
             {
               "id": "cmd-06",
               "order": 6,
-              "prompt": "R2(config-if)#",
-              "command": "no shutdown",
-              "description": "يفعّل الواجهة."
-            },
-            {
-              "id": "cmd-07",
-              "order": 7,
-              "prompt": "R2(config-if)#",
-              "command": "ipv6 address 2001:db8::1/64",
-              "description": "يضبط عنوان IPv6 على الواجهة."
+              "prompt": "R1(config-if)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
             }
           ],
           "source_only": [
             {
+              "id": "source-direct-address-example",
+              "prompt": "Router(config-if)#",
+              "command": "ip address 192.168.1.1 255.255.255.0",
+              "description": "مثال المصدر الأصلي على عنوان مباشر للواجهة؛ لا يُنفذ في السيناريو لأن G0/0 تعمل كـParent Interface."
+            },
+            {
               "id": "source-default-gateway",
               "prompt": "Router(config)#",
               "command": "ip default-gateway 192.168.1.254",
-              "description": "ورد في المصدر الأصلي، لكنه لم يُدرج في العرض التفاعلي وفق مراجعة الخبير."
+              "description": "ورد في المصدر الأصلي، لكنه لا يُستخدم على R1 الذي يقوم بالتوجيه."
             }
           ]
         }
@@ -301,26 +451,26 @@
           }
         },
         "terminal": {
-          "label": "Router",
+          "label": "R1",
           "commands": [
             {
               "id": "cmd-01",
               "order": 1,
-              "prompt": "Router(config)#",
+              "prompt": "R1(config)#",
               "command": "enable secret class",
               "description": "يعيّن كلمة مرور لوضع الامتياز."
             },
             {
               "id": "cmd-02",
               "order": 2,
-              "prompt": "Router(config)#",
+              "prompt": "R1(config)#",
               "command": "service password-encryption",
               "description": "يخفي كلمات المرور القابلة للتشفير في ملف التكوين."
             },
             {
               "id": "cmd-03",
               "order": 3,
-              "prompt": "Router(config)#",
+              "prompt": "R1(config)#",
               "command": "banner motd # Unauthorized Access Prohibited! #",
               "description": "يضيف رسالة تحذيرية عند تسجيل الدخول."
             }
@@ -330,73 +480,101 @@
       {
         "id": "basic-verification",
         "order": 5,
-        "title": "التحقق واستكشاف الأخطاء",
-        "subtitle": "تحقق من الحالة بعد كل تكوين",
+        "title": "التحقق من التكوين الأساسي في السيناريو",
+        "subtitle": "الأسماء وحالة G0/0 وعناوين إدارة السويتشات",
         "source_page": 5,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "لا يكفي أن يقبل الجهاز الأمر؛ يجب التحقق من الحالة الفعلية بعد التكوين.",
+          "intro": "تحقق من أن أسماء الأجهزة صحيحة وأن R1 G0/0 مفعلة، وأن عناوين SVI محفوظة. قد تبقى VLAN 99 غير قابلة للوصول حتى تكتمل مرحلة VLAN.",
           "points": [
             {
-              "id": "running-config",
-              "text": "show running-config يعرض الإعداد الحالي الموجود في الذاكرة."
+              "id": "running",
+              "text": "show running-config يتحقق من hostname وإعدادات الإدارة."
             },
             {
-              "id": "interfaces",
-              "text": "show ip interface brief يعطي ملخصًا سريعًا لحالة الواجهات وعناوين IPv4."
+              "id": "r1-interface",
+              "text": "show ip interface brief على R1 يجب أن يظهر G0/0 مفعلة دون عنوان IPv4 مباشر قبل تكوين Subinterfaces."
             },
             {
-              "id": "vlans",
-              "text": "show vlan brief يعرض VLANs والمنافذ المرتبطة بها على السويتش."
+              "id": "switch-svi",
+              "text": "show ip interface brief على كل سويتش يعرض SVI VLAN 99 وعنوان الإدارة."
             },
             {
-              "id": "routing-table",
-              "text": "show ip route يعرض جدول التوجيه على الراوتر."
+              "id": "gateway",
+              "text": "show running-config | include default-gateway يتحقق من 192.168.99.1 على السويتشات."
             }
           ],
           "note": {
-            "label": "قاعدة عملية",
-            "text": "نفّذ التكوين ثم استخدم أمر show مناسب مباشرةً؛ هذا يجعل اكتشاف الخطأ أسرع وأسهل."
+            "label": "ملاحظة",
+            "text": "عدم نجاح ping على VLAN 99 في هذه المرحلة لا يعني خطأً بالضرورة إذا لم تُنفذ مرحلة VLAN/Trunk بعد."
           }
         },
         "terminal": {
-          "label": "Router / Switch",
+          "label": "R1 / SW1 / SW2 / SW3",
           "commands": [
             {
               "id": "cmd-01",
               "order": 1,
-              "prompt": "Switch#",
-              "command": "show running-config",
-              "description": "يعرض التكوين الحالي للسويتش."
+              "prompt": "R1#",
+              "command": "show ip interface brief",
+              "description": "يتحقق من حالة G0/0 على R1."
             },
             {
               "id": "cmd-02",
               "order": 2,
-              "prompt": "Router#",
+              "prompt": "SW1#",
               "command": "show ip interface brief",
-              "description": "يعرض المنافذ وعناوين IPv4 باختصار."
+              "description": "يتحقق من SVI VLAN 99 على SW1."
             },
             {
               "id": "cmd-03",
               "order": 3,
-              "prompt": "Switch#",
-              "command": "show vlan brief",
-              "description": "يعرض قائمة VLANs المكوّنة."
+              "prompt": "SW1#",
+              "command": "show running-config | include default-gateway",
+              "description": "يتحقق من بوابة الإدارة على SW1."
             },
             {
               "id": "cmd-04",
               "order": 4,
-              "prompt": "Router#",
-              "command": "show ip route",
-              "description": "يعرض جدول التوجيه الخاص بالراوتر."
+              "prompt": "SW2#",
+              "command": "show ip interface brief",
+              "description": "يتحقق من SVI VLAN 99 على SW2."
+            },
+            {
+              "id": "cmd-05",
+              "order": 5,
+              "prompt": "SW2#",
+              "command": "show running-config | include default-gateway",
+              "description": "يتحقق من بوابة الإدارة على SW2."
+            },
+            {
+              "id": "cmd-06",
+              "order": 6,
+              "prompt": "SW3#",
+              "command": "show ip interface brief",
+              "description": "يتحقق من SVI VLAN 99 على SW3."
+            },
+            {
+              "id": "cmd-07",
+              "order": 7,
+              "prompt": "SW3#",
+              "command": "show running-config | include default-gateway",
+              "description": "يتحقق من بوابة الإدارة على SW3."
+            },
+            {
+              "id": "cmd-08",
+              "order": 8,
+              "prompt": "R1#",
+              "command": "show running-config",
+              "description": "يعرض التكوين الحالي على R1."
             }
           ]
         }
       }
     ],
     "review": {
-      "status": "committee-reviewed",
-      "basis": "المحتوى الأساسي مأخوذ من الملف المرفق، مع تصحيح الجولة النهائية لتمييز التسلسل التنفيذي عن البدائل وإحالة إعداد SSH الكامل إلى ملفه المستقل.",
+      "status": "committee-reviewed-scenario-aligned",
+      "basis": "حُفظ ترتيب أقسام الملف ومحتواه المرجعي، مع مواءمة أسماء الأجهزة وعناوين الإدارة مع السيناريو الأول. لم تُنقل أو تُعاد جدولة موضوعات المنصة.",
       "adjustments": [
         {
           "id": "save-command-alternative",
@@ -409,6 +587,30 @@
           "source": "يتضمن المصدر أوامر VTY وSSH ضمن التكوين الأساسي.",
           "site": "أبقي الأمان المحلي الأساسي هنا، وأحيل تهيئة SSH الكاملة إلى ssh.json بدل عرض تسلسل SSH ناقص.",
           "reason": "transport input ssh لا يكفي وحده لتشغيل SSH ويحتاج Domain/RSA/User ومصادقة محلية."
+        },
+        {
+          "id": "scenario-device-names",
+          "source": "يعرض المصدر أمثلة بأسماء عامة أو مختلفة مثل Router وSwitch وR2.",
+          "site": "اعتمدت أسماء السيناريو الفعلية: R1 وSW1 وSW2 وSW3.",
+          "reason": "توحيد أسماء الأجهزة بين ملف البيانات والمخطط وPacket Tracer."
+        },
+        {
+          "id": "scenario-management-vlan99",
+          "source": "يعرض المصدر إدارة السويتش عبر VLAN 1 وعنوان من 192.168.1.0/24.",
+          "site": "اعتمدت VLAN 99 للإدارة: SW1=192.168.99.2، SW2=192.168.99.3، SW3=192.168.99.4، والبوابة 192.168.99.1.",
+          "reason": "مطابقة التكوين الأساسي مع خطة VLAN المعتمدة في السيناريو."
+        },
+        {
+          "id": "scenario-router-parent-interface",
+          "source": "يعرض المصدر عنوان IPv4 مباشرًا على GigabitEthernet0/0 في مثال الراوتر.",
+          "site": "في السيناريو R1 G0/0 متصل بـSW1 F0/5 ويعمل كواجهة Parent لـRouter-on-a-Stick؛ لذلك لا يوضع عليه عنوان IPv4 مباشر في التكوين الأساسي.",
+          "reason": "منع التعارض مع Subinterfaces التي تُنشأ في موضوع VLAN & Inter-VLAN."
+        },
+        {
+          "id": "scenario-management-prerequisite",
+          "source": "المصدر لا يعتمد تسلسل موضوعات المنصة الحالية.",
+          "site": "توضح الصفحة أن SVI VLAN 99 وعنوان الإدارة قد يُهيآن هنا، لكن قابلية الوصول الشبكي تكتمل بعد إنشاء VLAN 99 والـTrunks وRouter-on-a-Stick في موضوع VLAN.",
+          "reason": "الحفاظ على ترتيب الموضوعات كما هو دون تقديم ترتيب تنفيذي مضلل."
         }
       ]
     }
