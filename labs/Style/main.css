@@ -458,3 +458,29 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--focus);outline-offs
   .backup-actions{flex-direction:column}
   .backup-btn{width:100%}
 }
+
+/* ===== Global copy/select protection for all practical pages ===== */
+html,
+body,
+body *:not(input):not(textarea):not(select):not(option):not([contenteditable="true"]) {
+  -webkit-user-select:none !important;
+  user-select:none !important;
+  -webkit-touch-callout:none !important;
+}
+
+img,
+svg {
+  -webkit-user-drag:none !important;
+  user-drag:none !important;
+}
+
+input,
+textarea,
+select,
+option,
+[contenteditable="true"] {
+  -webkit-user-select:text !important;
+  user-select:text !important;
+  -webkit-touch-callout:default !important;
+}
+
