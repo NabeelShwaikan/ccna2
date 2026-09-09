@@ -106,6 +106,9 @@
     });
   }
 
+  // واجهة المتدرب تعرض المحتوى التعليمي فقط.
+  // حقول المصدر والمراجعة مثل source / source_page / review / adjustments
+  // تبقى في JSON للحوكمة الداخلية ولا يتم عرضها هنا.
   function renderSections(items){
     const sorted = [...items].sort((a,b) => (a.order || 0) - (b.order || 0));
 
@@ -126,7 +129,7 @@
           </div>
 
           <div class="expert">
-            <strong>${escapeHtml(explanation.label || 'شرح خبير Cisco')}</strong>
+            <strong>الفكرة</strong>
             ${explanation.intro ? `<p class="expert-intro">${escapeHtml(explanation.intro)}</p>` : ''}
             ${points.length ? `<ul class="expert-points">${points.map(point => `<li>${escapeHtml(point.text || '')}</li>`).join('')}</ul>` : ''}
           </div>
@@ -147,7 +150,7 @@
             ></textarea>
           </div>
 
-          ${note ? `<div class="expert-note"><b>${escapeHtml(note.label || 'ملاحظة')}:</b> ${escapeHtml(note.text || '')}</div>` : ''}
+          ${note ? `<div class="expert-note"><b>ملاحظة:</b> ${escapeHtml(note.text || '')}</div>` : ''}
 
           <div class="topic-actions">
             <button class="show-btn" type="button" data-section="${escapeHtml(section.id)}" aria-haspopup="dialog">عرض الأوامر</button>
