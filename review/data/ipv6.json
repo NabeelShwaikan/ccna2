@@ -1,0 +1,186 @@
+{
+  "id": "ipv6",
+  "title": "المراجعة السريعة — IPv6",
+  "intro": "ملخص تفاعلي لصيغة IPv6، الاختصار، أنواع العناوين، رأس IPv6، التقسيم، NDP، SLAAC والأوامر الأساسية.",
+  "sections": [
+    {
+      "id": "format",
+      "type": "facts",
+      "title": "1) صيغة عنوان IPv6",
+      "text": "عنوان IPv6 طوله 128 bit ويكتب في 8 مجموعات، كل مجموعة تحتوي 4 أرقام ست عشرية.",
+      "facts": [
+        {
+          "label": "الطول",
+          "value": "128 bit"
+        },
+        {
+          "label": "عدد المجموعات",
+          "value": "8"
+        },
+        {
+          "label": "كل مجموعة",
+          "value": "4 Hex digits"
+        }
+      ],
+      "example": "2001:0db8:85a3:0000:0000:8a2e:0370:7334"
+    },
+    {
+      "id": "compression",
+      "type": "ipv6-compression",
+      "title": "2) اختصار عنوان IPv6",
+      "text": "احذف الأصفار البادئة داخل المجموعة، ثم يمكن ضغط أطول سلسلة متتالية من مجموعات الأصفار باستخدام :: مرة واحدة فقط.",
+      "default": "2001:0db8:0000:0000:0000:ff00:0042:8329"
+    },
+    {
+      "id": "types",
+      "type": "ipv6-types",
+      "title": "3) أنواع عناوين IPv6",
+      "items": [
+        {
+          "name": "أحادي الإرسال (Unicast)",
+          "desc": "اتصال من جهاز إلى جهاز واحد."
+        },
+        {
+          "name": "متعدد الإرسال (Multicast)",
+          "desc": "اتصال من جهاز إلى عدة أجهزة."
+        },
+        {
+          "name": "أقرب وجهة (Anycast)",
+          "desc": "يصل التوجيه إلى أقرب وجهة تحمل العنوان."
+        },
+        {
+          "name": "محلي للوصلة (Link-Local)",
+          "desc": "للاتصال داخل الوصلة المحلية."
+        },
+        {
+          "name": "أحادي عالمي (Global Unicast)",
+          "desc": "قابل للتوجيه عالميًا."
+        },
+        {
+          "name": "محلي فريد (Unique Local)",
+          "desc": "للاستخدام الداخلي الخاص."
+        }
+      ],
+      "prefixes": [
+        {
+          "label": "محلي للوصلة (Link-Local)",
+          "value": "fe80::/10"
+        },
+        {
+          "label": "أحادي عالمي (Global Unicast)",
+          "value": "2000::/3"
+        },
+        {
+          "label": "محلي فريد (Unique Local)",
+          "value": "fc00::/7"
+        },
+        {
+          "label": "متعدد الإرسال (Multicast)",
+          "value": "ff00::/8"
+        },
+        {
+          "label": "الاسترجاع (Loopback)",
+          "value": "::1"
+        },
+        {
+          "label": "غير المحدد (Unspecified)",
+          "value": "::"
+        }
+      ],
+      "classifierDefault": "fe80::25"
+    },
+    {
+      "id": "header",
+      "type": "fields",
+      "title": "4) حقول رأس IPv6",
+      "items": [
+        {
+          "name": "الإصدار (Version)",
+          "desc": "قيمته 6 في IPv6."
+        },
+        {
+          "name": "فئة المرور (Traffic Class)",
+          "desc": "للتعامل مع أولوية المرور وجودة الخدمة."
+        },
+        {
+          "name": "معرّف التدفق (Flow Label)",
+          "desc": "يميز تدفقات المرور التي تحتاج معالجة خاصة."
+        },
+        {
+          "name": "طول الحمولة (Payload Length)",
+          "desc": "طول البيانات بعد الرأس الأساسي."
+        },
+        {
+          "name": "الرأس التالي (Next Header)",
+          "desc": "يحدد نوع الرأس أو البروتوكول التالي مثل TCP أو UDP."
+        },
+        {
+          "name": "حد القفزات (Hop Limit)",
+          "desc": "يقابل TTL في IPv4."
+        }
+      ]
+    },
+    {
+      "id": "subnetting",
+      "type": "ipv6-subnetting",
+      "title": "5) تقسيم IPv6",
+      "text": "يعرض المرجع /64 بوصفه الطول القياسي الشائع لشبكات LAN التي تستخدم SLAAC: أول 64 bit لبادئة الشبكة وآخر 64 bit لمعرّف الواجهة.",
+      "prefix": "/64"
+    },
+    {
+      "id": "ndp",
+      "type": "ndp",
+      "title": "6) NDP و SLAAC",
+      "text": "يستخدم Neighbor Discovery Protocol في IPv6 لاكتشاف الجيران والموجّهات ووظائف أخرى مرتبطة بالوصلة.",
+      "messages": [
+        {
+          "abbr": "NS",
+          "name": "طلب الجار (Neighbor Solicitation)",
+          "desc": "طلب معلومات عن جار."
+        },
+        {
+          "abbr": "NA",
+          "name": "إعلان الجار (Neighbor Advertisement)",
+          "desc": "رد أو إعلان من الجار."
+        },
+        {
+          "abbr": "RS",
+          "name": "طلب الموجّه (Router Solicitation)",
+          "desc": "يطلب من الموجّه إرسال RA."
+        },
+        {
+          "abbr": "RA",
+          "name": "إعلان الموجّه (Router Advertisement)",
+          "desc": "يزود المضيف بمعلومات الشبكة."
+        }
+      ]
+    },
+    {
+      "id": "commands",
+      "type": "commands",
+      "title": "7) أوامر IPv6 الأساسية",
+      "items": [
+        {
+          "label": "عرض إعدادات IP على Linux",
+          "cmd": "ip a"
+        },
+        {
+          "label": "عرض إعدادات IP على Windows",
+          "cmd": "ipconfig"
+        },
+        {
+          "label": "إضافة عنوان IPv6 على Linux",
+          "cmd": "sudo ip -6 addr add 2001:db8::1/64 dev eth0"
+        },
+        {
+          "label": "اختبار IPv6 على Linux",
+          "cmd": "ping6 2001:db8::1"
+        },
+        {
+          "label": "اختبار IPv6 على Windows",
+          "cmd": "ping /6 2001:db8::1"
+        }
+      ]
+    }
+  ]
+}

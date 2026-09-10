@@ -1,0 +1,27 @@
+{
+  "siteTitle": "المراجعة السريعة",
+  "course": "التوجيه والتحويل 1",
+  "topics": [
+    {
+      "id": "osi-tcpip",
+      "title": "نموذجا OSI و TCP/IP",
+      "subtitle": "الطبقات، PDU، التغليف، البروتوكولات ورحلة البيانات",
+      "icon": "layers",
+      "status": "approved"
+    },
+    {
+      "id": "subnetting",
+      "title": "تقسيم الشبكات (Subnetting)",
+      "subtitle": "Binary، Prefix، Subnet Mask، العناوين والحاسبة",
+      "icon": "subnet",
+      "status": "approved"
+    },
+    {
+      "id": "ipv6",
+      "title": "IPv6",
+      "subtitle": "الصيغة، الاختصار، الأنواع، /64، NDP وSLAAC",
+      "icon": "ipv6",
+      "status": "approved"
+    }
+  ]
+}

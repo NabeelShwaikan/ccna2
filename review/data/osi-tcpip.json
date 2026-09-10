@@ -1,0 +1,333 @@
+{
+  "id": "osi-tcpip",
+  "title": "المراجعة السريعة — نموذجَا OSI و TCP/IP",
+  "intro": "مقارنة مباشرة بين الطبقات مع تمييز لوني ثابت، PDU، التغليف، البروتوكولات، الأجهزة ورحلة البيانات من المرسل إلى المستقبل.",
+  "layerColors": {
+    "7": "#176a9c",
+    "6": "#17776f",
+    "5": "#537a3d",
+    "4": "#8a6c18",
+    "3": "#985a26",
+    "2": "#984646",
+    "1": "#654d8f"
+  },
+  "layers": [
+    {
+      "n": 7,
+      "ar": "التطبيق",
+      "en": "Application",
+      "function": "تقديم خدمات الشبكة للتطبيقات",
+      "pdu": "Data",
+      "examples": "HTTP, HTTPS, DNS, DHCP"
+    },
+    {
+      "n": 6,
+      "ar": "العرض",
+      "en": "Presentation",
+      "function": "تنسيق البيانات وترميزها والتشفير والضغط",
+      "pdu": "Data",
+      "examples": "Encoding, Encryption, Compression"
+    },
+    {
+      "n": 5,
+      "ar": "الجلسة",
+      "en": "Session",
+      "function": "إنشاء الجلسات وإدارتها وإنهاؤها",
+      "pdu": "Data",
+      "examples": "Sessions, Dialog Control"
+    },
+    {
+      "n": 4,
+      "ar": "النقل",
+      "en": "Transport",
+      "function": "النقل من طرف إلى طرف والتقسيم والتحكم بحسب البروتوكول",
+      "pdu": "Segment / Datagram",
+      "examples": "TCP, UDP"
+    },
+    {
+      "n": 3,
+      "ar": "الشبكة",
+      "en": "Network",
+      "function": "العنونة المنطقية واختيار المسار والتوجيه",
+      "pdu": "Packet",
+      "examples": "IPv4, IPv6, ICMP"
+    },
+    {
+      "n": 2,
+      "ar": "ربط البيانات",
+      "en": "Data Link",
+      "function": "الإطارات وعناوين MAC والوصول إلى الوسط",
+      "pdu": "Frame",
+      "examples": "Ethernet, 802.11"
+    },
+    {
+      "n": 1,
+      "ar": "الفيزيائية",
+      "en": "Physical",
+      "function": "نقل البتات عبر الوسط والإشارات",
+      "pdu": "Bits",
+      "examples": "Signals, Media, Connectors"
+    }
+  ],
+  "tcpip": [
+    {
+      "name": "التطبيق (Application)",
+      "maps": "OSI: 7 + 6 + 5",
+      "layers": [
+        7,
+        6,
+        5
+      ]
+    },
+    {
+      "name": "النقل (Transport)",
+      "maps": "OSI: 4",
+      "layers": [
+        4
+      ]
+    },
+    {
+      "name": "الإنترنت (Internet)",
+      "maps": "OSI: 3",
+      "layers": [
+        3
+      ]
+    },
+    {
+      "name": "الوصول إلى الشبكة (Network Access)",
+      "maps": "OSI: 2 + 1",
+      "layers": [
+        2,
+        1
+      ]
+    }
+  ],
+  "pdu": [
+    {
+      "label": "Layers 7–5",
+      "value": "Data",
+      "layer": 7
+    },
+    {
+      "label": "Layer 4",
+      "value": "Segment / Datagram",
+      "layer": 4
+    },
+    {
+      "label": "Layer 3",
+      "value": "Packet",
+      "layer": 3
+    },
+    {
+      "label": "Layer 2",
+      "value": "Frame",
+      "layer": 2
+    },
+    {
+      "label": "Layer 1",
+      "value": "Bits",
+      "layer": 1
+    }
+  ],
+  "protocolGroups": [
+    {
+      "title": "التطبيق",
+      "items": [
+        "HTTP",
+        "HTTPS",
+        "DNS",
+        "DHCP"
+      ]
+    },
+    {
+      "title": "النقل",
+      "items": [
+        "TCP",
+        "UDP"
+      ]
+    },
+    {
+      "title": "الشبكة / الإنترنت",
+      "items": [
+        "IPv4",
+        "IPv6",
+        "ICMP"
+      ]
+    },
+    {
+      "title": "ربط البيانات / الوصول",
+      "items": [
+        "Ethernet",
+        "802.11 (L1–L2)"
+      ]
+    }
+  ],
+  "devices": [
+    {
+      "layer": "Layer 3",
+      "name": "Router"
+    },
+    {
+      "layer": "Layer 2",
+      "name": "Switch"
+    },
+    {
+      "layer": "Layer 1",
+      "name": "Hub / Repeater"
+    }
+  ],
+  "quiz": [
+    {
+      "q": "IP يعمل في أي طبقة؟",
+      "options": [
+        "Layer 4",
+        "Layer 3",
+        "Layer 2"
+      ],
+      "answer": "Layer 3"
+    },
+    {
+      "q": "Frame ترتبط بأي طبقة؟",
+      "options": [
+        "Layer 2",
+        "Layer 3",
+        "Layer 1"
+      ],
+      "answer": "Layer 2"
+    },
+    {
+      "q": "TCP يعمل في أي طبقة؟",
+      "options": [
+        "Layer 4",
+        "Layer 3",
+        "Layer 2"
+      ],
+      "answer": "Layer 4"
+    },
+    {
+      "q": "Bits ترتبط بأي طبقة؟",
+      "options": [
+        "Layer 1",
+        "Layer 2",
+        "Layer 3"
+      ],
+      "answer": "Layer 1"
+    },
+    {
+      "q": "طبقة Internet في TCP/IP تقابل أي طبقة في OSI؟",
+      "options": [
+        "Layer 3",
+        "Layer 4",
+        "Layer 2"
+      ],
+      "answer": "Layer 3"
+    }
+  ],
+  "journey": [
+    {
+      "id": "s7",
+      "layer": 7,
+      "pdu": "Data",
+      "phase": "Encapsulation",
+      "text": "البيانات تبدأ من التطبيق عند المرسل."
+    },
+    {
+      "id": "s6",
+      "layer": 6,
+      "pdu": "Data",
+      "phase": "Encapsulation",
+      "text": "تمر بطبقة العرض للتنسيق أو التشفير."
+    },
+    {
+      "id": "s5",
+      "layer": 5,
+      "pdu": "Data",
+      "phase": "Encapsulation",
+      "text": "تمر بطبقة الجلسة لإدارة الاتصال."
+    },
+    {
+      "id": "s4",
+      "layer": 4,
+      "pdu": "Segment",
+      "phase": "Encapsulation",
+      "text": "في طبقة النقل تُجزّأ البيانات وتصبح Segment / Datagram."
+    },
+    {
+      "id": "s3",
+      "layer": 3,
+      "pdu": "Packet",
+      "phase": "Encapsulation",
+      "text": "في طبقة الشبكة تضاف العنونة المنطقية وتصبح Packet."
+    },
+    {
+      "id": "s2",
+      "layer": 2,
+      "pdu": "Frame",
+      "phase": "Encapsulation",
+      "text": "في طبقة ربط البيانات يضاف إطار Frame."
+    },
+    {
+      "id": "s1",
+      "layer": 1,
+      "pdu": "Bits",
+      "phase": "Encapsulation",
+      "text": "في الطبقة الفيزيائية تتحول إلى Bits."
+    },
+    {
+      "id": "media",
+      "layer": "media",
+      "pdu": "Bits",
+      "phase": "Transmission",
+      "text": "تنتقل Bits عبر الوسط الناقل إلى الجهاز المستقبل."
+    },
+    {
+      "id": "r1",
+      "layer": 1,
+      "pdu": "Bits",
+      "phase": "Decapsulation",
+      "text": "تصل Bits إلى الطبقة الفيزيائية عند المستقبل."
+    },
+    {
+      "id": "r2",
+      "layer": 2,
+      "pdu": "Frame",
+      "phase": "Decapsulation",
+      "text": "طبقة ربط البيانات تستقبل Frame وتزيل معلومات الطبقة الثانية."
+    },
+    {
+      "id": "r3",
+      "layer": 3,
+      "pdu": "Packet",
+      "phase": "Decapsulation",
+      "text": "طبقة الشبكة تعالج Packet وتزيل معلومات الطبقة الثالثة."
+    },
+    {
+      "id": "r4",
+      "layer": 4,
+      "pdu": "Segment",
+      "phase": "Decapsulation",
+      "text": "طبقة النقل تعالج Segment / Datagram."
+    },
+    {
+      "id": "r5",
+      "layer": 5,
+      "pdu": "Data",
+      "phase": "Decapsulation",
+      "text": "تصعد البيانات إلى طبقة الجلسة."
+    },
+    {
+      "id": "r6",
+      "layer": 6,
+      "pdu": "Data",
+      "phase": "Decapsulation",
+      "text": "تصعد إلى طبقة العرض لفك التنسيق أو التشفير."
+    },
+    {
+      "id": "r7",
+      "layer": 7,
+      "pdu": "Data",
+      "phase": "Decapsulation",
+      "text": "تصل البيانات أخيرًا إلى التطبيق عند المستقبل."
+    }
+  ]
+}
