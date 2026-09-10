@@ -7,29 +7,27 @@
 <title>المراجعة السريعة</title>
 <link rel="stylesheet" href="assets/css/base.css">
 <link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/topics.css">
 </head>
 <body>
 <main class="shell">
-  <header class="site-hero">
-    <div>
-      <span class="badge">Quick Review</span>
-      <h1 id="siteTitle">المراجعة السريعة</h1>
-      <p id="courseTitle">التوجيه والتحويل 1</p>
-    </div>
-  </header>
-
-  <section class="topic-grid" id="topicGrid" aria-live="polite"></section>
-
+  <div class="topbar">
+    <a class="back-link" href="index.html">← جميع المواضيع</a>
+  </div>
+  <div id="app"></div>
   <footer class="site-footer">
-    <span>منصة المراجعة السريعة</span>
-    <span>Data-driven modular build</span>
+    <span>المراجعة السريعة</span>
+    <span id="buildLabel">Modular build</span>
   </footer>
 </main>
 
 <script src="data/fallback-data.js"></script>
 <script src="assets/js/core.js"></script>
+<script src="assets/js/topics/subnetting.js"></script>
+<script src="assets/js/topics/ipv6.js"></script>
+<script src="assets/js/topics/osi-tcpip.js"></script>
 <script>
-QRApp.bootIndex();
+QRApp.bootReview();
 </script>
 </body>
 </html>
