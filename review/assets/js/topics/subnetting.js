@@ -98,7 +98,7 @@ window.QRTopicRenderers["subnetting"] = (data, app, h) => {
     const p=Number(document.getElementById("calcPrefix").value);
     const err=document.getElementById("calcError");
     const oct=ip.split(".");
-    if(oct.length!==4 || oct.some(x=>!^\d+$/.test(x)||Number(x)<0||Number(x)>255) || p<8 || p>30){
+    if(oct.length!==4 || oct.some(x=>!/^\d+$/.test(x)||Number(x)<0||Number(x)>255) || p<8 || p>30){
       err.textContent="تحقق من عنوان IPv4 والـ Prefix."; return;
     }
     err.textContent="";
