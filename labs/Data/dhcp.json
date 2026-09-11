@@ -89,6 +89,12 @@
           "source": "يتضمن المصدر ip helper-address كسيناريو DHCP Relay.",
           "site": "أُبقي DHCP Relay كمرجع مستقل فقط ولا يطبق في الشبكة الرئيسية.",
           "reason": "R1 نفسه هو DHCP Server وبوابات VLANs موجودة عليه، لذلك لا يلزم Relay."
+        },
+        {
+          "id": "scenario-dhcpv4-six-clients",
+          "source": "كانت نسخة السيناريو السابقة توثق أربعة عملاء فقط: PC0 إلى PC3.",
+          "site": "تم اعتماد ستة عملاء: PC0/PC3 لـVLAN 10، PC1/PC4 لـVLAN 20، PC2/PC5 لـVLAN 30.",
+          "reason": "مطابقة بيانات DHCP مع المخطط النهائي الذي يحتوي ثلاثة أجهزة على SW2 وثلاثة أجهزة على SW3."
         }
       ]
     },
@@ -209,7 +215,7 @@
             },
             {
               "id": "clients",
-              "text": "العملاء المثبتون حاليًا: PC0 وPC3 في VLAN 10، وPC1 في VLAN 20، وPC2 في VLAN 30."
+              "text": "العملاء المعتمدون في السيناريو: PC0 وPC3 في VLAN 10، PC1 وPC4 في VLAN 20، PC2 وPC5 في VLAN 30."
             }
           ],
           "note": {

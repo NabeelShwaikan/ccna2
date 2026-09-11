@@ -81,8 +81,8 @@
         {
           "id": "scenario-stp-edge",
           "source": "يعرض المصدر PortFast وBPDU Guard على منفذ مستخدم كمثال.",
-          "site": "التطبيق المباشر على SW2 F0/6 وF0/11 وF0/18 وSW3 F0/6 فقط.",
-          "reason": "هذه هي منافذ المستخدمين المثبتة حاليًا؛ لم تُفترض منافذ PC4 وPC5."
+          "site": "التطبيق المباشر على SW2 F0/6 وF0/11 وF0/18 وSW3 F0/6 وF0/11 وF0/18.",
+          "reason": "هذه هي منافذ المستخدمين الستة المعتمدة في السيناريو بعد تثبيت PC4 وPC5."
         },
         {
           "id": "scenario-stp-no-fixed-block",
@@ -396,8 +396,12 @@
               "text": "PC3 ↔ SW3 F0/6 — VLAN 10."
             },
             {
-              "id": "pending",
-              "text": "لا تُضاف منافذ PC4 وPC5 حتى يتم تثبيتها رسميًا."
+              "id": "pc4",
+              "text": "PC4 ↔ SW3 F0/11 — VLAN 20."
+            },
+            {
+              "id": "pc5",
+              "text": "PC5 ↔ SW3 F0/18 — VLAN 30."
             }
           ],
           "note": {
@@ -516,6 +520,62 @@
             {
               "id": "cmd-16",
               "order": 16,
+              "prompt": "SW3(config-if)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
+            },
+            {
+              "id": "cmd-17",
+              "order": 17,
+              "prompt": "SW3(config)#",
+              "command": "interface fastethernet 0/11",
+              "description": "يدخل إلى منفذ PC4."
+            },
+            {
+              "id": "cmd-18",
+              "order": 18,
+              "prompt": "SW3(config-if)#",
+              "command": "spanning-tree portfast",
+              "description": "يفعّل PortFast على منفذ PC4."
+            },
+            {
+              "id": "cmd-19",
+              "order": 19,
+              "prompt": "SW3(config-if)#",
+              "command": "spanning-tree bpduguard enable",
+              "description": "يفعّل BPDU Guard على منفذ PC4."
+            },
+            {
+              "id": "cmd-20",
+              "order": 20,
+              "prompt": "SW3(config-if)#",
+              "command": "exit",
+              "description": "يعود إلى Global Configuration."
+            },
+            {
+              "id": "cmd-21",
+              "order": 21,
+              "prompt": "SW3(config)#",
+              "command": "interface fastethernet 0/18",
+              "description": "يدخل إلى منفذ PC5."
+            },
+            {
+              "id": "cmd-22",
+              "order": 22,
+              "prompt": "SW3(config-if)#",
+              "command": "spanning-tree portfast",
+              "description": "يفعّل PortFast على منفذ PC5."
+            },
+            {
+              "id": "cmd-23",
+              "order": 23,
+              "prompt": "SW3(config-if)#",
+              "command": "spanning-tree bpduguard enable",
+              "description": "يفعّل BPDU Guard على منفذ PC5."
+            },
+            {
+              "id": "cmd-24",
+              "order": 24,
               "prompt": "SW3(config-if)#",
               "command": "exit",
               "description": "يعود إلى Global Configuration."
