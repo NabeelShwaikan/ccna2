@@ -3,7 +3,7 @@
   "topic": {
     "id": "stp",
     "title": "STP",
-    "subtitle": "Rapid-PVST+ على الشبكة المتكاملة: SW1 جذر أساسي لـVLANs 10 و20 و30، وSW2 جذر أساسي لـVLAN 99، مع حماية منافذ المستخدمين المثبتة.",
+    "subtitle": "Rapid-PVST+ على الشبكة المتكاملة: SW1 جذر أساسي لـVLANs 10 و20 و30، وSW2 جذر ثانوي لها وجذر أساسي لـVLAN 99، وSW3 جذر ثانوي لـVLAN 99، مع حماية منافذ المستخدمين المثبتة.",
     "source": {
       "file_name": "STP.pdf",
       "pages": 5
@@ -69,8 +69,8 @@
         {
           "id": "scenario-stp-roots",
           "source": "يعرض المصدر أمثلة عامة لـroot primary وroot secondary وpriority.",
-          "site": "SW1 Root Primary لـVLANs 10 و20 و30 وSW2 Root Secondary لها؛ SW2 Root Primary لـVLAN 99 وSW1 Root Secondary لها.",
-          "reason": "إظهار Per-VLAN STP وجعل VLAN 99 على مسار جذري مختلف."
+          "site": "SW1 Root Primary لـVLANs 10 و20 و30 وSW2 Root Secondary لها؛ SW2 Root Primary لـVLAN 99 وSW3 Root Secondary لها.",
+          "reason": "إظهار Per-VLAN STP وجعل VLAN 99 على جذر أساسي وثانوي مختلفين عن شبكات المستخدمين."
         },
         {
           "id": "scenario-stp-ports",
@@ -254,11 +254,11 @@
         "id": "stp-mode-root",
         "order": 2,
         "title": "اختيار Rapid-PVST+ وتوزيع Root Bridge",
-        "subtitle": "SW1 لشبكات المستخدمين وSW2 لشبكة الإدارة",
+        "subtitle": "SW1 لشبكات المستخدمين وSW2/SW3 لشبكة الإدارة",
         "source_page": 3,
         "explanation": {
           "label": "شرح خبير Cisco",
-          "intro": "يستخدم السيناريو Rapid-PVST+ على السويتشات الثلاثة، مع توزيع الجذر حسب VLAN حتى يكون لـVLAN 99 مسار مختلف عن VLANs 10 و20 و30.",
+          "intro": "يستخدم السيناريو Rapid-PVST+ على السويتشات الثلاثة، مع توزيع الجذر حسب VLAN. SW1 هو Root Primary لـVLANs 10 و20 و30 وSW2 هو Root Secondary لها، بينما SW2 هو Root Primary لـVLAN 99 وSW3 هو Root Secondary لها.",
           "points": [
             {
               "id": "mode",
@@ -277,13 +277,13 @@
               "text": "SW2 هو Root Primary لـVLAN 99."
             },
             {
-              "id": "sw1-secondary99",
-              "text": "SW1 هو Root Secondary لـVLAN 99."
+              "id": "sw3-secondary99",
+              "text": "SW3 هو Root Secondary لـVLAN 99."
             }
           ],
           "note": {
             "label": "قرار السيناريو",
-            "text": "توزيع VLAN 99 على Root مختلف مقصود لإظهار Per-VLAN STP عمليًا."
+            "text": "توزيع VLAN 99 على SW2 كـRoot Primary وSW3 كـRoot Secondary مقصود لإظهار Per-VLAN STP عمليًا."
           }
         },
         "terminal": {
@@ -362,9 +362,9 @@
             {
               "id": "cmd-11",
               "order": 11,
-              "prompt": "SW1(config)#",
+              "prompt": "SW3(config)#",
               "command": "spanning-tree vlan 99 root secondary",
-              "description": "يجعل SW1 Root Secondary لـVLAN 99."
+              "description": "يجعل SW3 Root Secondary لـVLAN 99."
             }
           ]
         }
