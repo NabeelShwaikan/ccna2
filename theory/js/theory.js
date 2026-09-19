@@ -157,6 +157,61 @@
     const data=await r.json(); cache.set(path,data); return data;
   }
 
+
+  let stpAssetsPromise=null;
+
+  function loadStyleOnce(id,href){
+    if(document.getElementById(id)) return Promise.resolve();
+    return new Promise((resolve,reject)=>{
+      const link=document.createElement('link');
+      link.id=id;
+      link.rel='stylesheet';
+      link.href=href;
+      link.onload=()=>resolve();
+      link.onerror=()=>reject(new Error(`تعذر تحميل ${href}`));
+      document.head.appendChild(link);
+    });
+  }
+
+  function loadScriptOnce(id,src){
+    const existing=document.getElementById(id);
+    if(existing){
+      if(window.STPAnimation) return Promise.resolve();
+      return new Promise((resolve,reject)=>{
+        existing.addEventListener('load',()=>resolve(),{once:true});
+        existing.addEventListener('error',()=>reject(new Error(`تعذر تحميل ${src}`)),{once:true});
+      });
+    }
+    return new Promise((resolve,reject)=>{
+      const script=document.createElement('script');
+      script.id=id;
+      script.src=src;
+      script.defer=true;
+      script.onload=()=>resolve();
+      script.onerror=()=>reject(new Error(`تعذر تحميل ${src}`));
+      document.head.appendChild(script);
+    });
+  }
+
+  async function mountInteractiveContent(){
+    const host=content.querySelector('[data-stp-animation]');
+    if(!host) return;
+
+    try{
+      if(!stpAssetsPromise){
+        stpAssetsPromise=Promise.all([
+          loadStyleOnce('stp-animation-css','interactive/stp/stp-animation.css'),
+          loadScriptOnce('stp-animation-js','interactive/stp/stp-animation.js')
+        ]);
+      }
+      await stpAssetsPromise;
+      window.STPAnimation?.mount(host);
+    }catch(err){
+      console.error(err);
+      host.innerHTML='<div class="errorbox">تعذر تحميل العرض الحركي لـSTP.</div>';
+    }
+  }
+
   function moduleHeader(m){
     const steps=(m.lecture?.steps||[]).map(s=>`<div class="lecture-step"><b>${esc(s.time)}</b><span>${esc(s.topic)}</span></div>`).join('');
     return `<section class="unit-head">
@@ -184,6 +239,7 @@
     }).join('');
     content.innerHTML=`<article class="unit">${moduleHeader(m)}${sections}</article>`;
     bindStudentNotes();
+    void mountInteractiveContent();
     renderTOC(m);
     attachObservers();
     window.scrollTo({top:0,behavior:'smooth'});
