@@ -84,7 +84,7 @@
           <div>
             <div class="stp-journey-kicker">STP INTERACTIVE JOURNEY</div>
             <h4>شاهد STP وهو يتخذ القرار</h4>
-            <p>نفس فكرة رحلة البيانات: BPDU تتحرك فعليًا على الوصلات، والقرار يظهر أمامك مرحلة بمرحلة.</p>
+            <p></p>
           </div>
           <div class="stp-controls" aria-label="أدوات العرض الحركي">
             <button class="stp-btn" type="button" data-stp-prev>السابق</button>
