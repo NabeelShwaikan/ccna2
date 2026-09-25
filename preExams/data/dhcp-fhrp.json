@@ -1,1 +1,18 @@
-
+{
+  "schemaVersion": "1.1",
+  "course": "CCNA2 - Switching, Routing, and Wireless Essentials",
+  "courseVersion": "SRWE v7",
+  "section": {
+    "id": "dhcp-fhrp",
+    "number": 4,
+    "title": "Network Services & First-Hop Availability",
+    "description": "DHCP · FHRP · HSRP",
+    "topics": [
+      "DHCP",
+      "FHRP",
+      "HSRP"
+    ],
+    "status": "empty"
+  },
+  "questions": []
+}

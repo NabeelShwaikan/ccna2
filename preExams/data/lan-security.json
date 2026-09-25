@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.1",
+  "course": "CCNA2 - Switching, Routing, and Wireless Essentials",
+  "courseVersion": "SRWE v7",
+  "section": {
+    "id": "lan-security",
+    "number": 5,
+    "title": "LAN Security",
+    "description": "Port Security · DHCP Snooping · DAI · VLAN Attacks",
+    "topics": [
+      "LAN Security",
+      "Port Security",
+      "DHCP Snooping",
+      "Dynamic ARP Inspection",
+      "VLAN Attacks"
+    ],
+    "status": "empty"
+  },
+  "questions": []
+}

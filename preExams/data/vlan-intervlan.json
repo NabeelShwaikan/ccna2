@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "1.1",
+  "course": "CCNA2 - Switching, Routing, and Wireless Essentials",
+  "courseVersion": "SRWE v7",
+  "section": {
+    "id": "vlan-intervlan",
+    "number": 2,
+    "title": "VLAN & Inter-VLAN Routing",
+    "description": "VLAN · Trunking · Inter-VLAN Routing · Router-on-a-Stick",
+    "topics": [
+      "VLAN",
+      "Trunking",
+      "Inter-VLAN Routing",
+      "Router-on-a-Stick"
+    ],
+    "status": "empty"
+  },
+  "questions": []
+}

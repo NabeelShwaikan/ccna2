@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "1.1",
+  "course": "CCNA2 - Switching, Routing, and Wireless Essentials",
+  "courseVersion": "SRWE v7",
+  "section": {
+    "id": "wlan",
+    "number": 6,
+    "title": "WLAN",
+    "description": "Wireless Concepts · Security · Configuration · Troubleshooting",
+    "topics": [
+      "WLAN Concepts",
+      "Wireless Security",
+      "Wireless Configuration",
+      "Wireless Troubleshooting"
+    ],
+    "status": "empty"
+  },
+  "questions": []
+}

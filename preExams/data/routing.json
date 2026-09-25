@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.1",
+  "course": "CCNA2 - Switching, Routing, and Wireless Essentials",
+  "courseVersion": "SRWE v7",
+  "section": {
+    "id": "routing",
+    "number": 7,
+    "title": "Routing & Troubleshooting",
+    "description": "Routing Concepts · Static · Default · IPv4/IPv6 · Troubleshooting",
+    "topics": [
+      "Routing Concepts",
+      "Static Routing",
+      "Default Routing",
+      "IPv4/IPv6 Routing",
+      "Troubleshooting"
+    ],
+    "status": "empty"
+  },
+  "questions": []
+}

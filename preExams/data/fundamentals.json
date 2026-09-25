@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.1",
+  "course": "CCNA2 - Switching, Routing, and Wireless Essentials",
+  "courseVersion": "SRWE v7",
+  "section": {
+    "id": "fundamentals",
+    "number": 1,
+    "title": "Device Configuration & Switching Concepts",
+    "description": "Basic Device Configuration · Switching Concepts",
+    "topics": [
+      "Basic Device Configuration",
+      "Switching Concepts"
+    ],
+    "status": "empty"
+  },
+  "questions": []
+}

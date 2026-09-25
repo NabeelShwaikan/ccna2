@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.1",
+  "course": "CCNA2 - Switching, Routing, and Wireless Essentials",
+  "courseVersion": "SRWE v7",
+  "section": {
+    "id": "stp-etherchannel",
+    "number": 3,
+    "title": "STP & EtherChannel",
+    "description": "STP · RSTP · EtherChannel · LACP · PAgP",
+    "topics": [
+      "STP",
+      "RSTP",
+      "EtherChannel",
+      "LACP",
+      "PAgP"
+    ],
+    "status": "empty"
+  },
+  "questions": []
+}
