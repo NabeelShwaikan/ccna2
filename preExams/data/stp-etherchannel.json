@@ -1,20 +1,1283 @@
 {
   "schemaVersion": "1.1",
+  "bankVersion": "1.0",
   "course": "CCNA2 - Switching, Routing, and Wireless Essentials",
   "courseVersion": "SRWE v7",
   "section": {
     "id": "stp-etherchannel",
     "number": 3,
     "title": "STP & EtherChannel",
-    "description": "STP · RSTP · EtherChannel · LACP · PAgP",
-    "topics": [
+    "description": "STP · Root Bridge · Port Roles · Rapid PVST+ · EtherChannel · LACP · PAgP · Troubleshooting",
+    "modules": [
       "STP",
-      "RSTP",
-      "EtherChannel",
-      "LACP",
-      "PAgP"
+      "EtherChannel"
     ],
-    "status": "empty"
+    "status": "approved",
+    "approvedQuestionCount": 40,
+    "lastReviewed": "2026-09-25"
   },
-  "questions": []
+  "assessmentAlignment": {
+    "source": "SRWE v7 Module & Final Exam Design Documents.xlsx",
+    "moduleGroupExamNormalizedPercent": {
+      "STP": 55,
+      "EtherChannel": 45
+    },
+    "finalExamCoveragePercent": {
+      "STP": 5.25,
+      "EtherChannel": 4.75
+    },
+    "questionAllocation": {
+      "STP": 22,
+      "EtherChannel": 18
+    }
+  },
+  "coverageMatrix": [
+    {
+      "module": "STP",
+      "area": "Purpose of STP & Layer 2 Loops",
+      "learningFocus": "Redundancy, loops, broadcast storms, MAC instability and BPDUs",
+      "questionCount": 5,
+      "questionIds": [
+        "STP-001",
+        "STP-002",
+        "STP-003",
+        "STP-004",
+        "STP-005"
+      ]
+    },
+    {
+      "module": "STP",
+      "area": "Root Bridge Election & Bridge ID",
+      "learningFocus": "Bridge ID, priority, MAC tie-break and root election",
+      "questionCount": 5,
+      "questionIds": [
+        "STP-006",
+        "STP-007",
+        "STP-008",
+        "STP-009",
+        "STP-010"
+      ]
+    },
+    {
+      "module": "STP",
+      "area": "Root Port / Designated Port Selection",
+      "learningFocus": "Root path cost, port roles and superior BPDU tie-breaks",
+      "questionCount": 6,
+      "questionIds": [
+        "STP-011",
+        "STP-012",
+        "STP-013",
+        "STP-014",
+        "STP-015",
+        "STP-016"
+      ]
+    },
+    {
+      "module": "STP",
+      "area": "STP Operation & Port States",
+      "learningFocus": "BPDUs, traditional 802.1D states and root-port behavior",
+      "questionCount": 3,
+      "questionIds": [
+        "STP-017",
+        "STP-018",
+        "STP-019"
+      ]
+    },
+    {
+      "module": "STP",
+      "area": "Rapid PVST+ / RSTP Evolution",
+      "learningFocus": "Faster convergence, RSTP states and per-VLAN operation",
+      "questionCount": 3,
+      "questionIds": [
+        "STP-020",
+        "STP-021",
+        "STP-022"
+      ]
+    },
+    {
+      "module": "EtherChannel",
+      "area": "EtherChannel Concepts & Benefits",
+      "learningFocus": "Bundling, bandwidth, redundancy and STP interaction",
+      "questionCount": 4,
+      "questionIds": [
+        "ETH-001",
+        "ETH-002",
+        "ETH-003",
+        "ETH-004"
+      ]
+    },
+    {
+      "module": "EtherChannel",
+      "area": "LACP / PAgP Modes & Compatibility",
+      "learningFocus": "Negotiation protocols, modes and compatibility",
+      "questionCount": 5,
+      "questionIds": [
+        "ETH-005",
+        "ETH-006",
+        "ETH-007",
+        "ETH-008",
+        "ETH-009"
+      ]
+    },
+    {
+      "module": "EtherChannel",
+      "area": "EtherChannel Configuration",
+      "learningFocus": "Member consistency, channel-group and static/negotiated modes",
+      "questionCount": 4,
+      "questionIds": [
+        "ETH-010",
+        "ETH-011",
+        "ETH-012",
+        "ETH-013"
+      ]
+    },
+    {
+      "module": "EtherChannel",
+      "area": "Verification & Troubleshooting",
+      "learningFocus": "show etherchannel summary, consistency checks and negotiation faults",
+      "questionCount": 5,
+      "questionIds": [
+        "ETH-014",
+        "ETH-015",
+        "ETH-016",
+        "ETH-017",
+        "ETH-018"
+      ]
+    }
+  ],
+  "reviewRecord": {
+    "technicalReview": "approved",
+    "assessmentReview": "approved",
+    "educationalReview": "approved",
+    "studentClarityReview": "approved",
+    "mobileInteractionReview": "approved",
+    "reviewDate": "2026-09-25",
+    "notes": "Original questions aligned to SRWE v7 Modules 5–6. Cisco terminology retained in English; Arabic explanations reviewed for clarity. Detailed STP and EtherChannel behaviors verified against Cisco Catalyst configuration documentation."
+  },
+  "questions": [
+    {
+      "module": "STP",
+      "topic": "STP Purpose",
+      "subtopic": "Layer 2 redundancy",
+      "learningObjective": "شرح سبب استخدام STP في شبكة Layer 2 ذات روابط احتياطية",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-001",
+      "question": "ما الوظيفة الأساسية لـ STP في شبكة Layer 2 تحتوي على مسارات متكررة؟",
+      "explanation": "STP يبني Topology خالية من الحلقات عبر وضع بعض المسارات المتكررة في حالة غير Forwarding، مع إبقائها متاحة كمسارات احتياطية عند فشل المسار النشط.",
+      "options": [
+        "منع Layer 2 loops مع الإبقاء على Redundancy",
+        "زيادة سرعة كل منفذ Ethernet",
+        "توزيع IPv4 addresses تلقائيًا",
+        "تشفير BPDUs بين السويتشات"
+      ],
+      "correctAnswer": "منع Layer 2 loops مع الإبقاء على Redundancy"
+    },
+    {
+      "module": "STP",
+      "topic": "STP Purpose",
+      "subtopic": "Layer 2 loops",
+      "learningObjective": "تمييز أثر Layer 2 loop على Ethernet frames",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-002",
+      "question": "وجود مسارات Layer 2 متكررة من دون آلية لمنع الحلقات قد يؤدي إلى Broadcast storms وعدم استقرار MAC Address Table.",
+      "explanation": "في Ethernet لا يوجد TTL داخل Layer 2 frame، لذلك يمكن للحركة أن تستمر في الدوران. ومن النتائج الشائعة Broadcast storms وتعلم عنوان MAC عبر منافذ مختلفة بصورة متكررة.",
+      "correctAnswer": "صح"
+    },
+    {
+      "module": "STP",
+      "topic": "STP Purpose",
+      "subtopic": "Loop symptoms",
+      "learningObjective": "التعرف على أعراض Layer 2 loop",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-003",
+      "question": "أي ثلاث نتائج قد تشير إلى وجود Layer 2 loop؟ اختر ثلاث إجابات.",
+      "explanation": "الحلقة قد تكرر Frames، وتسبب Broadcast storm، وتجعل السويتش يتعلم نفس Source MAC عبر منافذ مختلفة. Ethernet frame لا يستخدم TTL مثل IP packet.",
+      "options": [
+        "Broadcast storm",
+        "MAC address table instability",
+        "Duplicate frames تصل إلى الأجهزة",
+        "انخفاض TTL في Ethernet frame حتى يصل إلى صفر",
+        "تحويل Access ports تلقائيًا إلى Trunk"
+      ],
+      "correctAnswer": [
+        "Broadcast storm",
+        "MAC address table instability",
+        "Duplicate frames تصل إلى الأجهزة"
+      ]
+    },
+    {
+      "module": "STP",
+      "topic": "STP Purpose",
+      "subtopic": "Loop prevention",
+      "learningObjective": "ربط مفاهيم STP الأساسية بوظائفها",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-004",
+      "question": "طابق كل مفهوم مع الوصف الأنسب.",
+      "explanation": "STP يعتمد على BPDUs لاختيار Root Bridge وتحديد المسارات التي تعمل والمسارات الاحتياطية، وبذلك يحافظ على Redundancy من دون إبقاء جميع المسارات في Forwarding.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "Redundant link",
+          "right": "مسار احتياطي يمكن استخدامه عند فشل المسار الأساسي"
+        },
+        {
+          "id": "p2",
+          "left": "BPDU",
+          "right": "رسالة تحكم تستخدمها السويتشات لبناء Spanning Tree"
+        },
+        {
+          "id": "p3",
+          "left": "Blocked / Discarding path",
+          "right": "مسار يمنع Forwarding العادي لتجنب الحلقة"
+        },
+        {
+          "id": "p4",
+          "left": "Root Bridge",
+          "right": "السويتش المرجعي الذي تُبنى نحوه أفضل المسارات"
+        }
+      ]
+    },
+    {
+      "module": "STP",
+      "topic": "STP Purpose",
+      "subtopic": "Troubleshooting loop",
+      "learningObjective": "تحليل أعراض شبكة لاكتشاف Layer 2 loop",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-005",
+      "question": "بعد توصيل كابل إضافي بين Switchين بدأت الشبكة تعاني ارتفاعًا شديدًا في Traffic، وتظهر عناوين MAC نفسها بالتناوب على منافذ مختلفة. ما التفسير الأكثر احتمالًا؟",
+      "explanation": "اجتماع Traffic مرتفع جدًا مع MAC flapping بعد إضافة رابط متكرر علامة قوية على Layer 2 loop. وظيفة STP هي منع هذا السيناريو عبر إبقاء Topology فعالة خالية من الحلقات.",
+      "options": [
+        "نشأت Layer 2 loop والمسار المتكرر لم يُحجب بشكل صحيح",
+        "تعطل DHCP server",
+        "حدث Native VLAN mismatch فقط",
+        "تم اختيار Root Bridge جديد بشكل طبيعي"
+      ],
+      "correctAnswer": "نشأت Layer 2 loop والمسار المتكرر لم يُحجب بشكل صحيح"
+    },
+    {
+      "module": "STP",
+      "topic": "Root Bridge Election",
+      "subtopic": "Bridge ID",
+      "learningObjective": "تحديد قاعدة انتخاب Root Bridge",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-006",
+      "question": "أي Switch يُنتخب Root Bridge عندما تكون جميع السويتشات في VLAN تستخدم STP؟",
+      "explanation": "يُنتخب السويتش الذي يعلن أقل Bridge ID. يعتمد Bridge ID على Priority ومكونات مرتبطة بالـVLAN وعنوان MAC، لذلك تتم المقارنة عدديًا من الأقل.",
+      "options": [
+        "السويتش صاحب أقل Bridge ID",
+        "السويتش صاحب أعلى MAC address",
+        "السويتش صاحب أكبر عدد منافذ",
+        "السويتش صاحب أعلى Port Priority"
+      ],
+      "correctAnswer": "السويتش صاحب أقل Bridge ID"
+    },
+    {
+      "module": "STP",
+      "topic": "Root Bridge Election",
+      "subtopic": "Priority tie",
+      "learningObjective": "تطبيق قاعدة كسر التعادل في Root election",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-007",
+      "question": "ثلاثة Switches تستخدم Priority نفسها في VLAN 10. ما العامل الذي يحسم انتخاب Root Bridge؟",
+      "explanation": "عند تساوي Priority، تصبح مقارنة Bridge ID معتمدة على الجزء التالي من المعرف؛ في هذا السيناريو يفوز السويتش صاحب أقل MAC address.",
+      "options": [
+        "أقل MAC address",
+        "أعلى MAC address",
+        "أعلى Interface bandwidth",
+        "أقل رقم منفذ على كل Switch"
+      ],
+      "correctAnswer": "أقل MAC address"
+    },
+    {
+      "module": "STP",
+      "topic": "Root Bridge Election",
+      "subtopic": "BID components",
+      "learningObjective": "تمييز العناصر المؤثرة في STP election",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-008",
+      "question": "طابق العنصر مع دوره في STP.",
+      "explanation": "انتخاب Root يعتمد على Bridge ID، بينما Root Path Cost يستخدم لاحقًا لاختيار أفضل طريق من السويتشات غير الجذرية نحو Root Bridge.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "Bridge Priority",
+          "right": "القيمة التي يمكن ضبطها للتأثير في انتخاب Root Bridge"
+        },
+        {
+          "id": "p2",
+          "left": "MAC Address",
+          "right": "يكسر التعادل عندما تتساوى الأولويات المناسبة"
+        },
+        {
+          "id": "p3",
+          "left": "Bridge ID",
+          "right": "القيمة التي تتم مقارنتها لانتخاب Root Bridge"
+        },
+        {
+          "id": "p4",
+          "left": "Root Path Cost",
+          "right": "يساعد السويتش غير الجذر في اختيار أفضل مسار نحو Root"
+        }
+      ]
+    },
+    {
+      "module": "STP",
+      "topic": "Root Bridge Election",
+      "subtopic": "Root properties",
+      "learningObjective": "تمييز خصائص Root Bridge الصحيحة",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-009",
+      "question": "أي عبارتين صحيحتان عن Root Bridge؟ اختر إجابتين.",
+      "explanation": "Root Bridge هو المرجع الذي تُحسب نحوه المسارات. لأنه هو الجذر نفسه، فلا يحتاج Root Port. منافذه المتصلة بالـsegments تكون عادة Designated وليست جميعها Blocking.",
+      "options": [
+        "يكون المرجع المنطقي لحساب أفضل المسارات في STP",
+        "لا يمتلك Root Port",
+        "يجب أن يكون دائمًا السويتش صاحب أعلى MAC address",
+        "يضع كل منافذه دائمًا في Blocking"
+      ],
+      "correctAnswer": [
+        "يكون المرجع المنطقي لحساب أفضل المسارات في STP",
+        "لا يمتلك Root Port"
+      ]
+    },
+    {
+      "module": "STP",
+      "topic": "Root Bridge Election",
+      "subtopic": "Election calculation",
+      "learningObjective": "حساب Root Bridge من Bridge IDs معطاة",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-010",
+      "question": "لدى SW1 Priority = 24576 وMAC = 00AA.AAAA.AAAA، وSW2 Priority = 24576 وMAC = 0011.1111.1111، وSW3 Priority = 32768. من يُنتخب Root Bridge؟",
+      "explanation": "SW1 وSW2 لديهما Priority أقل من SW3، ثم يكسر التعادل بينهما أقل MAC address. لذلك SW2 يعلن Bridge ID أقل ويصبح Root.",
+      "options": [
+        "SW1",
+        "SW2",
+        "SW3",
+        "لا يمكن تحديده دون معرفة Port Cost"
+      ],
+      "correctAnswer": "SW2"
+    },
+    {
+      "module": "STP",
+      "topic": "STP Port Roles",
+      "subtopic": "Root Port",
+      "learningObjective": "تحديد وظيفة Root Port",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-011",
+      "question": "ما الوصف الأدق لـ Root Port على Switch غير Root؟",
+      "explanation": "كل Switch غير الجذر يختار Root Port واحدًا لكل Spanning Tree instance، وهو المنفذ الذي يوفر أفضل مسار من ذلك السويتش إلى Root Bridge.",
+      "options": [
+        "المنفذ الذي يوفر أفضل مسار نحو Root Bridge",
+        "كل منفذ متصل بجهاز End Device",
+        "المنفذ ذو أعلى Port ID دائمًا",
+        "المنفذ المستخدم فقط لإرسال BPDUs من Root Bridge"
+      ],
+      "correctAnswer": "المنفذ الذي يوفر أفضل مسار نحو Root Bridge"
+    },
+    {
+      "module": "STP",
+      "topic": "STP Port Roles",
+      "subtopic": "Roles",
+      "learningObjective": "تمييز Root وDesignated وAlternate roles",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-012",
+      "question": "طابق STP Port Role مع الوصف الأنسب.",
+      "explanation": "تُوزع Roles لمنع الحلقات مع الحفاظ على مسارات احتياطية. Root Port يقود نحو Root، وDesignated يخدم Segment، وAlternate يوفر Backup path.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "Root Port",
+          "right": "أفضل منفذ على Switch غير Root للوصول إلى Root Bridge"
+        },
+        {
+          "id": "p2",
+          "left": "Designated Port",
+          "right": "المنفذ المختار للـForwarding على LAN segment"
+        },
+        {
+          "id": "p3",
+          "left": "Alternate Port",
+          "right": "مسار احتياطي إلى Root لا يكون Forwarding في الحالة المستقرة"
+        },
+        {
+          "id": "p4",
+          "left": "Root Bridge Port",
+          "right": "على Root Bridge تكون المنافذ العاملة نحو Segments في دور Designated"
+        }
+      ]
+    },
+    {
+      "module": "STP",
+      "topic": "STP Port Roles",
+      "subtopic": "Root path cost",
+      "learningObjective": "استخدام Root Path Cost لاختيار Root Port",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-013",
+      "question": "Switch غير Root لديه مساران إلى Root Bridge. تكلفة المسار عبر G0/1 هي 8 وعبر G0/2 هي 19. أي منفذ يُفضل كـ Root Port إذا لم توجد عوامل أخرى تغير القرار؟",
+      "explanation": "STP يفضل أقل Root Path Cost. بما أن تكلفة المسار عبر G0/1 أقل، فهو المرشح الأفضل لـRoot Port.",
+      "options": [
+        "G0/1",
+        "G0/2",
+        "كلاهما Root Port",
+        "المنفذ ذو رقم interface الأكبر"
+      ],
+      "correctAnswer": "G0/1"
+    },
+    {
+      "module": "STP",
+      "topic": "STP Port Roles",
+      "subtopic": "Designated election",
+      "learningObjective": "تحليل اختيار Designated Port على Segment",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-014",
+      "question": "على Segment بين SW2 وSW3، يعلن SW2 Root Path Cost = 8 بينما يعلن SW3 Root Path Cost = 12 إلى Root Bridge. أي طرف يصبح Designated Port إذا لم توجد عوامل تعادل أخرى؟",
+      "explanation": "على كل Segment يفوز الطرف الذي يعلن Superior BPDU؛ عند اختلاف Root Path Cost يكون الأقل أفضل، لذلك منفذ SW2 هو Designated على هذا الـSegment.",
+      "options": [
+        "منفذ SW2",
+        "منفذ SW3",
+        "كلا المنفذين يصبحان Root Port",
+        "كلا المنفذين يدخلان Discarding"
+      ],
+      "correctAnswer": "منفذ SW2"
+    },
+    {
+      "module": "STP",
+      "topic": "STP Port Roles",
+      "subtopic": "Selection factors",
+      "learningObjective": "تمييز المعايير المستخدمة عند اختيار المسارات في STP",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-015",
+      "question": "عند مقارنة BPDUs لاختيار مسار أفضل نحو Root، أي ثلاثة عوامل قد تدخل في كسر التعادل بعد الاتفاق على Root Bridge؟ اختر ثلاث إجابات.",
+      "explanation": "بعد أن تكون الـBPDU تشير إلى Root نفسه، تُفضّل معلومات المسار الأقل Cost، ثم يمكن استخدام Sender Bridge ID ثم Sender Port ID لكسر التعادل حسب الحالة.",
+      "options": [
+        "Root Path Cost",
+        "Sender Bridge ID",
+        "Sender Port ID",
+        "DHCP lease time",
+        "IPv4 default gateway"
+      ],
+      "correctAnswer": [
+        "Root Path Cost",
+        "Sender Bridge ID",
+        "Sender Port ID"
+      ]
+    },
+    {
+      "module": "STP",
+      "topic": "STP Port Roles",
+      "subtopic": "Superior BPDU tie-break",
+      "learningObjective": "ترتيب معايير المقارنة الشائعة عند تساوي Root ID",
+      "difficulty": "Medium",
+      "type": "ordering",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-016",
+      "question": "رتب المعايير التالية من الأعلى أولوية إلى الأقل عند مقارنة BPDUs مرشحة بعد أن يكون Root ID متساويًا.",
+      "explanation": "عند تساوي Root ID تبدأ المقارنة بأقل Root Path Cost، ثم Sender Bridge ID، ثم Sender Port ID. هذا يمنع اختيارًا عشوائيًا عندما تتساوى المسارات جزئيًا.",
+      "items": [
+        {
+          "id": "i1",
+          "text": "أقل Root Path Cost"
+        },
+        {
+          "id": "i2",
+          "text": "أقل Sender Bridge ID"
+        },
+        {
+          "id": "i3",
+          "text": "أقل Sender Port ID"
+        }
+      ],
+      "correctOrder": [
+        "i1",
+        "i2",
+        "i3"
+      ]
+    },
+    {
+      "module": "STP",
+      "topic": "STP Operation",
+      "subtopic": "Port states",
+      "learningObjective": "ربط حالات 802.1D التقليدية بسلوك المنفذ",
+      "difficulty": "Easy",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-017",
+      "question": "طابق STP state التقليدية مع السلوك الأنسب.",
+      "explanation": "في 802.1D ينتقل المنفذ خلال حالات قبل Forwarding. Listening لا يتعلم MAC، بينما Learning يبدأ بناء MAC table قبل السماح بتمرير User traffic.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "Blocking",
+          "right": "لا يمرر User frames ويمنع المسار المتكرر"
+        },
+        {
+          "id": "p2",
+          "left": "Listening",
+          "right": "يشارك في STP ولا يتعلم MAC addresses"
+        },
+        {
+          "id": "p3",
+          "left": "Learning",
+          "right": "يتعلم MAC addresses لكنه لا يمرر User frames بعد"
+        },
+        {
+          "id": "p4",
+          "left": "Forwarding",
+          "right": "يتعلم MAC ويقوم بForwarding للحركة"
+        }
+      ]
+    },
+    {
+      "module": "STP",
+      "topic": "STP Operation",
+      "subtopic": "BPDU behavior",
+      "learningObjective": "شرح دور BPDUs في STP",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-018",
+      "question": "ما الاستخدام الأساسي لـ BPDUs في STP؟",
+      "explanation": "BPDUs هي رسائل تحكم بين السويتشات، تحمل معلومات يستخدمها STP لانتخاب Root Bridge وتحديد أفضل المسارات والأدوار.",
+      "options": [
+        "تبادل معلومات تساعد على انتخاب Root وتحديد Loop-free topology",
+        "نقل بيانات المستخدم بين VLANs",
+        "توزيع عناوين IPv6",
+        "تشفير MAC Address Table"
+      ],
+      "correctAnswer": "تبادل معلومات تساعد على انتخاب Root وتحديد Loop-free topology"
+    },
+    {
+      "module": "STP",
+      "topic": "STP Operation",
+      "subtopic": "Root ports",
+      "learningObjective": "تمييز وجود Root Port على Root Bridge",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-019",
+      "question": "يمتلك Root Bridge منفذًا واحدًا على الأقل بدور Root Port.",
+      "explanation": "Root Port هو أفضل منفذ على Switch غير Root للوصول إلى Root Bridge. أما Root Bridge نفسه فلا يحتاج Root Port.",
+      "correctAnswer": "خطأ"
+    },
+    {
+      "module": "STP",
+      "topic": "Rapid PVST+",
+      "subtopic": "RSTP purpose",
+      "learningObjective": "تمييز الفائدة الأساسية من Rapid STP",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-020",
+      "question": "ما الميزة العامة التي يقدمها Rapid PVST+ مقارنةً بـSTP التقليدي؟",
+      "explanation": "Rapid PVST+ يعتمد مفاهيم RSTP لتقليل زمن التقارب عند تغير الشبكة، مع بقاء فكرة Root Bridge وPort Roles جزءًا من العملية.",
+      "options": [
+        "تقارب أسرع عند تغير Topology",
+        "إلغاء الحاجة إلى Root Bridge",
+        "تحويل Layer 2 إلى Layer 3",
+        "استبدال BPDUs بـARP"
+      ],
+      "correctAnswer": "تقارب أسرع عند تغير Topology"
+    },
+    {
+      "module": "STP",
+      "topic": "Rapid PVST+",
+      "subtopic": "Port states",
+      "learningObjective": "تمييز حالات RSTP الأساسية",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-021",
+      "question": "أي مجموعة تمثل حالات Port الرئيسية في RSTP / Rapid PVST+؟",
+      "explanation": "RSTP يجمع عدة حالات 802.1D غير الممررة للحركة في حالة Discarding، ويستخدم ثلاث حالات تشغيل رئيسية: Discarding وLearning وForwarding.",
+      "options": [
+        "Discarding, Learning, Forwarding",
+        "Blocking, Listening, Learning, Forwarding, Disabled فقط",
+        "Down, Init, Up",
+        "Passive, Active, Forwarding"
+      ],
+      "correctAnswer": "Discarding, Learning, Forwarding"
+    },
+    {
+      "module": "STP",
+      "topic": "Rapid PVST+",
+      "subtopic": "Per-VLAN operation",
+      "learningObjective": "شرح معنى Rapid PVST+ بصورة مبسطة",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 5 STP; Cisco Catalyst 2960 STP Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_stp_2960_2960s_cg.html",
+      "id": "STP-022",
+      "question": "ماذا يعني جانب \"PVST+\" في Rapid PVST+؟",
+      "explanation": "في PVST+/Rapid PVST+ يمكن أن تعمل Spanning Tree instance مستقلة لكل VLAN، ما يسمح باختلاف Root Bridge أو topology بين VLANs.",
+      "options": [
+        "وجود Spanning Tree instance لكل VLAN",
+        "وجود Root Bridge واحد فقط لكل الشبكات مهما تعددت VLANs",
+        "تشغيل STP على Routers فقط",
+        "منع استخدام Trunk links"
+      ],
+      "correctAnswer": "وجود Spanning Tree instance لكل VLAN"
+    },
+    {
+      "module": "EtherChannel",
+      "topic": "EtherChannel Concepts",
+      "subtopic": "Bundling links",
+      "learningObjective": "شرح وظيفة EtherChannel",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 6 EtherChannel; Cisco Catalyst 2960 EtherChannel Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_etherchanl_2960_2960s_cg.html",
+      "id": "ETH-001",
+      "question": "ما الفكرة الأساسية لـ EtherChannel؟",
+      "explanation": "EtherChannel يجمع عدة Physical links لتظهر منطقيًا كـPort-Channel واحد، ما يزيد السعة المتاحة ويوفر Redundancy للرابط.",
+      "options": [
+        "تجميع عدة روابط Ethernet في رابط منطقي واحد",
+        "تحويل Access Port إلى Routed Port",
+        "استبدال STP بالكامل",
+        "إنشاء VLAN تلقائيًا على جميع السويتشات"
+      ],
+      "correctAnswer": "تجميع عدة روابط Ethernet في رابط منطقي واحد"
+    },
+    {
+      "module": "EtherChannel",
+      "topic": "EtherChannel Concepts",
+      "subtopic": "STP interaction",
+      "learningObjective": "تمييز تعامل STP مع Port-Channel",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 6 EtherChannel; Cisco Catalyst 2960 EtherChannel Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_etherchanl_2960_2960s_cg.html",
+      "id": "ETH-002",
+      "question": "يتعامل STP مع EtherChannel كوصلة منطقية واحدة بدل اتخاذ قرار مستقل لكل Member Port داخل القناة.",
+      "explanation": "بعد تكوين EtherChannel بصورة صحيحة، يرى STP الـPort-Channel كمسار منطقي واحد، فلا يحجب بعض أعضاء القناة منفردين باعتبارهم روابط متوازية مستقلة.",
+      "correctAnswer": "صح"
+    },
+    {
+      "module": "EtherChannel",
+      "topic": "EtherChannel Concepts",
+      "subtopic": "Benefits",
+      "learningObjective": "تحديد فوائد EtherChannel العملية",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 6 EtherChannel; Cisco Catalyst 2960 EtherChannel Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_etherchanl_2960_2960s_cg.html",
+      "id": "ETH-003",
+      "question": "أي ثلاث فوائد صحيحة لـ EtherChannel؟ اختر ثلاث إجابات.",
+      "explanation": "EtherChannel يجمع السعة، ويستمر عند فقد Member link ما دامت القناة تحتوي روابط عاملة، كما يتعامل STP معه منطقيًا كوصلة واحدة. لكن المنافذ الأعضاء تحتاج إعدادات متوافقة.",
+      "options": [
+        "زيادة Aggregate bandwidth",
+        "توفير Redundancy عند فشل Member link",
+        "معاملة عدة الروابط كرابط منطقي واحد من منظور STP",
+        "إلغاء الحاجة إلى تطابق إعدادات المنافذ الأعضاء",
+        "توزيع IP addresses على المستخدمين"
+      ],
+      "correctAnswer": [
+        "زيادة Aggregate bandwidth",
+        "توفير Redundancy عند فشل Member link",
+        "معاملة عدة الروابط كرابط منطقي واحد من منظور STP"
+      ]
+    },
+    {
+      "module": "EtherChannel",
+      "topic": "EtherChannel Concepts",
+      "subtopic": "Member failure",
+      "learningObjective": "تحليل أثر فشل رابط داخل EtherChannel",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 6 EtherChannel; Cisco Catalyst 2960 EtherChannel Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_etherchanl_2960_2960s_cg.html",
+      "id": "ETH-004",
+      "question": "EtherChannel مكوّن من أربع روابط عاملة. تعطل رابط واحد فقط بينما بقيت بقية الروابط سليمة. ما النتيجة المتوقعة غالبًا؟",
+      "explanation": "من فوائد EtherChannel أن فشل Member link لا يعني بالضرورة سقوط الرابط المنطقي كله؛ تستمر القناة عبر الروابط المتبقية لكن تقل السعة المتاحة.",
+      "options": [
+        "تبقى القناة عاملة بسعة إجمالية أقل",
+        "تتوقف القناة بالكامل دائمًا",
+        "يتحول Port-Channel تلقائيًا إلى Access Port",
+        "يتم انتخاب Root Bridge جديد بالضرورة"
+      ],
+      "correctAnswer": "تبقى القناة عاملة بسعة إجمالية أقل"
+    },
+    {
+      "module": "EtherChannel",
+      "topic": "LACP & PAgP",
+      "subtopic": "Negotiation modes",
+      "learningObjective": "مطابقة بروتوكولات EtherChannel مع أوضاع التفاوض",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 6 EtherChannel; Cisco Catalyst 2960 EtherChannel Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_etherchanl_2960_2960s_cg.html",
+      "id": "ETH-005",
+      "question": "طابق كل Mode مع الوصف الأنسب.",
+      "explanation": "active وdesirable هما الوضعان المبادران في LACP وPAgP على الترتيب، بينما passive وauto ينتظران الطرف الآخر ليبدأ التفاوض.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "LACP active",
+          "right": "يبدأ تفاوض LACP"
+        },
+        {
+          "id": "p2",
+          "left": "LACP passive",
+          "right": "يستجيب لـLACP لكنه لا يبدأ التفاوض"
+        },
+        {
+          "id": "p3",
+          "left": "PAgP desirable",
+          "right": "يبدأ تفاوض PAgP"
+        },
+        {
+          "id": "p4",
+          "left": "PAgP auto",
+          "right": "يستجيب لـPAgP لكنه لا يبدأ التفاوض"
+        }
+      ]
+    },
+    {
+      "module": "EtherChannel",
+      "topic": "LACP & PAgP",
+      "subtopic": "Protocol ownership",
+      "learningObjective": "تمييز البروتوكول القياسي من Cisco proprietary",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 6 EtherChannel; Cisco Catalyst 2960 EtherChannel Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_etherchanl_2960_2960s_cg.html",
+      "id": "ETH-006",
+      "question": "أي بروتوكول تفاوض EtherChannel يُعد معيارًا مفتوحًا IEEE وليس Cisco proprietary؟",
+      "explanation": "LACP مرتبط بمعيار IEEE 802.3ad/802.1AX، بينما PAgP بروتوكول Cisco proprietary.",
+      "options": [
+        "LACP",
+        "PAgP",
+        "DTP",
+        "VTP"
+      ],
+      "correctAnswer": "LACP"
+    },
+    {
+      "module": "EtherChannel",
+      "topic": "LACP & PAgP",
+      "subtopic": "LACP compatibility",
+      "learningObjective": "تحديد توافق أوضاع LACP",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 6 EtherChannel; Cisco Catalyst 2960 EtherChannel Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_etherchanl_2960_2960s_cg.html",
+      "id": "ETH-007",
+      "question": "على طرفي رابط EtherChannel تم ضبط LACP: الطرف الأول `active` والطرف الثاني `passive`. ما النتيجة المتوقعة؟",
+      "explanation": "active يبدأ تفاوض LACP، وpassive يستجيب له، لذلك هذا الزوج متوافق ويمكنه تكوين EtherChannel إذا كانت بقية خصائص المنافذ متوافقة.",
+      "options": [
+        "يمكن أن يتكوّن EtherChannel",
+        "لن يتكوّن لأن كلا الطرفين يجب أن يكون active",
+        "يتكوّن PAgP بدل LACP",
+        "يتحوّل الرابط تلقائيًا إلى mode on"
+      ],
+      "correctAnswer": "يمكن أن يتكوّن EtherChannel"
+    },
+    {
+      "module": "EtherChannel",
+      "topic": "LACP & PAgP",
+      "subtopic": "Compatible pairs",
+      "learningObjective": "تمييز أزواج Modes القادرة على التفاوض",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 6 EtherChannel; Cisco Catalyst 2960 EtherChannel Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_etherchanl_2960_2960s_cg.html",
+      "id": "ETH-008",
+      "question": "أي زوجين يمكنهما تكوين EtherChannel بالتفاوض إذا كانت بقية الإعدادات متوافقة؟ اختر إجابتين.",
+      "explanation": "في LACP يحتاج التفاوض إلى طرف واحد على الأقل active. passive + passive لا يبدأ التفاوض. وبالمثل PAgP auto + auto لا يبدأ التفاوض.",
+      "options": [
+        "LACP active + active",
+        "LACP active + passive",
+        "LACP passive + passive",
+        "PAgP auto + auto"
+      ],
+      "correctAnswer": [
+        "LACP active + active",
+        "LACP active + passive"
+      ]
+    },
+    {
+      "module": "EtherChannel",
+      "topic": "LACP & PAgP",
+      "subtopic": "Protocol mismatch",
+      "learningObjective": "تحليل سبب فشل EtherChannel عند اختلاف البروتوكول",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 6 EtherChannel; Cisco Catalyst 2960 EtherChannel Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_etherchanl_2960_2960s_cg.html",
+      "id": "ETH-009",
+      "question": "SW1 يستخدم `channel-group 1 mode active` بينما SW2 يستخدم `channel-group 1 mode desirable`. لماذا لا تتكون القناة بالتفاوض؟",
+      "explanation": "mode active يستخدم LACP بينما desirable يستخدم PAgP. لا يتفاوض بروتوكول مع الآخر، لذلك يجب توحيد البروتوكول والأوضاع المتوافقة.",
+      "options": [
+        "الطرفان يستخدمان بروتوكولين مختلفين: LACP وPAgP",
+        "رقم Channel-group يجب أن يكون 0 دائمًا",
+        "active لا يعمل على Switches",
+        "desirable يحتاج Access Port فقط"
+      ],
+      "correctAnswer": "الطرفان يستخدمان بروتوكولين مختلفين: LACP وPAgP"
+    },
+    {
+      "module": "EtherChannel",
+      "topic": "EtherChannel Configuration",
+      "subtopic": "LACP configuration sequence",
+      "learningObjective": "ترتيب خطوات أساسية لتكوين Layer 2 LACP EtherChannel",
+      "difficulty": "Medium",
+      "type": "ordering",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 6 EtherChannel; Cisco Catalyst 2960 EtherChannel Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_etherchanl_2960_2960s_cg.html",
+      "id": "ETH-010",
+      "question": "رتب الخطوات الأساسية التالية لتكوين LACP EtherChannel على مجموعة منافذ.",
+      "explanation": "ابدأ بتحديد المنافذ، ثم اجعل خصائصها المتأثرة بالتجميع متوافقة، وبعد ذلك أضفها إلى Channel Group باستخدام LACP، وأخيرًا تحقق من حالة القناة.",
+      "items": [
+        {
+          "id": "i1",
+          "text": "الدخول إلى `interface range` للمنافذ المراد تجميعها"
+        },
+        {
+          "id": "i2",
+          "text": "توحيد إعدادات Layer 2 المطلوبة مثل Access/Trunk وVLANs"
+        },
+        {
+          "id": "i3",
+          "text": "تنفيذ `channel-group 1 mode active`"
+        },
+        {
+          "id": "i4",
+          "text": "التحقق من Port-Channel باستخدام أوامر show"
+        }
+      ],
+      "correctOrder": [
+        "i1",
+        "i2",
+        "i3",
+        "i4"
+      ]
+    },
+    {
+      "module": "EtherChannel",
+      "topic": "EtherChannel Configuration",
+      "subtopic": "Channel-group command",
+      "learningObjective": "اختيار أمر تكوين LACP EtherChannel",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 6 EtherChannel; Cisco Catalyst 2960 EtherChannel Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_etherchanl_2960_2960s_cg.html",
+      "id": "ETH-011",
+      "question": "أي أمر Interface Configuration يضيف المنفذ إلى Channel Group 2 ويجعله يبدأ تفاوض LACP؟",
+      "explanation": "في LACP يستخدم `active` لبدء التفاوض. `desirable` و`auto` هما أوضاع PAgP.",
+      "options": [
+        "channel-group 2 mode active",
+        "channel-group 2 mode desirable",
+        "channel-group 2 mode auto",
+        "channel-protocol pagp"
+      ],
+      "correctAnswer": "channel-group 2 mode active"
+    },
+    {
+      "module": "EtherChannel",
+      "topic": "EtherChannel Configuration",
+      "subtopic": "Member consistency",
+      "learningObjective": "تحديد خصائص يجب أن تكون متوافقة بين Member Ports",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 6 EtherChannel; Cisco Catalyst 2960 EtherChannel Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_etherchanl_2960_2960s_cg.html",
+      "id": "ETH-012",
+      "question": "قبل تجميع Layer 2 switch ports في EtherChannel، أي ثلاث خصائص يجب أن تكون متوافقة بينها؟ اختر ثلاث إجابات.",
+      "explanation": "المنافذ الأعضاء يجب أن تكون متوافقة في خصائص Layer 2 الأساسية مثل Speed وDuplex وحالة Trunk أو Access والـVLAN settings ذات الصلة. إعدادات الجهاز الإدارية لا تحدد عضوية القناة.",
+      "options": [
+        "Speed",
+        "Duplex",
+        "Trunk/Access وVLAN-related settings",
+        "Hostname الخاص بالسويتش",
+        "VTY password"
+      ],
+      "correctAnswer": [
+        "Speed",
+        "Duplex",
+        "Trunk/Access وVLAN-related settings"
+      ]
+    },
+    {
+      "module": "EtherChannel",
+      "topic": "EtherChannel Configuration",
+      "subtopic": "Mode on",
+      "learningObjective": "تمييز خصائص static EtherChannel mode on",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 6 EtherChannel; Cisco Catalyst 2960 EtherChannel Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_etherchanl_2960_2960s_cg.html",
+      "id": "ETH-013",
+      "question": "تم ضبط طرفي رابط مجمّع باستخدام `channel-group 1 mode on`. أي عبارة أدق؟",
+      "explanation": "mode on لا يرسل بروتوكول تفاوض؛ لذلك يجب ضبط الطرفين بصورة صحيحة ومتوافقة. عدم وجود negotiation يعني أن الخطأ في الطرف المقابل لا يُصحح تلقائيًا.",
+      "options": [
+        "يُفرض تكوين القناة دون تفاوض LACP أو PAgP ويجب أن تكون الإعدادات على الطرفين متوافقة",
+        "يستخدم LACP active تلقائيًا",
+        "يستخدم PAgP desirable تلقائيًا",
+        "لا يمكن لـSTP رؤية Port-Channel"
+      ],
+      "correctAnswer": "يُفرض تكوين القناة دون تفاوض LACP أو PAgP ويجب أن تكون الإعدادات على الطرفين متوافقة"
+    },
+    {
+      "module": "EtherChannel",
+      "topic": "EtherChannel Troubleshooting",
+      "subtopic": "show etherchannel summary",
+      "learningObjective": "قراءة مخرجات show etherchannel summary",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 6 EtherChannel; Cisco Catalyst 2960 EtherChannel Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_etherchanl_2960_2960s_cg.html",
+      "id": "ETH-014",
+      "question": "في `show etherchannel summary` ظهر Port-Channel بحالة `(SU)` وظهر كل Member Port بعلامة `(P)`. ما التفسير الأفضل؟",
+      "explanation": "في مخرجات Cisco الشائعة تشير S إلى Layer 2 وU إلى Port-Channel in use، بينما P بجانب Member interface تعني أنه Bundled داخل Port-Channel.",
+      "options": [
+        "Layer 2 Port-Channel يعمل والأعضاء Bundled في القناة",
+        "القناة معطلة بالكامل",
+        "المنافذ في Passive فقط ولا توجد قناة",
+        "السويتش يعمل Root Bridge"
+      ],
+      "correctAnswer": "Layer 2 Port-Channel يعمل والأعضاء Bundled في القناة",
+      "cliOutput": "Group  Port-channel  Protocol    Ports\n------+-------------+-----------+-----------------------------\n1      Po1(SU)         LACP      Gi0/1(P) Gi0/2(P)"
+    },
+    {
+      "module": "EtherChannel",
+      "topic": "EtherChannel Troubleshooting",
+      "subtopic": "Consistency",
+      "learningObjective": "تمييز أثر عدم تطابق إعدادات Member Ports",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 6 EtherChannel; Cisco Catalyst 2960 EtherChannel Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_etherchanl_2960_2960s_cg.html",
+      "id": "ETH-015",
+      "question": "اختلاف إعدادات Trunk أو VLAN بين المنافذ التي يفترض أن تكون أعضاء في EtherChannel قد يمنع تكوّن القناة بصورة صحيحة.",
+      "explanation": "Cisco يتحقق من توافق خصائص عديدة بين المنافذ الأعضاء. اختلاف Layer 2 configuration المهم قد يؤدي إلى تعليق منفذ أو عدم ضمه إلى Port-Channel.",
+      "correctAnswer": "صح"
+    },
+    {
+      "module": "EtherChannel",
+      "topic": "EtherChannel Troubleshooting",
+      "subtopic": "Troubleshooting workflow",
+      "learningObjective": "اتباع تسلسل منطقي لتشخيص EtherChannel لا يعمل",
+      "difficulty": "Challenging",
+      "type": "ordering",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 6 EtherChannel; Cisco Catalyst 2960 EtherChannel Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_etherchanl_2960_2960s_cg.html",
+      "id": "ETH-016",
+      "question": "EtherChannel لا يعمل كما هو متوقع. رتب خطوات التشخيص التالية من البداية المنطقية إلى الإجراء الأخير.",
+      "explanation": "ابدأ بمشاهدة الحالة الفعلية، ثم تحقق من التفاوض، وبعدها قارن إعدادات الأعضاء. بعد تحديد السبب صححه وأعد التحقق بدل تغيير الإعدادات عشوائيًا.",
+      "items": [
+        {
+          "id": "i1",
+          "text": "فحص `show etherchannel summary` لمعرفة حالة Port-Channel والأعضاء"
+        },
+        {
+          "id": "i2",
+          "text": "مقارنة LACP/PAgP modes على الطرفين"
+        },
+        {
+          "id": "i3",
+          "text": "التحقق من تطابق Speed/Duplex وAccess/Trunk وVLAN settings"
+        },
+        {
+          "id": "i4",
+          "text": "تصحيح الاختلاف المكتشف ثم إعادة التحقق من حالة القناة"
+        }
+      ],
+      "correctOrder": [
+        "i1",
+        "i2",
+        "i3",
+        "i4"
+      ]
+    },
+    {
+      "module": "EtherChannel",
+      "topic": "EtherChannel Troubleshooting",
+      "subtopic": "Suspended member",
+      "learningObjective": "تشخيص منفذ لا ينضم إلى Bundle",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 6 EtherChannel; Cisco Catalyst 2960 EtherChannel Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_etherchanl_2960_2960s_cg.html",
+      "id": "ETH-017",
+      "question": "ثلاثة منافذ يفترض أن تكون ضمن Po1. يظهر Gi0/1 وGi0/2 كأعضاء، لكن Gi0/3 لا ينضم إلى القناة. ما أول شيء مناسب للتحقق منه؟",
+      "explanation": "عندما يفشل Member واحد فقط في الانضمام بينما البقية تعمل، من المنطقي مقارنة خصائص ذلك المنفذ مع أعضاء القناة للتأكد من Consistency.",
+      "options": [
+        "مقارنة إعدادات Gi0/3 مع بقية Member Ports مثل Speed وDuplex وTrunk/VLAN",
+        "حذف كل VLANs من السويتش",
+        "تغيير Root Bridge فورًا",
+        "تعطيل STP على الشبكة"
+      ],
+      "correctAnswer": "مقارنة إعدادات Gi0/3 مع بقية Member Ports مثل Speed وDuplex وTrunk/VLAN"
+    },
+    {
+      "module": "EtherChannel",
+      "topic": "EtherChannel Troubleshooting",
+      "subtopic": "LACP passive-passive",
+      "learningObjective": "تشخيص قناة LACP لا تبدأ",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 6 EtherChannel; Cisco Catalyst 2960 EtherChannel Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_layer2_etherchanl_2960_2960s_cg.html",
+      "id": "ETH-018",
+      "question": "تم ضبط منفذين على SW1 وSW2 باستخدام `channel-group 5 mode passive` على الطرفين، ولا تتكون القناة. ما التعديل الأدق؟",
+      "explanation": "passive يستجيب لـLACP لكنه لا يبدأ التفاوض. عندما يكون الطرفان passive فلن يبدأ أحدهما العملية؛ يكفي جعل طرف واحد على الأقل active مع بقاء بقية الإعدادات متوافقة.",
+      "options": [
+        "تغيير طرف واحد على الأقل إلى `active`",
+        "تغيير الطرفين إلى `auto`",
+        "تغيير طرف واحد إلى `desirable` مع إبقاء الآخر passive",
+        "إضافة `spanning-tree portfast` على الرابط"
+      ],
+      "correctAnswer": "تغيير طرف واحد على الأقل إلى `active`"
+    }
+  ]
 }
