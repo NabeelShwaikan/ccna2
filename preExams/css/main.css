@@ -205,3 +205,15 @@ h1{font-size:clamp(1.8rem,4vw,3rem);line-height:1.25;margin:.2rem 0 .8rem}
   .shell{width:min(var(--max),calc(100% - 22px))}
 }
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* UI Cleanup v1.3 */
+.compact-header{padding:30px 0 22px}
+.compact-main{padding-top:24px}
+.sections-title{margin:0 0 16px;font-size:1.08rem;color:var(--muted);font-weight:800}
+.compact-main .section-card{min-height:168px}
+.compact-main .section-card p{margin-top:auto;padding-top:10px}
+@media(max-width:760px){
+  .compact-header{padding:22px 0 18px}
+  .compact-main{padding-top:18px}
+  .sections-title{margin-bottom:12px}
+}

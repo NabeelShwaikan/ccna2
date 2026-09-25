@@ -101,3 +101,10 @@
 
 @media(max-width:900px){.quiz-layout{grid-template-columns:1fr}.settings{position:static}.result-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:620px){.quiz-header-row{flex-direction:column}.content-panel{padding:14px}.question-card{padding:14px}.match-grid{grid-template-columns:1fr}.result-grid{grid-template-columns:1fr 1fr}}
+
+/* UI Cleanup v1.3: keep section pages focused on the task */
+.quiz-header .eyebrow,
+.quiz-header .quiz-subtitle{display:none}
+.quiz-title{margin:.55rem 0 0}
+.quiz-header{padding:20px 0 16px}
+.settings h2{margin-bottom:12px}
