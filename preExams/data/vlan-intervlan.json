@@ -1,19 +1,1313 @@
 {
   "schemaVersion": "1.1",
+  "bankVersion": "1.0",
   "course": "CCNA2 - Switching, Routing, and Wireless Essentials",
   "courseVersion": "SRWE v7",
   "section": {
     "id": "vlan-intervlan",
     "number": 2,
     "title": "VLAN & Inter-VLAN Routing",
-    "description": "VLAN · Trunking · Inter-VLAN Routing · Router-on-a-Stick",
-    "topics": [
-      "VLAN",
-      "Trunking",
-      "Inter-VLAN Routing",
-      "Router-on-a-Stick"
+    "description": "VLAN · Trunking · DTP · Inter-VLAN Routing · Router-on-a-Stick · Layer 3 Switching",
+    "modules": [
+      "VLANs",
+      "Inter-VLAN Routing"
     ],
-    "status": "empty"
+    "status": "approved",
+    "approvedQuestionCount": 40,
+    "lastReviewed": "2026-09-25"
   },
-  "questions": []
+  "assessmentAlignment": {
+    "source": "SRWE v7 Module & Final Exam Design Documents.xlsx",
+    "moduleGroupExamCoveragePercent": {
+      "VLANs": 33.125,
+      "Inter-VLAN Routing": 22.5
+    },
+    "finalExamCoveragePercent": {
+      "VLANs": 8.75,
+      "Inter-VLAN Routing": 5.875
+    },
+    "questionAllocation": {
+      "VLANs": 24,
+      "Inter-VLAN Routing": 16
+    }
+  },
+  "coverageMatrix": [
+    {
+      "module": "VLANs",
+      "area": "VLAN Purpose & Broadcast Domains",
+      "learningFocus": "Purpose of VLANs, segmentation and broadcast domains",
+      "questionCount": 4,
+      "questionIds": [
+        "VLAN-001",
+        "VLAN-002",
+        "VLAN-003",
+        "VLAN-004"
+      ]
+    },
+    {
+      "module": "VLANs",
+      "area": "VLAN Types / Membership / Access Ports",
+      "learningFocus": "VLAN types, default VLAN and access-port behavior",
+      "questionCount": 4,
+      "questionIds": [
+        "VLAN-005",
+        "VLAN-006",
+        "VLAN-007",
+        "VLAN-008"
+      ]
+    },
+    {
+      "module": "VLANs",
+      "area": "VLAN Configuration & Verification",
+      "learningFocus": "Create VLANs, assign access ports, verify and troubleshoot membership",
+      "questionCount": 5,
+      "questionIds": [
+        "VLAN-009",
+        "VLAN-010",
+        "VLAN-011",
+        "VLAN-012",
+        "VLAN-013"
+      ]
+    },
+    {
+      "module": "VLANs",
+      "area": "VLANs in Multi-Switch Environment",
+      "learningFocus": "Extend VLANs across switches and troubleshoot VLAN availability",
+      "questionCount": 3,
+      "questionIds": [
+        "VLAN-014",
+        "VLAN-015",
+        "VLAN-016"
+      ]
+    },
+    {
+      "module": "VLANs",
+      "area": "802.1Q Trunking & Native VLAN",
+      "learningFocus": "Trunk operation, 802.1Q, native VLAN, allowed VLANs and verification",
+      "questionCount": 5,
+      "questionIds": [
+        "VLAN-017",
+        "VLAN-018",
+        "VLAN-019",
+        "VLAN-020",
+        "VLAN-021"
+      ]
+    },
+    {
+      "module": "VLANs",
+      "area": "DTP",
+      "learningFocus": "DTP modes and trunk negotiation behavior",
+      "questionCount": 3,
+      "questionIds": [
+        "VLAN-022",
+        "VLAN-023",
+        "VLAN-024"
+      ]
+    },
+    {
+      "module": "Inter-VLAN Routing",
+      "area": "Inter-VLAN Routing Concepts",
+      "learningFocus": "Need for Layer 3 and available routing methods",
+      "questionCount": 3,
+      "questionIds": [
+        "VLAN-025",
+        "VLAN-026",
+        "VLAN-027"
+      ]
+    },
+    {
+      "module": "Inter-VLAN Routing",
+      "area": "Router-on-a-Stick",
+      "learningFocus": "Subinterfaces, 802.1Q configuration and ROAS prerequisites",
+      "questionCount": 5,
+      "questionIds": [
+        "VLAN-028",
+        "VLAN-029",
+        "VLAN-030",
+        "VLAN-031",
+        "VLAN-032"
+      ]
+    },
+    {
+      "module": "Inter-VLAN Routing",
+      "area": "Layer 3 Switch / SVI",
+      "learningFocus": "SVIs, ip routing and multilayer switching",
+      "questionCount": 4,
+      "questionIds": [
+        "VLAN-033",
+        "VLAN-034",
+        "VLAN-035",
+        "VLAN-036"
+      ]
+    },
+    {
+      "module": "Inter-VLAN Routing",
+      "area": "Inter-VLAN Troubleshooting",
+      "learningFocus": "Gateway, trunk, parent interface and common routing faults",
+      "questionCount": 4,
+      "questionIds": [
+        "VLAN-037",
+        "VLAN-038",
+        "VLAN-039",
+        "VLAN-040"
+      ]
+    }
+  ],
+  "reviewRecord": {
+    "technicalReview": "approved",
+    "assessmentReview": "approved",
+    "educationalReview": "approved",
+    "studentClarityReview": "approved",
+    "mobileInteractionReview": "approved",
+    "reviewDate": "2026-09-25",
+    "notes": "Original questions aligned to SRWE v7 Modules 3–4. Cisco terminology retained in English; Arabic explanations reviewed for clarity."
+  },
+  "questions": [
+    {
+      "module": "VLANs",
+      "topic": "VLAN Concepts",
+      "subtopic": "Broadcast domains",
+      "learningObjective": "تفسير الغرض الأساسي من استخدام VLANs في شبكة Switched LAN",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_vlan_vlan_2960s_cg.html",
+      "id": "VLAN-001",
+      "question": "ما الفائدة الأساسية من تقسيم شبكة Switch واحدة إلى عدة VLANs؟",
+      "options": [
+        "تقسيم الشبكة إلى Broadcast Domains منطقية مستقلة",
+        "زيادة سرعة كل منفذ إلى الضعف",
+        "إلغاء الحاجة إلى IP addressing",
+        "تحويل جميع المنافذ تلقائيًا إلى Trunk"
+      ],
+      "correctAnswer": "تقسيم الشبكة إلى Broadcast Domains منطقية مستقلة",
+      "explanation": "كل VLAN تنشئ Broadcast Domain منطقيًا مستقلًا. لذلك لا تنتشر Layer 2 broadcasts افتراضيًا من VLAN إلى أخرى، ويمكن تنظيم الأجهزة منطقيًا حتى لو كانت متصلة بالسويتش نفسه."
+    },
+    {
+      "module": "VLANs",
+      "topic": "VLAN Concepts",
+      "subtopic": "Same VLAN across switches",
+      "learningObjective": "تمييز العلاقة بين VLAN membership والموقع الفيزيائي للجهاز",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_vlan_vlan_2960s_cg.html",
+      "id": "VLAN-002",
+      "question": "يمكن لجهازين متصلين بسويتشين مختلفين أن ينتميا إلى VLAN نفسها ويتبادلا Layer 2 traffic إذا كانت VLAN موجودة ومسارها متاحًا بين السويتشين.",
+      "correctAnswer": "صح",
+      "explanation": "VLAN هي تجميع منطقي وليست مرتبطة بسويتش واحد. عندما تكون VLAN موجودة على السويتشات المطلوبة ويُنقل Traffic الخاص بها عبر Trunk، يمكن للأجهزة في VLAN نفسها التواصل على Layer 2 عبر أكثر من Switch."
+    },
+    {
+      "module": "VLANs",
+      "topic": "VLAN Concepts",
+      "subtopic": "Benefits of segmentation",
+      "learningObjective": "تحديد فوائد استخدام VLANs في تصميم LAN",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_vlan_vlan_2960s_cg.html",
+      "id": "VLAN-003",
+      "question": "أي ثلاث فوائد ترتبط عادةً باستخدام VLANs؟ اختر ثلاث إجابات.",
+      "options": [
+        "تقليل حجم Broadcast Domain",
+        "فصل مجموعات المستخدمين منطقيًا",
+        "تسهيل تنظيم الشبكة حسب الوظيفة أو القسم",
+        "مضاعفة Bandwidth الفيزيائية للمنفذ",
+        "إلغاء الحاجة إلى Router أو Layer 3 device بين VLANs"
+      ],
+      "correctAnswer": [
+        "تقليل حجم Broadcast Domain",
+        "فصل مجموعات المستخدمين منطقيًا",
+        "تسهيل تنظيم الشبكة حسب الوظيفة أو القسم"
+      ],
+      "explanation": "تساعد VLANs على تقليل نطاق Broadcast، وفصل مجموعات المستخدمين منطقيًا، وتسهيل التنظيم والإدارة. لكنها لا تزيد سرعة الرابط الفيزيائية ولا تلغي الحاجة إلى Routing بين الشبكات المختلفة."
+    },
+    {
+      "module": "VLANs",
+      "topic": "VLAN Concepts",
+      "subtopic": "Traffic scope",
+      "learningObjective": "ربط نوع حركة Layer 2 بتأثير VLAN segmentation",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_vlan_vlan_2960s_cg.html",
+      "id": "VLAN-004",
+      "question": "طابق الحالة مع النتيجة الأنسب في بيئة VLAN.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "Broadcast صادر من Host في VLAN 10",
+          "right": "ينتشر داخل VLAN 10 فقط"
+        },
+        {
+          "id": "p2",
+          "left": "Hostان في VLAN 20",
+          "right": "ينتميان إلى Broadcast Domain نفسه"
+        },
+        {
+          "id": "p3",
+          "left": "Host في VLAN 10 يريد الوصول إلى Host في VLAN 30",
+          "right": "يحتاج Inter-VLAN Routing"
+        },
+        {
+          "id": "p4",
+          "left": "تقسيم 60 جهازًا إلى ثلاث VLANs",
+          "right": "ينشئ ثلاث Broadcast Domains منطقية"
+        }
+      ],
+      "explanation": "الـBroadcast يبقى داخل VLAN نفسها، والأجهزة في VLAN واحدة تشترك في Broadcast Domain، بينما الاتصال بين VLANs المختلفة يحتاج Layer 3 routing."
+    },
+    {
+      "module": "VLANs",
+      "topic": "VLAN Types & Access Ports",
+      "subtopic": "Default VLAN",
+      "learningObjective": "التعرف على Default VLAN في Cisco switch",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_vlan_vlan_2960s_cg.html",
+      "id": "VLAN-005",
+      "question": "ما Default VLAN على Cisco switch في الإعداد الافتراضي؟",
+      "options": [
+        "VLAN 1",
+        "VLAN 10",
+        "VLAN 99",
+        "VLAN 1002"
+      ],
+      "correctAnswer": "VLAN 1",
+      "explanation": "VLAN 1 هي Default VLAN، وتكون منافذ Layer 2 في الإعداد الافتراضي أعضاء فيها ما لم تُعدّل العضوية."
+    },
+    {
+      "module": "VLANs",
+      "topic": "VLAN Types & Access Ports",
+      "subtopic": "Voice VLAN",
+      "learningObjective": "تمييز وظيفة Voice VLAN",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN types documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_vlan_vlan_2960s_cg.html",
+      "id": "VLAN-006",
+      "question": "ما الهدف الأكثر دقة من Voice VLAN؟",
+      "options": [
+        "حمل VoIP traffic بصورة منفصلة عن Data traffic",
+        "حمل Untagged traffic على كل Trunk",
+        "إدارة جميع Switches فقط",
+        "استبدال Native VLAN تلقائيًا"
+      ],
+      "correctAnswer": "حمل VoIP traffic بصورة منفصلة عن Data traffic",
+      "explanation": "Voice VLAN تفصل VoIP traffic عن Data traffic وتسمح بمعاملته بسياسات مناسبة مثل QoS. هذا لا يعني أن Voice VLAN نفسها تنشئ QoS، لكنها توفر فصلًا منطقيًا يساعد على تطبيقه."
+    },
+    {
+      "module": "VLANs",
+      "topic": "VLAN Types & Access Ports",
+      "subtopic": "VLAN types",
+      "learningObjective": "تمييز وظائف أنواع VLAN الأساسية",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN types documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_vlan_vlan_2960s_cg.html",
+      "id": "VLAN-007",
+      "question": "طابق نوع VLAN مع الاستخدام الأنسب.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "Data VLAN",
+          "right": "حركة بيانات المستخدمين العادية"
+        },
+        {
+          "id": "p2",
+          "left": "Voice VLAN",
+          "right": "VoIP traffic"
+        },
+        {
+          "id": "p3",
+          "left": "Management VLAN",
+          "right": "إدارة أجهزة الشبكة مثل SSH"
+        },
+        {
+          "id": "p4",
+          "left": "Native VLAN",
+          "right": "Untagged traffic على 802.1Q trunk افتراضيًا"
+        }
+      ],
+      "explanation": "Data VLAN لحركة المستخدمين، Voice VLAN للصوت، Management VLAN لإدارة الأجهزة، وNative VLAN هي VLAN المرتبطة افتراضيًا بالـUntagged traffic على 802.1Q trunk."
+    },
+    {
+      "module": "VLANs",
+      "topic": "VLAN Types & Access Ports",
+      "subtopic": "Access port behavior",
+      "learningObjective": "تمييز خصائص Access Port",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_vlan_vlan_2960s_cg.html",
+      "id": "VLAN-008",
+      "question": "أي عبارتين تصفان Access Port بصورة صحيحة؟ اختر إجابتين.",
+      "options": [
+        "يُعيَّن عادةً إلى Data VLAN واحدة",
+        "يستخدم غالبًا لربط End Device بالسويتش",
+        "يحمل جميع VLANs افتراضيًا مثل Trunk",
+        "يحتاج encapsulation dot1q على كل PC",
+        "يستخدم DTP ليكون Router subinterface"
+      ],
+      "correctAnswer": [
+        "يُعيَّن عادةً إلى Data VLAN واحدة",
+        "يستخدم غالبًا لربط End Device بالسويتش"
+      ],
+      "explanation": "Access Port يستخدم عادةً للاتصال بجهاز نهائي ويُعيَّن إلى Data VLAN واحدة. أما Trunk فهو المصمم لحمل Traffic لعدة VLANs بين أجهزة الشبكة."
+    },
+    {
+      "module": "VLANs",
+      "topic": "VLAN Configuration & Verification",
+      "subtopic": "Create and assign VLAN",
+      "learningObjective": "ترتيب الخطوات الأساسية لإنشاء VLAN وتسميتها وتعيين Access Port لها",
+      "difficulty": "Medium",
+      "type": "ordering",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_vlan_vlan_2960s_cg.html",
+      "id": "VLAN-009",
+      "question": "رتّب الخطوات التالية لإنشاء VLAN 20 باسم SALES ثم تعيين المنفذ G0/1 لها كـAccess Port.",
+      "items": [
+        {
+          "id": "i1",
+          "text": "vlan 20"
+        },
+        {
+          "id": "i2",
+          "text": "name SALES"
+        },
+        {
+          "id": "i3",
+          "text": "exit"
+        },
+        {
+          "id": "i4",
+          "text": "interface g0/1"
+        },
+        {
+          "id": "i5",
+          "text": "switchport mode access"
+        },
+        {
+          "id": "i6",
+          "text": "switchport access vlan 20"
+        }
+      ],
+      "correctOrder": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6"
+      ],
+      "explanation": "تُنشأ VLAN أولًا وتُسمّى داخل VLAN Configuration mode، ثم نعود إلى Global Configuration باستخدام `exit`، وبعد ذلك ندخل إلى المنفذ ونضبطه Access ونربطه بـVLAN 20."
+    },
+    {
+      "module": "VLANs",
+      "topic": "VLAN Configuration & Verification",
+      "subtopic": "show vlan brief",
+      "learningObjective": "اختيار أمر التحقق من VLAN membership",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_vlan_vlan_2960s_cg.html",
+      "id": "VLAN-010",
+      "question": "أي أمر يعطي ملخصًا لأسماء VLANs وحالتها ومنافذ Access المرتبطة بها؟",
+      "options": [
+        "show vlan brief",
+        "show ip route",
+        "show spanning-tree root",
+        "show interfaces trunk"
+      ],
+      "correctAnswer": "show vlan brief",
+      "explanation": "الأمر `show vlan brief` يعرض VLAN ID والاسم والحالة ومنافذ Access المرتبطة بها بصورة مختصرة، لذلك يعد من أهم أوامر التحقق بعد إعداد VLANs."
+    },
+    {
+      "module": "VLANs",
+      "topic": "VLAN Configuration & Verification",
+      "subtopic": "Interpret show vlan brief",
+      "learningObjective": "قراءة مخرجات show vlan brief لتحديد VLAN membership",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "CLI Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_vlan_vlan_2960s_cg.html",
+      "id": "VLAN-011",
+      "question": "استنادًا إلى المخرجات، إلى أي VLAN ينتمي المنفذ Fa0/6؟",
+      "cliOutput": "VLAN Name                             Status    Ports\n---- -------------------------------- --------- -------------------------------\n1    default                          active    Fa0/1, Fa0/2\n10   STAFF                            active    Fa0/3, Fa0/4\n20   SALES                            active    Fa0/5, Fa0/6\n30   GUEST                            active    Fa0/7",
+      "options": [
+        "VLAN 1",
+        "VLAN 10",
+        "VLAN 20",
+        "VLAN 30"
+      ],
+      "correctAnswer": "VLAN 20",
+      "explanation": "يظهر Fa0/6 في صف VLAN 20، لذلك هو Access Port عضو في VLAN 20 وفق المخرجات الحالية."
+    },
+    {
+      "module": "VLANs",
+      "topic": "VLAN Configuration & Verification",
+      "subtopic": "Access port commands",
+      "learningObjective": "اختيار أوامر تعيين Access Port إلى VLAN",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_vlan_vlan_2960s_cg.html",
+      "id": "VLAN-012",
+      "question": "لجعل Fa0/10 منفذ Access في VLAN 30، أي أمرين يلزمان داخل Interface Configuration mode؟ اختر إجابتين.",
+      "options": [
+        "switchport mode access",
+        "switchport access vlan 30",
+        "switchport mode trunk",
+        "encapsulation dot1q 30",
+        "ip routing"
+      ],
+      "correctAnswer": [
+        "switchport mode access",
+        "switchport access vlan 30"
+      ],
+      "explanation": "يضبط `switchport mode access` المنفذ كـLayer 2 Access Port، ثم `switchport access vlan 30` يحدد VLAN العضوية."
+    },
+    {
+      "module": "VLANs",
+      "topic": "VLAN Configuration & Verification",
+      "subtopic": "Wrong access VLAN",
+      "learningObjective": "تشخيص خطأ VLAN membership من Configuration وshow vlan brief",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN Configuration Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_vlan_vlan_2960s_cg.html",
+      "id": "VLAN-013",
+      "question": "المستخدم على Fa0/12 يجب أن يكون في VLAN 20، لكنه لا يصل إلى بقية أجهزة SALES. ما السبب المباشر الظاهر؟",
+      "configuration": "interface FastEthernet0/12\n switchport mode access\n switchport access vlan 30\n!\nVLAN 20  SALES   active   Fa0/5, Fa0/6\nVLAN 30  GUEST   active   Fa0/12",
+      "options": [
+        "Fa0/12 عضو في VLAN 30 بدل VLAN 20",
+        "المنفذ يجب أن يكون Trunk",
+        "يجب تفعيل ip routing على Layer 2 switch",
+        "السبب هو Native VLAN mismatch"
+      ],
+      "correctAnswer": "Fa0/12 عضو في VLAN 30 بدل VLAN 20",
+      "explanation": "المنفذ Fa0/12 مضبوط صراحةً على VLAN 30، لذلك أصبح في Broadcast Domain مختلف عن أجهزة VLAN 20. الحل هو تصحيح `switchport access vlan` وفق التصميم."
+    },
+    {
+      "module": "VLANs",
+      "topic": "Multi-Switch VLANs",
+      "subtopic": "Same VLAN across two switches",
+      "learningObjective": "تحديد متطلبات امتداد VLAN بين أكثر من Switch",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN and trunk configuration guides",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/b_1522e_2960_2960c_2960s_2960sf_2960p_cg_chapter_01101.html",
+      "id": "VLAN-014",
+      "question": "يوجد PC1 في VLAN 10 على S1 وPC2 في VLAN 10 على S2. ما المتطلب الأهم لكي تمر Layer 2 traffic الخاصة بـVLAN 10 بين السويتشين؟",
+      "options": [
+        "وجود Trunk يسمح بمرور VLAN 10 بين السويتشين",
+        "تفعيل ip routing على كلا السويتشين",
+        "ضبط Default Gateway نفسه على السويتشين",
+        "تحويل منفذي PC إلى Trunk"
+      ],
+      "correctAnswer": "وجود Trunk يسمح بمرور VLAN 10 بين السويتشين",
+      "explanation": "يجب أن يكون هناك رابط يستطيع حمل VLAN 10 بين السويتشين، وعادةً يكون Trunk، كما يجب أن تكون VLAN 10 معرّفة على السويتشات المطلوبة."
+    },
+    {
+      "module": "VLANs",
+      "topic": "Multi-Switch VLANs",
+      "subtopic": "VLAN database consistency",
+      "learningObjective": "فهم أن Trunk لا ينشئ VLAN تلقائيًا على الجار",
+      "difficulty": "Medium",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN and trunk configuration guides",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/b_1522e_2960_2960c_2960s_2960sf_2960p_cg_chapter_01101.html",
+      "id": "VLAN-015",
+      "question": "مجرد تكوين Trunk يدويًا بين سويتشين يعني أن VLAN 20 ستُنشأ تلقائيًا على السويتش الآخر حتى لو لم تستخدم آلية لنشر VLAN database.",
+      "correctAnswer": "خطأ",
+      "explanation": "Trunk ينقل Traffic الخاص بالـVLANs المسموح بها، لكنه لا يعني بحد ذاته إنشاء VLAN database على الجار. يجب أن تكون VLAN المطلوبة موجودة وفق طريقة الإدارة المستخدمة في الشبكة."
+    },
+    {
+      "module": "VLANs",
+      "topic": "Multi-Switch VLANs",
+      "subtopic": "Missing VLAN on one switch",
+      "learningObjective": "تشخيص فشل الاتصال داخل VLAN ممتدة عبر Switches",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN and trunk configuration guides",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_vlan_vlan_2960s_cg.html",
+      "id": "VLAN-016",
+      "question": "PC-A على S1 وPC-B على S2 كلاهما مفترض أن يكون في VLAN 20. الرابط بين S1 وS2 Trunk ويسمح بـVLAN 20، لكن `show vlan brief` على S2 لا يعرض VLAN 20 إطلاقًا. ما الإجراء الأول الأنسب؟",
+      "options": [
+        "إنشاء VLAN 20 على S2 والتحقق من Access Port",
+        "تغيير Native VLAN إلى 1",
+        "إضافة Default Route إلى S2",
+        "إلغاء 802.1Q tagging بالكامل"
+      ],
+      "correctAnswer": "إنشاء VLAN 20 على S2 والتحقق من Access Port",
+      "explanation": "حتى مع وجود Trunk يسمح بـVLAN 20، يحتاج S2 إلى وجود VLAN 20 في VLAN database كي تعمل منافذ Access الخاصة بها بصورة صحيحة. ابدأ بإنشاء/استعادة VLAN 20 على S2 ثم تحقق من العضوية."
+    },
+    {
+      "module": "VLANs",
+      "topic": "802.1Q Trunking",
+      "subtopic": "Purpose of trunk",
+      "learningObjective": "تفسير وظيفة Trunk Link",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN Trunks guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/b_1522e_2960_2960c_2960s_2960sf_2960p_cg_chapter_01101.html",
+      "id": "VLAN-017",
+      "question": "ما الوظيفة الأساسية لـTrunk Port في شبكة VLAN؟",
+      "options": [
+        "حمل Traffic لعدة VLANs عبر رابط واحد",
+        "منع جميع Broadcasts داخل VLAN",
+        "إعطاء IP address لكل Access Port",
+        "استبدال Layer 3 routing"
+      ],
+      "correctAnswer": "حمل Traffic لعدة VLANs عبر رابط واحد",
+      "explanation": "Trunk Port صُمم لحمل Traffic الخاص بعدة VLANs عبر رابط واحد، مثل الرابط بين Switches أو الرابط إلى Router في Router-on-a-Stick."
+    },
+    {
+      "module": "VLANs",
+      "topic": "802.1Q Trunking",
+      "subtopic": "Trunk terminology",
+      "learningObjective": "ربط مصطلحات Trunking بوظائفها",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN Trunks guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/b_1522e_2960_2960c_2960s_2960sf_2960p_cg_chapter_01101.html",
+      "id": "VLAN-018",
+      "question": "طابق المصطلح مع الوصف الأنسب.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "802.1Q",
+          "right": "آلية Tagging لتمييز VLAN على Trunk"
+        },
+        {
+          "id": "p2",
+          "left": "Native VLAN",
+          "right": "VLAN المرتبطة افتراضيًا بـUntagged traffic على Trunk"
+        },
+        {
+          "id": "p3",
+          "left": "Allowed VLAN list",
+          "right": "تحدد VLANs المسموح بمرورها على Trunk"
+        },
+        {
+          "id": "p4",
+          "left": "Trunk Port",
+          "right": "يحمل Traffic لعدة VLANs عبر رابط واحد"
+        }
+      ],
+      "explanation": "`802.1Q` يضيف VLAN identification للـframes على Trunk، وNative VLAN تتعامل افتراضيًا مع untagged traffic، وAllowed VLAN list تحدد VLANs المسموح لها بالعبور، بينما Trunk يحمل عدة VLANs."
+    },
+    {
+      "module": "VLANs",
+      "topic": "802.1Q Trunking",
+      "subtopic": "Native VLAN behavior",
+      "learningObjective": "تمييز خصائص Native VLAN على 802.1Q trunk",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN Trunks guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/b_1522e_2960_2960c_2960s_2960sf_2960p_cg_chapter_01101.html",
+      "id": "VLAN-019",
+      "question": "أي عبارتين تصفان Native VLAN على 802.1Q Trunk بصورة صحيحة؟ اختر إجابتين.",
+      "options": [
+        "تُرسل Frames الخاصة بها افتراضيًا دون Tag على Trunk",
+        "ينبغي أن تتطابق على طرفي Trunk",
+        "يجب أن تكون دائمًا VLAN 1 ولا يمكن تغييرها",
+        "تحمل جميع Voice VLANs فقط",
+        "تلغي الحاجة إلى Allowed VLAN list"
+      ],
+      "correctAnswer": [
+        "تُرسل Frames الخاصة بها افتراضيًا دون Tag على Trunk",
+        "ينبغي أن تتطابق على طرفي Trunk"
+      ],
+      "explanation": "افتراضيًا يُرسل Traffic الخاص بالـNative VLAN بدون 802.1Q tag، ويجب أن تتطابق Native VLAN على طرفي Trunk لتجنب مشاكل اتصال وأخطاء أمنية. VLAN 1 هي الافتراضية لكن يمكن تغييرها."
+    },
+    {
+      "module": "VLANs",
+      "topic": "802.1Q Trunking",
+      "subtopic": "Interpret show interfaces trunk",
+      "learningObjective": "قراءة Allowed VLANs من show interfaces trunk",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "CLI Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN Trunks guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/b_1522e_2960_2960c_2960s_2960sf_2960p_cg_chapter_01101.html",
+      "id": "VLAN-020",
+      "question": "وفق المخرجات، أي VLAN من الخيارات التالية لن تمر عبر Gi0/1 بسبب Allowed VLAN list؟",
+      "cliOutput": "Port        Mode         Encapsulation  Status        Native vlan\nGi0/1       on           802.1q         trunking      99\n\nPort        Vlans allowed on trunk\nGi0/1       10,20,30\n\nPort        Vlans allowed and active in management domain\nGi0/1       10,20,30",
+      "options": [
+        "VLAN 10",
+        "VLAN 20",
+        "VLAN 30",
+        "VLAN 40"
+      ],
+      "correctAnswer": "VLAN 40",
+      "explanation": "Allowed VLANs على Gi0/1 هي 10 و20 و30 فقط، لذلك VLAN 40 غير مسموح بمرورها حتى لو كانت موجودة ونشطة على السويتش."
+    },
+    {
+      "module": "VLANs",
+      "topic": "802.1Q Trunking",
+      "subtopic": "Allowed VLAN troubleshooting",
+      "learningObjective": "تشخيص مشكلة VLAN واحدة لا تعبر Trunk",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN Trunks guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/b_1522e_2960_2960c_2960s_2960sf_2960p_cg_chapter_01101.html",
+      "id": "VLAN-021",
+      "question": "VLANs 10 و30 تعملان بين S1 وS2، لكن أجهزة VLAN 20 لا تتصل عبر السويتشين. ما السبب المباشر الظاهر؟",
+      "configuration": "S1# show interfaces trunk\nPort      Status      Native vlan   Vlans allowed on trunk\nGi0/1     trunking    99            10,30\n\nS1# show vlan brief\n10 STAFF  active\n20 SALES  active\n30 GUEST  active",
+      "options": [
+        "VLAN 20 غير موجودة في Allowed VLAN list",
+        "Gi0/1 ليس Trunk",
+        "Native VLAN يجب أن تكون 20",
+        "يجب تفعيل ip routing على S1"
+      ],
+      "correctAnswer": "VLAN 20 غير موجودة في Allowed VLAN list",
+      "explanation": "الرابط Trunk بالفعل، لكن Allowed VLAN list تستبعد VLAN 20، لذلك Traffic الخاص بها لن يعبر هذا الرابط بينما VLANs 10 و30 ستعملان."
+    },
+    {
+      "module": "VLANs",
+      "topic": "DTP",
+      "subtopic": "Dynamic auto behavior",
+      "learningObjective": "فهم تفاوض DTP في وضع dynamic auto",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN Trunks guide — DTP modes",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/b_1522e_2960_2960c_2960s_2960sf_2960p_cg_chapter_01101.html",
+      "id": "VLAN-022",
+      "question": "إذا كان المنفذ على طرفي الرابط مضبوطًا `switchport mode dynamic auto`، فسيصبح الرابط Trunk تلقائيًا بينهما.",
+      "correctAnswer": "خطأ",
+      "explanation": "`dynamic auto` ينتظر الطرف الآخر ليبادر بالتفاوض. عندما يكون الطرفان Auto لا يبادر أي منهما بتحويل الرابط إلى Trunk، لذلك لا يتكون Trunk بهذه الحالة."
+    },
+    {
+      "module": "VLANs",
+      "topic": "DTP",
+      "subtopic": "Auto and desirable",
+      "learningObjective": "تحديد نتيجة تفاوض DTP بين dynamic auto وdynamic desirable",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN Trunks guide — DTP modes",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/b_1522e_2960_2960c_2960s_2960sf_2960p_cg_chapter_01101.html",
+      "id": "VLAN-023",
+      "question": "S1 مضبوط `dynamic auto` وS2 مضبوط `dynamic desirable`. ما النتيجة المتوقعة إذا كان الطرفان يدعمان DTP؟",
+      "options": [
+        "يتكون Trunk",
+        "يبقى الرابط Access على الطرفين",
+        "يتوقف الرابط إداريًا",
+        "يتحول الرابط إلى Routed Port"
+      ],
+      "correctAnswer": "يتكون Trunk",
+      "explanation": "`dynamic desirable` يبادر بالتفاوض، و`dynamic auto` يقبل تكوين Trunk عند تلقي طلب مناسب، لذلك يتكون Trunk."
+    },
+    {
+      "module": "VLANs",
+      "topic": "DTP",
+      "subtopic": "DTP modes",
+      "learningObjective": "تمييز سلوك أوامر DTP الأساسية",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN Trunks guide — DTP modes",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/b_1522e_2960_2960c_2960s_2960sf_2960p_cg_chapter_01101.html",
+      "id": "VLAN-024",
+      "question": "طابق وضع Switchport مع السلوك الأنسب.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "switchport mode trunk",
+          "right": "يجعل المنفذ Trunk بصورة ثابتة"
+        },
+        {
+          "id": "p2",
+          "left": "switchport mode dynamic desirable",
+          "right": "يبادر بمحاولة تكوين Trunk"
+        },
+        {
+          "id": "p3",
+          "left": "switchport mode dynamic auto",
+          "right": "ينتظر الطرف الآخر ليبادر بالتفاوض"
+        },
+        {
+          "id": "p4",
+          "left": "switchport nonegotiate",
+          "right": "يوقف إرسال DTP frames"
+        }
+      ],
+      "explanation": "`trunk` يضع المنفذ في Trunk دائم، و`dynamic desirable` يبادر، و`dynamic auto` ينتظر تفاوض الطرف الآخر، و`nonegotiate` يمنع إرسال DTP frames ويستلزم الإعداد اليدوي المناسب على الطرف المقابل."
+    },
+    {
+      "module": "Inter-VLAN Routing",
+      "topic": "Inter-VLAN Concepts",
+      "subtopic": "Need for Layer 3",
+      "learningObjective": "تفسير سبب الحاجة إلى Layer 3 device بين VLANs",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco Inter-VLAN routing documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/inter-vlan-routing/41260-189.html",
+      "id": "VLAN-025",
+      "question": "جهاز في VLAN 10 يريد الوصول إلى جهاز في VLAN 20. ما الذي تحتاجه الشبكة لإتمام الاتصال بينهما؟",
+      "options": [
+        "Layer 3 routing بين VLANs",
+        "Trunk فقط بدون أي Layer 3 function",
+        "Access Port في VLAN 1",
+        "DTP على أجهزة المستخدمين"
+      ],
+      "correctAnswer": "Layer 3 routing بين VLANs",
+      "explanation": "كل VLAN تمثل شبكة Layer 2/Broadcast Domain مستقلة، لذلك الاتصال بين VLANs المختلفة يحتاج Routing عبر Router أو Layer 3 Switch."
+    },
+    {
+      "module": "Inter-VLAN Routing",
+      "topic": "Inter-VLAN Concepts",
+      "subtopic": "Routing methods",
+      "learningObjective": "تمييز طرق Inter-VLAN Routing الرئيسية في SRWE",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco Inter-VLAN routing documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/inter-vlan-routing/41260-189.html",
+      "id": "VLAN-026",
+      "question": "طابق طريقة Inter-VLAN Routing مع الوصف الأنسب.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "Legacy Inter-VLAN Routing",
+          "right": "Physical Router Interface منفصل لكل VLAN"
+        },
+        {
+          "id": "p2",
+          "left": "Router-on-a-Stick",
+          "right": "Router link واحد Trunk مع عدة Subinterfaces"
+        },
+        {
+          "id": "p3",
+          "left": "Layer 3 Switching",
+          "right": "SVIs على Multilayer Switch لتنفيذ Routing"
+        },
+        {
+          "id": "p4",
+          "left": "SVI",
+          "right": "Logical Layer 3 interface مرتبطة بـVLAN"
+        }
+      ],
+      "explanation": "الطريقة التقليدية تستخدم Physical Router Interface لكل VLAN، وRouter-on-a-Stick يستخدم Trunk واحدًا مع Subinterfaces، بينما Layer 3 Switch يستخدم SVIs لتنفيذ Routing داخليًا."
+    },
+    {
+      "module": "Inter-VLAN Routing",
+      "topic": "Inter-VLAN Concepts",
+      "subtopic": "Valid routing options",
+      "learningObjective": "التعرف على الخيارات الصحيحة لتنفيذ Inter-VLAN Routing",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco Inter-VLAN routing documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/inter-vlan-routing/41260-189.html",
+      "id": "VLAN-027",
+      "question": "أي ثلاث طرق يمكن استخدامها لتنفيذ Inter-VLAN Routing؟ اختر ثلاث إجابات.",
+      "options": [
+        "Router بواجهة Physical منفصلة لكل VLAN",
+        "Router-on-a-Stick",
+        "Layer 3 Switch باستخدام SVIs",
+        "Access Port واحد فقط بدون Router",
+        "DTP بين أجهزة المستخدمين"
+      ],
+      "correctAnswer": [
+        "Router بواجهة Physical منفصلة لكل VLAN",
+        "Router-on-a-Stick",
+        "Layer 3 Switch باستخدام SVIs"
+      ],
+      "explanation": "يمكن استخدام Router بواجهات Physical منفصلة، أو Router-on-a-Stick باستخدام Subinterfaces، أو Multilayer Switch باستخدام SVIs. Access Port وحده وDTP لا ينفذان Layer 3 routing."
+    },
+    {
+      "module": "Inter-VLAN Routing",
+      "topic": "Router-on-a-Stick",
+      "subtopic": "Subinterfaces",
+      "learningObjective": "تفسير وظيفة Router subinterfaces في Router-on-a-Stick",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco 802.1Q routing documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/en/US/docs/ios/lanswitch/configuration/guide/lsw_cfg_vlan_encap.html",
+      "id": "VLAN-028",
+      "question": "في Router-on-a-Stick، لماذا تُنشأ Subinterfaces على Physical Router Interface؟",
+      "options": [
+        "لتمثيل عدة VLANs منطقيًا على رابط Router واحد",
+        "لزيادة عدد المنافذ الفيزيائية في Router",
+        "لإلغاء 802.1Q tagging",
+        "لتحويل Router إلى Layer 2 Switch"
+      ],
+      "correctAnswer": "لتمثيل عدة VLANs منطقيًا على رابط Router واحد",
+      "explanation": "كل Subinterface تمثل Layer 3 interface منطقية لـVLAN محددة على نفس الرابط الفيزيائي، وتُربط عادةً بـVLAN باستخدام `encapsulation dot1q` وتُعطى IP address تعمل كـDefault Gateway."
+    },
+    {
+      "module": "Inter-VLAN Routing",
+      "topic": "Router-on-a-Stick",
+      "subtopic": "Subinterface configuration sequence",
+      "learningObjective": "ترتيب أوامر إعداد Router subinterface لـVLAN محددة",
+      "difficulty": "Medium",
+      "type": "ordering",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco 802.1Q routing documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/en/US/docs/ios/lanswitch/configuration/guide/lsw_cfg_vlan_encap.html",
+      "id": "VLAN-029",
+      "question": "رتّب الأوامر داخل Router لإنشاء Subinterface لـVLAN 10 وإعطائها عنوان Default Gateway.",
+      "items": [
+        {
+          "id": "i1",
+          "text": "interface g0/0.10"
+        },
+        {
+          "id": "i2",
+          "text": "encapsulation dot1q 10"
+        },
+        {
+          "id": "i3",
+          "text": "ip address 192.168.10.1 255.255.255.0"
+        }
+      ],
+      "correctOrder": [
+        "i1",
+        "i2",
+        "i3"
+      ],
+      "explanation": "ندخل أولًا إلى Subinterface، ثم نربطها بـVLAN 10 باستخدام `encapsulation dot1q 10`، وبعدها نضع IP address الخاص ببوابة VLAN 10."
+    },
+    {
+      "module": "Inter-VLAN Routing",
+      "topic": "Router-on-a-Stick",
+      "subtopic": "802.1Q encapsulation command",
+      "learningObjective": "اختيار أمر ربط Router subinterface بـVLAN",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco 802.1Q routing documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/en/US/docs/ios/lanswitch/configuration/guide/lsw_cfg_vlan_encap.html",
+      "id": "VLAN-030",
+      "question": "أي أمر داخل `interface g0/0.20` يربط هذه Subinterface بـVLAN 20 في Router-on-a-Stick؟",
+      "options": [
+        "encapsulation dot1q 20",
+        "switchport access vlan 20",
+        "vlan 20",
+        "ip routing 20"
+      ],
+      "correctAnswer": "encapsulation dot1q 20",
+      "explanation": "الأمر `encapsulation dot1q 20` يحدد أن Subinterface تستقبل وترسل Traffic الموسوم لـVLAN 20 باستخدام IEEE 802.1Q."
+    },
+    {
+      "module": "Inter-VLAN Routing",
+      "topic": "Router-on-a-Stick",
+      "subtopic": "Wrong VLAN encapsulation",
+      "learningObjective": "تشخيص خطأ VLAN ID على Router subinterface",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco 802.1Q routing documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/en/US/docs/ios/lanswitch/configuration/guide/lsw_cfg_vlan_encap.html",
+      "id": "VLAN-031",
+      "question": "أجهزة VLAN 20 تستخدم 192.168.20.1 كـDefault Gateway، لكن لا تستطيع الوصول إلى VLANs الأخرى. ما الخطأ المباشر في Configuration؟",
+      "configuration": "interface GigabitEthernet0/0.20\n encapsulation dot1q 30\n ip address 192.168.20.1 255.255.255.0",
+      "options": [
+        "VLAN ID في encapsulation غير صحيح",
+        "يجب حذف IP address من Subinterface",
+        "يجب تحويل Subinterface إلى Access Port",
+        "يجب استخدام DTP على Router"
+      ],
+      "correctAnswer": "VLAN ID في encapsulation غير صحيح",
+      "explanation": "Subinterface `G0/0.20` تحمل IP الخاص بـVLAN 20 لكنها مرتبطة بـVLAN 30 في 802.1Q، لذلك Tags لا تتطابق مع تصميم الشبكة. يجب أن يكون `encapsulation dot1q 20`."
+    },
+    {
+      "module": "Inter-VLAN Routing",
+      "topic": "Router-on-a-Stick",
+      "subtopic": "ROAS prerequisites",
+      "learningObjective": "تحديد المتطلبات الأساسية لنجاح Router-on-a-Stick",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco Inter-VLAN routing and 802.1Q documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/en/US/docs/ios/lanswitch/configuration/guide/lsw_cfg_vlan_encap.html",
+      "id": "VLAN-032",
+      "question": "أي ثلاث نقاط أساسية يجب تحققها لعمل Router-on-a-Stick بصورة صحيحة؟ اختر ثلاث إجابات.",
+      "options": [
+        "Switch port المتصل بالRouter يعمل Trunk",
+        "كل Router subinterface مرتبطة بالـVLAN الصحيحة باستخدام 802.1Q",
+        "Physical Router Interface في حالة up/no shutdown",
+        "كل PC port يعمل Trunk",
+        "تفعيل DTP على Router subinterfaces"
+      ],
+      "correctAnswer": [
+        "Switch port المتصل بالRouter يعمل Trunk",
+        "كل Router subinterface مرتبطة بالـVLAN الصحيحة باستخدام 802.1Q",
+        "Physical Router Interface في حالة up/no shutdown"
+      ],
+      "explanation": "يحتاج الرابط بين Switch وRouter إلى حمل VLANs المطلوبة كـTrunk، وتحتاج Subinterfaces إلى `encapsulation dot1q` مطابق وعناوين Layer 3 مناسبة، كما يجب أن تكون Physical Router Interface في حالة تشغيل."
+    },
+    {
+      "module": "Inter-VLAN Routing",
+      "topic": "Layer 3 Switching",
+      "subtopic": "Enable IP routing",
+      "learningObjective": "اختيار الأمر الذي يفعّل IPv4 routing على Multilayer Switch",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco IP unicast routing guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst3750x_3560x/software/release/15-2_2_e/configuration/guide/b_1522e_consolidated_3750x_3560X_cg/b_1522e_consolidated_3750x_3560X_cg_chapter_0111001.html",
+      "id": "VLAN-033",
+      "question": "أي أمر Global Configuration يفعّل IP routing على Layer 3 Switch؟",
+      "options": [
+        "ip routing",
+        "switchport mode trunk",
+        "router-on-a-stick",
+        "encapsulation dot1q"
+      ],
+      "correctAnswer": "ip routing",
+      "explanation": "الأمر `ip routing` يفعّل وظيفة IPv4 routing على Multilayer Switch. بدونها لا يقوم السويتش بتمرير packets بين SVIs كـLayer 3 router."
+    },
+    {
+      "module": "Inter-VLAN Routing",
+      "topic": "Layer 3 Switching",
+      "subtopic": "SVI gateway role",
+      "learningObjective": "تفسير دور SVI في Inter-VLAN routing",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco Inter-VLAN routing documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/inter-vlan-routing/41260-189.html",
+      "id": "VLAN-034",
+      "question": "في Layer 3 Switch، ما الدور المعتاد لعنوان IP على `interface vlan 20`؟",
+      "options": [
+        "Default Gateway لأجهزة VLAN 20",
+        "MAC address ثابت لجميع أجهزة VLAN 20",
+        "Native VLAN tag",
+        "DTP peer address"
+      ],
+      "correctAnswer": "Default Gateway لأجهزة VLAN 20",
+      "explanation": "SVI هي Layer 3 interface منطقية للـVLAN، ويمكن أن يكون عنوانها هو Default Gateway لأجهزة VLAN 20 عندما ينفذ السويتش Inter-VLAN Routing."
+    },
+    {
+      "module": "Inter-VLAN Routing",
+      "topic": "Layer 3 Switching",
+      "subtopic": "SVI configuration sequence",
+      "learningObjective": "ترتيب إعداد SVI أساسي لـVLAN",
+      "difficulty": "Medium",
+      "type": "ordering",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco IP unicast routing guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst3750x_3560x/software/release/15-2_2_e/configuration/guide/b_1522e_consolidated_3750x_3560X_cg/b_1522e_consolidated_3750x_3560X_cg_chapter_0111001.html",
+      "id": "VLAN-035",
+      "question": "رتّب الخطوات التالية لإنشاء VLAN 30 ثم إعداد SVI لها بعنوان 192.168.30.1/24.",
+      "items": [
+        {
+          "id": "i1",
+          "text": "vlan 30"
+        },
+        {
+          "id": "i2",
+          "text": "exit"
+        },
+        {
+          "id": "i3",
+          "text": "interface vlan 30"
+        },
+        {
+          "id": "i4",
+          "text": "ip address 192.168.30.1 255.255.255.0"
+        },
+        {
+          "id": "i5",
+          "text": "no shutdown"
+        }
+      ],
+      "correctOrder": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5"
+      ],
+      "explanation": "تُنشأ VLAN 30 أولًا، ثم نخرج إلى Global Configuration وننشئ `interface vlan 30` ونضع عنوان Layer 3 ونفعّل الواجهة. أما `ip routing` فهو إعداد Global مستقل مطلوب للتوجيه بين SVIs."
+    },
+    {
+      "module": "Inter-VLAN Routing",
+      "topic": "Layer 3 Switching",
+      "subtopic": "Missing ip routing",
+      "learningObjective": "تشخيص غياب ip routing مع SVIs صحيحة",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco IP unicast routing guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst3750x_3560x/software/release/15-2_2_e/configuration/guide/b_1522e_consolidated_3750x_3560X_cg/b_1522e_consolidated_3750x_3560X_cg_chapter_0111001.html",
+      "id": "VLAN-036",
+      "question": "SVI لـVLAN 10 وVLAN 20 كلتاهما up/up، وأجهزة كل VLAN تصل إلى Default Gateway الخاص بها، لكن لا يوجد اتصال بين VLAN 10 وVLAN 20. ما الإعداد المفقود الأكثر احتمالًا؟",
+      "configuration": "interface Vlan10\n ip address 192.168.10.1 255.255.255.0\n no shutdown\n!\ninterface Vlan20\n ip address 192.168.20.1 255.255.255.0\n no shutdown\n!\n! ip routing is not present",
+      "options": [
+        "إضافة ip routing",
+        "تحويل SVIs إلى Trunk",
+        "إضافة switchport mode access إلى SVIs",
+        "حذف Default Gateways من الأجهزة"
+      ],
+      "correctAnswer": "إضافة ip routing",
+      "explanation": "إذا كانت SVIs up/up وعناوينها صحيحة ويصل إليها Hosts، فإن غياب `ip routing` يمنع Layer 3 Switch من توجيه packets بين الشبكات."
+    },
+    {
+      "module": "Inter-VLAN Routing",
+      "topic": "Inter-VLAN Troubleshooting",
+      "subtopic": "Default gateway",
+      "learningObjective": "ربط Default Gateway الصحيح بإمكانية الوصول خارج VLAN",
+      "difficulty": "Medium",
+      "type": "true_false",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco Inter-VLAN routing documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/inter-vlan-routing/41260-189.html",
+      "id": "VLAN-037",
+      "question": "قد يستطيع Host الوصول إلى أجهزة في VLAN نفسها رغم أن Default Gateway لديه غير صحيح، لكنه يفشل عند محاولة الوصول إلى VLAN أخرى.",
+      "correctAnswer": "صح",
+      "explanation": "الاتصال داخل نفس IP subnet لا يحتاج إرسال Traffic إلى Default Gateway، بينما الوصول إلى شبكة أخرى يتطلب Gateway صحيحة. لذلك قد يبدو الاتصال المحلي سليمًا رغم وجود خطأ في Gateway."
+    },
+    {
+      "module": "Inter-VLAN Routing",
+      "topic": "Inter-VLAN Troubleshooting",
+      "subtopic": "Switch-router link mode",
+      "learningObjective": "تشخيص رابط Switch-to-Router غير مضبوط كـTrunk في ROAS",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco VLAN Trunks and Inter-VLAN routing guides",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/b_1522e_2960_2960c_2960s_2960sf_2960p_cg_chapter_01101.html",
+      "id": "VLAN-038",
+      "question": "Router-on-a-Stick مُعد بصورة صحيحة على R1، لكن `show interfaces trunk` على S1 لا يعرض Gi0/1 المتصل بالRouter، ويظهر Configuration التالي. ما التعديل المطلوب؟",
+      "configuration": "interface GigabitEthernet0/1\n description Link-to-R1\n switchport mode access\n switchport access vlan 10",
+      "options": [
+        "تغيير Gi0/1 إلى switchport mode trunk",
+        "تفعيل ip routing على S1 Layer 2 switch",
+        "إضافة VLAN 1 إلى Router subinterface",
+        "استخدام switchport nonegotiate على PC"
+      ],
+      "correctAnswer": "تغيير Gi0/1 إلى switchport mode trunk",
+      "explanation": "رابط Router-on-a-Stick يجب أن يحمل عدة VLANs، لذلك منفذ S1 المتصل بالRouter يجب أن يكون Trunk. الإعداد `switchport mode access` يمنع حمل VLANs المتعددة المطلوبة."
+    },
+    {
+      "module": "Inter-VLAN Routing",
+      "topic": "Inter-VLAN Troubleshooting",
+      "subtopic": "Parent interface shutdown",
+      "learningObjective": "تشخيص تأثير shutdown على Physical Router Interface في ROAS",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco Inter-VLAN routing documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/inter-vlan-routing/41260-189.html",
+      "id": "VLAN-039",
+      "question": "كل Subinterfaces على G0/0 معدة بـ`encapsulation dot1q` وعناوين صحيحة، لكن جميع VLANs فقدت Inter-VLAN connectivity في الوقت نفسه. يظهر أن G0/0 نفسها `administratively down`. ما الحل المباشر؟",
+      "options": [
+        "تنفيذ no shutdown على G0/0",
+        "حذف جميع Subinterfaces",
+        "تحويل G0/0 إلى switchport mode trunk",
+        "إضافة ip routing إلى Layer 2 switch"
+      ],
+      "correctAnswer": "تنفيذ no shutdown على G0/0",
+      "explanation": "Subinterfaces تعتمد على Physical Parent Interface. إذا كانت G0/0 administratively down فلن يعمل الرابط مهما كانت إعدادات Subinterfaces صحيحة؛ يجب تنفيذ `no shutdown` على G0/0 بعد التحقق من الرابط."
+    },
+    {
+      "module": "Inter-VLAN Routing",
+      "topic": "Inter-VLAN Troubleshooting",
+      "subtopic": "Wrong host gateway",
+      "learningObjective": "تشخيص Default Gateway غير الصحيح لجهاز في VLAN",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 3 and 4; Cisco Inter-VLAN routing documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/inter-vlan-routing/41260-189.html",
+      "id": "VLAN-040",
+      "question": "PC في VLAN 20 عنوانه `192.168.20.25/24`. عنوان Gateway الخاص بـVLAN 20 على Layer 3 device هو `192.168.20.1`. أي إعداد يجب أن يكون على PC ليصل إلى VLANs الأخرى؟",
+      "options": [
+        "Default Gateway 192.168.20.1",
+        "Default Gateway 192.168.10.1",
+        "Default Gateway 255.255.255.0",
+        "لا يحتاج Default Gateway للاتصال بين VLANs"
+      ],
+      "correctAnswer": "Default Gateway 192.168.20.1",
+      "explanation": "يجب أن يشير Default Gateway إلى Layer 3 interface الموجودة في شبكة PC نفسها، لذلك يستخدم PC في VLAN 20 العنوان `192.168.20.1` للوصول إلى الشبكات الأخرى."
+    }
+  ]
 }
