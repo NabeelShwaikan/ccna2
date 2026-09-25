@@ -1,18 +1,1309 @@
 {
   "schemaVersion": "1.1",
+  "bankVersion": "1.0",
   "course": "CCNA2 - Switching, Routing, and Wireless Essentials",
   "courseVersion": "SRWE v7",
   "section": {
     "id": "dhcp-fhrp",
     "number": 4,
-    "title": "Network Services & First-Hop Availability",
-    "description": "DHCP · FHRP · HSRP",
-    "topics": [
-      "DHCP",
-      "FHRP",
-      "HSRP"
+    "title": "DHCP, SLAAC/DHCPv6 & FHRP",
+    "description": "DHCPv4 · SLAAC · Stateless/Stateful DHCPv6 · FHRP · HSRP",
+    "modules": [
+      "DHCPv4",
+      "SLAAC and DHCPv6 Concepts",
+      "FHRP Concepts"
     ],
-    "status": "empty"
+    "status": "approved",
+    "approvedQuestionCount": 40,
+    "lastReviewed": "2026-09-25"
   },
-  "questions": []
+  "assessmentAlignment": {
+    "source": "SRWE v7 Module & Final Exam Design Documents.xlsx",
+    "moduleGroupExamPercent": {
+      "DHCPv4": 46,
+      "SLAAC and DHCPv6 Concepts": 33,
+      "FHRP Concepts": 21
+    },
+    "finalExamCoveragePercent": {
+      "DHCPv4": 6.125,
+      "SLAAC and DHCPv6 Concepts": 4.0,
+      "FHRP Concepts": 3.375
+    },
+    "questionAllocation": {
+      "DHCPv4": 18,
+      "SLAAC and DHCPv6 Concepts": 13,
+      "FHRP Concepts": 9
+    }
+  },
+  "coverageMatrix": [
+    {
+      "module": "DHCPv4",
+      "area": "DHCPv4 Concepts & Operation",
+      "learningFocus": "DHCPv4 purpose, DORA, client parameters and DHCP relay",
+      "questionCount": 6,
+      "questionIds": [
+        "D4-001",
+        "D4-002",
+        "D4-003",
+        "D4-004",
+        "D4-005",
+        "D4-006"
+      ]
+    },
+    {
+      "module": "DHCPv4",
+      "area": "Configure DHCPv4 Server",
+      "learningFocus": "Excluded addresses, pools, network/default-router/DNS and configuration troubleshooting",
+      "questionCount": 7,
+      "questionIds": [
+        "D4-007",
+        "D4-008",
+        "D4-009",
+        "D4-010",
+        "D4-011",
+        "D4-012",
+        "D4-013"
+      ]
+    },
+    {
+      "module": "DHCPv4",
+      "area": "Configure DHCPv4 Client & Verification",
+      "learningFocus": "Router DHCP client, bindings, pools, conflicts and verification",
+      "questionCount": 5,
+      "questionIds": [
+        "D4-014",
+        "D4-015",
+        "D4-016",
+        "D4-017",
+        "D4-018"
+      ]
+    },
+    {
+      "module": "SLAAC and DHCPv6 Concepts",
+      "area": "IPv6 Global Unicast Address Assignment",
+      "learningFocus": "Dynamic GUA acquisition, RA and address-selection indicators",
+      "questionCount": 3,
+      "questionIds": [
+        "V6-001",
+        "V6-002",
+        "V6-003"
+      ]
+    },
+    {
+      "module": "SLAAC and DHCPv6 Concepts",
+      "area": "SLAAC Operation",
+      "learningFocus": "RA-based autoconfiguration and DAD",
+      "questionCount": 3,
+      "questionIds": [
+        "V6-004",
+        "V6-005",
+        "V6-006"
+      ]
+    },
+    {
+      "module": "SLAAC and DHCPv6 Concepts",
+      "area": "DHCPv6 Concepts: Stateless / Stateful",
+      "learningFocus": "Role separation, RA flags and DHCPv6 message exchange",
+      "questionCount": 4,
+      "questionIds": [
+        "V6-007",
+        "V6-008",
+        "V6-009",
+        "V6-010"
+      ]
+    },
+    {
+      "module": "SLAAC and DHCPv6 Concepts",
+      "area": "Configure & Verify DHCPv6 Server",
+      "learningFocus": "Other/managed flags and interface-to-pool association",
+      "questionCount": 3,
+      "questionIds": [
+        "V6-011",
+        "V6-012",
+        "V6-013"
+      ]
+    },
+    {
+      "module": "FHRP Concepts",
+      "area": "FHRP Purpose & Default Gateway Problem",
+      "learningFocus": "Default-gateway redundancy, virtual IP/MAC and backup gateway",
+      "questionCount": 3,
+      "questionIds": [
+        "FHRP-001",
+        "FHRP-002",
+        "FHRP-003"
+      ]
+    },
+    {
+      "module": "FHRP Concepts",
+      "area": "FHRP Operation",
+      "learningFocus": "Failover behavior and first-hop availability",
+      "questionCount": 2,
+      "questionIds": [
+        "FHRP-004",
+        "FHRP-005"
+      ]
+    },
+    {
+      "module": "FHRP Concepts",
+      "area": "HSRP Roles & Operation",
+      "learningFocus": "Active/Standby, priority, virtual gateway and failover",
+      "questionCount": 4,
+      "questionIds": [
+        "HSRP-001",
+        "HSRP-002",
+        "HSRP-003",
+        "HSRP-004"
+      ]
+    }
+  ],
+  "reviewRecord": {
+    "technicalReview": "approved",
+    "assessmentReview": "approved",
+    "educationalReview": "approved",
+    "studentClarityReview": "approved",
+    "mobileInteractionReview": "approved",
+    "reviewDate": "2026-09-25",
+    "notes": "Original questions aligned to SRWE v7 Modules 7–9. Cisco terminology retained in English with concise Arabic explanations. DHCPv4, DHCPv6 and HSRP command behavior was cross-checked against Cisco documentation. No external question bank was copied."
+  },
+  "questions": [
+    {
+      "module": "DHCPv4",
+      "topic": "DHCPv4 Concepts",
+      "subtopic": "Purpose",
+      "learningObjective": "شرح دور DHCPv4 في تهيئة IPv4 hosts",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 7 DHCPv4; Cisco IOS XE DHCP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_config-dhcp-server-xe.html",
+      "id": "D4-001",
+      "question": "ما الوظيفة الأساسية لـ DHCPv4 في شبكة IPv4؟",
+      "explanation": "DHCPv4 يقلل الحاجة إلى الإعداد اليدوي لكل Host، ويمكنه منح IPv4 address ومعلمات أخرى مثل Default Gateway وDNS وفق إعداد الـpool.",
+      "options": [
+        "تزويد Hosts تلقائيًا بمعلمات IPv4 مثل Address وSubnet Mask وDefault Gateway",
+        "اختيار Root Bridge بين السويتشات",
+        "تشفير Frames داخل VLAN",
+        "تحويل Static Routes إلى Dynamic Routes"
+      ],
+      "correctAnswer": "تزويد Hosts تلقائيًا بمعلمات IPv4 مثل Address وSubnet Mask وDefault Gateway"
+    },
+    {
+      "module": "DHCPv4",
+      "topic": "DHCPv4 Concepts",
+      "subtopic": "DORA",
+      "learningObjective": "ترتيب رسائل DHCPv4 الأساسية عند حصول Client جديد على Lease",
+      "difficulty": "Medium",
+      "type": "ordering",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 7 DHCPv4; Cisco IOS XE DHCP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_config-dhcp-server-xe.html",
+      "id": "D4-002",
+      "question": "رتب رسائل DHCPv4 الأساسية في عملية DORA من البداية إلى النهاية.",
+      "explanation": "الترتيب المختصر هو Discover ثم Offer ثم Request ثم Acknowledgment. يبدأ Client بالبحث عن Server، ثم يستقبل عرضًا، ويطلب العرض المختار، ثم يؤكد Server الـLease.",
+      "items": [
+        {
+          "id": "i1",
+          "text": "DHCPDISCOVER"
+        },
+        {
+          "id": "i2",
+          "text": "DHCPOFFER"
+        },
+        {
+          "id": "i3",
+          "text": "DHCPREQUEST"
+        },
+        {
+          "id": "i4",
+          "text": "DHCPACK"
+        }
+      ],
+      "correctOrder": [
+        "i1",
+        "i2",
+        "i3",
+        "i4"
+      ]
+    },
+    {
+      "module": "DHCPv4",
+      "topic": "DHCPv4 Concepts",
+      "subtopic": "Client parameters",
+      "learningObjective": "تمييز معلومات الشبكة التي يمكن أن يوفرها DHCPv4 للعميل",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 7 DHCPv4; Cisco IOS XE DHCP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_config-dhcp-server-xe.html",
+      "id": "D4-003",
+      "question": "أي ثلاث معلومات يمكن أن يتلقاها DHCPv4 Client من Server؟ اختر ثلاث إجابات.",
+      "explanation": "DHCPv4 لا يقتصر على عنوان IP؛ يمكن أن يزوّد العميل أيضًا بمعلومات مثل Default Gateway وDNS. أما STP وEtherChannel فهما وظائف Layer 2 مستقلة.",
+      "options": [
+        "IPv4 address",
+        "Default Gateway",
+        "DNS server",
+        "STP Root Bridge ID",
+        "EtherChannel mode"
+      ],
+      "correctAnswer": [
+        "IPv4 address",
+        "Default Gateway",
+        "DNS server"
+      ]
+    },
+    {
+      "module": "DHCPv4",
+      "topic": "DHCPv4 Concepts",
+      "subtopic": "DORA messages",
+      "learningObjective": "ربط كل رسالة DHCPv4 بوظيفتها",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 7 DHCPv4; Cisco IOS XE DHCP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_config-dhcp-server-xe.html",
+      "id": "D4-004",
+      "question": "طابق كل رسالة DHCPv4 مع وظيفتها الأنسب.",
+      "explanation": "فهم وظائف رسائل DORA يساعد في تحليل فشل الحصول على العنوان: Discover للبحث، Offer للعرض، Request للطلب، ACK للتأكيد.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "DHCPDISCOVER",
+          "right": "يبحث Client عن DHCP Server متاح"
+        },
+        {
+          "id": "p2",
+          "left": "DHCPOFFER",
+          "right": "يعرض Server عنوانًا ومعلمات مقترحة"
+        },
+        {
+          "id": "p3",
+          "left": "DHCPREQUEST",
+          "right": "يطلب Client العرض الذي اختاره"
+        },
+        {
+          "id": "p4",
+          "left": "DHCPACK",
+          "right": "يؤكد Server منح الـLease للعميل"
+        }
+      ]
+    },
+    {
+      "module": "DHCPv4",
+      "topic": "DHCPv4 Concepts",
+      "subtopic": "Initial broadcast",
+      "learningObjective": "شرح سبب استخدام Broadcast في بداية DHCPv4",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 7 DHCPv4; Cisco IOS XE DHCP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_config-dhcp-server-xe.html",
+      "id": "D4-005",
+      "question": "في بداية عملية DHCPv4 قد يستخدم Client رسالة Broadcast لأنه لا يملك بعد IPv4 configuration كاملة ولا يعرف DHCP Server الذي سيخدمه.",
+      "explanation": "العميل الجديد يبدأ من دون إعداد IPv4 صالح، لذلك يحتاج إلى آلية اكتشاف تصل إلى DHCP Servers المتاحة على الشبكة المحلية أو عبر Relay.",
+      "correctAnswer": "صح"
+    },
+    {
+      "module": "DHCPv4",
+      "topic": "DHCPv4 Concepts",
+      "subtopic": "DHCP relay",
+      "learningObjective": "تشخيص حاجة شبكة بعيدة إلى DHCP relay",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 7 DHCPv4; Cisco IOS XE DHCP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipaddr_dhcp/configuration/xe-2/dhcp-xe-2-book/dhcp-relay-agent-xe.html",
+      "id": "D4-006",
+      "question": "يوجد DHCP Server في شبكة 10.10.10.0/24، بينما Clients في شبكة 192.168.20.0/24 خلف Router. الـClients يرسلون DHCPDISCOVER لكن لا يحصلون على Offer. ما الإجراء الأكثر ارتباطًا بحل المشكلة؟",
+      "explanation": "Routers لا تمرر Broadcasts العادية بين الشبكات. يعمل DHCP Relay عبر `ip helper-address` على تحويل طلبات DHCP/BOOTP المناسبة وإرسالها نحو Server في شبكة أخرى.",
+      "options": [
+        "تكوين `ip helper-address` على Interface المواجه لشبكة الـClients ليشير إلى DHCP Server",
+        "تكوين `switchport mode trunk` على Router interface",
+        "زيادة HSRP priority",
+        "حذف Default Gateway من DHCP pool"
+      ],
+      "correctAnswer": "تكوين `ip helper-address` على Interface المواجه لشبكة الـClients ليشير إلى DHCP Server",
+      "scenario": "Clients LAN: 192.168.20.0/24\nR1 G0/0: 192.168.20.1/24\nR1 G0/1: 10.10.10.1/24\nDHCP Server: 10.10.10.50"
+    },
+    {
+      "module": "DHCPv4",
+      "topic": "Configure DHCPv4 Server",
+      "subtopic": "Excluded addresses",
+      "learningObjective": "اختيار الأمر الذي يمنع Server من توزيع عناوين محجوزة",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 7 DHCPv4; Cisco IOS XE DHCP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_config-dhcp-server-xe.html",
+      "id": "D4-007",
+      "question": "أي أمر يستخدم على Cisco IOS لمنع DHCP Server من توزيع مجموعة عناوين محددة؟",
+      "explanation": "يستخدم `ip dhcp excluded-address` في Global Configuration لتحديد عنوان واحد أو نطاق من العناوين التي لا يجب أن يمنحها DHCP Server للعملاء.",
+      "options": [
+        "ip dhcp excluded-address",
+        "ip dhcp pool",
+        "default-router",
+        "ip address dhcp"
+      ],
+      "correctAnswer": "ip dhcp excluded-address"
+    },
+    {
+      "module": "DHCPv4",
+      "topic": "Configure DHCPv4 Server",
+      "subtopic": "Pool network",
+      "learningObjective": "تحديد الأمر الذي يعرّف شبكة العناوين داخل DHCP pool",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 7 DHCPv4; Cisco IOS XE DHCP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_config-dhcp-server-xe.html",
+      "id": "D4-008",
+      "question": "بعد الدخول إلى `ip dhcp pool STAFF`، أي أمر يحدد الشبكة التي سيمنح منها Server العناوين؟",
+      "explanation": "داخل DHCP pool يحدد أمر `network` الـsubnet الذي تنتمي إليه العناوين المتاحة للتوزيع.",
+      "options": [
+        "network 192.168.10.0 255.255.255.0",
+        "ip route 192.168.10.0 255.255.255.0",
+        "ip helper-address 192.168.10.0",
+        "interface vlan 10"
+      ],
+      "correctAnswer": "network 192.168.10.0 255.255.255.0"
+    },
+    {
+      "module": "DHCPv4",
+      "topic": "Configure DHCPv4 Server",
+      "subtopic": "Default gateway option",
+      "learningObjective": "اختيار الأمر الذي يرسل Default Gateway للـClients",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 7 DHCPv4; Cisco IOS XE DHCP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_config-dhcp-server-xe.html",
+      "id": "D4-009",
+      "question": "أي أمر داخل DHCP pool يحدد Default Gateway الذي سيُرسل إلى Clients؟",
+      "explanation": "في Cisco IOS DHCP pool يستخدم `default-router` لتحديد عنوان Default Gateway الذي يتلقاه Clients ضمن إعداد DHCP.",
+      "options": [
+        "default-router 192.168.10.1",
+        "ip default-gateway 192.168.10.1",
+        "gateway-of-last-resort 192.168.10.1",
+        "next-hop 192.168.10.1"
+      ],
+      "correctAnswer": "default-router 192.168.10.1"
+    },
+    {
+      "module": "DHCPv4",
+      "topic": "Configure DHCPv4 Server",
+      "subtopic": "Configuration analysis",
+      "learningObjective": "اكتشاف خطأ Subnet داخل DHCP pool",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 7 DHCPv4; Cisco IOS XE DHCP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_config-dhcp-server-xe.html",
+      "id": "D4-010",
+      "question": "راجع الإعداد التالي. Interface الخاصة بالـLAN هي `192.168.30.1/24` لكن Clients لا يحصلون على عناوين صحيحة من هذا الـpool. ما السطر الذي يجب مراجعته أولًا؟",
+      "explanation": "الـpool يعرّف شبكة 192.168.20.0/24 بينما الـLAN المطلوبة 192.168.30.0/24. يجب أن يطابق `network` شبكة Clients التي سيخدمها الـpool.",
+      "options": [
+        "`network 192.168.20.0 255.255.255.0`",
+        "`default-router 192.168.30.1`",
+        "`dns-server 8.8.8.8`",
+        "`ip dhcp pool USERS`"
+      ],
+      "correctAnswer": "`network 192.168.20.0 255.255.255.0`",
+      "configuration": "ip dhcp pool USERS\n network 192.168.20.0 255.255.255.0\n default-router 192.168.30.1\n dns-server 8.8.8.8"
+    },
+    {
+      "module": "DHCPv4",
+      "topic": "Configure DHCPv4 Server",
+      "subtopic": "Configuration modes",
+      "learningObjective": "تمييز أوامر Global Configuration عن أوامر DHCP pool",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 7 DHCPv4; Cisco IOS XE DHCP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_config-dhcp-server-xe.html",
+      "id": "D4-011",
+      "question": "أي أمرين يتم إدخالهما من Global Configuration لإنشاء بنية DHCPv4 الأساسية؟ اختر إجابتين.",
+      "explanation": "`ip dhcp excluded-address` و`ip dhcp pool` أوامر Global Configuration. بعد `ip dhcp pool` تدخل إلى DHCP pool configuration mode، حيث تستخدم أوامر مثل `network` و`default-router`.",
+      "options": [
+        "ip dhcp excluded-address 192.168.10.1 192.168.10.20",
+        "ip dhcp pool STAFF",
+        "network 192.168.10.0 255.255.255.0",
+        "default-router 192.168.10.1"
+      ],
+      "correctAnswer": [
+        "ip dhcp excluded-address 192.168.10.1 192.168.10.20",
+        "ip dhcp pool STAFF"
+      ]
+    },
+    {
+      "module": "DHCPv4",
+      "topic": "Configure DHCPv4 Server",
+      "subtopic": "Pool commands",
+      "learningObjective": "مطابقة أوامر DHCPv4 بوظائفها",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 7 DHCPv4; Cisco IOS XE DHCP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_config-dhcp-server-xe.html",
+      "id": "D4-012",
+      "question": "طابق كل أمر مع وظيفته.",
+      "explanation": "تمييز مكان ووظيفة كل أمر يجعل قراءة DHCP configuration أسرع: الاستثناء Global، بينما `network` و`default-router` و`dns-server` خصائص للـpool.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "ip dhcp excluded-address",
+          "right": "استثناء عناوين من التوزيع"
+        },
+        {
+          "id": "p2",
+          "left": "network",
+          "right": "تعريف Subnet الخاصة بالـpool"
+        },
+        {
+          "id": "p3",
+          "left": "default-router",
+          "right": "تحديد Default Gateway للـClients"
+        },
+        {
+          "id": "p4",
+          "left": "dns-server",
+          "right": "تحديد DNS Server للـClients"
+        }
+      ]
+    },
+    {
+      "module": "DHCPv4",
+      "topic": "Configure DHCPv4 Server",
+      "subtopic": "Troubleshooting causes",
+      "learningObjective": "ربط أخطاء إعداد DHCPv4 بأثرها المحتمل",
+      "difficulty": "Challenging",
+      "type": "matching",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 7 DHCPv4; Cisco IOS XE DHCP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_config-dhcp-server-xe.html",
+      "id": "D4-013",
+      "question": "طابق كل مشكلة مع الأثر الأقرب لها.",
+      "explanation": "استكشاف DHCP يصبح أدق عندما تميّز بين فشل الحصول على Lease أصلًا وفشل الاتصال بعد الحصول عليه. كل عرض يقود إلى طبقة مختلفة من الفحص.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "Pool network لا تطابق شبكة Client",
+          "right": "قد لا يختار Server الـpool المناسب للعميل"
+        },
+        {
+          "id": "p2",
+          "left": "Default Gateway خاطئ داخل pool",
+          "right": "يحصل Client على IP لكنه يفشل في الوصول إلى شبكات بعيدة"
+        },
+        {
+          "id": "p3",
+          "left": "كل العناوين القابلة للتوزيع مستخدمة",
+          "right": "لا يتوفر Lease جديد لـClient إضافي"
+        },
+        {
+          "id": "p4",
+          "left": "لا يوجد DHCP relay لشبكة بعيدة",
+          "right": "Broadcast الخاص بالـClient لا يصل إلى Server البعيد"
+        }
+      ]
+    },
+    {
+      "module": "DHCPv4",
+      "topic": "DHCPv4 Client & Verification",
+      "subtopic": "Router as DHCP client",
+      "learningObjective": "اختيار أمر جعل Router interface يحصل على IPv4 عبر DHCP",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 7 DHCPv4; Cisco IOS XE DHCP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipaddr_dhcp/configuration/xe-2/dhcp-xe-2-book/config-dhcp-client-xe.html",
+      "id": "D4-014",
+      "question": "أي أمر Interface Configuration يجعل Cisco Router يحصل على IPv4 address باستخدام DHCP؟",
+      "explanation": "يستخدم `ip address dhcp` على Interface لتشغيل دور DHCP Client والحصول على معلومات IPv4 من DHCP Server.",
+      "options": [
+        "ip address dhcp",
+        "ip dhcp pool CLIENT",
+        "ip helper-address dhcp",
+        "dhcp client enable"
+      ],
+      "correctAnswer": "ip address dhcp"
+    },
+    {
+      "module": "DHCPv4",
+      "topic": "DHCPv4 Client & Verification",
+      "subtopic": "Bindings",
+      "learningObjective": "اختيار أمر عرض العناوين الممنوحة للعملاء",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 7 DHCPv4; Cisco IOS XE DHCP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_config-dhcp-server-xe.html",
+      "id": "D4-015",
+      "question": "أي أمر يعرض DHCP bindings التي أنشأها Cisco IOS DHCP Server؟",
+      "explanation": "`show ip dhcp binding` يعرض العناوين التي تم منحها وعلاقاتها بالعملاء، بينما `show ip dhcp pool` يركز على معلومات الـpool نفسه.",
+      "options": [
+        "show ip dhcp binding",
+        "show ip dhcp pool",
+        "show ip interface brief",
+        "show arp dhcp"
+      ],
+      "correctAnswer": "show ip dhcp binding"
+    },
+    {
+      "module": "DHCPv4",
+      "topic": "DHCPv4 Client & Verification",
+      "subtopic": "Pool exhaustion",
+      "learningObjective": "تحليل مخرجات DHCP pool لتحديد نفاد العناوين",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 7 DHCPv4; Cisco IOS XE DHCP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_config-dhcp-server-xe.html",
+      "id": "D4-016",
+      "question": "يريد Client جديد الحصول على Lease. بناءً على المخرجات المختصرة التالية، ما السبب الأكثر احتمالًا لفشل منحه عنوانًا؟",
+      "explanation": "إذا كان عدد العناوين المتاحة صفرًا فلن يستطيع Server إنشاء Lease جديد حتى يتحرر عنوان أو يوسّع الـpool/يعدّل الاستثناءات.",
+      "options": [
+        "لا توجد عناوين متاحة في الـpool",
+        "DHCP Server يستخدم DNS خاطئ",
+        "Default Gateway يحتاج HSRP",
+        "Client يجب أن يكون على Trunk Port"
+      ],
+      "correctAnswer": "لا توجد عناوين متاحة في الـpool",
+      "cliOutput": "Pool STAFF :\n Total addresses     : 200\n Leased addresses    : 190\n Excluded addresses  : 10\n Available addresses : 0"
+    },
+    {
+      "module": "DHCPv4",
+      "topic": "DHCPv4 Client & Verification",
+      "subtopic": "Verification commands",
+      "learningObjective": "تمييز وظيفة show ip dhcp binding",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 7 DHCPv4; Cisco IOS XE DHCP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_config-dhcp-server-xe.html",
+      "id": "D4-017",
+      "question": "يمكن استخدام `show ip dhcp binding` للتحقق من العناوين التي سبق أن خصصها DHCP Server للعملاء.",
+      "explanation": "هذا الأمر يعرض bindings التي أنشأها Server، وهو مفيد للتحقق من أن Clients حصلوا على Leases ولعرض العناوين المخصصة.",
+      "correctAnswer": "صح"
+    },
+    {
+      "module": "DHCPv4",
+      "topic": "DHCPv4 Client & Verification",
+      "subtopic": "Show commands",
+      "learningObjective": "مطابقة أوامر التحقق من DHCPv4 بالمعلومات التي تعرضها",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 7 DHCPv4; Cisco IOS XE DHCP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_config-dhcp-server-xe.html",
+      "id": "D4-018",
+      "question": "طابق كل أمر بالمعلومة الأساسية التي يساعدك على التحقق منها.",
+      "explanation": "استخدام أمر التحقق المناسب يقلل وقت التشخيص؛ فـpool وbinding وconflict تعطي زوايا مختلفة من حالة DHCP Server.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "show ip dhcp pool",
+          "right": "حالة الـpools وعدد العناوين المستخدمة والمتاحة"
+        },
+        {
+          "id": "p2",
+          "left": "show ip dhcp binding",
+          "right": "العناوين الممنوحة للعملاء"
+        },
+        {
+          "id": "p3",
+          "left": "show ip dhcp conflict",
+          "right": "العناوين التي اكتشف Server تعارضًا عليها"
+        },
+        {
+          "id": "p4",
+          "left": "show ip interface brief",
+          "right": "حالة وعنوان Interfaces بصورة مختصرة"
+        }
+      ]
+    },
+    {
+      "module": "SLAAC and DHCPv6 Concepts",
+      "topic": "IPv6 GUA Assignment",
+      "subtopic": "Address acquisition",
+      "learningObjective": "تمييز إحدى طرق حصول Host على IPv6 GUA ديناميكيًا",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 8 SLAAC and DHCPv6 Concepts; Cisco IPv6/DHCPv6 documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_ip6-dhcp-stateless-xe.html",
+      "id": "V6-001",
+      "question": "أي آلية تسمح لـIPv6 Host بتكوين Global Unicast Address اعتمادًا على Router Advertisement من دون أن يمنحه DHCPv6 Server العنوان؟",
+      "explanation": "في SLAAC يستفيد Host من المعلومات الموجودة في Router Advertisement لبناء عنوانه الديناميكي، ولا يحتاج DHCPv6 Server ليمنحه الـIPv6 address نفسه.",
+      "options": [
+        "SLAAC",
+        "HSRP",
+        "DTP",
+        "PAgP"
+      ],
+      "correctAnswer": "SLAAC"
+    },
+    {
+      "module": "SLAAC and DHCPv6 Concepts",
+      "topic": "IPv6 GUA Assignment",
+      "subtopic": "Default gateway",
+      "learningObjective": "تحديد مصدر Default Gateway في IPv6 dynamic addressing",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 8 SLAAC and DHCPv6 Concepts; Cisco IPv6/DHCPv6 documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/c9000/lyr3-fwd/dhcp/dhcp-configuration-guide/advanced-dhcp-features.html",
+      "id": "V6-002",
+      "question": "في بيئة SLAAC أو DHCPv6، من أين يتعلم IPv6 Host معلومات Default Gateway؟",
+      "explanation": "في IPv6 يقوم Router Advertisement بدور أساسي في اكتشاف الراوترات. حتى مع Stateful DHCPv6، لا يكون DHCPv6 هو المصدر التقليدي لعنوان Default Gateway.",
+      "options": [
+        "من Router Advertisement وليس من DHCPv6 Server",
+        "من DNS Server",
+        "من DHCPv6 Server فقط",
+        "من MAC Address Table"
+      ],
+      "correctAnswer": "من Router Advertisement وليس من DHCPv6 Server"
+    },
+    {
+      "module": "SLAAC and DHCPv6 Concepts",
+      "topic": "IPv6 GUA Assignment",
+      "subtopic": "RA flags",
+      "learningObjective": "ربط أعلام Router Advertisement بالقرار الذي تشير إليه",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 8 SLAAC and DHCPv6 Concepts; Cisco IPv6/DHCPv6 documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/c9000/lyr3-fwd/dhcp/dhcp-configuration-guide/advanced-dhcp-features.html",
+      "id": "V6-003",
+      "question": "طابق كل RA flag مع الدلالة التعليمية الأنسب.",
+      "explanation": "تساعد أعلام RA الـHost على معرفة الطريقة المطلوبة: SLAAC للعناوين، أو DHCPv6 للمعلومات الأخرى، أو Stateful DHCPv6 لإدارة العنوان.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "A flag",
+          "right": "يسمح للـHost باستخدام SLAAC لبناء IPv6 address من الـprefix"
+        },
+        {
+          "id": "p2",
+          "left": "O flag",
+          "right": "يشير إلى استخدام DHCPv6 للحصول على معلومات أخرى مثل DNS"
+        },
+        {
+          "id": "p3",
+          "left": "M flag",
+          "right": "يشير إلى أن Address configuration تُدار عبر Stateful DHCPv6"
+        }
+      ]
+    },
+    {
+      "module": "SLAAC and DHCPv6 Concepts",
+      "topic": "SLAAC",
+      "subtopic": "Server requirement",
+      "learningObjective": "شرح اعتماد SLAAC على Router Advertisement بدل DHCPv6 Server",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 8 SLAAC and DHCPv6 Concepts; Cisco IPv6/DHCPv6 documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_ip6-dhcp-stateless-xe.html",
+      "id": "V6-004",
+      "question": "أي عبارة تصف SLAAC بصورة أدق؟",
+      "explanation": "SLAAC تعني Stateless Address Autoconfiguration؛ يحصل Host على Prefix ومعلومات Router عبر Neighbor Discovery/RA ثم يكوّن عنوانه بنفسه.",
+      "options": [
+        "يستطيع Host إنشاء IPv6 address باستخدام معلومات RA من Router",
+        "يجب أن يمنح DHCPv6 Server كل Host عنوانه يدويًا",
+        "يستخدم HSRP لاختيار Interface ID",
+        "يعمل فقط إذا كان IPv4 معطلًا على الراوتر"
+      ],
+      "correctAnswer": "يستطيع Host إنشاء IPv6 address باستخدام معلومات RA من Router"
+    },
+    {
+      "module": "SLAAC and DHCPv6 Concepts",
+      "topic": "SLAAC",
+      "subtopic": "Address construction",
+      "learningObjective": "شرح أن Host يكوّن عنوانه في SLAAC من Prefix ومكوّن Interface ID",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 8 SLAAC and DHCPv6 Concepts; Cisco IPv6/DHCPv6 documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_ip6-dhcp-stateless-xe.html",
+      "id": "V6-005",
+      "question": "في SLAAC يمكن للـHost استخدام Prefix المعلن في RA مع Interface ID لتكوين IPv6 Global Unicast Address.",
+      "explanation": "الـRouter يعلن Prefix المناسب، والـHost يكمل بناء العنوان وفق آلية SLAAC، ثم يتحقق من عدم وجود تعارض على العنوان قبل استخدامه.",
+      "correctAnswer": "صح"
+    },
+    {
+      "module": "SLAAC and DHCPv6 Concepts",
+      "topic": "SLAAC",
+      "subtopic": "Host autoconfiguration",
+      "learningObjective": "ترتيب تسلسل مبسط لتهيئة Host باستخدام SLAAC",
+      "difficulty": "Challenging",
+      "type": "ordering",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 8 SLAAC and DHCPv6 Concepts; Cisco IPv6/DHCPv6 documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_ip6-dhcp-stateless-xe.html",
+      "id": "V6-006",
+      "question": "رتب التسلسل المبسط التالي لتهيئة IPv6 Host باستخدام SLAAC.",
+      "explanation": "هذا التسلسل يربط Neighbor Discovery بعملية SLAAC: طلب/استقبال RA، ثم تكوين العنوان، ثم التحقق من عدم تكراره عبر DAD.",
+      "items": [
+        {
+          "id": "i1",
+          "text": "يرسل Host Router Solicitation عند الحاجة لتسريع الاكتشاف"
+        },
+        {
+          "id": "i2",
+          "text": "يستقبل Router Advertisement يتضمن معلومات الـprefix"
+        },
+        {
+          "id": "i3",
+          "text": "يبني Host عنوان IPv6 اعتمادًا على الـprefix وInterface ID"
+        },
+        {
+          "id": "i4",
+          "text": "ينفذ Duplicate Address Detection قبل الاستخدام الطبيعي للعنوان"
+        }
+      ],
+      "correctOrder": [
+        "i1",
+        "i2",
+        "i3",
+        "i4"
+      ]
+    },
+    {
+      "module": "SLAAC and DHCPv6 Concepts",
+      "topic": "DHCPv6 Concepts",
+      "subtopic": "Stateless DHCPv6",
+      "learningObjective": "تمييز دور Stateless DHCPv6",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 8 SLAAC and DHCPv6 Concepts; Cisco IPv6/DHCPv6 documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_ip6-dhcp-stateless-xe.html",
+      "id": "V6-007",
+      "question": "في Stateless DHCPv6، من أين يحصل Host على IPv6 address عادةً؟",
+      "explanation": "Stateless DHCPv6 يفصل بين تكوين العنوان والمعلومات الإضافية: العنوان يُبنى عبر SLAAC، بينما DHCPv6 يمكن أن يقدم DNS أو Domain Name.",
+      "options": [
+        "من SLAAC، بينما DHCPv6 يوفر معلومات إضافية مثل DNS",
+        "من HSRP virtual IP",
+        "من DHCPv6 فقط دون Router Advertisement",
+        "من ARP"
+      ],
+      "correctAnswer": "من SLAAC، بينما DHCPv6 يوفر معلومات إضافية مثل DNS"
+    },
+    {
+      "module": "SLAAC and DHCPv6 Concepts",
+      "topic": "DHCPv6 Concepts",
+      "subtopic": "Stateful DHCPv6",
+      "learningObjective": "تمييز Stateful DHCPv6 عن Stateless",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 8 SLAAC and DHCPv6 Concepts; Cisco IPv6/DHCPv6 documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/c9000/lyr3-fwd/dhcp/dhcp-configuration-guide/advanced-dhcp-features.html",
+      "id": "V6-008",
+      "question": "أي عبارتين تصفان Stateful DHCPv6 بصورة صحيحة؟ اختر إجابتين.",
+      "explanation": "في Stateful DHCPv6 يدير Server تخصيص العنوان، بينما تبقى Router Advertisements مهمة لاكتشاف Default Router. لذلك لا يحل DHCPv6 محل RA في وظيفة Default Gateway.",
+      "options": [
+        "DHCPv6 Server يدير منح IPv6 addresses للعملاء",
+        "Default Gateway ما زال يُتعلم عبر Router Advertisement",
+        "Host يبني العنوان دائمًا عبر SLAAC ولا يحتفظ Server بأي حالة",
+        "DHCPv6 يلغي الحاجة إلى Router Advertisement بالكامل"
+      ],
+      "correctAnswer": [
+        "DHCPv6 Server يدير منح IPv6 addresses للعملاء",
+        "Default Gateway ما زال يُتعلم عبر Router Advertisement"
+      ]
+    },
+    {
+      "module": "SLAAC and DHCPv6 Concepts",
+      "topic": "DHCPv6 Concepts",
+      "subtopic": "Stateless behavior",
+      "learningObjective": "تحليل توزيع الأدوار بين SLAAC وDHCPv6 وRA",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 8 SLAAC and DHCPv6 Concepts; Cisco IPv6/DHCPv6 documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_ip6-dhcp-stateless-xe.html",
+      "id": "V6-009",
+      "question": "في شبكة تستخدم SLAAC مع Stateless DHCPv6، أي ثلاث عبارات صحيحة؟ اختر ثلاث إجابات.",
+      "explanation": "في هذا النموذج تتوزع الوظائف: SLAAC للعنوان، DHCPv6 للمعلومات الأخرى، وRA لمعلومات الراوتر/Default Gateway. هذه نقطة مهمة عند استكشاف أخطاء IPv6.",
+      "options": [
+        "Host يبني IPv6 address باستخدام SLAAC",
+        "DHCPv6 يمكن أن يوفر DNS information",
+        "Default Gateway يُتعلم من Router Advertisement",
+        "DHCPv6 Server يجب أن يكون هو Default Gateway",
+        "ARP يحدد IPv6 Default Gateway"
+      ],
+      "correctAnswer": [
+        "Host يبني IPv6 address باستخدام SLAAC",
+        "DHCPv6 يمكن أن يوفر DNS information",
+        "Default Gateway يُتعلم من Router Advertisement"
+      ]
+    },
+    {
+      "module": "SLAAC and DHCPv6 Concepts",
+      "topic": "DHCPv6 Concepts",
+      "subtopic": "DHCPv6 message exchange",
+      "learningObjective": "ترتيب رسائل DHCPv6 الأساسية في Stateful exchange",
+      "difficulty": "Challenging",
+      "type": "ordering",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 8 SLAAC and DHCPv6 Concepts; Cisco IPv6/DHCPv6 documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/c9000/lyr3-fwd/dhcp/dhcp-configuration-guide/advanced-dhcp-features.html",
+      "id": "V6-010",
+      "question": "رتب رسائل DHCPv6 الأساسية التالية في عملية الحصول على إعداد Stateful.",
+      "explanation": "يشبه هذا التسلسل فكرة DORA في DHCPv4 لكن بأسماء رسائل DHCPv6: يبدأ Client بـSOLICIT، يرد Server بـADVERTISE، ثم REQUEST، ثم REPLY.",
+      "items": [
+        {
+          "id": "i1",
+          "text": "SOLICIT"
+        },
+        {
+          "id": "i2",
+          "text": "ADVERTISE"
+        },
+        {
+          "id": "i3",
+          "text": "REQUEST"
+        },
+        {
+          "id": "i4",
+          "text": "REPLY"
+        }
+      ],
+      "correctOrder": [
+        "i1",
+        "i2",
+        "i3",
+        "i4"
+      ]
+    },
+    {
+      "module": "SLAAC and DHCPv6 Concepts",
+      "topic": "Configure DHCPv6 Server",
+      "subtopic": "Stateless flag",
+      "learningObjective": "اختيار RA flag المناسب لتوجيه Clients نحو معلومات إضافية من DHCPv6",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 8 SLAAC and DHCPv6 Concepts; Cisco IPv6/DHCPv6 documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_ip6-dhcp-stateless-xe.html",
+      "id": "V6-011",
+      "question": "أي أمر Interface Configuration يستخدم عادةً مع Stateless DHCPv6 للإشارة إلى أن Clients يجب أن يحصلوا على معلومات إضافية من DHCPv6؟",
+      "explanation": "`ipv6 nd other-config-flag` يضبط O flag في RA، ويشير إلى استخدام DHCPv6 لمعلومات غير العنوان مثل DNS، بينما يبقى العنوان عبر SLAAC.",
+      "options": [
+        "ipv6 nd other-config-flag",
+        "ipv6 nd managed-config-flag",
+        "ip helper-address",
+        "standby 1 preempt"
+      ],
+      "correctAnswer": "ipv6 nd other-config-flag"
+    },
+    {
+      "module": "SLAAC and DHCPv6 Concepts",
+      "topic": "Configure DHCPv6 Server",
+      "subtopic": "Stateful flag",
+      "learningObjective": "اختيار RA flag الذي يشير إلى Managed address configuration",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 8 SLAAC and DHCPv6 Concepts; Cisco IPv6/DHCPv6 documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/c9000/lyr3-fwd/dhcp/dhcp-configuration-guide/advanced-dhcp-features.html",
+      "id": "V6-012",
+      "question": "أي أمر Interface Configuration يشير إلى استخدام Stateful DHCPv6 لإدارة IPv6 address؟",
+      "explanation": "`ipv6 nd managed-config-flag` يضبط M flag في Router Advertisement ليشير إلى أن العنوان يُدار عبر DHCPv6.",
+      "options": [
+        "ipv6 nd managed-config-flag",
+        "ipv6 nd other-config-flag فقط",
+        "ip address dhcp",
+        "ipv6 address autoconfig فقط"
+      ],
+      "correctAnswer": "ipv6 nd managed-config-flag"
+    },
+    {
+      "module": "SLAAC and DHCPv6 Concepts",
+      "topic": "Configure DHCPv6 Server",
+      "subtopic": "Interface association",
+      "learningObjective": "تمييز أوامر ربط DHCPv6 pool بالواجهة في Stateful configuration",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 8 SLAAC and DHCPv6 Concepts; Cisco IPv6/DHCPv6 documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/c9000/lyr3-fwd/dhcp/dhcp-configuration-guide/advanced-dhcp-features.html",
+      "id": "V6-013",
+      "question": "على Interface التي تخدم Stateful DHCPv6، أي أمرين يرتبطان مباشرة بإعلان أن العنوان Managed وربط الـDHCPv6 pool بالواجهة؟ اختر إجابتين.",
+      "explanation": "الأول يضبط M flag في RA، والثاني يربط DHCPv6 pool بالـInterface. إعداد الـpool نفسه يتم في Global Configuration عبر `ipv6 dhcp pool`.",
+      "options": [
+        "ipv6 nd managed-config-flag",
+        "ipv6 dhcp server IPV6_POOL",
+        "ip dhcp excluded-address",
+        "standby 1 ip 2001:db8::1"
+      ],
+      "correctAnswer": [
+        "ipv6 nd managed-config-flag",
+        "ipv6 dhcp server IPV6_POOL"
+      ]
+    },
+    {
+      "module": "FHRP Concepts",
+      "topic": "FHRP Purpose",
+      "subtopic": "Default gateway redundancy",
+      "learningObjective": "شرح المشكلة التي تعالجها FHRPs",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 9 FHRP Concepts; Cisco HSRP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/ip/hot-standby-router-protocol-hsrp/9281-3.html",
+      "id": "FHRP-001",
+      "question": "ما المشكلة الأساسية التي صُممت FHRPs لمعالجتها في LAN؟",
+      "explanation": "إذا اعتمد Hosts على Router واحد كـDefault Gateway ثم فشل، قد يفقدون الوصول إلى الشبكات البعيدة. FHRP يقدم Gateway منطقيًا متاحًا عبر أكثر من Router.",
+      "options": [
+        "تحول Default Gateway الواحد إلى Single Point of Failure",
+        "نقص عدد VLANs على Switch",
+        "عدم قدرة STP على حساب Root Port",
+        "تكرار IPv6 addresses بسبب DAD"
+      ],
+      "correctAnswer": "تحول Default Gateway الواحد إلى Single Point of Failure"
+    },
+    {
+      "module": "FHRP Concepts",
+      "topic": "FHRP Purpose",
+      "subtopic": "Virtual gateway",
+      "learningObjective": "تفسير استخدام Virtual IP كـDefault Gateway",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 9 FHRP Concepts; Cisco HSRP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/ip/hot-standby-router-protocol-hsrp/9281-3.html",
+      "id": "FHRP-002",
+      "question": "في FHRP يمكن ضبط Hosts لاستخدام Virtual IP كـDefault Gateway بدل الاعتماد على Physical IP لراوتر واحد.",
+      "explanation": "الفكرة الأساسية هي فصل Default Gateway الذي يعرفه Host عن Router فعلي واحد. تتولى مجموعة FHRP خدمة Virtual IP بحيث يمكن لRouter آخر الاستمرار عند الفشل.",
+      "correctAnswer": "صح"
+    },
+    {
+      "module": "FHRP Concepts",
+      "topic": "FHRP Purpose",
+      "subtopic": "Core terms",
+      "learningObjective": "ربط مفاهيم FHRP الأساسية بوظائفها",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 9 FHRP Concepts; Cisco HSRP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/ip/hot-standby-router-protocol-hsrp/9281-3.html",
+      "id": "FHRP-003",
+      "question": "طابق كل مفهوم مع الوصف الأنسب.",
+      "explanation": "FHRP يبني Gateway منطقيًا من Virtual IP وVirtual MAC، ثم يوزع أدوار العمل والاحتياط على Routers المشاركين.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "Virtual IP",
+          "right": "العنوان الذي تستخدمه Hosts كـDefault Gateway"
+        },
+        {
+          "id": "p2",
+          "left": "Virtual MAC",
+          "right": "عنوان Layer 2 المرتبط بالـVirtual Gateway"
+        },
+        {
+          "id": "p3",
+          "left": "Active/Forwarding Router",
+          "right": "العضو الذي يتولى تمرير Traffic للـVirtual Gateway حاليًا"
+        },
+        {
+          "id": "p4",
+          "left": "Standby/Backup Router",
+          "right": "عضو جاهز لتولي الدور عند فشل العضو الفعّال"
+        }
+      ]
+    },
+    {
+      "module": "FHRP Concepts",
+      "topic": "FHRP Operation",
+      "subtopic": "Failover",
+      "learningObjective": "شرح سلوك FHRP عند فشل Active gateway",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 9 FHRP Concepts; Cisco HSRP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/ip/hot-standby-router-protocol-hsrp/9281-3.html",
+      "id": "FHRP-004",
+      "question": "فشل Router الذي يخدم Virtual Gateway حاليًا. ما السلوك المتوقع من FHRP؟",
+      "explanation": "الهدف من FHRP هو استمرار خدمة Default Gateway دون تغيير إعداد Hosts. عند الفشل ينتقل الدور إلى Router احتياطي وفق آلية البروتوكول.",
+      "options": [
+        "يتولى Backup Router خدمة الـVirtual Gateway بحيث يستمر Hosts في استخدام Default Gateway نفسه",
+        "يجب تغيير Default Gateway يدويًا على جميع Hosts",
+        "يتوقف STP على جميع السويتشات",
+        "يتحول DHCPv4 إلى DHCPv6"
+      ],
+      "correctAnswer": "يتولى Backup Router خدمة الـVirtual Gateway بحيث يستمر Hosts في استخدام Default Gateway نفسه"
+    },
+    {
+      "module": "FHRP Concepts",
+      "topic": "FHRP Operation",
+      "subtopic": "Benefits",
+      "learningObjective": "تمييز فوائد FHRP في شبكة LAN",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 9 FHRP Concepts; Cisco HSRP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/ip/hot-standby-router-protocol-hsrp/9281-3.html",
+      "id": "FHRP-005",
+      "question": "أي فائدتين ترتبطان مباشرة باستخدام FHRP؟ اختر إجابتين.",
+      "explanation": "FHRP يحسن Availability عند First Hop؛ يحافظ على Gateway منطقي ثابت للـHosts بينما تتغير الجهة الفعلية التي تخدمه عند الحاجة.",
+      "options": [
+        "استمرارية خدمة Default Gateway عند فشل Router",
+        "عدم الحاجة إلى تغيير Gateway يدويًا على Hosts أثناء Failover",
+        "تجميع عدة Switch ports في Port-Channel",
+        "إنشاء DHCP pool تلقائيًا"
+      ],
+      "correctAnswer": [
+        "استمرارية خدمة Default Gateway عند فشل Router",
+        "عدم الحاجة إلى تغيير Gateway يدويًا على Hosts أثناء Failover"
+      ]
+    },
+    {
+      "module": "FHRP Concepts",
+      "topic": "HSRP",
+      "subtopic": "Active and Standby roles",
+      "learningObjective": "تمييز دوري Active وStandby في HSRP",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 9 FHRP Concepts; Cisco HSRP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/ip/hot-standby-router-protocol-hsrp/9281-3.html",
+      "id": "HSRP-001",
+      "question": "في HSRP، ما دور Active Router مقارنةً بـStandby Router؟",
+      "explanation": "HSRP يوفر Router فعّال لخدمة Virtual IP وRouter احتياطيًا جاهزًا. هذه الأدوار تحقق Default Gateway redundancy للـHosts.",
+      "options": [
+        "Active يخدم Virtual Gateway حاليًا وStandby جاهز لتولي الدور عند الفشل",
+        "كلاهما يرسل نصف Frames في كل لحظة بالضرورة",
+        "Standby يوزع DHCP addresses وActive يشغّل STP",
+        "Active يعمل Layer 2 فقط وStandby يعمل Layer 3 فقط"
+      ],
+      "correctAnswer": "Active يخدم Virtual Gateway حاليًا وStandby جاهز لتولي الدور عند الفشل"
+    },
+    {
+      "module": "FHRP Concepts",
+      "topic": "HSRP",
+      "subtopic": "Priority",
+      "learningObjective": "تطبيق مفهوم HSRP priority بصورة أساسية",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 9 FHRP Concepts; Cisco HSRP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/ip/hot-standby-router-protocol-hsrp/9281-3.html",
+      "id": "HSRP-002",
+      "question": "إذا كان R1 وR2 في HSRP group نفسها وكانت Priority لـR1 تساوي 110 ولـR2 تساوي 100، فأي Router يملك أفضلية أعلى في انتخاب Active عند بدء الانتخاب؟",
+      "explanation": "في HSRP تكون القيمة الأعلى للـPriority أكثر تفضيلًا في عملية الانتخاب. القيمة الافتراضية الشائعة هي 100 ما لم تُعدّل.",
+      "options": [
+        "R1 لأن HSRP يفضل Priority الأعلى",
+        "R2 لأن HSRP يفضل Priority الأقل",
+        "كلاهما يصبح Active دائمًا",
+        "لا تؤثر Priority في HSRP"
+      ],
+      "correctAnswer": "R1 لأن HSRP يفضل Priority الأعلى"
+    },
+    {
+      "module": "FHRP Concepts",
+      "topic": "HSRP",
+      "subtopic": "Show output",
+      "learningObjective": "تحليل مخرجات show standby لتحديد Gateway الذي يجب أن تستخدمه Hosts",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 9 FHRP Concepts; Cisco HSRP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/ip/hot-standby-router-protocol-hsrp/9281-3.html",
+      "id": "HSRP-003",
+      "question": "من مخرجات `show standby` التالية، ما IPv4 address الذي يجب أن تستخدمه Hosts في VLAN 10 كـDefault Gateway؟",
+      "explanation": "Hosts تستخدم HSRP Virtual IP كـDefault Gateway. Physical IPs تخص Routers المشاركين، بينما Virtual MAC ليس IPv4 address.",
+      "options": [
+        "192.168.10.1",
+        "192.168.10.2",
+        "192.168.10.3",
+        "0000.0c07.ac01"
+      ],
+      "correctAnswer": "192.168.10.1",
+      "cliOutput": "Vlan10 - Group 1\n State is Standby\n Virtual IP address is 192.168.10.1\n Active router is 192.168.10.2\n Standby router is local\n Local interface address is 192.168.10.3"
+    },
+    {
+      "module": "FHRP Concepts",
+      "topic": "HSRP",
+      "subtopic": "Failover behavior",
+      "learningObjective": "استنتاج أثر فشل Active Router على إعداد Host",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 9 FHRP Concepts; Cisco HSRP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/ip/hot-standby-router-protocol-hsrp/9281-3.html",
+      "id": "HSRP-004",
+      "question": "PC يستخدم 192.168.50.1 كـDefault Gateway وهو HSRP Virtual IP. فشل Active Router وانتقل الدور بنجاح إلى Standby Router. ما التغيير المطلوب على إعداد Default Gateway في PC؟",
+      "explanation": "هذه هي قيمة FHRP للـHosts: يبقى Virtual IP ثابتًا، بينما البروتوكول ينقل مسؤولية خدمته إلى Router آخر عند Failover.",
+      "options": [
+        "لا تغيير؛ يستمر PC باستخدام 192.168.50.1",
+        "يجب تغييره إلى Physical IP للـStandby Router",
+        "يجب حذفه وإعادة الحصول عليه من DHCP دائمًا",
+        "يجب تغييره إلى Broadcast address"
+      ],
+      "correctAnswer": "لا تغيير؛ يستمر PC باستخدام 192.168.50.1"
+    }
+  ]
 }
