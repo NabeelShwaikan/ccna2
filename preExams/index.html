@@ -8,86 +8,63 @@
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-  <header class="site-header">
+  <header class="site-header compact-header">
     <div class="shell header-row">
       <div>
         <p class="eyebrow">CCNA2 · SRWE v7</p>
         <h1>المراجعة والاستعداد للاختبار</h1>
-        <p class="lead">مراجعة منظمة حسب موضوعات المقرر، مع تدريب تفاعلي وتحليل للنتائج.</p>
       </div>
       <button class="icon-btn" id="themeToggle" type="button" aria-label="تبديل المظهر">◐</button>
     </div>
   </header>
 
-  <main class="shell main-space">
-    <section class="intro-card" aria-labelledby="introTitle">
-      <div>
-        <span class="status-pill">Version 1.1</span>
-        <h2 id="introTitle">اختر القسم الذي تريد مراجعته</h2>
-        <p>كل قسم مستقل، ويحتوي لاحقًا على بنك أسئلة معتمد وشرح تعليمي متوافق مع منهج Cisco.</p>
-      </div>
-      <div class="mini-stats" aria-label="معلومات المنصة">
-        <div><strong>7</strong><span>أقسام</span></div>
-        <div><strong>30+</strong><span>سؤال لكل قسم</span></div>
-        <div><strong>RTL</strong><span>متوافق مع الجوال</span></div>
-      </div>
-    </section>
+  <main class="shell main-space compact-main">
+    <h2 class="sections-title">اختر القسم</h2>
 
     <section class="section-grid" aria-label="أقسام المقرر">
       <a class="section-card" href="pages/fundamentals.html">
         <span class="section-no">01</span>
         <h3>Device Configuration & Switching Concepts</h3>
         <p>Basic Device Configuration · Switching Concepts</p>
-        <span class="card-link">فتح القسم ←</span>
       </a>
 
       <a class="section-card" href="pages/vlan-intervlan.html">
         <span class="section-no">02</span>
         <h3>VLAN & Inter-VLAN Routing</h3>
         <p>VLAN · Trunking · Inter-VLAN · Router-on-a-Stick</p>
-        <span class="card-link">فتح القسم ←</span>
       </a>
 
       <a class="section-card" href="pages/stp-etherchannel.html">
         <span class="section-no">03</span>
         <h3>STP & EtherChannel</h3>
         <p>STP · RSTP · EtherChannel · LACP · PAgP</p>
-        <span class="card-link">فتح القسم ←</span>
       </a>
 
       <a class="section-card" href="pages/dhcp-fhrp.html">
         <span class="section-no">04</span>
         <h3>Network Services & First-Hop Availability</h3>
         <p>DHCP · FHRP · HSRP</p>
-        <span class="card-link">فتح القسم ←</span>
       </a>
 
       <a class="section-card" href="pages/lan-security.html">
         <span class="section-no">05</span>
         <h3>LAN Security</h3>
         <p>Port Security · DHCP Snooping · DAI · VLAN Attacks</p>
-        <span class="card-link">فتح القسم ←</span>
       </a>
 
       <a class="section-card" href="pages/wlan.html">
         <span class="section-no">06</span>
         <h3>WLAN</h3>
         <p>Wireless Concepts · Security · Configuration · Troubleshooting</p>
-        <span class="card-link">فتح القسم ←</span>
       </a>
 
       <a class="section-card" href="pages/routing.html">
         <span class="section-no">07</span>
         <h3>Routing & Troubleshooting</h3>
         <p>Routing Concepts · Static · Default · IPv4/IPv6 · Troubleshooting</p>
-        <span class="card-link">فتح القسم ←</span>
       </a>
     </section>
   </main>
-
-  <footer class="site-footer">
-    <div class="shell">منصة تعليمية للمراجعة والتدريب · CCNA2 / SRWE</div>
-  </footer>
 
   <script src="js/app.js" defer></script>
 </body>
