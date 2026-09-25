@@ -1,5 +1,6 @@
 {
   "schemaVersion": "1.1",
+  "bankVersion": "1.0",
   "course": "CCNA2 - Switching, Routing, and Wireless Essentials",
   "courseVersion": "SRWE v7",
   "section": {
@@ -7,11 +8,1272 @@
     "number": 1,
     "title": "Device Configuration & Switching Concepts",
     "description": "Basic Device Configuration · Switching Concepts",
-    "topics": [
+    "modules": [
       "Basic Device Configuration",
       "Switching Concepts"
     ],
-    "status": "empty"
+    "status": "approved",
+    "approvedQuestionCount": 40,
+    "lastReviewed": "2026-09-25"
   },
-  "questions": []
+  "assessmentAlignment": {
+    "source": "SRWE v7 Module & Final Exam Design Documents.xlsx",
+    "moduleGroupExamCoveragePercent": {
+      "Basic Device Configuration": 16.25,
+      "Switching Concepts": 28.125
+    },
+    "finalExamCoveragePercent": {
+      "Basic Device Configuration": 4.5,
+      "Switching Concepts": 8.25
+    },
+    "questionAllocation": {
+      "Basic Device Configuration": 14,
+      "Switching Concepts": 26
+    }
+  },
+  "coverageMatrix": [
+    {
+      "module": "Basic Device Configuration",
+      "area": "Initial Switch Settings",
+      "learningFocus": "Initial secure settings and configuration persistence",
+      "questionCount": 2,
+      "questionIds": [
+        "FND-001",
+        "FND-002"
+      ]
+    },
+    {
+      "module": "Basic Device Configuration",
+      "area": "Switch Ports",
+      "learningFocus": "Speed, duplex, interface behavior and mismatch troubleshooting",
+      "questionCount": 3,
+      "questionIds": [
+        "FND-003",
+        "FND-004",
+        "FND-005"
+      ]
+    },
+    {
+      "module": "Basic Device Configuration",
+      "area": "Secure Remote Access",
+      "learningFocus": "SSH purpose, VTY configuration and SSH prerequisites",
+      "questionCount": 3,
+      "questionIds": [
+        "FND-006",
+        "FND-007",
+        "FND-008"
+      ]
+    },
+    {
+      "module": "Basic Device Configuration",
+      "area": "Basic Router Configuration",
+      "learningFocus": "IPv4 interface configuration and activation",
+      "questionCount": 3,
+      "questionIds": [
+        "FND-009",
+        "FND-010",
+        "FND-011"
+      ]
+    },
+    {
+      "module": "Basic Device Configuration",
+      "area": "Verify Directly Connected Networks",
+      "learningFocus": "Interface verification, connected routes and troubleshooting",
+      "questionCount": 3,
+      "questionIds": [
+        "FND-012",
+        "FND-013",
+        "FND-014"
+      ]
+    },
+    {
+      "module": "Switching Concepts",
+      "area": "Frame Forwarding",
+      "learningFocus": "MAC learning, forwarding, filtering, flooding, aging and switching methods",
+      "questionCount": 16,
+      "questionIds": [
+        "FND-015",
+        "FND-016",
+        "FND-017",
+        "FND-018",
+        "FND-019",
+        "FND-020",
+        "FND-021",
+        "FND-022",
+        "FND-023",
+        "FND-024",
+        "FND-025",
+        "FND-026",
+        "FND-027",
+        "FND-028",
+        "FND-029",
+        "FND-030"
+      ]
+    },
+    {
+      "module": "Switching Concepts",
+      "area": "Switching Domains",
+      "learningFocus": "Collision domains, broadcast domains, full-duplex and Layer 2 broadcast behavior",
+      "questionCount": 10,
+      "questionIds": [
+        "FND-031",
+        "FND-032",
+        "FND-033",
+        "FND-034",
+        "FND-035",
+        "FND-036",
+        "FND-037",
+        "FND-038",
+        "FND-039",
+        "FND-040"
+      ]
+    }
+  ],
+  "reviewRecord": {
+    "technicalReview": "approved",
+    "assessmentReview": "approved",
+    "educationalReview": "approved",
+    "studentClarityReview": "approved",
+    "mobileInteractionReview": "approved",
+    "reviewDate": "2026-09-25",
+    "notes": "Original questions; Cisco terminology retained in English and explanations written in Arabic."
+  },
+  "questions": [
+    {
+      "module": "Basic Device Configuration",
+      "topic": "Initial Switch Settings",
+      "subtopic": "Privileged EXEC protection",
+      "learningObjective": "اختيار الطريقة الأنسب لحماية الوصول إلى Privileged EXEC mode",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco Catalyst 2960 authentication guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_sec_unautha_2960_cg.html",
+      "id": "FND-001",
+      "question": "أي أمر يُعد الخيار الأفضل لحماية الوصول إلى Privileged EXEC mode على جهاز Cisco IOS؟",
+      "options": [
+        "enable secret class",
+        "enable password class",
+        "password class",
+        "service password-encryption"
+      ],
+      "correctAnswer": "enable secret class",
+      "explanation": "الأمر `enable secret` مخصص لحماية الوصول إلى Privileged EXEC mode ويُخزن السر باستخدام آلية حماية أقوى من `enable password`. أما `service password-encryption` فيخفي كلمات المرور النصية في configuration ولا ينشئ كلمة مرور Privileged EXEC بحد ذاته."
+    },
+    {
+      "module": "Basic Device Configuration",
+      "topic": "Initial Switch Settings",
+      "subtopic": "Common initial settings",
+      "learningObjective": "ربط أوامر الإعداد الأولي بوظائفها",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco Catalyst 2960 administering/authentication guides",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_sm_swadmn_2960_2960s_2960c_cg.html",
+      "id": "FND-002",
+      "question": "طابق كل أمر Cisco IOS مع الوظيفة الأنسب له.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "hostname S1",
+          "right": "تغيير اسم الجهاز"
+        },
+        {
+          "id": "p2",
+          "left": "banner motd #Authorized users only#",
+          "right": "عرض رسالة تنبيه عند الدخول"
+        },
+        {
+          "id": "p3",
+          "left": "service password-encryption",
+          "right": "إخفاء كلمات المرور النصية البسيطة في configuration"
+        },
+        {
+          "id": "p4",
+          "left": "copy running-config startup-config",
+          "right": "حفظ الإعدادات الحالية لتُستخدم بعد إعادة التشغيل"
+        }
+      ],
+      "explanation": "هذه أوامر أساسية في تهيئة الجهاز: `hostname` يحدد الاسم، و`banner motd` يعرض رسالة، و`service password-encryption` يخفي كلمات المرور النصية، و`copy running-config startup-config` يحفظ الإعدادات الحالية."
+    },
+    {
+      "module": "Basic Device Configuration",
+      "topic": "Switch Ports",
+      "subtopic": "Duplex operation",
+      "learningObjective": "تمييز سلوك Full-duplex",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco Catalyst interface characteristics",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_1_e/configuration/guide/2960_scg/swint.html",
+      "id": "FND-003",
+      "question": "ما الوصف الصحيح لعمل Ethernet link في وضع `full-duplex`؟",
+      "options": [
+        "يمكن للطرفين الإرسال والاستقبال في الوقت نفسه",
+        "يمكن لطرف واحد فقط الإرسال في كل لحظة",
+        "يجب استخدام CSMA/CD قبل كل إرسال",
+        "يعمل الرابط بسرعة نصف السرعة الاسمية"
+      ],
+      "correctAnswer": "يمكن للطرفين الإرسال والاستقبال في الوقت نفسه",
+      "explanation": "في `full-duplex` يستطيع الطرفان الإرسال والاستقبال بالتزامن، ولذلك لا تعمل آلية التصادمات بالشكل الموجود في half-duplex."
+    },
+    {
+      "module": "Basic Device Configuration",
+      "topic": "Switch Ports",
+      "subtopic": "Speed and duplex configuration",
+      "learningObjective": "اختيار أوامر إعداد سرعة ومنظومة duplex لمنفذ Switch",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco Catalyst interface characteristics",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_1_e/configuration/guide/2960_scg/swint.html",
+      "id": "FND-004",
+      "question": "على منفذ Ethernet من نوع 10/100/1000 يدعم سرعة 100 Mb/s، تريد ضبطه يدويًا على 100 Mb/s و`full-duplex`. أي أمرين يجب تطبيقهما داخل Interface Configuration mode؟ اختر إجابتين.",
+      "options": [
+        "speed 100",
+        "duplex full",
+        "speed auto",
+        "duplex half",
+        "mdix auto"
+      ],
+      "correctAnswer": [
+        "speed 100",
+        "duplex full"
+      ],
+      "explanation": "الأمران المطلوبان هما `speed 100` و`duplex full`. الإعداد اليدوي في أحد الطرفين يجب أن ينسجم مع الطرف المقابل لتجنب مشاكل التفاوض أو Duplex mismatch."
+    },
+    {
+      "module": "Basic Device Configuration",
+      "topic": "Switch Ports",
+      "subtopic": "Duplex mismatch",
+      "learningObjective": "تشخيص أعراض Duplex mismatch",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco Ethernet duplex troubleshooting",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/ethernet/10561-3.html",
+      "id": "FND-005",
+      "scenario": "يوجد Ethernet link حالته Connected. أحد الطرفين مضبوط يدويًا على full-duplex، والطرف الآخر يعمل half-duplex. المستخدمون يلاحظون بطئًا وأخطاء متقطعة رغم أن الرابط لم ينقطع.",
+      "question": "ما التفسير الأكثر احتمالًا للمشكلة؟",
+      "options": [
+        "Duplex mismatch",
+        "خطأ في Default Gateway",
+        "MAC address table ممتلئة",
+        "غياب VLAN trunk"
+      ],
+      "correctAnswer": "Duplex mismatch",
+      "explanation": "قد يبقى الرابط في حالة Connected رغم اختلاف duplex بين الطرفين، لكن الأداء يتدهور وتظهر أخطاء. لذلك يجب أن تكون إعدادات speed/duplex متوافقة أو يُستخدم auto-negotiation على الطرفين عندما يكون مدعومًا."
+    },
+    {
+      "module": "Basic Device Configuration",
+      "topic": "Secure Remote Access",
+      "subtopic": "SSH vs Telnet",
+      "learningObjective": "تمييز سبب تفضيل SSH للوصول البعيد",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco SSH configuration guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_sec_unautha_2960_cg.html",
+      "id": "FND-006",
+      "question": "لماذا يُفضَّل استخدام SSH بدل Telnet لإدارة Switch عن بُعد؟",
+      "options": [
+        "SSH يوفر اتصالًا مشفرًا للمصادقة والبيانات",
+        "SSH لا يحتاج عنوان IP على الجهاز",
+        "SSH يعمل فقط من منفذ Console",
+        "SSH يلغي الحاجة إلى VTY lines"
+      ],
+      "correctAnswer": "SSH يوفر اتصالًا مشفرًا للمصادقة والبيانات",
+      "explanation": "SSH مصمم للوصول البعيد الآمن ويشفّر الجلسة، بينما Telnet يرسل البيانات بطريقة غير آمنة. ما زال SSH يحتاج إلى IP connectivity وإعداد VTY authentication."
+    },
+    {
+      "module": "Basic Device Configuration",
+      "topic": "Secure Remote Access",
+      "subtopic": "VTY CLI sequence",
+      "learningObjective": "ترتيب الانتقال بين أوضاع IOS للوصول إلى VTY وتقييد النقل إلى SSH",
+      "difficulty": "Medium",
+      "type": "ordering",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco SSH configuration guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_sec_unautha_2960_cg.html",
+      "id": "FND-007",
+      "question": "رتّب الأوامر التالية بدءًا من User EXEC mode حتى تصل إلى VTY lines وتقيّد النقل إلى SSH فقط.",
+      "items": [
+        {
+          "id": "a",
+          "text": "enable"
+        },
+        {
+          "id": "b",
+          "text": "configure terminal"
+        },
+        {
+          "id": "c",
+          "text": "line vty 0 15"
+        },
+        {
+          "id": "d",
+          "text": "transport input ssh"
+        }
+      ],
+      "correctOrder": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "explanation": "يجب أولًا الانتقال إلى Privileged EXEC عبر `enable`، ثم Global Configuration عبر `configure terminal`، ثم VTY line configuration، وبعدها يمكن تطبيق `transport input ssh`."
+    },
+    {
+      "module": "Basic Device Configuration",
+      "topic": "Secure Remote Access",
+      "subtopic": "SSH prerequisites",
+      "learningObjective": "اكتشاف متطلبات SSH المفقودة من configuration",
+      "difficulty": "Challenging",
+      "type": "multiple",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco SSH configuration guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_sec_unautha_2960_cg.html",
+      "id": "FND-008",
+      "configuration": "hostname S1\nusername admin secret C1sco123\nline vty 0 15\n login local\n transport input ssh",
+      "question": "الإعداد أعلاه يحتوي على Local User وVTY authentication، لكن SSH server لن يكتمل بعد. ما العنصران المفقودان الأكثر مباشرة؟ اختر إجابتين.",
+      "options": [
+        "تكوين `ip domain-name`",
+        "إنشاء RSA key pair",
+        "إضافة `transport input telnet`",
+        "تحويل VTY إلى Access Port",
+        "إلغاء `login local`"
+      ],
+      "correctAnswer": [
+        "تكوين `ip domain-name`",
+        "إنشاء RSA key pair"
+      ],
+      "explanation": "إعداد SSH server يحتاج إلى hostname/domain information وRSA keys بالإضافة إلى المصادقة وVTY configuration. في هذا السيناريو hostname موجود، لذلك نحتاج `ip domain-name` ثم RSA key generation."
+    },
+    {
+      "module": "Basic Device Configuration",
+      "topic": "Basic Router Configuration",
+      "subtopic": "Interface activation",
+      "learningObjective": "تحديد الأمر الذي يفعّل واجهة Router",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco router initial configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/access/1900/software/configuration/guide/Software_Configuration/appendixAcli.html",
+      "id": "FND-009",
+      "question": "بعد ضبط IPv4 address على Router interface، أي أمر يفعّل الواجهة إداريًا؟",
+      "options": [
+        "no shutdown",
+        "enable interface",
+        "ip routing",
+        "line protocol up"
+      ],
+      "correctAnswer": "no shutdown",
+      "explanation": "الأمر `no shutdown` يزيل حالة administrative shutdown ويتيح للواجهة أن تصبح Up إذا كانت الطبقات الأخرى سليمة."
+    },
+    {
+      "module": "Basic Device Configuration",
+      "topic": "Basic Router Configuration",
+      "subtopic": "IPv4 interface configuration",
+      "learningObjective": "ترتيب أوامر إعداد IPv4 على Router interface",
+      "difficulty": "Medium",
+      "type": "ordering",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco router initial configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/access/1900/software/configuration/guide/Software_Configuration/appendixAcli.html",
+      "id": "FND-010",
+      "question": "رتّب الأوامر التالية لإعداد `G0/0/0` بعنوان `192.168.10.1/24` وتفعيلها، بدءًا من Privileged EXEC mode.",
+      "items": [
+        {
+          "id": "a",
+          "text": "configure terminal"
+        },
+        {
+          "id": "b",
+          "text": "interface gigabitethernet 0/0/0"
+        },
+        {
+          "id": "c",
+          "text": "ip address 192.168.10.1 255.255.255.0"
+        },
+        {
+          "id": "d",
+          "text": "no shutdown"
+        }
+      ],
+      "correctOrder": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "explanation": "من Privileged EXEC تنتقل أولًا إلى Global Configuration، ثم إلى الواجهة، ثم تضبط عنوان IPv4، وأخيرًا تفعّل الواجهة باستخدام `no shutdown`."
+    },
+    {
+      "module": "Basic Device Configuration",
+      "topic": "Basic Router Configuration",
+      "subtopic": "Required interface commands",
+      "learningObjective": "اختيار أوامر IPv4 الأساسية اللازمة داخل Interface Configuration mode",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco router initial configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/access/1900/software/configuration/guide/Software_Configuration/appendixAcli.html",
+      "id": "FND-011",
+      "question": "واجهة Router يجب أن تستخدم العنوان `10.10.10.1/24` وأن تكون نشطة. أي أمرين مطلوبان داخل Interface Configuration mode؟ اختر إجابتين.",
+      "options": [
+        "ip address 10.10.10.1 255.255.255.0",
+        "no shutdown",
+        "ip default-gateway 10.10.10.254",
+        "switchport mode access",
+        "transport input ssh"
+      ],
+      "correctAnswer": [
+        "ip address 10.10.10.1 255.255.255.0",
+        "no shutdown"
+      ],
+      "explanation": "على Router interface نستخدم `ip address` لتحديد IPv4 address وsubnet mask، ثم `no shutdown` لتفعيل الواجهة. بقية الخيارات تخص وظائف مختلفة."
+    },
+    {
+      "module": "Basic Device Configuration",
+      "topic": "Verify Directly Connected Networks",
+      "subtopic": "show ip interface brief",
+      "learningObjective": "تحليل حالة Router interfaces من مخرجات show ip interface brief",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco router initial configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/access/1900/software/configuration/guide/Software_Configuration/appendixAcli.html",
+      "id": "FND-012",
+      "cliOutput": "R1# show ip interface brief\nInterface              IP-Address      OK? Method Status                Protocol\nGigabitEthernet0/0/0   192.168.10.1    YES manual up                    up\nGigabitEthernet0/0/1   192.168.20.1    YES manual administratively down down",
+      "question": "ما الاستنتاج الصحيح من المخرجات؟",
+      "options": [
+        "G0/0/1 تحتاج إلى `no shutdown` قبل أن تصبح شبكة 192.168.20.0/24 فعّالة عبرها",
+        "G0/0/0 لا تملك IPv4 address",
+        "G0/0/1 تعمل طبيعيًا لأن Protocol = down",
+        "G0/0/0 يجب تحويلها إلى Switchport"
+      ],
+      "correctAnswer": "G0/0/1 تحتاج إلى `no shutdown` قبل أن تصبح شبكة 192.168.20.0/24 فعّالة عبرها",
+      "explanation": "الحالة `administratively down/down` تعني أن الواجهة مغلقة إداريًا. الدخول إلى الواجهة وتطبيق `no shutdown` هو الخطوة الأساسية الأولى."
+    },
+    {
+      "module": "Basic Device Configuration",
+      "topic": "Verify Directly Connected Networks",
+      "subtopic": "Verification commands",
+      "learningObjective": "ربط أوامر التحقق بالمعلومة التي تعرضها",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco router/IPv6 verification guides",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_ip6-add-basic-conn-xe.html",
+      "id": "FND-013",
+      "question": "طابق أمر التحقق مع الاستخدام الأنسب له.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "show ip interface brief",
+          "right": "عرض مختصر لعناوين IPv4 وحالة الواجهات"
+        },
+        {
+          "id": "p2",
+          "left": "show ip route",
+          "right": "عرض محتويات IPv4 routing table"
+        },
+        {
+          "id": "p3",
+          "left": "show ipv6 interface brief",
+          "right": "عرض مختصر لحالة وعناوين IPv6 على الواجهات"
+        },
+        {
+          "id": "p4",
+          "left": "ping",
+          "right": "اختبار reachability إلى وجهة IP"
+        }
+      ],
+      "explanation": "استخدام عدة أوامر تحقق يعطي صورة متكاملة: حالة الواجهات، وجود routes، عناوين IPv6، واختبار الوصول الفعلي."
+    },
+    {
+      "module": "Basic Device Configuration",
+      "topic": "Verify Directly Connected Networks",
+      "subtopic": "Missing connected network",
+      "learningObjective": "ربط حالة interface بغياب Connected route",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco router initial configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/access/1900/software/configuration/guide/Software_Configuration/appendixAcli.html",
+      "id": "FND-014",
+      "cliOutput": "R1# show ip interface brief\nInterface              IP-Address      OK? Method Status                Protocol\nGigabitEthernet0/0/0   10.1.1.1        YES manual up                    up\nGigabitEthernet0/0/1   10.2.2.1        YES manual administratively down down\n\nR1# show ip route\nC    10.1.1.0/24 is directly connected, GigabitEthernet0/0/0",
+      "question": "لماذا لا تظهر شبكة `10.2.2.0/24` كـ Connected route في routing table؟",
+      "options": [
+        "لأن G0/0/1 مغلقة إداريًا",
+        "لأن Router يحتاج Static Route إلى شبكة متصلة مباشرة",
+        "لأن G0/0/0 تستخدم عنوانًا من شبكة مختلفة",
+        "لأن الأمر `show ip route` لا يعرض Connected routes"
+      ],
+      "correctAnswer": "لأن G0/0/1 مغلقة إداريًا",
+      "explanation": "Connected route لا تصبح فعّالة ما لم تكن الواجهة المرتبطة بها فعّالة. المخرجات توضح أن G0/0/1 في حالة `administratively down/down`، لذلك لا تظهر شبكة 10.2.2.0/24 كمسار متصل."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Frame Forwarding",
+      "subtopic": "MAC learning",
+      "learningObjective": "تحديد الحقل الذي يستخدمه Switch لتعلّم MAC addresses",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco Catalyst MAC address table creation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_sm_swadmn_2960_2960s_2960c_cg.html",
+      "id": "FND-015",
+      "question": "عند وصول Ethernet frame إلى Layer 2 Switch، أي عنوان يستخدمه Switch لتعلّم موقع الجهاز المرسل؟",
+      "options": [
+        "Source MAC address",
+        "Destination MAC address",
+        "Source IP address",
+        "Default Gateway address"
+      ],
+      "correctAnswer": "Source MAC address",
+      "explanation": "يتعلم Switch من `Source MAC address` ويربطه بالمنفذ الذي استقبل منه frame. بعد ذلك يستخدم `Destination MAC address` لاتخاذ قرار forwarding."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Frame Forwarding",
+      "subtopic": "Known unicast",
+      "learningObjective": "تحديد سلوك Switch عند وجود Destination MAC في الجدول",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco Catalyst MAC address table creation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_sm_swadmn_2960_2960s_2960c_cg.html",
+      "id": "FND-016",
+      "scenario": "يحتوي MAC address table على العنوان `00AA.AAAA.AAAA` مرتبطًا بالمنفذ Fa0/7. يصل frame من Fa0/2 والـDestination MAC هو `00AA.AAAA.AAAA`.",
+      "question": "ماذا يفعل Switch بالـframe؟",
+      "options": [
+        "يرسله فقط عبر Fa0/7",
+        "يفيضه إلى جميع المنافذ عدا Fa0/2",
+        "يرسله إلى Default Gateway مباشرة",
+        "يحذفه لأن Source Port مختلف عن Destination Port"
+      ],
+      "correctAnswer": "يرسله فقط عبر Fa0/7",
+      "explanation": "عندما يكون Destination MAC معروفًا، يستخدم Switch MAC address table لإرسال unicast frame فقط إلى المنفذ المرتبط بذلك العنوان."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Frame Forwarding",
+      "subtopic": "Learning fields",
+      "learningObjective": "تمييز Source MAC عن Destination MAC في عملية learning",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco Catalyst MAC address table creation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_sm_swadmn_2960_2960s_2960c_cg.html",
+      "id": "FND-017",
+      "question": "يتعلّم Layer 2 Switch العناوين الديناميكية أساسًا من `Destination MAC address` في frames الواردة.",
+      "correctAnswer": "خطأ",
+      "explanation": "العبارة خطأ. Switch يتعلّم من `Source MAC address` في frame الوارد، ثم يستخدم Destination MAC لإجراء lookup واتخاذ قرار forwarding."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Frame Forwarding",
+      "subtopic": "Frame fields and table",
+      "learningObjective": "ربط عناصر Ethernet switching بأدوارها",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco Catalyst MAC address table creation; Cisco switching mode docs",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/ethernet/12006-chapter22.html",
+      "id": "FND-018",
+      "question": "طابق كل عنصر مع دوره في عملية Layer 2 switching.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "Source MAC address",
+          "right": "يُستخدم لتعلّم موقع الجهاز المرسل"
+        },
+        {
+          "id": "p2",
+          "left": "Destination MAC address",
+          "right": "يُستخدم لاختيار منفذ الإرسال"
+        },
+        {
+          "id": "p3",
+          "left": "MAC address table",
+          "right": "يربط MAC addresses بالمنافذ"
+        },
+        {
+          "id": "p4",
+          "left": "FCS",
+          "right": "يساعد في كشف تلف Ethernet frame"
+        }
+      ],
+      "explanation": "يعتمد Switch على Source MAC للتعلم، وعلى Destination MAC للقرار، وعلى MAC address table للربط بين العنوان والمنفذ، بينما FCS يستخدم لاكتشاف أخطاء frame."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Frame Forwarding",
+      "subtopic": "Unknown unicast flooding",
+      "learningObjective": "تحديد سلوك Switch عند Unknown Unicast",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco Unicast Flooding guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/ethernet/12006-chapter22.html",
+      "id": "FND-019",
+      "question": "إذا لم يجد Switch الـDestination MAC لــunicast frame في MAC address table، فما السلوك الطبيعي؟",
+      "options": [
+        "يفيض frame عبر منافذ forwarding في نفس Layer 2 domain عدا منفذ الاستقبال",
+        "يحذف frame دائمًا",
+        "يرسل frame إلى منفذ Console",
+        "يحوّل Destination MAC إلى Broadcast MAC"
+      ],
+      "correctAnswer": "يفيض frame عبر منافذ forwarding في نفس Layer 2 domain عدا منفذ الاستقبال",
+      "explanation": "عند Unknown Unicast لا يعرف Switch المنفذ الصحيح بعد، لذلك يقوم flooding ضمن المجال Layer 2 المناسب مع استثناء منفذ الاستقبال."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Frame Forwarding",
+      "subtopic": "Learn and forward",
+      "learningObjective": "تحليل ما يفعله Switch عندما يكون Source جديدًا وDestination معروفًا",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco Catalyst MAC address table creation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/ethernet/12006-chapter22.html",
+      "id": "FND-020",
+      "scenario": "يصل frame إلى Fa0/3 من MAC جديد اسمه A، والـDestination MAC هو B. يحتوي MAC address table مسبقًا على B مرتبطًا بـFa0/8.",
+      "question": "أي عمليتين تحدثان؟ اختر إجابتين.",
+      "options": [
+        "يتعلم Switch أن A موجود على Fa0/3",
+        "يرسل frame فقط عبر Fa0/8",
+        "يفيض frame إلى كل المنافذ لأن Source MAC جديد",
+        "يتعلم Switch أن B موجود على Fa0/3",
+        "يحذف frame لأن A غير موجود سابقًا في الجدول"
+      ],
+      "correctAnswer": [
+        "يتعلم Switch أن A موجود على Fa0/3",
+        "يرسل frame فقط عبر Fa0/8"
+      ],
+      "explanation": "كون Source MAC جديدًا لا يمنع forwarding. Switch يضيف A إلى الجدول اعتمادًا على منفذ الاستقبال، ثم يستخدم الإدخال المعروف لـB ويرسل frame إلى Fa0/8 فقط."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Frame Forwarding",
+      "subtopic": "MAC move",
+      "learningObjective": "تحليل تحديث MAC address table عند انتقال جهاز إلى منفذ آخر",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco Catalyst MAC address table creation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/ethernet/12006-chapter22.html",
+      "id": "FND-021",
+      "scenario": "MAC address table يحتوي على:\nA -> Fa0/1\nB -> Fa0/2\n\nوصل الآن frame يحمل Source MAC = A من المنفذ Fa0/3 وDestination MAC = B.",
+      "question": "ما التصرف الأدق؟",
+      "options": [
+        "يحدّث Switch موقع A إلى Fa0/3 ثم يرسل frame إلى Fa0/2",
+        "يبقي A على Fa0/1 ويفيض frame إلى جميع المنافذ",
+        "يحذف frame لأن A تغيّر منفذه",
+        "يغيّر موقع B إلى Fa0/3 ثم يرسل frame إلى Fa0/1"
+      ],
+      "correctAnswer": "يحدّث Switch موقع A إلى Fa0/3 ثم يرسل frame إلى Fa0/2",
+      "explanation": "التعلّم يعتمد على Source MAC وموقع دخوله الحالي. لذلك يُحدّث موقع A إلى Fa0/3، ثم يستخدم Destination MAC = B لإرسال frame عبر Fa0/2."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Frame Forwarding",
+      "subtopic": "Dynamic MAC aging",
+      "learningObjective": "فهم أثر Aging على Dynamic MAC entries",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco Catalyst MAC address table administration",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_3_e/consolidated_guide/b_1523e_2960p_2960c_cg/m_1522e_sm_swadmn_2960_2960s_2960c_cg.html",
+      "id": "FND-022",
+      "question": "ما الفكرة الأساسية من Aging للـDynamic MAC entries؟",
+      "options": [
+        "إزالة العناوين غير المستخدمة بعد فترة حتى يبقى الجدول محدثًا",
+        "تحويل كل Dynamic entry إلى Static entry تلقائيًا",
+        "منع Switch من تعلّم أي Source MAC جديد",
+        "تغيير MAC address الفعلي للجهاز النهائي"
+      ],
+      "correctAnswer": "إزالة العناوين غير المستخدمة بعد فترة حتى يبقى الجدول محدثًا",
+      "explanation": "Dynamic entries يتم تعلمها تلقائيًا ويمكن أن تُزال بعد عدم استخدامها. إذا أصبح Destination MAC غير موجود في الجدول، يعود Switch إلى Unknown Unicast flooding حتى يُتعلم العنوان مجددًا."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Frame Forwarding",
+      "subtopic": "Store-and-forward",
+      "learningObjective": "تمييز خاصية Store-and-Forward switching",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco switching mode documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/switches/nexus-9000-series-switches/216239-nexus-9000-cloud-scale-asic-crc-identifi.html",
+      "id": "FND-023",
+      "question": "ما السمة الأساسية لطريقة `store-and-forward`؟",
+      "options": [
+        "يستقبل Switch الـframe كاملًا ويفحص FCS قبل forwarding",
+        "يبدأ forwarding قبل وصول Destination MAC",
+        "لا يستخدم FCS مطلقًا",
+        "يعمل فقط مع Broadcast frames"
+      ],
+      "correctAnswer": "يستقبل Switch الـframe كاملًا ويفحص FCS قبل forwarding",
+      "explanation": "في store-and-forward ينتظر Switch وصول frame كاملًا، ثم يستطيع التحقق من سلامته باستخدام FCS قبل اتخاذ قرار الإرسال أو الإسقاط."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Frame Forwarding",
+      "subtopic": "Cut-through",
+      "learningObjective": "تمييز فائدة Cut-Through الأساسية",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco switching mode documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/switches/nexus-9000-series-switches/216239-nexus-9000-cloud-scale-asic-crc-identifi.html",
+      "id": "FND-024",
+      "question": "لماذا يمكن أن تحقق `cut-through switching` زمن تأخير أقل من store-and-forward؟",
+      "options": [
+        "لأن Switch يبدأ forwarding بعد قراءة معلومات كافية لاتخاذ قرار الوجهة دون انتظار frame كاملًا",
+        "لأنها تلغي Destination MAC address",
+        "لأنها تحول Ethernet إلى Half-duplex",
+        "لأنها تمنع جميع Broadcast frames"
+      ],
+      "correctAnswer": "لأن Switch يبدأ forwarding بعد قراءة معلومات كافية لاتخاذ قرار الوجهة دون انتظار frame كاملًا",
+      "explanation": "في cut-through يبدأ forwarding مبكرًا بعد قراءة معلومات الوجهة اللازمة، لذلك يقل latency مقارنةً بطريقة تنتظر frame كاملًا."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Frame Forwarding",
+      "subtopic": "Switching methods comparison",
+      "learningObjective": "مقارنة Store-and-Forward مع Cut-Through",
+      "difficulty": "Challenging",
+      "type": "multiple",
+      "skill": "Comparison",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco switching mode documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/switches/nexus-9000-series-switches/216239-nexus-9000-cloud-scale-asic-crc-identifi.html",
+      "id": "FND-025",
+      "question": "أي عبارتين تصفان الفرق بين `store-and-forward` و`cut-through` بدقة؟ اختر إجابتين.",
+      "options": [
+        "Store-and-forward يستطيع التحقق من FCS قبل إرسال frame إلى egress port",
+        "Cut-through قد يبدأ forwarding قبل أن يصبح FCS متاحًا للتحقق الكامل",
+        "Cut-through لا يستخدم Destination MAC لاتخاذ القرار",
+        "Store-and-forward لا يستقبل frame كاملًا",
+        "الطريقتان تمنعان Unknown Unicast flooding"
+      ],
+      "correctAnswer": [
+        "Store-and-forward يستطيع التحقق من FCS قبل إرسال frame إلى egress port",
+        "Cut-through قد يبدأ forwarding قبل أن يصبح FCS متاحًا للتحقق الكامل"
+      ],
+      "explanation": "FCS يوجد في نهاية Ethernet frame. لذلك store-and-forward يمكنه الانتظار ثم فحصه قبل الإرسال، بينما cut-through قد يكون بدأ الإرسال بالفعل قبل الوصول إلى FCS."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Frame Forwarding",
+      "subtopic": "FCS timing",
+      "learningObjective": "ربط موضع FCS بقدرة Cut-Through على اكتشاف الخطأ قبل الإرسال",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco switching mode documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/switches/nexus-9000-series-switches/216239-nexus-9000-cloud-scale-asic-crc-identifi.html",
+      "id": "FND-026",
+      "question": "لأن FCS يوجد في نهاية Ethernet frame، فإن Cut-Through Switch قد يبدأ forwarding قبل أن يتمكن من التحقق من FCS كاملًا.",
+      "correctAnswer": "صح",
+      "explanation": "صحيح. هذا أحد الفروق الأساسية بين الطريقتين: Cut-through يركز على تقليل latency، بينما store-and-forward ينتظر frame كاملًا ويستطيع التحقق من FCS قبل forwarding."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Frame Forwarding",
+      "subtopic": "Switch forwarding logic",
+      "learningObjective": "ترتيب المنطق التعليمي لقرار Layer 2 forwarding",
+      "difficulty": "Medium",
+      "type": "ordering",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco Catalyst MAC address table creation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/ethernet/12006-chapter22.html",
+      "id": "FND-027",
+      "question": "رتّب التسلسل التعليمي التالي لعملية معالجة Layer 2 frame داخل Switch.",
+      "items": [
+        {
+          "id": "a",
+          "text": "استقبال frame على ingress port"
+        },
+        {
+          "id": "b",
+          "text": "تعلّم/تحديث Source MAC على ingress port"
+        },
+        {
+          "id": "c",
+          "text": "البحث عن Destination MAC في MAC address table"
+        },
+        {
+          "id": "d",
+          "text": "Forward / Filter / Flood وفق نتيجة البحث"
+        }
+      ],
+      "correctOrder": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "explanation": "النموذج التعليمي يبدأ باستقبال frame، ثم تحديث معلومة Source MAC، ثم فحص Destination MAC، وأخيرًا تنفيذ الإجراء المناسب: forwarding أو filtering أو flooding."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Frame Forwarding",
+      "subtopic": "Forwarding outcomes",
+      "learningObjective": "مطابقة حالة Destination MAC مع تصرف Switch",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco Catalyst MAC address table creation; Cisco unicast flooding guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/ethernet/12006-chapter22.html",
+      "id": "FND-028",
+      "question": "طابق حالة frame مع التصرف الأنسب من Switch.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "Known unicast على منفذ مختلف",
+          "right": "إرسال frame إلى المنفذ المرتبط بالـDestination MAC"
+        },
+        {
+          "id": "p2",
+          "left": "Destination MAC موجود على نفس ingress port",
+          "right": "Filtering وعدم إعادة frame إلى نفس segment"
+        },
+        {
+          "id": "p3",
+          "left": "Unknown unicast",
+          "right": "Flooding عبر المنافذ المناسبة عدا ingress port"
+        },
+        {
+          "id": "p4",
+          "left": "Layer 2 broadcast",
+          "right": "Flooding إلى بقية المنافذ داخل broadcast domain"
+        }
+      ],
+      "explanation": "قرار Switch يعتمد على Destination MAC: معروف على منفذ آخر = forward، على نفس منفذ الدخول = filter، غير معروف = flood، وbroadcast = flood ضمن المجال المناسب."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Frame Forwarding",
+      "subtopic": "Layer 2 forwarding key",
+      "learningObjective": "تحديد المعلومة الأساسية المستخدمة في قرار Layer 2 forwarding",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco Catalyst MAC address table creation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/ethernet/12006-chapter22.html",
+      "id": "FND-029",
+      "question": "أي معلومة هي الأساس في اختيار Layer 2 Switch لمنفذ الخروج لــunicast frame؟",
+      "options": [
+        "Destination MAC address",
+        "Destination TCP port",
+        "Source IP address",
+        "TTL value"
+      ],
+      "correctAnswer": "Destination MAC address",
+      "explanation": "Layer 2 Switch يتخذ قرار forwarding بالاعتماد على Destination MAC address ومطابقته مع MAC address table."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Frame Forwarding",
+      "subtopic": "Learning after reply",
+      "learningObjective": "تحليل كيف يتحول Unknown Unicast إلى Known Unicast بعد التعلم",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco Catalyst MAC address table creation; Cisco unicast flooding guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/ethernet/12006-chapter22.html",
+      "id": "FND-030",
+      "scenario": "MAC address table فارغ. PC-A على Fa0/1 يرسل أول frame إلى PC-B على Fa0/2. Switch لا يعرف B فيقوم flooding. يصل frame إلى B، ثم يرسل B reply إلى A.",
+      "question": "ما الذي يتوقع أن يحدث لــframe لاحق من A إلى B بعد هذا التبادل؟",
+      "options": [
+        "يرسله Switch مباشرة إلى Fa0/2 بعد أن تعلّم عنوان B من reply",
+        "يبقى flooding دائمًا لأن أول frame كان Unknown Unicast",
+        "يحذف Switch frame لأن B ردّ على A",
+        "يرسله Switch إلى جميع المنافذ بما فيها Fa0/1"
+      ],
+      "correctAnswer": "يرسله Switch مباشرة إلى Fa0/2 بعد أن تعلّم عنوان B من reply",
+      "explanation": "عند reply يتعلّم Switch Source MAC الخاص بـB على Fa0/2. بعد ذلك يصبح B Known Destination، فتتحول الإرسالات اللاحقة إلى unicast forwarding على المنفذ الصحيح."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Switching Domains",
+      "subtopic": "Full-duplex and collisions",
+      "learningObjective": "فهم علاقة Full-duplex بالتصادمات",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco interface characteristics",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_1_e/configuration/guide/2960_scg/swint.html",
+      "id": "FND-031",
+      "question": "أي عبارة تصف التصادمات على Ethernet link يعمل `full-duplex` بصورة صحيحة؟",
+      "options": [
+        "لا تحدث collisions الناتجة عن مشاركة الوسط كما في half-duplex",
+        "تحدث collision مع كل Broadcast frame",
+        "تحدث collisions فقط عند استخدام SSH",
+        "يجب استخدام CSMA/CD لحل كل collision"
+      ],
+      "correctAnswer": "لا تحدث collisions الناتجة عن مشاركة الوسط كما في half-duplex",
+      "explanation": "Full-duplex يسمح للطرفين بالإرسال والاستقبال في الوقت نفسه على رابط point-to-point، لذلك لا توجد collisions بالشكل التقليدي الموجود في shared half-duplex Ethernet."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Switching Domains",
+      "subtopic": "Layer 2 broadcasts",
+      "learningObjective": "فهم أن Switch يمدد Broadcast ضمن المجال Layer 2",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco Catalyst MAC forwarding behavior",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/ethernet/12006-chapter22.html",
+      "id": "FND-032",
+      "question": "في Layer 2 network واحدة دون وجود Layer 3 boundary، يرسل Switch الـbroadcast frame إلى منفذ واحد فقط.",
+      "correctAnswer": "خطأ",
+      "explanation": "العبارة خطأ. Layer 2 broadcast يُعمل له flooding إلى بقية المنافذ المناسبة داخل broadcast domain، وليس إلى منفذ وجهة واحد."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Switching Domains",
+      "subtopic": "Collision domain isolation",
+      "learningObjective": "تمييز أثر Switch في عزل collision domains",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco switching/collision-domain concepts",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/ethernet/12006-chapter22.html",
+      "id": "FND-033",
+      "question": "ما الأثر الأساسي لاستخدام Switch بدل Hub فيما يتعلق بـCollision domains؟",
+      "options": [
+        "يعزل حركة كل switch port/segment عن التصادمات في المنافذ الأخرى",
+        "يجعل كل الشبكة Collision domain واحدة",
+        "يلغي MAC addresses من Ethernet",
+        "يجعل Broadcast frame لا يغادر منفذ المصدر"
+      ],
+      "correctAnswer": "يعزل حركة كل switch port/segment عن التصادمات في المنافذ الأخرى",
+      "explanation": "Switch يقوم بmicrosegmentation؛ كل منفذ/segment لا يشارك collisions مع المنافذ الأخرى. ومع full-duplex الحديثة تُلغى التصادمات على الرابط نفسه."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Switching Domains",
+      "subtopic": "Domain comparison",
+      "learningObjective": "مقارنة Collision Domain وBroadcast Domain",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Comparison",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco switching domain concepts",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/ethernet/12006-chapter22.html",
+      "id": "FND-034",
+      "question": "طابق المصطلح مع الوصف الأدق.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "Collision domain",
+          "right": "نطاق يمكن أن تتنافس فيه أجهزة على shared half-duplex medium"
+        },
+        {
+          "id": "p2",
+          "left": "Broadcast domain",
+          "right": "نطاق تستقبل أجهزته Layer 2 broadcast نفسه"
+        },
+        {
+          "id": "p3",
+          "left": "Full-duplex link",
+          "right": "إرسال واستقبال متزامن دون collisions التقليدية"
+        },
+        {
+          "id": "p4",
+          "left": "Layer 3 boundary",
+          "right": "يفصل broadcast domains عند التوجيه بصورة طبيعية"
+        }
+      ],
+      "explanation": "Collision domain يتعلق بمشاركة الوسط والتصادمات، أما Broadcast domain فيتعلق بانتشار Layer 2 broadcasts. Full-duplex يزيل التصادمات التقليدية، بينما Layer 3 boundary يوقف امتداد broadcast بين الشبكات."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Switching Domains",
+      "subtopic": "Switch behavior",
+      "learningObjective": "اختيار عبارات صحيحة حول Collision وBroadcast domains",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Comparison",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco switching domain concepts; Catalyst forwarding behavior",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/ethernet/12006-chapter22.html",
+      "id": "FND-035",
+      "question": "أي عبارتين صحيحتان عن Layer 2 Switch؟ اختر إجابتين.",
+      "options": [
+        "يعزل collision traffic بين switch ports/segments",
+        "يقوم flooding لطبقة Layer 2 broadcast داخل broadcast domain",
+        "يمنع كل Broadcast frames افتراضيًا",
+        "يجمع جميع المنافذ في shared collision domain واحدة",
+        "يستخدم IP routing table لتعلّم Source MAC"
+      ],
+      "correctAnswer": [
+        "يعزل collision traffic بين switch ports/segments",
+        "يقوم flooding لطبقة Layer 2 broadcast داخل broadcast domain"
+      ],
+      "explanation": "من أهم خصائص Switch أنه يعزل collision domains على مستوى المنافذ، لكنه ما زال يمرر Layer 2 broadcasts داخل broadcast domain المناسب."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Switching Domains",
+      "subtopic": "Hub vs switch",
+      "learningObjective": "تحديد فائدة استبدال Hub بـSwitch",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco switching domain concepts",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/ethernet/12006-chapter22.html",
+      "id": "FND-036",
+      "question": "ما التحسن الأهم عند استبدال Ethernet Hub بـLayer 2 Switch في LAN حديثة؟",
+      "options": [
+        "تقليل مشاركة الوسط وعزل traffic بين المنافذ مع دعم full-duplex",
+        "تحويل جميع عناوين IPv4 إلى IPv6",
+        "إنشاء Default Route تلقائيًا",
+        "إيقاف الحاجة إلى Ethernet frames"
+      ],
+      "correctAnswer": "تقليل مشاركة الوسط وعزل traffic بين المنافذ مع دعم full-duplex",
+      "explanation": "Hub يشارك الوسط بين الأجهزة، بينما Switch يوفر microsegmentation ومنافذ مخصصة ويدعم full-duplex، ما يقلل مشكلات التصادم ويزيد كفاءة الاستخدام."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Switching Domains",
+      "subtopic": "CSMA/CD",
+      "learningObjective": "تمييز الحاجة إلى CSMA/CD في Full-duplex switched Ethernet",
+      "difficulty": "Medium",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco interface characteristics",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_1_e/configuration/guide/2960_scg/swint.html",
+      "id": "FND-037",
+      "question": "على Ethernet links تعمل `full-duplex` بين Switch والأجهزة، ما زالت CSMA/CD مطلوبة لمعالجة collisions أثناء التشغيل الطبيعي.",
+      "correctAnswer": "خطأ",
+      "explanation": "العبارة خطأ. في full-duplex لا توجد collisions التقليدية التي صُممت CSMA/CD للتعامل معها، ولذلك لا تكون CSMA/CD مطلوبة على الرابط full-duplex."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Switching Domains",
+      "subtopic": "Shared segment isolation",
+      "learningObjective": "تحليل موقع التصادمات عند اتصال Hub بأحد Switch ports",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco switching/collision-domain concepts",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/ethernet/12006-chapter22.html",
+      "id": "FND-038",
+      "scenario": "يوجد Hub موصول بالمنفذ Fa0/10 من Switch، وثلاثة أجهزة موصولة بالـHub. بقية أجهزة الشبكة موصولة مباشرة بمنافذ Switch أخرى تعمل full-duplex.",
+      "question": "إذا حدثت collisions بين الأجهزة الثلاثة على الـHub، فما النطاق المتأثر مباشرة؟",
+      "options": [
+        "الـshared segment المتصل بـFa0/10 فقط",
+        "جميع منافذ Switch في الوقت نفسه",
+        "كل الشبكات الموجودة خلف Routers البعيدة",
+        "VTY lines فقط"
+      ],
+      "correctAnswer": "الـshared segment المتصل بـFa0/10 فقط",
+      "explanation": "الـHub يمثل shared collision segment. Switch يعزل هذا segment عن بقية منافذه، لذلك لا تنتشر collisions المادية إلى المنافذ الأخرى."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Switching Domains",
+      "subtopic": "Broadcast propagation",
+      "learningObjective": "تحليل امتداد Broadcast domain عبر عدة Switches دون Layer 3 boundary",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco Layer 2 forwarding behavior",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/ethernet/12006-chapter22.html",
+      "id": "FND-039",
+      "scenario": "PC-A متصل بـSW1 وPC-B متصل بـSW2. SW1 وSW2 مرتبطان ببعضهما، وجميع المنافذ ضمن Layer 2 network واحدة ولا يوجد Router أو Layer 3 boundary بينهما.",
+      "question": "عندما يرسل PC-A Layer 2 broadcast، ما السلوك المتوقع؟",
+      "options": [
+        "يمتد broadcast عبر SW1 ثم SW2 ويصل إلى PC-B ضمن نفس broadcast domain",
+        "يتوقف broadcast عند الرابط بين SW1 وSW2 لأن Switch يفصل broadcast domains",
+        "يتحول broadcast تلقائيًا إلى unicast عند SW2",
+        "يتم إسقاطه لأن Destination MAC ليس في MAC address table"
+      ],
+      "correctAnswer": "يمتد broadcast عبر SW1 ثم SW2 ويصل إلى PC-B ضمن نفس broadcast domain",
+      "explanation": "Layer 2 switches تمدد broadcast domain ما لم يوجد فصل منطقي أو Layer 3 boundary. لذلك ينتشر broadcast عبر السويتشين إلى المنافذ المناسبة."
+    },
+    {
+      "module": "Switching Concepts",
+      "topic": "Switching Domains",
+      "subtopic": "Broadcast boundary",
+      "learningObjective": "تحديد الحد الطبيعي الذي يفصل Broadcast domains",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 1/2 objectives; Cisco switching domain concepts",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-25",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/ethernet/12006-chapter22.html",
+      "id": "FND-040",
+      "question": "أي عنصر يمثل الحد الطبيعي الذي يمنع Layer 2 broadcast من العبور إلى شبكة IP أخرى أثناء التوجيه العادي؟",
+      "options": [
+        "Layer 3 router interface",
+        "Layer 2 switch port",
+        "Ethernet NIC",
+        "MAC address table entry"
+      ],
+      "correctAnswer": "Layer 3 router interface",
+      "explanation": "Layer 3 routing يفصل broadcast domains. Switch يمرر Layer 2 broadcasts داخل المجال المناسب، بينما Router لا يمررها إلى شبكة أخرى كجزء من forwarding العادي."
+    }
+  ]
 }
