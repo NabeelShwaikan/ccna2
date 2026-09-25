@@ -63,4 +63,37 @@
       media.addListener(handleSystemThemeChange);
     }
   }
+
+
+  const simplifyQuizCopy = () => {
+    if (!document.body || !document.body.hasAttribute('data-section')) return;
+
+    const renameLabel = (forId, text) => {
+      const el = document.querySelector(`label[for="${forId}"]`);
+      if (el) el.textContent = text;
+    };
+
+    renameLabel('topicFilter', 'الموضوع');
+    renameLabel('skillFilter', 'المهارة');
+
+    const mode = document.getElementById('modeSelect');
+    if (mode) {
+      const review = mode.querySelector('option[value="review"]');
+      const exam = mode.querySelector('option[value="exam"]');
+      if (review) review.textContent = 'مراجعة';
+      if (exam) exam.textContent = 'اختبار';
+    }
+
+    const settingsTitle = document.querySelector('.settings h2');
+    if (settingsTitle) settingsTitle.textContent = 'الإعدادات';
+
+    const reset = document.getElementById('resetBtn');
+    if (reset) reset.textContent = 'إعادة ضبط التقدم';
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', simplifyQuizCopy, { once: true });
+  } else {
+    simplifyQuizCopy();
+  }
 })();
