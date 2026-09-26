@@ -1,20 +1,1402 @@
 {
   "schemaVersion": "1.1",
+  "bankVersion": "1.0",
   "course": "CCNA2 - Switching, Routing, and Wireless Essentials",
   "courseVersion": "SRWE v7",
   "section": {
     "id": "routing",
     "number": 7,
     "title": "Routing & Troubleshooting",
-    "description": "Routing Concepts · Static · Default · IPv4/IPv6 · Troubleshooting",
-    "topics": [
+    "description": "Routing Concepts · IP Static Routing · Troubleshooting",
+    "modules": [
       "Routing Concepts",
-      "Static Routing",
-      "Default Routing",
-      "IPv4/IPv6 Routing",
-      "Troubleshooting"
+      "IP Static Routing",
+      "Troubleshoot Static and Default Routes"
     ],
-    "status": "empty"
+    "status": "approved",
+    "approvedQuestionCount": 40,
+    "lastReviewed": "2026-09-26"
   },
-  "questions": []
+  "assessmentAlignment": {
+    "source": "SRWE v7 Module & Final Exam Design Documents.xlsx",
+    "moduleGroupExamPercent": {
+      "Routing Concepts": 31.25,
+      "IP Static Routing": 43.75,
+      "Troubleshoot Static and Default Routes": 25.0
+    },
+    "finalExamCoveragePercent": {
+      "Routing Concepts": 8.25,
+      "IP Static Routing": 8.0,
+      "Troubleshoot Static and Default Routes": 4.875
+    },
+    "questionAllocation": {
+      "Routing Concepts": 14,
+      "IP Static Routing": 16,
+      "Troubleshoot Static and Default Routes": 10
+    },
+    "note": "Committee approved a 14/16/10 allocation balancing the official Module Group Exam and Final Exam emphasis."
+  },
+  "coverageMatrix": [
+    {
+      "module": "Routing Concepts",
+      "area": "Path Determination",
+      "learningFocus": "Path Determination",
+      "questionCount": 3,
+      "questionIds": [
+        "RT-001",
+        "RT-002",
+        "RT-003"
+      ]
+    },
+    {
+      "module": "Routing Concepts",
+      "area": "Packet Forwarding",
+      "learningFocus": "Packet Forwarding",
+      "questionCount": 3,
+      "questionIds": [
+        "RT-004",
+        "RT-005",
+        "RT-006"
+      ]
+    },
+    {
+      "module": "Routing Concepts",
+      "area": "Routing Table Structure & Route Sources",
+      "learningFocus": "IP Routing Table",
+      "questionCount": 4,
+      "questionIds": [
+        "RT-007",
+        "RT-008",
+        "RT-009",
+        "RT-010"
+      ]
+    },
+    {
+      "module": "Routing Concepts",
+      "area": "Static vs Dynamic Routing",
+      "learningFocus": "Static and Dynamic Routing",
+      "questionCount": 2,
+      "questionIds": [
+        "RT-011",
+        "RT-012"
+      ]
+    },
+    {
+      "module": "Routing Concepts",
+      "area": "Basic Router Configuration Review",
+      "learningFocus": "Basic Router Configuration review",
+      "questionCount": 2,
+      "questionIds": [
+        "RT-013",
+        "RT-014"
+      ]
+    },
+    {
+      "module": "IP Static Routing",
+      "area": "Static Route Syntax & Components",
+      "learningFocus": "Static Routes",
+      "questionCount": 3,
+      "questionIds": [
+        "RT-015",
+        "RT-016",
+        "RT-017"
+      ]
+    },
+    {
+      "module": "IP Static Routing",
+      "area": "IPv4 Static Routes",
+      "learningFocus": "Configure IP Static Routes",
+      "questionCount": 4,
+      "questionIds": [
+        "RT-018",
+        "RT-019",
+        "RT-020",
+        "RT-021"
+      ]
+    },
+    {
+      "module": "IP Static Routing",
+      "area": "IPv6 Static Routes",
+      "learningFocus": "Configure IPv6 Static Routes",
+      "questionCount": 3,
+      "questionIds": [
+        "RT-022",
+        "RT-023",
+        "RT-024"
+      ]
+    },
+    {
+      "module": "IP Static Routing",
+      "area": "Default Static Routes IPv4/IPv6",
+      "learningFocus": "Configure IP Default Static Routes",
+      "questionCount": 3,
+      "questionIds": [
+        "RT-025",
+        "RT-026",
+        "RT-027"
+      ]
+    },
+    {
+      "module": "IP Static Routing",
+      "area": "Floating Static Routes",
+      "learningFocus": "Configure Floating Static Routes",
+      "questionCount": 2,
+      "questionIds": [
+        "RT-028",
+        "RT-029"
+      ]
+    },
+    {
+      "module": "IP Static Routing",
+      "area": "Static Host Routes",
+      "learningFocus": "Configure Static Host Routes",
+      "questionCount": 1,
+      "questionIds": [
+        "RT-030"
+      ]
+    },
+    {
+      "module": "Troubleshoot Static and Default Routes",
+      "area": "Packet Processing with Static Routes",
+      "learningFocus": "Packet Processing with Static Routes",
+      "questionCount": 3,
+      "questionIds": [
+        "RT-031",
+        "RT-032",
+        "RT-033"
+      ]
+    },
+    {
+      "module": "Troubleshoot Static and Default Routes",
+      "area": "Troubleshoot IPv4 Static Routes",
+      "learningFocus": "Troubleshoot IPv4 Static and Default Route Configuration",
+      "questionCount": 3,
+      "questionIds": [
+        "RT-034",
+        "RT-035",
+        "RT-036"
+      ]
+    },
+    {
+      "module": "Troubleshoot Static and Default Routes",
+      "area": "Troubleshoot Default Routes",
+      "learningFocus": "Troubleshoot Default Routes",
+      "questionCount": 2,
+      "questionIds": [
+        "RT-037",
+        "RT-038"
+      ]
+    },
+    {
+      "module": "Troubleshoot Static and Default Routes",
+      "area": "Integrated Routing Troubleshooting",
+      "learningFocus": "End-to-end static routing troubleshooting",
+      "questionCount": 2,
+      "questionIds": [
+        "RT-039",
+        "RT-040"
+      ]
+    }
+  ],
+  "reviewRecord": {
+    "technicalReview": "approved",
+    "assessmentReview": "approved",
+    "educationalReview": "approved",
+    "studentClarityReview": "approved",
+    "mobileInteractionReview": "approved",
+    "reviewDate": "2026-09-26",
+    "notes": "Original questions aligned to SRWE v7 Modules 14–16. Cisco terminology retained in English with concise Arabic explanations. IPv4/IPv6 static routing syntax, default and floating static routes, local/connected route codes, administrative distance, and route installation behavior were cross-checked against Cisco documentation. No external question bank was copied."
+  },
+  "questions": [
+    {
+      "module": "Routing Concepts",
+      "topic": "Path Determination",
+      "subtopic": "Longest prefix match",
+      "learningObjective": "تحديد المسار الأكثر تحديدًا إلى Destination IP",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 14: Path Determination; Cisco Basic IP Routing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-001",
+      "question": "عندما توجد عدة Routes مطابقة لعنوان Destination IP، ما القاعدة التي يستخدمها Router أولًا لاختيار المسار؟",
+      "explanation": "يختار Router المسار ذي أطول Prefix Length لأنه الأكثر تحديدًا للوجهة. Administrative Distance تقارن بين مصادر Routes إلى الـprefix نفسه، ولا تسبق Longest Prefix Match.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "options": [
+        "Longest Prefix Match",
+        "أعلى Administrative Distance",
+        "أعلى Metric دائمًا",
+        "أقل رقم للـExit Interface"
+      ],
+      "correctAnswer": "Longest Prefix Match"
+    },
+    {
+      "module": "Routing Concepts",
+      "topic": "Path Determination",
+      "subtopic": "Route selection factors",
+      "learningObjective": "تمييز العوامل المستخدمة عند اختيار Route",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 14: Path Determination; Cisco Basic IP Routing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-002",
+      "question": "أي عبارتين تصفان عملية اختيار المسار بصورة صحيحة؟ اختر إجابتين.",
+      "explanation": "يبدأ Router بمطابقة Destination IP مع الـprefixes ويختار الأكثر تحديدًا. إذا وُجدت Routes للـprefix نفسه من مصادر مختلفة، تساعد Administrative Distance في تحديد المصدر الأكثر موثوقية.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "options": [
+        "يُفضَّل أطول Prefix Match",
+        "تُستخدم Administrative Distance للمقارنة بين مصادر Routing للـprefix نفسه",
+        "يُختار دائمًا المسار ذو أعلى Administrative Distance",
+        "يتم تجاهل Prefix Length إذا وُجد Default Route"
+      ],
+      "correctAnswer": [
+        "يُفضَّل أطول Prefix Match",
+        "تُستخدم Administrative Distance للمقارنة بين مصادر Routing للـprefix نفسه"
+      ]
+    },
+    {
+      "module": "Routing Concepts",
+      "topic": "Path Determination",
+      "subtopic": "Routing decision sequence",
+      "learningObjective": "ترتيب مراحل اتخاذ قرار التوجيه",
+      "difficulty": "Challenging",
+      "type": "ordering",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 14: Path Determination and Packet Forwarding",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-003",
+      "question": "رتب المراحل العامة لاتخاذ Router قرار Forwarding لحزمة IPv4.",
+      "explanation": "يفحص Router عنوان Destination IP، يبحث عن Routes مطابقة، يختار Best Match، ثم يحدد Next Hop/Exit Interface ويجهز Frame جديدًا للوصلة التالية.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "items": [
+        {
+          "id": "i1",
+          "text": "قراءة Destination IP من Packet"
+        },
+        {
+          "id": "i2",
+          "text": "البحث عن Routes مطابقة في Routing Table"
+        },
+        {
+          "id": "i3",
+          "text": "اختيار Best Match"
+        },
+        {
+          "id": "i4",
+          "text": "تحديد Next Hop أو Exit Interface"
+        },
+        {
+          "id": "i5",
+          "text": "إعادة Encapsulation وإرسال Frame نحو القفزة التالية"
+        }
+      ],
+      "correctOrder": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5"
+      ]
+    },
+    {
+      "module": "Routing Concepts",
+      "topic": "Packet Forwarding",
+      "subtopic": "Layer 2 rewrite",
+      "learningObjective": "فهم ما يتغير عند عبور Router",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 14: Packet Forwarding",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-004",
+      "question": "عند Forwarding لحزمة IP من Interface إلى أخرى، أي جزء يتغير عادةً عند كل Router hop؟",
+      "explanation": "يُزال Layer 2 frame المستلم ويُنشأ Frame جديد للوصلة التالية بعناوين Layer 2 مناسبة. Destination IP يبقى موجّهًا إلى الجهاز النهائي ما لم توجد وظيفة أخرى مثل NAT خارج سياق هذا السؤال.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "options": [
+        "Layer 2 header/trailer",
+        "Destination IP دائمًا",
+        "Source IP دائمًا",
+        "TCP/UDP destination port دائمًا"
+      ],
+      "correctAnswer": "Layer 2 header/trailer"
+    },
+    {
+      "module": "Routing Concepts",
+      "topic": "Packet Forwarding",
+      "subtopic": "No matching route",
+      "learningObjective": "تفسير سلوك Router عند غياب المسار",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 14: Packet Forwarding",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-005",
+      "question": "استقبل Router Packet إلى شبكة لا توجد لها Route محددة، ولا توجد Default Route. ما النتيجة المتوقعة؟",
+      "explanation": "إذا لم يجد Router أي Route مطابقة ولم توجد Default Route، فلا يوجد مسار يمكن استخدامه لإرسال Packet، لذلك يتم إسقاطها.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "options": [
+        "يُسقط Packet",
+        "يرسلها على جميع Interfaces",
+        "يحوّلها إلى Broadcast",
+        "ينشئ Static Route تلقائيًا"
+      ],
+      "correctAnswer": "يُسقط Packet"
+    },
+    {
+      "module": "Routing Concepts",
+      "topic": "Packet Forwarding",
+      "subtopic": "Destination addressing",
+      "learningObjective": "تمييز Layer 3 destination أثناء العبور",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 14: Packet Forwarding",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-006",
+      "question": "عند عبور Packet عدة Routers إلى وجهتها، يبقى Destination IP موجهًا إلى الجهاز النهائي بينما تتغير عناوين Layer 2 من وصلة إلى أخرى في الحالة العادية.",
+      "explanation": "العبارة صحيحة. Routers تعيد بناء Layer 2 frame لكل hop، بينما يظل Destination IP يمثل الوجهة النهائية في عملية Routing العادية.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "correctAnswer": "صح"
+    },
+    {
+      "module": "Routing Concepts",
+      "topic": "Routing Table Structure & Route Sources",
+      "subtopic": "Route codes",
+      "learningObjective": "تمييز رموز Routing Table الأساسية",
+      "difficulty": "Easy",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 14: IP Routing Table; Cisco local host routes",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-007",
+      "question": "طابق كل رمز في `show ip route` مع معناه.",
+      "explanation": "الرموز الأساسية تساعد على معرفة مصدر Route: C للـConnected network، L للعنوان المحلي على Router، وS للـStatic route.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/ip/ip-routing/116264-technote-ios-00.html",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "C",
+          "right": "Connected network"
+        },
+        {
+          "id": "p2",
+          "left": "L",
+          "right": "Local host route"
+        },
+        {
+          "id": "p3",
+          "left": "S",
+          "right": "Static route"
+        },
+        {
+          "id": "p4",
+          "left": "S*",
+          "right": "Candidate default static route"
+        }
+      ]
+    },
+    {
+      "module": "Routing Concepts",
+      "topic": "Routing Table Structure & Route Sources",
+      "subtopic": "Local vs connected",
+      "learningObjective": "تمييز Connected network عن Local host route",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "CLI Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 14: IP Routing Table; Cisco local host routes",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-008",
+      "question": "بالنظر إلى المخرجات، ماذا يمثل السطر الذي يبدأ بالرمز `L`؟",
+      "explanation": "الرمز L يمثل Local host route لعنوان Interface نفسه. في المثال 192.168.10.1/32 هو عنوان Router المحلي على G0/0.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/ip/ip-routing/116264-technote-ios-00.html",
+      "cliOutput": "C    192.168.10.0/24 is directly connected, GigabitEthernet0/0\nL    192.168.10.1/32 is directly connected, GigabitEthernet0/0",
+      "options": [
+        "عنوان Interface المحلي على Router",
+        "الشبكة المتصلة كاملة",
+        "Default Route",
+        "Route متعلمة عبر Dynamic Routing"
+      ],
+      "correctAnswer": "عنوان Interface المحلي على Router"
+    },
+    {
+      "module": "Routing Concepts",
+      "topic": "Routing Table Structure & Route Sources",
+      "subtopic": "Default route marker",
+      "learningObjective": "تحديد Default Route في Routing Table",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "CLI Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 14: IP Routing Table; Cisco Basic IP Routing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-009",
+      "question": "أي Route في المخرجات التالية تمثل Gateway of Last Resort؟",
+      "explanation": "المسار `S* 0.0.0.0/0` هو IPv4 Default Static Route. النجمة تشير إلى Candidate Default Route.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "cliOutput": "C    10.1.1.0/24 is directly connected, G0/0\nS    172.16.0.0/16 [1/0] via 10.1.1.2\nS*   0.0.0.0/0 [1/0] via 10.1.1.254",
+      "options": [
+        "0.0.0.0/0 via 10.1.1.254",
+        "172.16.0.0/16 via 10.1.1.2",
+        "10.1.1.0/24",
+        "كل Routes السابقة"
+      ],
+      "correctAnswer": "0.0.0.0/0 via 10.1.1.254"
+    },
+    {
+      "module": "Routing Concepts",
+      "topic": "Routing Table Structure & Route Sources",
+      "subtopic": "Route entry fields",
+      "learningObjective": "قراءة مكونات Static Route من Routing Table",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "CLI Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 14: IP Routing Table; Cisco Basic IP Routing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-010",
+      "question": "في السطر التالي، ماذا يمثل `192.0.2.2`؟",
+      "explanation": "العنوان 192.0.2.2 هو Next-Hop IP الذي سيُرسل إليه Router الحزمة للوصول إلى الشبكة 203.0.113.0/24.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "cliOutput": "S    203.0.113.0/24 [1/0] via 192.0.2.2",
+      "options": [
+        "Next-Hop IP",
+        "Destination host address الوحيد",
+        "Administrative Distance",
+        "Exit Interface name"
+      ],
+      "correctAnswer": "Next-Hop IP"
+    },
+    {
+      "module": "Routing Concepts",
+      "topic": "Static vs Dynamic Routing",
+      "subtopic": "Characteristics",
+      "learningObjective": "مقارنة خصائص Static وDynamic Routing",
+      "difficulty": "Easy",
+      "type": "matching",
+      "skill": "Comparison",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 14: Static and Dynamic Routing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-011",
+      "question": "طابق أسلوب Routing مع الوصف الأنسب.",
+      "explanation": "Static routes يكوّنها Administrator يدويًا، بينما Dynamic Routing protocols تتبادل معلومات الشبكات وتحدّث المسارات وفق عمل البروتوكول.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "Static Routing",
+          "right": "إعداد Routes يدويًا"
+        },
+        {
+          "id": "p2",
+          "left": "Dynamic Routing",
+          "right": "تعلم وتحديث Routes بواسطة Routing Protocol"
+        },
+        {
+          "id": "p3",
+          "left": "Static Routing",
+          "right": "مناسب لمسار ثابت أو شبكة صغيرة بسيطة"
+        },
+        {
+          "id": "p4",
+          "left": "Dynamic Routing",
+          "right": "يتكيف عادةً مع تغيّر Topology دون تعديل كل Route يدويًا"
+        }
+      ]
+    },
+    {
+      "module": "Routing Concepts",
+      "topic": "Static vs Dynamic Routing",
+      "subtopic": "Operational tradeoff",
+      "learningObjective": "تحديد ميزة وقيود Static Routing",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Comparison",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 14: Static and Dynamic Routing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-012",
+      "question": "أي وصف أدق لـStatic Routing؟",
+      "explanation": "Static Routing يمنح Administrator تحكمًا مباشرًا بالمسار ولا يحتاج تبادل Routing updates، لكنه يحتاج تحديثًا يدويًا عند تغيّر Topology.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "options": [
+        "تحكم يدوي واضح مع حاجة للتحديث عند تغير Topology",
+        "يتعلم جميع الشبكات تلقائيًا",
+        "لا يحتاج Routing Table",
+        "يستخدم دائمًا أقل Metric من كل البروتوكولات"
+      ],
+      "correctAnswer": "تحكم يدوي واضح مع حاجة للتحديث عند تغير Topology"
+    },
+    {
+      "module": "Routing Concepts",
+      "topic": "Basic Router Configuration Review",
+      "subtopic": "Interface activation",
+      "learningObjective": "ترتيب إعداد Interface IPv4 أساسي",
+      "difficulty": "Medium",
+      "type": "ordering",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 14: Basic Router Configuration review",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-013",
+      "question": "رتب الخطوات التالية لإعداد IPv4 address على Router interface ثم تفعيله.",
+      "explanation": "ندخل Global Configuration، ثم Interface Configuration، نضع IPv4 address/mask، ثم `no shutdown` لتفعيل Interface إداريًا.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "items": [
+        {
+          "id": "i1",
+          "text": "configure terminal"
+        },
+        {
+          "id": "i2",
+          "text": "interface g0/0"
+        },
+        {
+          "id": "i3",
+          "text": "ip address 192.168.10.1 255.255.255.0"
+        },
+        {
+          "id": "i4",
+          "text": "no shutdown"
+        }
+      ],
+      "correctOrder": [
+        "i1",
+        "i2",
+        "i3",
+        "i4"
+      ]
+    },
+    {
+      "module": "Routing Concepts",
+      "topic": "Basic Router Configuration Review",
+      "subtopic": "Verification",
+      "learningObjective": "اختيار أوامر التحقق من Interfaces وRouting Table",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 14: Basic Router Configuration review and IP Routing Table",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-014",
+      "question": "أي أمرين يساعدان مباشرةً في التحقق من حالة Interfaces ومن محتوى IPv4 Routing Table؟ اختر إجابتين.",
+      "explanation": "`show ip interface brief` يعطي ملخصًا لحالة Interfaces وعناوينها، و`show ip route` يعرض IPv4 Routing Table.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "options": [
+        "show ip interface brief",
+        "show ip route",
+        "show vlan brief",
+        "show etherchannel summary"
+      ],
+      "correctAnswer": [
+        "show ip interface brief",
+        "show ip route"
+      ]
+    },
+    {
+      "module": "IP Static Routing",
+      "topic": "Static Route Syntax & Components",
+      "subtopic": "Command components",
+      "learningObjective": "ربط أجزاء أمر IPv4 Static Route بوظيفتها",
+      "difficulty": "Easy",
+      "type": "matching",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 15: Static Routes; Cisco Basic IP Routing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-015",
+      "question": "طابق كل جزء من أمر `ip route` مع وظيفته.",
+      "explanation": "يتضمن أمر IPv4 Static Route Destination Network وSubnet Mask ثم معلومات Forwarding مثل Next-Hop أو Exit Interface، ويمكن إضافة Administrative Distance.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "192.168.50.0",
+          "right": "Destination network"
+        },
+        {
+          "id": "p2",
+          "left": "255.255.255.0",
+          "right": "Subnet mask"
+        },
+        {
+          "id": "p3",
+          "left": "10.0.0.2",
+          "right": "Next-Hop IP"
+        },
+        {
+          "id": "p4",
+          "left": "5",
+          "right": "Administrative Distance اختياري"
+        }
+      ]
+    },
+    {
+      "module": "IP Static Routing",
+      "topic": "Static Route Syntax & Components",
+      "subtopic": "IPv4 syntax",
+      "learningObjective": "اختيار صياغة IPv4 Static Route الصحيحة",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 15: Static Routes; Cisco Basic IP Routing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-016",
+      "question": "يريد R1 الوصول إلى الشبكة `192.168.30.0/24` عبر Next Hop `10.0.0.2`. أي أمر صحيح؟",
+      "explanation": "صياغة IPv4 Static Route تستخدم `ip route` ثم Destination Network ثم Mask ثم Next-Hop أو Exit Interface.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "options": [
+        "ip route 192.168.30.0 255.255.255.0 10.0.0.2",
+        "ip route 10.0.0.2 255.255.255.0 192.168.30.0",
+        "route ip 192.168.30.0/24 10.0.0.2",
+        "ip static 192.168.30.0 10.0.0.2"
+      ],
+      "correctAnswer": "ip route 192.168.30.0 255.255.255.0 10.0.0.2"
+    },
+    {
+      "module": "IP Static Routing",
+      "topic": "Static Route Syntax & Components",
+      "subtopic": "IPv4 configuration sequence",
+      "learningObjective": "ترتيب خطوات إنشاء Static Route والتحقق منها",
+      "difficulty": "Medium",
+      "type": "ordering",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 15: Configure IP Static Routes; Cisco Basic IP Routing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-017",
+      "question": "رتب الخطوات التالية لإنشاء IPv4 Static Route ثم التحقق من وجودها.",
+      "explanation": "يُنشأ Static Route من Global Configuration mode، ثم نخرج إلى Privileged EXEC ونستخدم `show ip route` للتحقق.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "items": [
+        {
+          "id": "i1",
+          "text": "enable"
+        },
+        {
+          "id": "i2",
+          "text": "configure terminal"
+        },
+        {
+          "id": "i3",
+          "text": "ip route 192.168.40.0 255.255.255.0 10.0.0.2"
+        },
+        {
+          "id": "i4",
+          "text": "end"
+        },
+        {
+          "id": "i5",
+          "text": "show ip route"
+        }
+      ],
+      "correctOrder": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5"
+      ]
+    },
+    {
+      "module": "IP Static Routing",
+      "topic": "IPv4 Static Routes",
+      "subtopic": "Route source code",
+      "learningObjective": "تمييز Static Route في show ip route",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "CLI Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 15: Configure IP Static Routes; Cisco show ip route",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-018",
+      "question": "أي رمز يظهر عادةً بجانب IPv4 Static Route في `show ip route`؟",
+      "explanation": "الرمز `S` يدل على Static Route في IPv4 Routing Table.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/ip/ip-routing/116264-technote-ios-00.html",
+      "options": [
+        "S",
+        "C",
+        "L",
+        "D"
+      ],
+      "correctAnswer": "S"
+    },
+    {
+      "module": "IP Static Routing",
+      "topic": "IPv4 Static Routes",
+      "subtopic": "Recursive route",
+      "learningObjective": "فهم Next-Hop Static Route",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 15: Static Routes; Cisco Basic IP Routing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-019",
+      "question": "عند تكوين Static Route باستخدام Next-Hop IP فقط، ماذا يحتاج Router أيضًا حتى يستطيع استخدامها؟",
+      "explanation": "يجب أن يستطيع Router حل Next-Hop IP إلى Route قابلة للوصول في Routing Table. إذا تعذر الوصول إلى Next Hop فلن يكون المسار قابلًا للاستخدام بصورة صحيحة.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "options": [
+        "Route للوصول إلى Next-Hop IP",
+        "DHCP pool",
+        "VLAN native مطابقة",
+        "HSRP virtual IP"
+      ],
+      "correctAnswer": "Route للوصول إلى Next-Hop IP"
+    },
+    {
+      "module": "IP Static Routing",
+      "topic": "IPv4 Static Routes",
+      "subtopic": "Static route forms",
+      "learningObjective": "تمييز صيغ Static Route الشائعة",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Comparison",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 15: Static Routes; Cisco Basic IP Routing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-020",
+      "question": "أي صيغتين يمكن استخدامهما لتحديد Forwarding في IPv4 Static Route؟ اختر إجابتين.",
+      "explanation": "يمكن تحديد Next-Hop IP، ويمكن تحديد Exit Interface. وتوجد صيغة Fully Specified تجمع الاثنين عند الحاجة.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "options": [
+        "Next-Hop IP",
+        "Exit Interface",
+        "SSID",
+        "Root Bridge ID"
+      ],
+      "correctAnswer": [
+        "Next-Hop IP",
+        "Exit Interface"
+      ]
+    },
+    {
+      "module": "IP Static Routing",
+      "topic": "IPv4 Static Routes",
+      "subtopic": "Fully specified route",
+      "learningObjective": "اختيار Fully Specified Static Route",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "CLI Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 15: Static Routes; Cisco Basic IP Routing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-021",
+      "question": "أي أمر يمثل Fully Specified IPv4 Static Route لأنه يحدد Exit Interface وNext-Hop IP معًا؟",
+      "explanation": "Fully Specified Static Route يحتوي على كل من Exit Interface وNext-Hop IP، ما يجعل معلومات Forwarding صريحة.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "options": [
+        "ip route 203.0.113.0 255.255.255.0 g0/1 10.0.0.2",
+        "ip route 203.0.113.0 255.255.255.0 10.0.0.2",
+        "ip route 203.0.113.0 255.255.255.0 g0/1",
+        "show ip route 203.0.113.0"
+      ],
+      "correctAnswer": "ip route 203.0.113.0 255.255.255.0 g0/1 10.0.0.2"
+    },
+    {
+      "module": "IP Static Routing",
+      "topic": "IPv6 Static Routes",
+      "subtopic": "IPv6 syntax",
+      "learningObjective": "اختيار أمر IPv6 Static Route الصحيح",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 15: Configure IP Static Routes; Cisco IPv6 Static Routing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-022",
+      "question": "أي Prefix يمثل IPv6 Default Route؟",
+      "explanation": "IPv6 Default Route تستخدم `::/0`، وهو أقصر Prefix ويطابق أي IPv6 destination عند عدم وجود Route أكثر تحديدًا.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_ip6-route-static-xe.html",
+      "options": [
+        "::/0",
+        "::1/128",
+        "FE80::/10",
+        "2001:DB8::/64"
+      ],
+      "correctAnswer": "::/0"
+    },
+    {
+      "module": "IP Static Routing",
+      "topic": "IPv6 Static Routes",
+      "subtopic": "IPv6 prerequisites and verification",
+      "learningObjective": "تمييز أوامر IPv6 Routing الأساسية",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 15: Configure IP Static Routes; Cisco IPv6 Static Routing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-023",
+      "question": "أي أمرين يرتبطان مباشرةً بتشغيل والتحقق من IPv6 Static Routing؟ اختر إجابتين.",
+      "explanation": "`ipv6 unicast-routing` يمكّن IPv6 packet forwarding على Router، و`show ipv6 route` يعرض IPv6 Routing Table للتحقق من Routes.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_ip6-route-static-xe.html",
+      "options": [
+        "ipv6 unicast-routing",
+        "show ipv6 route",
+        "switchport mode trunk",
+        "show mac address-table"
+      ],
+      "correctAnswer": [
+        "ipv6 unicast-routing",
+        "show ipv6 route"
+      ]
+    },
+    {
+      "module": "IP Static Routing",
+      "topic": "IPv6 Static Routes",
+      "subtopic": "IPv6 route configuration sequence",
+      "learningObjective": "ترتيب إعداد IPv6 Static Route والتحقق منه",
+      "difficulty": "Medium",
+      "type": "ordering",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 15: Configure IP Static Routes; Cisco IPv6 Static Routing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-024",
+      "question": "رتب الخطوات التالية لإعداد IPv6 Static Route على Router يدعم IPv6 forwarding ثم التحقق منها.",
+      "explanation": "نفعّل IPv6 unicast routing، ندخل Route في Global Configuration، ثم نستخدم `show ipv6 route` للتحقق.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_ip6-route-static-xe.html",
+      "items": [
+        {
+          "id": "i1",
+          "text": "configure terminal"
+        },
+        {
+          "id": "i2",
+          "text": "ipv6 unicast-routing"
+        },
+        {
+          "id": "i3",
+          "text": "ipv6 route 2001:DB8:30::/64 2001:DB8:12::2"
+        },
+        {
+          "id": "i4",
+          "text": "end"
+        },
+        {
+          "id": "i5",
+          "text": "show ipv6 route"
+        }
+      ],
+      "correctOrder": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5"
+      ]
+    },
+    {
+      "module": "IP Static Routing",
+      "topic": "Default Static Routes IPv4/IPv6",
+      "subtopic": "IPv4 default route",
+      "learningObjective": "اختيار IPv4 Default Static Route الصحيح",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 15: Configure IP Default Static Routes; Cisco Basic IP Routing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-025",
+      "question": "أي أمر ينشئ IPv4 Default Static Route عبر Next Hop `192.0.2.1`؟",
+      "explanation": "IPv4 Default Route تستخدم الشبكة والقناع `0.0.0.0 0.0.0.0` ثم معلومات Forwarding.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "options": [
+        "ip route 0.0.0.0 0.0.0.0 192.0.2.1",
+        "ip route 255.255.255.255 0.0.0.0 192.0.2.1",
+        "default-route 192.0.2.1",
+        "ip route 192.0.2.1 0.0.0.0 0.0.0.0"
+      ],
+      "correctAnswer": "ip route 0.0.0.0 0.0.0.0 192.0.2.1"
+    },
+    {
+      "module": "IP Static Routing",
+      "topic": "Default Static Routes IPv4/IPv6",
+      "subtopic": "Default route behavior",
+      "learningObjective": "فهم وظيفة Default Route",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 15: Configure IP Default Static Routes; Cisco Basic IP Routing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-026",
+      "question": "Default Route تُستخدم عندما لا توجد Route أكثر تحديدًا تطابق Destination IP.",
+      "explanation": "العبارة صحيحة. Default Route هي Gateway of Last Resort، لكن أي Route أكثر تحديدًا تطابق الوجهة تُفضّل عليها.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "correctAnswer": "صح"
+    },
+    {
+      "module": "IP Static Routing",
+      "topic": "Default Static Routes IPv4/IPv6",
+      "subtopic": "Default route forms",
+      "learningObjective": "ربط Default Route بإصدار IP",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 15: Configure IP Default Static Routes; Cisco IPv4/IPv6 Static Routing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-027",
+      "question": "طابق Default Route مع الصيغة المناسبة.",
+      "explanation": "IPv4 Default Prefix هو 0.0.0.0/0 ويُكتب في IOS عادةً مع mask صفرية، بينما IPv6 Default Prefix هو ::/0.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_ip6-route-static-xe.html",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "IPv4 Default Prefix",
+          "right": "0.0.0.0/0"
+        },
+        {
+          "id": "p2",
+          "left": "IPv6 Default Prefix",
+          "right": "::/0"
+        },
+        {
+          "id": "p3",
+          "left": "IPv4 IOS command prefix/mask",
+          "right": "ip route 0.0.0.0 0.0.0.0 ..."
+        },
+        {
+          "id": "p4",
+          "left": "IPv6 IOS command prefix",
+          "right": "ipv6 route ::/0 ..."
+        }
+      ]
+    },
+    {
+      "module": "IP Static Routing",
+      "topic": "Floating Static Routes",
+      "subtopic": "Backup behavior",
+      "learningObjective": "فهم وظيفة Floating Static Route",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 15: Configure Floating Static Routes; Cisco Administrative Distance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-028",
+      "question": "ما الهدف الأساسي من Floating Static Route؟",
+      "explanation": "تستخدم Floating Static Route كمسار Backup، وتُعطى Administrative Distance أعلى من المسار الأساسي حتى لا تُفضّل ما دام Primary Route موجودًا.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/15986-admin-distance.html",
+      "options": [
+        "توفير Backup Route",
+        "تقليل Prefix Length",
+        "استبدال Routing Table",
+        "منع ARP"
+      ],
+      "correctAnswer": "توفير Backup Route"
+    },
+    {
+      "module": "IP Static Routing",
+      "topic": "Floating Static Routes",
+      "subtopic": "Administrative distance",
+      "learningObjective": "اختيار شروط عمل Floating Static Route",
+      "difficulty": "Challenging",
+      "type": "multiple",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 15: Configure Floating Static Routes; Cisco Administrative Distance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-029",
+      "question": "يوجد مسار أساسي إلى Prefix معيّن بـAdministrative Distance = 1. أي خيارين يصلحان كـFloating Static Route احتياطية لنفس الـPrefix؟ اختر إجابتين.",
+      "explanation": "لكي تكون Static Route احتياطية، يجب أن تكون Administrative Distance أعلى من المسار الأساسي. القيم 5 و10 أقل تفضيلًا من AD=1، لذلك لا تُستخدمان إلا عند غياب المسار الأساسي.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/15986-admin-distance.html",
+      "options": [
+        "تعيين AD = 5 للـBackup Static Route",
+        "تعيين AD = 10 للـBackup Static Route",
+        "تعيين AD = 1 للـBackup Static Route",
+        "تعيين AD = 0 للـBackup Static Route"
+      ],
+      "correctAnswer": [
+        "تعيين AD = 5 للـBackup Static Route",
+        "تعيين AD = 10 للـBackup Static Route"
+      ]
+    },
+    {
+      "module": "IP Static Routing",
+      "topic": "Static Host Routes",
+      "subtopic": "Host prefix length",
+      "learningObjective": "تمييز Host Route في IPv4 وIPv6",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 15: Configure Static Host Routes; Cisco Local Host Routes",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-030",
+      "question": "أي Prefix Length يمثل Static Host Route إلى جهاز IPv4 واحد؟",
+      "explanation": "IPv4 Host Route تستخدم /32 لأنها تطابق عنوان IPv4 واحدًا فقط. في IPv6 يكون Host Route عادةً /128.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/ip/ip-routing/116264-technote-ios-00.html",
+      "options": [
+        "/32",
+        "/24",
+        "/16",
+        "/0"
+      ],
+      "correctAnswer": "/32"
+    },
+    {
+      "module": "Troubleshoot Static and Default Routes",
+      "topic": "Packet Processing with Static Routes",
+      "subtopic": "Forwarding sequence",
+      "learningObjective": "ترتيب معالجة Packet عند استخدام Static Route",
+      "difficulty": "Medium",
+      "type": "ordering",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 16: Packet Processing with Static Routes",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-031",
+      "question": "رتب الخطوات العامة لمعالجة Packet عندما تكون أفضل Route هي Static Route.",
+      "explanation": "يستقبل Router frame ويفك Layer 2، يفحص Destination IP، يبحث عن Best Match، يستخدم معلومات Static Route لتحديد Forwarding، ثم يعيد Encapsulation ويرسل.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "items": [
+        {
+          "id": "i1",
+          "text": "استقبال Frame وفحص Packet"
+        },
+        {
+          "id": "i2",
+          "text": "استخراج Destination IP"
+        },
+        {
+          "id": "i3",
+          "text": "إجراء Routing Table lookup واختيار Best Match"
+        },
+        {
+          "id": "i4",
+          "text": "تحديد Next Hop/Exit Interface من Static Route"
+        },
+        {
+          "id": "i5",
+          "text": "إنشاء Frame جديد وإرسال Packet"
+        }
+      ],
+      "correctOrder": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5"
+      ]
+    },
+    {
+      "module": "Troubleshoot Static and Default Routes",
+      "topic": "Packet Processing with Static Routes",
+      "subtopic": "Longest prefix scenario",
+      "learningObjective": "اختيار المسار الفعلي عند وجود Default وStatic routes",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "CLI Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 14 & 16: Path Determination and Packet Processing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-032",
+      "question": "إلى أي Next Hop ستُرسل Packet المتجهة إلى `10.20.30.55`؟",
+      "explanation": "الشبكة 10.20.30.0/24 تطابق الوجهة وهي أكثر تحديدًا من 10.20.0.0/16 ومن Default Route، لذلك يستخدم Router Next Hop 192.0.2.3.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "cliOutput": "S    10.20.0.0/16 [1/0] via 192.0.2.2\nS    10.20.30.0/24 [1/0] via 192.0.2.3\nS*   0.0.0.0/0 [1/0] via 192.0.2.1",
+      "options": [
+        "192.0.2.3",
+        "192.0.2.2",
+        "192.0.2.1",
+        "سيتم إسقاط Packet"
+      ],
+      "correctAnswer": "192.0.2.3"
+    },
+    {
+      "module": "Troubleshoot Static and Default Routes",
+      "topic": "Packet Processing with Static Routes",
+      "subtopic": "Route installation",
+      "learningObjective": "تمييز شروط ظهور Static Route في Routing Table",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 16: Troubleshoot Static and Default Routes; Cisco Basic IP Routing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-033",
+      "question": "أي سببين قد يمنعان Static Route تعتمد على Next-Hop IP من الظهور أو العمل كما هو متوقع؟ اختر إجابتين.",
+      "explanation": "يجب أن يكون Next Hop قابلاً للحل والوصول، كما يجب أن تكون الشبكة والقناع صحيحين. Next-Hop غير reachable أو Destination prefix خاطئ يؤديان إلى فشل المسار أو عدم مطابقته للمطلوب.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "options": [
+        "Next-Hop IP غير قابل للوصول",
+        "Destination network/mask غير صحيحين",
+        "Hostname للRouter قصير",
+        "لم يتم تكوين Banner MOTD"
+      ],
+      "correctAnswer": [
+        "Next-Hop IP غير قابل للوصول",
+        "Destination network/mask غير صحيحين"
+      ]
+    },
+    {
+      "module": "Troubleshoot Static and Default Routes",
+      "topic": "Troubleshoot IPv4 Static Routes",
+      "subtopic": "Wrong mask",
+      "learningObjective": "تشخيص Prefix غير صحيح في Static Route",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 16: Troubleshoot IPv4 Static and Default Route Configuration",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-034",
+      "question": "المطلوب الوصول إلى الشبكة `192.168.50.0/24`، لكن R1 يحتوي على الأمر التالي. ما الخطأ الأساسي؟",
+      "explanation": "القناع 255.255.0.0 ينشئ Route إلى 192.168.0.0/16 وليس إلى 192.168.50.0/24 المطلوبة. يجب استخدام 255.255.255.0 لهذا السيناريو.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "configuration": "ip route 192.168.50.0 255.255.0.0 10.0.0.2",
+      "options": [
+        "Subnet Mask غير صحيح",
+        "Next-Hop IP يجب أن يكون Broadcast",
+        "يجب استخدام ipv6 route",
+        "لا يمكن استخدام Static Route مع /24"
+      ],
+      "correctAnswer": "Subnet Mask غير صحيح"
+    },
+    {
+      "module": "Troubleshoot Static and Default Routes",
+      "topic": "Troubleshoot IPv4 Static Routes",
+      "subtopic": "Unreachable next hop",
+      "learningObjective": "تشخيص Static Route لا تظهر بسبب Next Hop",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 16: Troubleshoot Static and Default Routes; Cisco Basic IP Routing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-035",
+      "question": "تم تكوين الأمر التالي، لكن Route لا تظهر في `show ip route`. لا توجد أي Route في الجدول للوصول إلى `10.99.99.2`. ما السبب الأكثر احتمالًا؟",
+      "explanation": "Static Route التي تعتمد على Next-Hop IP تحتاج إلى إمكانية الوصول إلى ذلك Next Hop. إذا تعذر حل Next Hop عبر Routing Table فلن تكون Route قابلة للاستخدام كما هو متوقع.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "configuration": "ip route 172.20.0.0 255.255.0.0 10.99.99.2",
+      "options": [
+        "Next-Hop IP غير قابل للوصول",
+        "الـDestination mask يجب أن يكون 0.0.0.0 دائمًا",
+        "Static Route تحتاج DHCPv4",
+        "يجب تفعيل DTP"
+      ],
+      "correctAnswer": "Next-Hop IP غير قابل للوصول"
+    },
+    {
+      "module": "Troubleshoot Static and Default Routes",
+      "topic": "Troubleshoot IPv4 Static Routes",
+      "subtopic": "Symptom to cause",
+      "learningObjective": "ربط أعراض Static Route بأسبابها المحتملة",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 16: Troubleshoot Static and Default Routes",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-036",
+      "question": "طابق كل عرض مع السبب الأكثر احتمالًا في سياق Static Routing.",
+      "explanation": "التشخيص الجيد يبدأ من العرض ثم يراجع Prefix وNext Hop وInterface وحالة Routing Table بدلاً من تغيير الأوامر عشوائيًا.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "Route لا تطابق الشبكة المطلوبة",
+          "right": "Destination prefix أو mask غير صحيح"
+        },
+        {
+          "id": "p2",
+          "left": "Route عبر Exit Interface اختفت بعد سقوط Interface",
+          "right": "Exit Interface down"
+        },
+        {
+          "id": "p3",
+          "left": "Route بـNext Hop لا يمكن حلها",
+          "right": "Next Hop غير reachable"
+        },
+        {
+          "id": "p4",
+          "left": "Remote network reachable باتجاه واحد فقط",
+          "right": "قد يكون Return Route مفقودًا"
+        }
+      ]
+    },
+    {
+      "module": "Troubleshoot Static and Default Routes",
+      "topic": "Troubleshoot Default Routes",
+      "subtopic": "Wrong next hop",
+      "learningObjective": "تشخيص Default Route خاطئة",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 16: Troubleshoot Static and Default Routes",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-037",
+      "question": "R1 لديه اتصال بالـISP عبر `203.0.113.2`، لكن Default Route تشير إلى `192.168.1.254` الموجود داخل LAN. ما الإجراء الأنسب؟",
+      "explanation": "Default Route يجب أن توجه الترافيك غير المعروف نحو Next Hop الصحيح باتجاه الشبكات الخارجية. الإشارة إلى جهاز داخل LAN لن تحقق ذلك.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "configuration": "ip route 0.0.0.0 0.0.0.0 192.168.1.254",
+      "options": [
+        "تغيير Next Hop إلى 203.0.113.2",
+        "إضافة VLAN 1",
+        "رفع Administrative Distance إلى 255",
+        "إلغاء IP routing"
+      ],
+      "correctAnswer": "تغيير Next Hop إلى 203.0.113.2"
+    },
+    {
+      "module": "Troubleshoot Static and Default Routes",
+      "topic": "Troubleshoot Default Routes",
+      "subtopic": "Route removal condition",
+      "learningObjective": "فهم أثر فقد Reachability على Static Route",
+      "difficulty": "Challenging",
+      "type": "true_false",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 16; Cisco Basic IP Routing",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-038",
+      "question": "إذا كانت Static Route تعتمد على Next-Hop IP ولم يعد Router قادرًا على الوصول إلى ذلك Next Hop، فقد تُزال Route من Routing Table حتى لو بقي أمرها في Running Configuration.",
+      "explanation": "العبارة صحيحة. بقاء أمر `ip route` في Configuration لا يعني بالضرورة بقاء Route مثبتة في Routing Table؛ يجب أن تكون معلومات Forwarding صالحة وقابلة للحل.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "correctAnswer": "صح"
+    },
+    {
+      "module": "Troubleshoot Static and Default Routes",
+      "topic": "Integrated Routing Troubleshooting",
+      "subtopic": "End-to-end reachability",
+      "learningObjective": "اختيار فحوصات منهجية لمشكلة Routing",
+      "difficulty": "Challenging",
+      "type": "multiple",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 14–16: IP Routing Table and Troubleshooting",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-039",
+      "question": "PC-A يصل إلى Default Gateway المحلي لكنه لا يصل إلى شبكة بعيدة عبر R1. أي خطوتين هما الأكثر فائدة كبداية لتشخيص Routing على R1؟ اختر إجابتين.",
+      "explanation": "ابدأ بفحص Routing Table لمعرفة هل توجد Route للوجهة، ثم افحص حالة Interfaces/Addresses المرتبطة بالمسار. هذا يختبر قرار Forwarding والبنية الأساسية قبل الانتقال لتفاصيل أخرى.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "options": [
+        "show ip route",
+        "show ip interface brief",
+        "show spanning-tree root",
+        "show etherchannel summary"
+      ],
+      "correctAnswer": [
+        "show ip route",
+        "show ip interface brief"
+      ]
+    },
+    {
+      "module": "Troubleshoot Static and Default Routes",
+      "topic": "Integrated Routing Troubleshooting",
+      "subtopic": "Return path",
+      "learningObjective": "تشخيص فشل الاتصال بسبب غياب Return Route",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Module 16: Troubleshoot Static and Default Routes",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "RT-040",
+      "question": "R1 لديه Route صحيحة إلى شبكة R2 البعيدة، وتصل ICMP Echo Requests إلى الجهاز البعيد، لكن Replies لا تعود إلى شبكة R1. ما السبب الأكثر احتمالًا؟",
+      "explanation": "Routing يجب أن يعمل في الاتجاهين. وصول Requests للوجهة يثبت Forward Path، لكن عدم عودة Replies يشير غالبًا إلى غياب أو خطأ Return Route على الجانب البعيد.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/ip-routing/b-ip-routing/m_iri-ip-prot-indep-0.html",
+      "options": [
+        "Return Route مفقودة أو خاطئة في الاتجاه العكسي",
+        "Root Bridge غير صحيح",
+        "Native VLAN mismatch على كل الشبكة",
+        "DHCP Snooping غير مفعل"
+      ],
+      "correctAnswer": "Return Route مفقودة أو خاطئة في الاتجاه العكسي"
+    }
+  ]
 }
