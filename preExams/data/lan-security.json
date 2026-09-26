@@ -1,20 +1,1310 @@
 {
   "schemaVersion": "1.1",
+  "bankVersion": "1.0",
   "course": "CCNA2 - Switching, Routing, and Wireless Essentials",
   "courseVersion": "SRWE v7",
   "section": {
     "id": "lan-security",
     "number": 5,
     "title": "LAN Security",
-    "description": "Port Security · DHCP Snooping · DAI · VLAN Attacks",
-    "topics": [
-      "LAN Security",
-      "Port Security",
-      "DHCP Snooping",
-      "Dynamic ARP Inspection",
-      "VLAN Attacks"
+    "description": "LAN Security Concepts · Switch Security Configuration",
+    "modules": [
+      "LAN Security Concepts",
+      "Switch Security Configuration"
     ],
-    "status": "empty"
+    "status": "approved",
+    "approvedQuestionCount": 40,
+    "lastReviewed": "2026-09-26"
   },
-  "questions": []
+  "assessmentAlignment": {
+    "source": "SRWE v7 Module & Final Exam Design Documents.xlsx",
+    "moduleGroupExamPercent": {
+      "LAN Security Concepts": 23.75,
+      "Switch Security Configuration": 28.125
+    },
+    "finalExamCoveragePercent": {
+      "LAN Security Concepts": 6.25,
+      "Switch Security Configuration": 8.5
+    },
+    "questionAllocation": {
+      "LAN Security Concepts": 18,
+      "Switch Security Configuration": 22
+    }
+  },
+  "coverageMatrix": [
+    {
+      "module": "LAN Security Concepts",
+      "area": "Endpoint Security",
+      "learningFocus": "Endpoint protection and layered defense",
+      "questionCount": 2,
+      "questionIds": [
+        "SEC-001",
+        "SEC-002"
+      ]
+    },
+    {
+      "module": "LAN Security Concepts",
+      "area": "AAA & 802.1X Access Control",
+      "learningFocus": "AAA functions, 802.1X purpose and authentication dependencies",
+      "questionCount": 3,
+      "questionIds": [
+        "SEC-003",
+        "SEC-004",
+        "SEC-005"
+      ]
+    },
+    {
+      "module": "LAN Security Concepts",
+      "area": "Layer 2 Security Threats",
+      "learningFocus": "Layer 2 attack surface, threat recognition and effects",
+      "questionCount": 4,
+      "questionIds": [
+        "SEC-006",
+        "SEC-007",
+        "SEC-008",
+        "SEC-009"
+      ]
+    },
+    {
+      "module": "LAN Security Concepts",
+      "area": "MAC Address Table Attacks",
+      "learningFocus": "MAC flooding sequence, behavior, detection and mitigation",
+      "questionCount": 4,
+      "questionIds": [
+        "SEC-010",
+        "SEC-011",
+        "SEC-012",
+        "SEC-013"
+      ]
+    },
+    {
+      "module": "LAN Security Concepts",
+      "area": "VLAN / DHCP / ARP / STP Attacks — Concepts",
+      "learningFocus": "Recognize VLAN hopping, rogue DHCP, ARP spoofing and STP manipulation",
+      "questionCount": 5,
+      "questionIds": [
+        "SEC-014",
+        "SEC-015",
+        "SEC-016",
+        "SEC-017",
+        "SEC-018"
+      ]
+    },
+    {
+      "module": "Switch Security Configuration",
+      "area": "Port Security Concepts & Configuration",
+      "learningFocus": "Enable, customize, verify and troubleshoot Port Security",
+      "questionCount": 7,
+      "questionIds": [
+        "SEC-019",
+        "SEC-020",
+        "SEC-021",
+        "SEC-022",
+        "SEC-023",
+        "SEC-024",
+        "SEC-025"
+      ]
+    },
+    {
+      "module": "Switch Security Configuration",
+      "area": "VLAN Attack Mitigation",
+      "learningFocus": "Harden access/trunk behavior, DTP and native VLAN practices",
+      "questionCount": 3,
+      "questionIds": [
+        "SEC-026",
+        "SEC-027",
+        "SEC-028"
+      ]
+    },
+    {
+      "module": "Switch Security Configuration",
+      "area": "DHCP Snooping",
+      "learningFocus": "Trusted boundary, enablement and rogue-server troubleshooting",
+      "questionCount": 4,
+      "questionIds": [
+        "SEC-029",
+        "SEC-030",
+        "SEC-031",
+        "SEC-032"
+      ]
+    },
+    {
+      "module": "Switch Security Configuration",
+      "area": "Dynamic ARP Inspection (DAI)",
+      "learningFocus": "ARP validation, bindings, trust and troubleshooting",
+      "questionCount": 4,
+      "questionIds": [
+        "SEC-033",
+        "SEC-034",
+        "SEC-035",
+        "SEC-036"
+      ]
+    },
+    {
+      "module": "Switch Security Configuration",
+      "area": "PortFast & BPDU Guard",
+      "learningFocus": "Edge-port behavior and protection from unexpected BPDUs",
+      "questionCount": 4,
+      "questionIds": [
+        "SEC-037",
+        "SEC-038",
+        "SEC-039",
+        "SEC-040"
+      ]
+    }
+  ],
+  "reviewRecord": {
+    "technicalReview": "approved",
+    "assessmentReview": "approved",
+    "educationalReview": "approved",
+    "studentClarityReview": "approved",
+    "mobileInteractionReview": "approved",
+    "reviewDate": "2026-09-26",
+    "notes": "Original questions aligned to SRWE v7 Modules 10–11. Cisco terminology retained in English with concise Arabic explanations. Port Security, 802.1X, DHCP Snooping, DAI, and BPDU Guard behavior was cross-checked against Cisco documentation. No external question bank was copied."
+  },
+  "questions": [
+    {
+      "module": "LAN Security Concepts",
+      "topic": "Endpoint Security",
+      "subtopic": "Defense in depth",
+      "learningObjective": "تحديد دور Endpoint Security في تقليل مخاطر LAN",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Catalyst 2960 security feature overview",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_1_e/configuration/guide/2960_scg/swintro.html",
+      "id": "SEC-001",
+      "question": "أي إجراء يُعد مثالًا مباشرًا على Endpoint Security؟",
+      "explanation": "Endpoint Security يركز على حماية الأجهزة النهائية نفسها، مثل تحديث النظام واستخدام Host Firewall وAnti-malware. هذه الإجراءات تكمل ضوابط السويتش ولا تستبدلها.",
+      "options": [
+        "تحديث نظام التشغيل وتفعيل Host Firewall على أجهزة المستخدمين",
+        "تغيير STP Root Bridge",
+        "إنشاء EtherChannel بين سويتشين",
+        "تفعيل DTP على منافذ المستخدمين"
+      ],
+      "correctAnswer": "تحديث نظام التشغيل وتفعيل Host Firewall على أجهزة المستخدمين"
+    },
+    {
+      "module": "LAN Security Concepts",
+      "topic": "Endpoint Security",
+      "subtopic": "Layered defenses",
+      "learningObjective": "تمييز الإجراءات التي تقلل مخاطر الأجهزة النهائية",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Catalyst 2960 security feature overview",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_1_e/configuration/guide/2960_scg/swintro.html",
+      "id": "SEC-002",
+      "question": "أي ثلاث ممارسات تقلل مخاطر Endpoint compromise؟ اختر ثلاث إجابات.",
+      "explanation": "Patch management وAnti-malware وHost Firewall تقلل سطح الهجوم على الجهاز النهائي. أما تحويل منفذ المستخدم إلى Trunk أو تعطيل التحديثات فيزيدان المخاطر.",
+      "options": [
+        "تثبيت Security Updates بانتظام",
+        "استخدام Anti-malware مناسب",
+        "تفعيل Host Firewall",
+        "تحويل منفذ المستخدم إلى Trunk ديناميكيًا",
+        "تعطيل تحديثات النظام لتجنب إعادة التشغيل"
+      ],
+      "correctAnswer": [
+        "تثبيت Security Updates بانتظام",
+        "استخدام Anti-malware مناسب",
+        "تفعيل Host Firewall"
+      ]
+    },
+    {
+      "module": "LAN Security Concepts",
+      "topic": "AAA & 802.1X",
+      "subtopic": "AAA functions",
+      "learningObjective": "ربط وظائف AAA بمفاهيمها",
+      "difficulty": "Easy",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco IEEE 802.1X Port-Based Authentication Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/12-2_53_se/configuration/guide/2960scg/sw8021x.html",
+      "id": "SEC-003",
+      "question": "طابق كل عنصر من AAA مع وظيفته الأساسية.",
+      "explanation": "AAA يفصل بين التحقق من الهوية، وتحديد ما يسمح للمستخدم بفعله، وتسجيل أنشطته لأغراض المتابعة والمحاسبة.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "Authentication",
+          "right": "التحقق من هوية المستخدم أو الجهاز"
+        },
+        {
+          "id": "p2",
+          "left": "Authorization",
+          "right": "تحديد الموارد أو الخدمات المسموح بها"
+        },
+        {
+          "id": "p3",
+          "left": "Accounting",
+          "right": "تسجيل الاستخدام والأنشطة لأغراض المتابعة"
+        }
+      ]
+    },
+    {
+      "module": "LAN Security Concepts",
+      "topic": "AAA & 802.1X",
+      "subtopic": "802.1X roles",
+      "learningObjective": "شرح دور 802.1X في التحكم بالوصول إلى منفذ السويتش",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco IEEE 802.1X Port-Based Authentication Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/12-2_53_se/configuration/guide/2960scg/sw8021x.html",
+      "id": "SEC-004",
+      "question": "ما الهدف الأساسي من IEEE 802.1X على Access Port؟",
+      "explanation": "802.1X يضيف Port-Based Network Access Control؛ لا يُمنح العميل وصولًا عاديًا إلى الشبكة قبل نجاح عملية Authentication وفق السياسة المطبقة.",
+      "options": [
+        "التحقق من هوية العميل قبل السماح له بالوصول إلى الشبكة",
+        "منع جميع Broadcast frames في VLAN",
+        "استبدال DHCPv4 بـSLAAC",
+        "اختيار STP Root Port"
+      ],
+      "correctAnswer": "التحقق من هوية العميل قبل السماح له بالوصول إلى الشبكة"
+    },
+    {
+      "module": "LAN Security Concepts",
+      "topic": "AAA & 802.1X",
+      "subtopic": "AAA dependency",
+      "learningObjective": "تمييز علاقة AAA بإعداد 802.1X",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco IEEE 802.1X Port-Based Authentication Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/12-2_53_se/configuration/guide/2960scg/sw8021x.html",
+      "id": "SEC-005",
+      "question": "يتطلب إعداد 802.1X المعتاد على Cisco Switch تمكين AAA وتحديد طريقة Authentication مناسبة.",
+      "explanation": "العبارة صحيحة. توثيق Cisco يوضح أن تهيئة 802.1X تعتمد على AAA method list، وغالبًا يستخدم RADIUS كخادم Authentication مركزي.",
+      "correctAnswer": "صح"
+    },
+    {
+      "module": "LAN Security Concepts",
+      "topic": "Layer 2 Security Threats",
+      "subtopic": "Attack surface",
+      "learningObjective": "تمييز سبب أهمية حماية Layer 2",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Catalyst 2960 security feature overview",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_1_e/configuration/guide/2960_scg/swintro.html",
+      "id": "SEC-006",
+      "question": "لماذا تُعد Layer 2 هدفًا مهمًا للحماية داخل LAN؟",
+      "explanation": "وجود Firewall عند حدود الشبكة لا يمنع تلقائيًا الهجمات المحلية على Switching وARP وDHCP وSTP. لذلك تحتاج LAN إلى ضوابط Layer 2 خاصة بها.",
+      "options": [
+        "لأن عدة هجمات محلية تستهدف Switching وARP وDHCP وSTP داخل LAN",
+        "لأن Layer 2 مسؤولة عن تشفير جميع تطبيقات المستخدم",
+        "لأن Router لا يعمل إلا إذا كان STP معطلًا",
+        "لأن Layer 2 تمنع استخدام IPv4 افتراضيًا"
+      ],
+      "correctAnswer": "لأن عدة هجمات محلية تستهدف Switching وARP وDHCP وSTP داخل LAN"
+    },
+    {
+      "module": "LAN Security Concepts",
+      "topic": "Layer 2 Security Threats",
+      "subtopic": "Threat and effect",
+      "learningObjective": "ربط أمثلة Layer 2 threats بنتائجها",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Catalyst 2960 security feature overview",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_1_e/configuration/guide/2960_scg/swintro.html",
+      "id": "SEC-007",
+      "question": "طابق كل تهديد مع الأثر الأكثر ارتباطًا به.",
+      "explanation": "ربط الهجوم بأثره يساعد على اختيار Mitigation الصحيح: MAC flooding يؤثر في جدول العناوين، Rogue DHCP يزوّر إعدادات الشبكة، ARP spoofing يزوّر IP-to-MAC mapping، وSTP manipulation يحاول التأثير في Topology.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "MAC address table attack",
+          "right": "إغراق السويتش بعناوين Source MAC كثيرة"
+        },
+        {
+          "id": "p2",
+          "left": "Rogue DHCP server",
+          "right": "إرسال إعدادات IP أو Default Gateway غير موثوقة"
+        },
+        {
+          "id": "p3",
+          "left": "ARP spoofing",
+          "right": "تقديم IP-to-MAC mapping مزيف"
+        },
+        {
+          "id": "p4",
+          "left": "STP manipulation",
+          "right": "إرسال BPDUs للتأثير في Spanning Tree topology"
+        }
+      ]
+    },
+    {
+      "module": "LAN Security Concepts",
+      "topic": "Layer 2 Security Threats",
+      "subtopic": "Threat recognition",
+      "learningObjective": "تمييز الهجمات الشائعة في LAN",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Catalyst 2960 security feature overview",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_1_e/configuration/guide/2960_scg/swintro.html",
+      "id": "SEC-008",
+      "question": "أي ثلاث حالات تُعد أمثلة واضحة على Layer 2 security threats؟ اختر ثلاث إجابات.",
+      "explanation": "MAC flooding وARP spoofing وVLAN hopping تقع ضمن تهديدات LAN/Layer 2. أما DNS cache poisoning فهو تهديد مختلف لا يعتمد مباشرة على وظيفة السويتش في Layer 2.",
+      "options": [
+        "MAC flooding",
+        "ARP spoofing",
+        "VLAN hopping",
+        "DNS cache poisoning",
+        "تغيير Static Route على Router بواسطة المسؤول"
+      ],
+      "correctAnswer": [
+        "MAC flooding",
+        "ARP spoofing",
+        "VLAN hopping"
+      ]
+    },
+    {
+      "module": "LAN Security Concepts",
+      "topic": "Layer 2 Security Threats",
+      "subtopic": "Local attack detection",
+      "learningObjective": "اختيار التفسير الأنسب لحركة مشبوهة على LAN",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Catalyst 2960 security feature overview",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_1_e/configuration/guide/2960_scg/swintro.html",
+      "id": "SEC-009",
+      "question": "لاحظ المسؤول أن جهازًا واحدًا يرسل عددًا كبيرًا جدًا من Frames بعناوين Source MAC متغيرة باستمرار. ما التهديد الأكثر احتمالًا؟",
+      "explanation": "تغيير Source MAC بسرعة وبأعداد كبيرة يتوافق مع MAC address table flooding، حيث يحاول المهاجم استهلاك مساحة تعلم العناوين في السويتش.",
+      "options": [
+        "MAC address table attack",
+        "DHCP starvation فقط",
+        "HSRP failover",
+        "STP convergence طبيعي"
+      ],
+      "correctAnswer": "MAC address table attack"
+    },
+    {
+      "module": "LAN Security Concepts",
+      "topic": "MAC Address Table Attacks",
+      "subtopic": "Attack sequence",
+      "learningObjective": "ترتيب التسلسل المنطقي لهجوم MAC flooding",
+      "difficulty": "Medium",
+      "type": "ordering",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Catalyst 2960 security feature overview; Port Security configuration guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_sec_port_based_traffic_ctrl_2960_cg.html",
+      "id": "SEC-010",
+      "question": "رتب المراحل التالية لتوضيح التسلسل المنطقي لهجوم MAC address table flooding.",
+      "explanation": "المهاجم يولد عددًا كبيرًا من Source MAC addresses، فيتعلمها السويتش حتى تتأثر قدرة الجدول على الاحتفاظ بالتعيينات الطبيعية، وعند عدم معرفة Destination MAC قد يزداد Flooding داخل VLAN، ما يرفع احتمال مشاهدة حركة لا تخص منفذ المهاجم.",
+      "items": [
+        {
+          "id": "i1",
+          "text": "المهاجم يرسل Frames بعناوين Source MAC كثيرة ومختلفة"
+        },
+        {
+          "id": "i2",
+          "text": "السويتش يتعلم أعدادًا كبيرة من MAC entries"
+        },
+        {
+          "id": "i3",
+          "text": "تتأثر قدرة MAC Address Table على الاحتفاظ بالتعيينات الطبيعية"
+        },
+        {
+          "id": "i4",
+          "text": "قد تُFlood بعض Unknown Unicast frames داخل VLAN"
+        }
+      ],
+      "correctOrder": [
+        "i1",
+        "i2",
+        "i3",
+        "i4"
+      ]
+    },
+    {
+      "module": "LAN Security Concepts",
+      "topic": "MAC Address Table Attacks",
+      "subtopic": "Unknown unicast behavior",
+      "learningObjective": "فهم العلاقة بين Unknown Unicast وMAC table attack",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Catalyst 2960 security feature overview",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_1_e/configuration/guide/2960_scg/swintro.html",
+      "id": "SEC-011",
+      "question": "إذا لم يجد Layer 2 Switch عنوان Destination MAC في MAC Address Table، فإنه قد يFlood الـframe داخل VLAN المعنية باستثناء منفذ الدخول.",
+      "explanation": "العبارة صحيحة. هذا السلوك الطبيعي مع Unknown Unicast هو أحد الأسباب التي تجعل العبث بجدول MAC ذا أثر أمني محتمل داخل Broadcast Domain نفسه.",
+      "correctAnswer": "صح"
+    },
+    {
+      "module": "LAN Security Concepts",
+      "topic": "MAC Address Table Attacks",
+      "subtopic": "Traffic analysis",
+      "learningObjective": "تحليل أثر MAC flooding على سلوك السويتش",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Catalyst 2960 security feature overview; Port Security configuration guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_sec_port_based_traffic_ctrl_2960_cg.html",
+      "id": "SEC-012",
+      "question": "بعد ظهور آلاف MAC entries غير المعتادة من Access Port واحد، لاحظ المسؤول زيادة Unknown Unicast flooding في VLAN 20. ما الإجراء الأكثر مباشرة لمعالجة مصدر المشكلة على ذلك المنفذ؟",
+      "explanation": "Port Security يسمح بتقييد عدد وهويات Secure MAC addresses على Access Port، وهو Mitigation مباشر ضد محاولة إدخال أعداد كبيرة من Source MAC addresses من منفذ المستخدم.",
+      "options": [
+        "تفعيل Port Security مع حد مناسب لعدد Secure MAC addresses",
+        "زيادة STP priority للسويتش",
+        "تحويل المنفذ إلى Trunk",
+        "تعطيل DHCP Snooping على VLAN 20"
+      ],
+      "correctAnswer": "تفعيل Port Security مع حد مناسب لعدد Secure MAC addresses",
+      "scenario": "Gi0/18: آلاف Source MAC addresses جديدة خلال دقائق\nVLAN 20: ارتفاع Unknown Unicast flooding\nالمصدر الظاهر: جهاز متصل مباشرة بـ Gi0/18"
+    },
+    {
+      "module": "LAN Security Concepts",
+      "topic": "MAC Address Table Attacks",
+      "subtopic": "Mitigation mapping",
+      "learningObjective": "ربط خصائص Port Security بدورها في تخفيف MAC flooding",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Port Security configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_sec_port_based_traffic_ctrl_2960_cg.html",
+      "id": "SEC-013",
+      "question": "طابق كل إعداد Port Security مع وظيفته الأقرب.",
+      "explanation": "Port Security يحد من العناوين المسموح بها على المنفذ، ويمكنه تعلم Sticky MAC addresses وتحديد Violation Mode والتحقق بأوامر show.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "maximum",
+          "right": "يحدد عدد Secure MAC addresses المسموح بها"
+        },
+        {
+          "id": "p2",
+          "left": "mac-address sticky",
+          "right": "يتعلم عناوين آمنة ويضيفها إلى Running Configuration"
+        },
+        {
+          "id": "p3",
+          "left": "violation mode",
+          "right": "يحدد تصرف المنفذ عند حدوث مخالفة"
+        },
+        {
+          "id": "p4",
+          "left": "show port-security interface",
+          "right": "يعرض حالة Port Security وإحصاءات المخالفات"
+        }
+      ]
+    },
+    {
+      "module": "LAN Security Concepts",
+      "topic": "LAN Attack Concepts",
+      "subtopic": "VLAN hopping",
+      "learningObjective": "تمييز Switch Spoofing كنوع من VLAN hopping",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco LAN security design guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/solutions/Verticals/Oil_and_Gas/Pipeline/SecurityReference/Security-IRD/Security-IRD.html",
+      "id": "SEC-014",
+      "question": "في Switch Spoofing attack، ما الذي يحاول الجهاز المهاجم تحقيقه؟",
+      "explanation": "يحاول المهاجم الظهور كجهاز قادر على Trunking والتفاوض على Trunk حتى يحصل على وصول إلى Traffic لعدة VLANs بدل بقائه Access Host عاديًا.",
+      "options": [
+        "التفاوض على Trunk للوصول إلى أكثر من VLAN",
+        "انتخاب نفسه DHCP Server عبر HSRP",
+        "تغيير Root Bridge باستخدام ARP",
+        "تشفير 802.1Q tags"
+      ],
+      "correctAnswer": "التفاوض على Trunk للوصول إلى أكثر من VLAN"
+    },
+    {
+      "module": "LAN Security Concepts",
+      "topic": "LAN Attack Concepts",
+      "subtopic": "Attack-to-mitigation reasoning",
+      "learningObjective": "اختيار وسائل تخفيف هجمات VLAN وDHCP وARP",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco LAN security design guidance; DHCP Snooping and DAI documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_sec_dhcp_2960_cg.html",
+      "id": "SEC-015",
+      "question": "أي ثلاث ممارسات ترتبط مباشرة بتقليل مخاطر Layer 2 attacks على Access Switch؟ اختر ثلاث إجابات.",
+      "explanation": "تثبيت منافذ المستخدمين كـAccess وتعطيل التفاوض غير المطلوب يقلل VLAN hopping، وDHCP Snooping يمنع رسائل Server غير الموثوقة، وDAI يتحقق من ARP bindings. الخيارات الأخرى تزيد المخاطر أو لا تعالجها.",
+      "options": [
+        "ضبط منافذ المستخدمين صراحةً كـAccess وعدم السماح لها بالتفاوض على Trunk",
+        "تفعيل DHCP Snooping",
+        "تفعيل Dynamic ARP Inspection عند الحاجة",
+        "جعل جميع منافذ المستخدمين Trusted لـDHCP Snooping",
+        "تفعيل PortFast على الروابط بين السويتشات"
+      ],
+      "correctAnswer": [
+        "ضبط منافذ المستخدمين صراحةً كـAccess وعدم السماح لها بالتفاوض على Trunk",
+        "تفعيل DHCP Snooping",
+        "تفعيل Dynamic ARP Inspection عند الحاجة"
+      ]
+    },
+    {
+      "module": "LAN Security Concepts",
+      "topic": "LAN Attack Concepts",
+      "subtopic": "Rogue services",
+      "learningObjective": "تحليل هجوم يجمع Rogue DHCP مع ARP spoofing",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco DHCP Snooping and Dynamic ARP Inspection documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/b_1522e_2960_2960c_2960s_2960sf_2960p_cg_chapter_010110.html",
+      "id": "SEC-016",
+      "question": "بدأ بعض المستخدمين يستلمون Default Gateway غير صحيح، ثم ظهرت ARP replies تربط عنوان الـGateway بعنوان MAC لجهاز غريب. أي زوج من الضوابط يعالج التهديدين بصورة مباشرة؟",
+      "explanation": "DHCP Snooping يفلتر رسائل DHCP غير الموثوقة ويحدد منافذ Server الموثوقة، بينما DAI يتحقق من ARP bindings على المنافذ غير الموثوقة. الجمع بينهما مناسب لهذا السيناريو.",
+      "options": [
+        "DHCP Snooping + Dynamic ARP Inspection",
+        "PortFast + EtherChannel",
+        "HSRP + DTP",
+        "VTP + CDP"
+      ],
+      "correctAnswer": "DHCP Snooping + Dynamic ARP Inspection",
+      "scenario": "العارض 1: بعض Clients يستلمون Default Gateway = 10.10.10.254 بدل 10.10.10.1\nالعارض 2: ARP replies تزعم أن 10.10.10.1 يطابق MAC address غير معروف"
+    },
+    {
+      "module": "LAN Security Concepts",
+      "topic": "LAN Attack Concepts",
+      "subtopic": "STP manipulation",
+      "learningObjective": "تمييز الهدف من STP attack على Access Layer",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Optional Spanning-Tree Features Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_layer2_optional_spanning_tree_2960_2960s_cg.html",
+      "id": "SEC-017",
+      "question": "ما السلوك المشبوه الذي يرتبط غالبًا بمحاولة التأثير في STP topology من منفذ مستخدم؟",
+      "explanation": "إرسال BPDUs من منفذ مستخدم ليس متوقعًا في التصميم الطبيعي للـEdge Port. BPDU Guard مصمم للتعامل مع هذه الحالة على المنافذ التي يجب أن تتصل بأجهزة نهائية.",
+      "options": [
+        "وصول BPDUs من جهاز متصل بمنفذ Edge",
+        "وصول DHCPACK من DHCP Server موثوق",
+        "تعلم MAC address واحد لجهاز المستخدم",
+        "إرسال ARP request عادي للـDefault Gateway"
+      ],
+      "correctAnswer": "وصول BPDUs من جهاز متصل بمنفذ Edge"
+    },
+    {
+      "module": "LAN Security Concepts",
+      "topic": "LAN Attack Concepts",
+      "subtopic": "Threat vocabulary",
+      "learningObjective": "ربط المصطلحات الأمنية بوصف الهجوم",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco LAN security design and Catalyst security documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_1_e/configuration/guide/2960_scg/swintro.html",
+      "id": "SEC-018",
+      "question": "طابق كل مصطلح أمني مع الوصف الأنسب.",
+      "explanation": "تمييز نمط الهجوم أول خطوة لاختيار Mitigation مناسب: VLAN hopping يتجاوز حدود VLAN، Rogue DHCP يزوّر التهيئة، ARP spoofing يزوّر الربط بين IP وMAC، وSTP attack يحاول التأثير في Topology.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "VLAN hopping",
+          "right": "محاولة الوصول إلى VLAN غير مصرح بها عبر إساءة استخدام Trunking/Tagging"
+        },
+        {
+          "id": "p2",
+          "left": "Rogue DHCP",
+          "right": "خادم غير موثوق يرسل إعدادات IP للعملاء"
+        },
+        {
+          "id": "p3",
+          "left": "ARP spoofing",
+          "right": "إعلانات ARP تربط IP بعنوان MAC غير صحيح"
+        },
+        {
+          "id": "p4",
+          "left": "STP attack",
+          "right": "محاولة التأثير في Spanning Tree عبر BPDUs غير متوقعة"
+        }
+      ]
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "Port Security",
+      "subtopic": "Purpose",
+      "learningObjective": "شرح وظيفة Port Security على Access Port",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Port Security configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_sec_port_based_traffic_ctrl_2960_cg.html",
+      "id": "SEC-019",
+      "question": "ما الهدف الأساسي من Port Security على Switch Port؟",
+      "explanation": "Port Security يقيد الوصول بناءً على Secure MAC addresses وعددها، ما يساعد على منع أجهزة أو عناوين غير مصرح بها وتقليل مخاطر MAC flooding.",
+      "options": [
+        "تقييد عدد أو هوية MAC addresses المسموح بها على المنفذ",
+        "اختيار Default Gateway افتراضي للعملاء",
+        "منع جميع Broadcast frames",
+        "تشفير Ethernet headers"
+      ],
+      "correctAnswer": "تقييد عدد أو هوية MAC addresses المسموح بها على المنفذ"
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "Port Security",
+      "subtopic": "Basic configuration sequence",
+      "learningObjective": "ترتيب خطوات تفعيل Port Security الأساسية على Access Port",
+      "difficulty": "Medium",
+      "type": "ordering",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Port Security configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_sec_port_based_traffic_ctrl_2960_cg.html",
+      "id": "SEC-020",
+      "question": "رتب الأوامر التالية لتكوين Access Port ثم تفعيل Port Security وتحديد حد أقصى لعنوانين.",
+      "explanation": "يجب أولًا الدخول إلى Interface Configuration، ثم جعل المنفذ Access، ثم تفعيل Port Security، ثم تحديد maximum. هذا يضمن أن السياسة تطبق على منفذ Layer 2 مضبوط بوضوح.",
+      "items": [
+        {
+          "id": "i1",
+          "text": "interface gi0/10"
+        },
+        {
+          "id": "i2",
+          "text": "switchport mode access"
+        },
+        {
+          "id": "i3",
+          "text": "switchport port-security"
+        },
+        {
+          "id": "i4",
+          "text": "switchport port-security maximum 2"
+        }
+      ],
+      "correctOrder": [
+        "i1",
+        "i2",
+        "i3",
+        "i4"
+      ]
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "Port Security",
+      "subtopic": "Core commands",
+      "learningObjective": "اختيار أوامر Port Security المرتبطة بالحد والتعلم والسياسة",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Port Security configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_sec_port_based_traffic_ctrl_2960_cg.html",
+      "id": "SEC-021",
+      "question": "أي ثلاثة أوامر تُستخدم مباشرة لتخصيص Port Security بعد تفعيله على المنفذ؟ اختر ثلاث إجابات.",
+      "explanation": "`maximum` يحدد العدد، و`mac-address sticky` يتيح Sticky learning، و`violation` يحدد التصرف عند المخالفة. أوامر STP وDHCP Snooping تخص ضوابط أخرى.",
+      "options": [
+        "switchport port-security maximum 2",
+        "switchport port-security mac-address sticky",
+        "switchport port-security violation restrict",
+        "spanning-tree portfast",
+        "ip dhcp snooping trust"
+      ],
+      "correctAnswer": [
+        "switchport port-security maximum 2",
+        "switchport port-security mac-address sticky",
+        "switchport port-security violation restrict"
+      ]
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "Port Security",
+      "subtopic": "Violation modes",
+      "learningObjective": "تمييز الفرق بين Protect وRestrict وShutdown",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Port Security configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_sec_port_based_traffic_ctrl_2960_cg.html",
+      "id": "SEC-022",
+      "question": "أي Violation Mode يُعد الأكثر تشددًا افتراضيًا لأنه يضع المنفذ في Error-disabled عند حدوث Security Violation؟",
+      "explanation": "وضع `shutdown` هو الافتراضي والأكثر تشددًا؛ عند المخالفة يتوقف المنفذ ويدخل Error-disabled حتى تتم معالجته وإعادته للخدمة.",
+      "options": [
+        "shutdown",
+        "restrict",
+        "protect",
+        "monitor"
+      ],
+      "correctAnswer": "shutdown"
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "Port Security",
+      "subtopic": "Violation behavior",
+      "learningObjective": "ربط Violation Modes بسلوكها",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Port Security configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_sec_port_based_traffic_ctrl_2960_cg.html",
+      "id": "SEC-023",
+      "question": "طابق كل Port Security Violation Mode مع السلوك الأقرب له.",
+      "explanation": "`protect` يسقط الحركة المخالفة بصمت نسبيًا، و`restrict` يسقطها مع تسجيل/زيادة عداد المخالفات، و`shutdown` يضع المنفذ في Error-disabled.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "protect",
+          "right": "يسقط Frames من عناوين غير آمنة دون إيقاف المنفذ"
+        },
+        {
+          "id": "p2",
+          "left": "restrict",
+          "right": "يسقط الحركة المخالفة ويزيد Violation Counter ويمكن أن يولد إشعارًا"
+        },
+        {
+          "id": "p3",
+          "left": "shutdown",
+          "right": "يضع المنفذ في Error-disabled عند المخالفة"
+        }
+      ]
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "Port Security",
+      "subtopic": "Sticky MAC",
+      "learningObjective": "فهم Sticky learning واستمرارية الإعداد",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Port Security configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_sec_port_based_traffic_ctrl_2960_cg.html",
+      "id": "SEC-024",
+      "question": "يمكن لـ`switchport port-security mac-address sticky` تعلم Secure MAC addresses وإضافتها إلى Running Configuration، ويحتاج المسؤول إلى حفظ الإعداد إذا أراد بقاءها بعد إعادة التشغيل.",
+      "explanation": "العبارة صحيحة. Sticky learning يسهل تحويل العناوين المتعلمة إلى Secure entries في Running Configuration، لكن الاستمرارية بعد Reload تتطلب حفظ الإعداد.",
+      "correctAnswer": "صح"
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "Port Security",
+      "subtopic": "Verification and recovery",
+      "learningObjective": "تحليل مخرجات Port Security لتحديد سبب توقف المنفذ",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Port Security configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_sec_port_based_traffic_ctrl_2960_cg.html",
+      "id": "SEC-025",
+      "question": "يعرض الأمر التالي `Secure-shutdown` وViolation Count = 1. ما التفسير الأفضل؟",
+      "explanation": "عندما يكون Violation Mode هو shutdown ويحدث تجاوز للسياسة، يدخل المنفذ Secure-shutdown/Error-disabled. المطلوب معالجة سبب المخالفة ثم إعادة المنفذ للخدمة وفق سياسة الإدارة.",
+      "options": [
+        "حدث Port Security violation وأوقف المنفذ وفق وضع shutdown",
+        "تعطل STP بسبب Root Bridge جديد",
+        "لم يحصل المنفذ على DHCP lease",
+        "المنفذ يعمل طبيعيًا ولا توجد مخالفة"
+      ],
+      "correctAnswer": "حدث Port Security violation وأوقف المنفذ وفق وضع shutdown",
+      "cliOutput": "Switch# show port-security interface fa0/12\nPort Status              : Secure-shutdown\nViolation Mode           : Shutdown\nMaximum MAC Addresses    : 1\nTotal MAC Addresses      : 1\nSecurity Violation Count : 1"
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "VLAN Attack Mitigation",
+      "subtopic": "User-facing ports",
+      "learningObjective": "اختيار الإعداد الآمن لمنافذ المستخدمين ضد Switch Spoofing",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco LAN security design guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/solutions/Verticals/Oil_and_Gas/Pipeline/SecurityReference/Security-IRD/Security-IRD.html",
+      "id": "SEC-026",
+      "question": "ما الإعداد الأنسب لمنفذ موصول بجهاز مستخدم ولا يُفترض أن يعمل كـTrunk؟",
+      "explanation": "ضبط المنفذ صراحةً كـAccess يقلل احتمال أن يتحول إلى Trunk نتيجة تفاوض أو إعداد غير مقصود. منافذ المستخدمين يجب ألا تعتمد على Dynamic Trunking.",
+      "options": [
+        "switchport mode access",
+        "switchport mode dynamic desirable",
+        "switchport mode trunk",
+        "switchport trunk allowed vlan all"
+      ],
+      "correctAnswer": "switchport mode access"
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "VLAN Attack Mitigation",
+      "subtopic": "Mitigation practices",
+      "learningObjective": "اختيار ممارسات الحد من VLAN hopping",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco LAN security design guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/solutions/Verticals/Oil_and_Gas/Pipeline/SecurityReference/Security-IRD/Security-IRD.html",
+      "id": "SEC-027",
+      "question": "أي ثلاث ممارسات تساعد على تقليل مخاطر VLAN hopping؟ اختر ثلاث إجابات.",
+      "explanation": "الممارسات الأساسية هي تثبيت منافذ المستخدمين كـAccess، تعطيل DTP/التفاوض غير المطلوب، واستخدام Native VLAN غير مستخدمة على Trunks مع تصميم واضح. جعل منافذ المستخدمين Trunk أو الإبقاء على التفاوض يزيدان المخاطر.",
+      "options": [
+        "ضبط User Ports صراحةً كـAccess",
+        "تعطيل DTP على الروابط التي لا تحتاج تفاوضًا ديناميكيًا",
+        "استخدام Native VLAN غير مستخدمة على Trunks وفق تصميم الشبكة",
+        "ضبط جميع User Ports على dynamic desirable",
+        "السماح لجميع VLANs على كل Trunk بلا حاجة"
+      ],
+      "correctAnswer": [
+        "ضبط User Ports صراحةً كـAccess",
+        "تعطيل DTP على الروابط التي لا تحتاج تفاوضًا ديناميكيًا",
+        "استخدام Native VLAN غير مستخدمة على Trunks وفق تصميم الشبكة"
+      ]
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "VLAN Attack Mitigation",
+      "subtopic": "Native VLAN",
+      "learningObjective": "فهم دور Native VLAN في تقليل مخاطر Double-Tagging",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco LAN security design guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/solutions/Verticals/Oil_and_Gas/Pipeline/SecurityReference/Security-IRD/Security-IRD.html",
+      "id": "SEC-028",
+      "question": "لماذا تُستخدم غالبًا Native VLAN غير مستخدمة فعليًا من أجهزة المستخدمين على 802.1Q trunks؟",
+      "explanation": "إبعاد User Traffic عن Native VLAN وتقليل الاعتماد على VLAN 1 كNative VLAN يحد من شروط بعض Double-Tagging scenarios. ويكمل ذلك ضبط Access/Trunk يدويًا وتعطيل DTP حيث لا يلزم.",
+      "options": [
+        "لتقليل تعرض User Traffic لسيناريوهات Double-Tagging المرتبطة بالـNative VLAN",
+        "لزيادة سرعة Trunk إلى الضعف",
+        "لإلغاء الحاجة إلى 802.1Q tags لكل VLAN",
+        "لجعل DTP أكثر نشاطًا"
+      ],
+      "correctAnswer": "لتقليل تعرض User Traffic لسيناريوهات Double-Tagging المرتبطة بالـNative VLAN"
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "DHCP Snooping",
+      "subtopic": "Purpose",
+      "learningObjective": "شرح دور DHCP Snooping في الحد من DHCP attacks",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco DHCP Snooping configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_sec_dhcp_2960_cg.html",
+      "id": "SEC-029",
+      "question": "ما الوظيفة الأمنية الأساسية لـDHCP Snooping؟",
+      "explanation": "DHCP Snooping يميز بين Trusted وUntrusted interfaces ويفلتر رسائل DHCP غير الموثوقة، ما يساعد على منع Rogue DHCP servers وحماية العملاء من إعدادات مزيفة.",
+      "options": [
+        "فلترة DHCP messages غير الموثوقة ومنع Rogue DHCP servers",
+        "منع ARP بالكامل داخل VLAN",
+        "تشفير DHCPDISCOVER",
+        "اختيار HSRP Active Router"
+      ],
+      "correctAnswer": "فلترة DHCP messages غير الموثوقة ومنع Rogue DHCP servers"
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "DHCP Snooping",
+      "subtopic": "Basic configuration sequence",
+      "learningObjective": "ترتيب خطوات تفعيل DHCP Snooping الأساسية",
+      "difficulty": "Medium",
+      "type": "ordering",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco DHCP Snooping configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_sec_dhcp_2960_cg.html",
+      "id": "SEC-030",
+      "question": "رتب الخطوات التالية كتسلسل منطقي لتفعيل DHCP Snooping على VLAN 20 ثم الوثوق بالمنفذ المتجه إلى DHCP Server.",
+      "explanation": "يُفعل DHCP Snooping عالميًا، ثم على VLAN المطلوبة، ثم يُحدد المنفذ المتجه إلى DHCP Server أو uplink موثوق ويطبق عليه `ip dhcp snooping trust`.",
+      "items": [
+        {
+          "id": "i1",
+          "text": "ip dhcp snooping"
+        },
+        {
+          "id": "i2",
+          "text": "ip dhcp snooping vlan 20"
+        },
+        {
+          "id": "i3",
+          "text": "interface gi0/1"
+        },
+        {
+          "id": "i4",
+          "text": "ip dhcp snooping trust"
+        }
+      ],
+      "correctOrder": [
+        "i1",
+        "i2",
+        "i3",
+        "i4"
+      ]
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "DHCP Snooping",
+      "subtopic": "Trust boundary",
+      "learningObjective": "تحديد المنفذ الذي يجب جعله Trusted في تصميم DHCP Snooping",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco DHCP Snooping configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_sec_dhcp_2960_cg.html",
+      "id": "SEC-031",
+      "question": "السويتش يتلقى DHCP Offers من Server شرعي عبر Gi0/1، بينما Fa0/1–Fa0/24 منافذ مستخدمين. أي منفذ يجب أن يكون Trusted عادةً؟",
+      "explanation": "المنفذ المتجه نحو DHCP Server الشرعي أو نحو البنية التي تحتويه هو المرشح للـTrusted state. منافذ المستخدمين تبقى Untrusted افتراضيًا لمنعها من إرسال Server messages.",
+      "options": [
+        "Gi0/1 فقط",
+        "جميع منافذ المستخدمين Fa0/1–Fa0/24",
+        "كل المنافذ بلا استثناء",
+        "لا يوجد أي منفذ Trusted في DHCP Snooping"
+      ],
+      "correctAnswer": "Gi0/1 فقط",
+      "scenario": "Gi0/1 → Uplink toward legitimate DHCP Server\nFa0/1–Fa0/24 → User access ports"
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "DHCP Snooping",
+      "subtopic": "Rogue server diagnosis",
+      "learningObjective": "تحليل فشل DHCP بسبب Trust configuration غير صحيحة",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco DHCP Snooping configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_sec_dhcp_2960_cg.html",
+      "id": "SEC-032",
+      "question": "تم تفعيل DHCP Snooping على VLAN 30، لكن جميع العملاء توقفوا عن استلام عناوين. Server شرعي موجود خلف Gi0/2، وGi0/2 ما زال Untrusted. ما السبب الأرجح؟",
+      "explanation": "Cisco يوضح أن DHCP Server messages يجب أن تصل عبر Trusted interface. إذا بقي uplink إلى Server غير موثوق، فقد تُسقط رسائل Server اللازمة لإكمال عملية DHCP.",
+      "options": [
+        "رسائل DHCP Server الشرعي تُعامل كرسائل غير موثوقة وتُسقط",
+        "PortFast يمنع DHCPACK",
+        "DAI يغير Default Gateway",
+        "Port Security يغير Subnet Mask"
+      ],
+      "correctAnswer": "رسائل DHCP Server الشرعي تُعامل كرسائل غير موثوقة وتُسقط",
+      "configuration": "ip dhcp snooping\nip dhcp snooping vlan 30\n!\ninterface gi0/2\n description Uplink-to-DHCP-Server\n ! no ip dhcp snooping trust"
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "Dynamic ARP Inspection",
+      "subtopic": "Purpose",
+      "learningObjective": "شرح وظيفة DAI في منع ARP spoofing",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Dynamic ARP Inspection configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/b_1522e_2960_2960c_2960s_2960sf_2960p_cg_chapter_010110.html",
+      "id": "SEC-033",
+      "question": "ما الوظيفة الأساسية لـDynamic ARP Inspection (DAI)؟",
+      "explanation": "DAI يفحص ARP requests وresponses على المنافذ غير الموثوقة ويتحقق من صحة IP-to-MAC bindings قبل السماح بتمريرها، ما يقلل ARP spoofing وMan-in-the-Middle attacks.",
+      "options": [
+        "التحقق من صحة ARP bindings وإسقاط ARP packets غير الصالحة",
+        "منح IPv6 addresses للعملاء",
+        "اختيار STP Root Bridge",
+        "تجميع Ethernet links في Port-Channel"
+      ],
+      "correctAnswer": "التحقق من صحة ARP bindings وإسقاط ARP packets غير الصالحة"
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "Dynamic ARP Inspection",
+      "subtopic": "Core concepts",
+      "learningObjective": "ربط مكونات DAI بوظائفها",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Dynamic ARP Inspection configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/b_1522e_2960_2960c_2960s_2960sf_2960p_cg_chapter_010110.html",
+      "id": "SEC-034",
+      "question": "طابق كل مفهوم في DAI مع وظيفته.",
+      "explanation": "DAI يعتمد في بيئات DHCP على DHCP Snooping binding database، ويفحص عادة الحركة على Untrusted ports، ويمكن جعل بعض البنية الموثوقة Trusted، ويُفعل على VLANs محددة.",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "DHCP Snooping Binding Database",
+          "right": "يوفر IP-to-MAC bindings ديناميكية للتحقق"
+        },
+        {
+          "id": "p2",
+          "left": "Untrusted Port",
+          "right": "تخضع ARP packets الواردة منه للفحص"
+        },
+        {
+          "id": "p3",
+          "left": "ip arp inspection trust",
+          "right": "يعفي Interface موثوقًا من الفحص المعتاد"
+        },
+        {
+          "id": "p4",
+          "left": "ip arp inspection vlan 20",
+          "right": "يفعّل DAI على VLAN 20"
+        }
+      ]
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "Dynamic ARP Inspection",
+      "subtopic": "Enablement",
+      "learningObjective": "اختيار أمر تفعيل DAI على VLAN",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "CLI",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Dynamic ARP Inspection configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/b_1522e_2960_2960c_2960s_2960sf_2960p_cg_chapter_010110.html",
+      "id": "SEC-035",
+      "question": "أي أمر يفعّل Dynamic ARP Inspection على VLAN 20؟",
+      "explanation": "الأمر `ip arp inspection vlan 20` يُستخدم في Global Configuration لتمكين DAI على VLAN 20. أما `ip arp inspection trust` فيطبق على Interface موثوق.",
+      "options": [
+        "ip arp inspection vlan 20",
+        "ip arp inspection trust 20",
+        "switchport arp-security vlan 20",
+        "arp secure vlan 20"
+      ],
+      "correctAnswer": "ip arp inspection vlan 20"
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "Dynamic ARP Inspection",
+      "subtopic": "Binding mismatch",
+      "learningObjective": "تحليل إسقاط ARP packet بسبب عدم تطابق Binding",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Dynamic ARP Inspection configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/b_1522e_2960_2960c_2960s_2960sf_2960p_cg_chapter_010110.html",
+      "id": "SEC-036",
+      "question": "في VLAN 40، Binding Database تسجل 10.40.0.25 مع MAC `00aa.aaaa.0025`. استقبل السويتش ARP reply من Untrusted Port يزعم أن 10.40.0.25 يطابق `00bb.bbbb.9999`. ماذا يتوقع من DAI؟",
+      "explanation": "DAI يقارن ARP packet بالـtrusted binding data. عدم تطابق IP-to-MAC mapping على Untrusted Port يجعل ARP packet غير صالح ويُتوقع إسقاطه.",
+      "options": [
+        "إسقاط ARP reply لأنه لا يطابق الـBinding",
+        "تحديث Binding Database تلقائيًا إلى MAC الجديد",
+        "تحويل المنفذ إلى Trusted تلقائيًا",
+        "تغيير VLAN إلى Native VLAN"
+      ],
+      "correctAnswer": "إسقاط ARP reply لأنه لا يطابق الـBinding",
+      "scenario": "DHCP Snooping Binding: 10.40.0.25 → 00aa.aaaa.0025\nARP reply received: 10.40.0.25 → 00bb.bbbb.9999\nIngress interface: Untrusted"
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "PortFast & BPDU Guard",
+      "subtopic": "PortFast behavior",
+      "learningObjective": "تمييز الاستخدام الصحيح لـPortFast",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Optional Spanning-Tree Features Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_layer2_optional_spanning_tree_2960_2960s_cg.html",
+      "id": "SEC-037",
+      "question": "يُستخدم PortFast عادةً على Edge Ports المتصلة بأجهزة نهائية، وليس كإعداد افتراضي لروابط Switch-to-Switch.",
+      "explanation": "العبارة صحيحة. PortFast يسرع انتقال منفذ Edge إلى Forwarding، ولذلك يناسب منافذ المستخدمين/الخوادم النهائية وليس الروابط التي قد تشكل جزءًا من STP topology بين السويتشات.",
+      "correctAnswer": "صح"
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "PortFast & BPDU Guard",
+      "subtopic": "BPDU Guard response",
+      "learningObjective": "شرح استجابة BPDU Guard عند وصول BPDU غير متوقع",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Optional Spanning-Tree Features Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_layer2_optional_spanning_tree_2960_2960s_cg.html",
+      "id": "SEC-038",
+      "question": "ماذا يحدث عادةً إذا استقبل PortFast-enabled edge port محمي بـBPDU Guard رسالة BPDU؟",
+      "explanation": "BPDU Guard يعتبر وصول BPDU إلى Edge Port مؤشرًا على توصيل غير متوقع أو خطر Layer 2، ويضع المنفذ في Error-disabled state لحماية STP topology.",
+      "options": [
+        "يوضع المنفذ في Error-disabled state",
+        "يصبح المنفذ Root Port تلقائيًا",
+        "يُعطل DHCP Snooping فقط",
+        "يتحول المنفذ إلى Routed Port"
+      ],
+      "correctAnswer": "يوضع المنفذ في Error-disabled state"
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "PortFast & BPDU Guard",
+      "subtopic": "Defense selection",
+      "learningObjective": "تمييز الدور المتكامل لـPortFast وBPDU Guard على Edge Port",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Optional Spanning-Tree Features Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_layer2_optional_spanning_tree_2960_2960s_cg.html",
+      "id": "SEC-039",
+      "question": "أي عبارتين تصفان الاستخدام الصحيح لـPortFast وBPDU Guard على Edge Port؟ اختر إجابتين.",
+      "explanation": "PortFast يسرع انتقال Edge Port إلى Forwarding، بينما BPDU Guard يوفر الاستجابة الأمنية عند وصول BPDU غير متوقعة بوضع المنفذ في Error-disabled. الميزتان متكاملتان لكنهما لا تؤديان الوظيفة نفسها.",
+      "options": [
+        "PortFast يسرع انتقال Edge Port إلى Forwarding",
+        "BPDU Guard يضع المنفذ في Error-disabled إذا استقبل BPDU غير متوقعة",
+        "PortFast يمنع جميع BPDUs من المرور",
+        "BPDU Guard يحول المنفذ تلقائيًا إلى Root Port",
+        "كلتا الميزتين مخصصتان أساسًا لروابط Switch-to-Switch"
+      ],
+      "correctAnswer": [
+        "PortFast يسرع انتقال Edge Port إلى Forwarding",
+        "BPDU Guard يضع المنفذ في Error-disabled إذا استقبل BPDU غير متوقعة"
+      ]
+    },
+    {
+      "module": "Switch Security Configuration",
+      "topic": "PortFast & BPDU Guard",
+      "subtopic": "Hardened access port",
+      "learningObjective": "تحليل إعداد Access Port واختيار التحسين الأمني المناسب",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 10–11; Cisco Optional Spanning-Tree Features Guide; Port Security configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/m_1522e_layer2_optional_spanning_tree_2960_2960s_cg.html",
+      "id": "SEC-040",
+      "question": "منفذ Fa0/8 مخصص لجهاز مستخدم واحد. الإعداد الحالي يجعله Access Port ويستخدم PortFast، لكن المسؤول يريد أيضًا إيقاف المنفذ إذا وصل BPDU غير متوقع. ما الأمر الأنسب إضافته؟",
+      "explanation": "`spanning-tree bpduguard enable` يضيف الحماية المطلوبة مباشرة على Interface. عند وصول BPDU غير متوقع يدخل المنفذ Error-disabled، وهو السلوك المقصود لحماية Edge Port.",
+      "options": [
+        "spanning-tree bpduguard enable",
+        "spanning-tree portfast disable",
+        "ip arp inspection trust",
+        "switchport mode trunk"
+      ],
+      "correctAnswer": "spanning-tree bpduguard enable",
+      "configuration": "interface fa0/8\n switchport mode access\n spanning-tree portfast\n ! add the missing security control"
+    }
+  ]
 }
