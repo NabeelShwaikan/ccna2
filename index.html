@@ -11,21 +11,7 @@
 <link href="Assets/manifest.json" rel="manifest"/>
 <link href="Assets/icons/icon-192.png" rel="icon" sizes="192x192" type="image/png"/>
 <link href="Assets/icons/apple-touch-icon.png" rel="apple-touch-icon"/>
-<style>
-  .card h4 .title-ar{display:block;font-weight:800;line-height:1.5}
-  .card h4 .title-en{display:block;margin-top:.18rem;font-size:.82em;font-weight:600;opacity:.68;direction:ltr}
-  .continue-card{
-    display:flex;align-items:center;gap:.7rem;
-    margin:0 0 1.1rem;padding:.85rem 1rem;
-    border:1px solid color-mix(in srgb, currentColor 14%, transparent);
-    border-radius:14px;text-decoration:none;color:inherit;
-    background:color-mix(in srgb, Canvas 94%, #087ea4 6%);
-  }
-  .continue-card[hidden]{display:none}
-  .continue-card .continue-label{font-size:.82rem;opacity:.7}
-  .continue-card strong{flex:1}
-  .status.new{background:#087ea4;color:#fff}
-</style></head>
+</head>
 <body>
 <main class="shell">
 <header class="topbar">
@@ -38,7 +24,7 @@
 </div>
 <div class="badge">Switching • Routing • Wireless</div>
 </header>
-<section aria-labelledby="hero-title" class="hero">
+<section aria-labelledby="hero-title" class="hero animated-frame">
 <div class="eyebrow">مساحة تعلم إضافية</div>
 <h2 id="hero-title">تعلّم، طبّق، راجع، واستعد للاختبار</h2>
 <p>إعداد م. نبيل سليمان الشويكان</p>
@@ -48,40 +34,31 @@
 <span></span>
 </div>
 <section aria-label="مسارات CCNA 2" class="grid">
-<a class="card ready" href="theory/index.html">
-<div aria-hidden="true" class="icon">L</div>
-<h4><span class="title-ar">المحاضرات النظرية</span><span class="title-en">Lectures</span></h4>
-<p>
-          المحاضرات والمفاهيم النظرية للمقرر
-        </p>
+
+
+
+
+<a class="card ready card-prereq" href="review/index.html">
+<div aria-label="أيقونة المراجعة التمهيدية" class="icon"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"></path><path d="M4 5.5v15"></path><path d="m8.5 10 2 2 4-4"></path></svg></div>
+<h4><span class="title-ar">المراجعة التمهيدية</span><span class="title-en" dir="ltr" lang="en">Prerequisite</span></h4>
+<p>مراجعة المتطلبات والمفاهيم الأساسية التي تحتاجها قبل البدء بالمقرر.</p>
+<div class="card-foot">ابدأ المراجعة التمهيدية ←</div>
+</a><a class="card ready card-theory" href="theory/index.html">
+<div aria-label="أيقونة المحاضرات النظرية" class="icon"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M3.5 5.5A2.5 2.5 0 0 1 6 3h5.5v16H6a2.5 2.5 0 0 0-2.5 2.5z"></path><path d="M20.5 5.5A2.5 2.5 0 0 0 18 3h-5.5v16H18a2.5 2.5 0 0 1 2.5 2.5z"></path></svg></div>
+<h4><span class="title-ar">المحاضرات النظرية</span><span class="title-en" dir="ltr" lang="en">Lectures</span></h4>
+<p>المحاضرات والمفاهيم النظرية الأساسية للمقرر.</p>
 <div class="card-foot">فتح المحاضرات ←</div>
-</a>
-<a class="card ready" href="labs/index.html">
-<div aria-hidden="true" class="icon">&gt;_</div>
-<h4><span class="title-ar">المختبرات العملية</span><span class="title-en">Labs</span></h4>
-<p>
-          المعامل والأوامر التفاعلية لـ Cisco IOS
-                  </p>
+</a><a class="card ready card-labs" href="labs/index.html">
+<div aria-label="أيقونة المختبرات العملية" class="icon"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="16" rx="2" width="18" x="3" y="4"></rect><path d="m7 9 3 3-3 3"></path><path d="M12.5 15H17"></path></svg></div>
+<h4><span class="title-ar">المختبرات العملية</span><span class="title-en" dir="ltr" lang="en">Labs</span></h4>
+<p>مختبرات تطبيقية وأوامر تفاعلية على Cisco IOS.</p>
 <div class="card-foot">فتح المختبرات ←</div>
-</a>
-<a class="card ready" href="review/index.html">
-<div aria-hidden="true" class="icon">↻</div>
-<h4><span class="title-ar">المراجعة السريعة</span><span class="title-en">Quick Review</span></h4>
-<p>
-          مراجعة مركزة وتفاعلية لأهم مفاهيم المقرر
-        </p>
-<div class="card-foot">فتح المراجعة السريعة ←</div>
-</a>
-<a class="card ready" href="preExams/index.html"><span class="status new">جديد</span>
-<div aria-hidden="true" class="icon">✓</div>
-<h4><span class="title-ar">الاستعداد للاختبارات</span><span class="title-en">Exam Preparation</span></h4>
-<p>
-          للاستعداد للاختبارات تشمل المراجعة المركزة
-          والأسئلة والتدريب قبل الاختبار.
-        </p>
+</a><a class="card ready card-exam" href="preExams/index.html"><span class="status new">جديد</span>
+<div aria-label="أيقونة الاستعداد للاختبارات" class="icon"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M9 5h6"></path><path d="M9 3h6a2 2 0 0 1 2 2v1h2a2 2 0 0 1 2 2v12H3V8a2 2 0 0 1 2-2h2V5a2 2 0 0 1 2-2Z"></path><path d="m8 13 2.2 2.2L16 9.5"></path></svg></div>
+<h4><span class="title-ar">الاستعداد للاختبارات</span><span class="title-en" dir="ltr" lang="en">Exam Preparation</span></h4>
+<p>مراجعة مركزة وأسئلة وتدريب عملي قبل الاختبار.</p>
 <div class="card-foot">فتح الاستعداد للاختبارات ←</div>
-</a>
-</section>
+</a></section>
 <footer class="footer">
 <span>CCNA 2 Learning Hub</span>
 <span>1448 هـ - 2026 م</span>
@@ -94,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const labels = {
     'theory/index.html': 'المحاضرات النظرية',
     'labs/index.html': 'المختبرات العملية',
-    'review/index.html': 'المراجعة السريعة',
+    'review/index.html': 'المراجعة التمهيدية',
     'preExams/index.html': 'الاستعداد للاختبارات'
   };
 
