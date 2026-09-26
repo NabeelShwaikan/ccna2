@@ -4,65 +4,153 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="منصة المراجعة والاستعداد للاختبار لمقرر CCNA2 / SRWE">
+  <meta name="theme-color" content="#087ea4">
+  <meta name="color-scheme" content="light dark">
   <title>CCNA2 | المراجعة والاستعداد للاختبار</title>
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/home.css">
 </head>
-<body>
-  <header class="site-header compact-header">
-    <div class="shell header-row">
-      <div>
-        <p class="eyebrow">CCNA2 · SRWE v7</p>
-        <h1>المراجعة والاستعداد للاختبار</h1>
+<body class="preexam-home">
+  <main class="shell landing-shell">
+    <header class="landing-topbar">
+      <a class="landing-brand" href="../index.html" aria-label="العودة إلى منصة المقرر">
+        <span class="landing-logo">
+          <img src="../Assets/icons/icon-192.png" alt="">
+        </span>
+        <span class="landing-brand-text">
+          <strong>التوجيه والتحويل 1</strong>
+          <small lang="en" dir="ltr">CCNA 2 · SRWE</small>
+        </span>
+      </a>
+
+      <div class="landing-actions">
+        <a class="back-link" href="../index.html">العودة للمنصة</a>
+        <button class="icon-btn landing-theme" id="themeToggle" type="button" aria-label="تبديل المظهر">◐</button>
       </div>
-      <button class="icon-btn" id="themeToggle" type="button" aria-label="تبديل المظهر">◐</button>
-    </div>
-  </header>
+    </header>
 
-  <main class="shell main-space compact-main">
-    <h2 class="sections-title">اختر القسم</h2>
+    <section class="landing-hero" aria-labelledby="hero-title">
+      <span class="hero-kicker" lang="en" dir="ltr">Exam Preparation</span>
+      <h1 id="hero-title">المراجعة والاستعداد للاختبار</h1>
+    </section>
 
-    <section class="section-grid" aria-label="أقسام المقرر">
-      <a class="section-card" href="pages/fundamentals.html">
-        <span class="section-no">01</span>
-        <h3>إعداد الأجهزة ومفاهيم التحويل<br><small lang="en" dir="ltr">Device Configuration &amp; Switching Concepts</small></h3>
-        <p>Basic Device Configuration · Switching Concepts</p>
-      </a>
+    <section class="landing-sections" aria-labelledby="sections-title">
+      <div class="landing-section-head">
+        <h2 id="sections-title">اختر القسم</h2>
+        <span>7 أقسام</span>
+      </div>
 
-      <a class="section-card" href="pages/vlan-intervlan.html">
-        <span class="section-no">02</span>
-        <h3>الشبكات المحلية الافتراضية والتوجيه بين VLANs<br><small lang="en" dir="ltr">VLAN &amp; Inter-VLAN Routing</small></h3>
-        <p>VLAN · Trunking · Inter-VLAN · Router-on-a-Stick</p>
-      </a>
+      <div class="section-grid landing-grid">
+        <a class="section-card" style="--section-accent:#2563eb" href="pages/fundamentals.html">
+          <span class="section-no">01</span>
+          <span class="section-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <rect x="7" y="13" width="34" height="22" rx="6"></rect>
+              <path d="M13 20h8M13 27h5M28 20h7M28 27h7"></path>
+              <path d="M20 39h8M24 35v4"></path>
+            </svg>
+          </span>
+          <h3>إعداد الأجهزة ومفاهيم التحويل
+            <small lang="en" dir="ltr">Device Configuration &amp; Switching Concepts</small>
+          </h3>
+          <p>Basic Device Configuration · Switching Concepts</p>
+        </a>
 
-      <a class="section-card" href="pages/stp-etherchannel.html">
-        <span class="section-no">03</span>
-        <h3>الشجرة الممتدة وتجميع الروابط<br><small lang="en" dir="ltr">STP &amp; EtherChannel</small></h3>
-        <p>STP · RSTP · EtherChannel · LACP · PAgP</p>
-      </a>
+        <a class="section-card" style="--section-accent:#0891b2" href="pages/vlan-intervlan.html">
+          <span class="section-no">02</span>
+          <span class="section-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <circle cx="12" cy="14" r="5"></circle>
+              <circle cx="36" cy="14" r="5"></circle>
+              <circle cx="24" cy="35" r="5"></circle>
+              <path d="M16 17l5 13M32 17l-5 13M17 14h14"></path>
+              <path d="M8 38h8M32 38h8"></path>
+            </svg>
+          </span>
+          <h3>الشبكات المحلية الافتراضية والتوجيه بين VLANs
+            <small lang="en" dir="ltr">VLAN &amp; Inter-VLAN Routing</small>
+          </h3>
+          <p>VLAN · Trunking · Inter-VLAN · Router-on-a-Stick</p>
+        </a>
 
-      <a class="section-card" href="pages/dhcp-fhrp.html">
-        <span class="section-no">04</span>
-        <h3>خدمات الشبكة وتوافر البوابة الافتراضية<br><small lang="en" dir="ltr">Network Services &amp; First-Hop Availability</small></h3>
-        <p>DHCP · FHRP · HSRP</p>
-      </a>
+        <a class="section-card" style="--section-accent:#7c3aed" href="pages/stp-etherchannel.html">
+          <span class="section-no">03</span>
+          <span class="section-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <circle cx="24" cy="10" r="4"></circle>
+              <circle cx="10" cy="36" r="4"></circle>
+              <circle cx="24" cy="36" r="4"></circle>
+              <circle cx="38" cy="36" r="4"></circle>
+              <path d="M24 14v8M24 22L10 32M24 22v10M24 22l14 10"></path>
+              <path d="M15 28h18"></path>
+            </svg>
+          </span>
+          <h3>الشجرة الممتدة وتجميع الروابط
+            <small lang="en" dir="ltr">STP &amp; EtherChannel</small>
+          </h3>
+          <p>STP · RSTP · EtherChannel · LACP · PAgP</p>
+        </a>
 
-      <a class="section-card" href="pages/lan-security.html">
-        <span class="section-no">05</span>
-        <h3>أمن الشبكات المحلية<br><small lang="en" dir="ltr">LAN Security</small></h3>
-        <p>Port Security · DHCP Snooping · DAI · VLAN Attacks</p>
-      </a>
+        <a class="section-card" style="--section-accent:#0f9f78" href="pages/dhcp-fhrp.html">
+          <span class="section-no">04</span>
+          <span class="section-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <rect x="9" y="8" width="30" height="10" rx="3"></rect>
+              <rect x="9" y="30" width="30" height="10" rx="3"></rect>
+              <path d="M15 13h.01M20 13h8M15 35h.01M20 35h8"></path>
+              <path d="M24 18v12M18 24l6 6 6-6"></path>
+            </svg>
+          </span>
+          <h3>خدمات الشبكة وتوافر البوابة الافتراضية
+            <small lang="en" dir="ltr">Network Services &amp; First-Hop Availability</small>
+          </h3>
+          <p>DHCP · SLAAC/DHCPv6 · FHRP · HSRP</p>
+        </a>
 
-      <a class="section-card" href="pages/wlan.html">
-        <span class="section-no">06</span>
-        <h3>الشبكات المحلية اللاسلكية<br><small lang="en" dir="ltr">WLAN</small></h3>
-        <p>Wireless Concepts · Security · Configuration · Troubleshooting</p>
-      </a>
+        <a class="section-card" style="--section-accent:#d97706" href="pages/lan-security.html">
+          <span class="section-no">05</span>
+          <span class="section-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <path d="M24 6l14 5v10c0 10-6 17-14 21-8-4-14-11-14-21V11l14-5z"></path>
+              <rect x="18" y="22" width="12" height="10" rx="2"></rect>
+              <path d="M20 22v-3a4 4 0 018 0v3"></path>
+            </svg>
+          </span>
+          <h3>أمن الشبكات المحلية
+            <small lang="en" dir="ltr">LAN Security</small>
+          </h3>
+          <p>Port Security · DHCP Snooping · DAI · VLAN Attacks</p>
+        </a>
 
-      <a class="section-card" href="pages/routing.html">
-        <span class="section-no">07</span>
-        <h3>التوجيه واستكشاف الأخطاء وإصلاحها<br><small lang="en" dir="ltr">Routing &amp; Troubleshooting</small></h3>
-        <p>Routing Concepts · Static · Default · IPv4/IPv6 · Troubleshooting</p>
-      </a>
+        <a class="section-card" style="--section-accent:#db2777" href="pages/wlan.html">
+          <span class="section-no">06</span>
+          <span class="section-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <path d="M8 18a25 25 0 0132 0M14 25a16 16 0 0120 0M20 32a7 7 0 018 0"></path>
+              <circle cx="24" cy="39" r="2"></circle>
+            </svg>
+          </span>
+          <h3>الشبكات المحلية اللاسلكية
+            <small lang="en" dir="ltr">WLAN</small>
+          </h3>
+          <p>Wireless Concepts · Security · Configuration · Troubleshooting</p>
+        </a>
+
+        <a class="section-card" style="--section-accent:#4f46e5" href="pages/routing.html">
+          <span class="section-no">07</span>
+          <span class="section-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <path d="M9 12h22M26 7l5 5-5 5"></path>
+              <path d="M39 36H17M22 31l-5 5 5 5"></path>
+              <path d="M12 16v10a6 6 0 006 6h18"></path>
+            </svg>
+          </span>
+          <h3>التوجيه واستكشاف الأخطاء وإصلاحها
+            <small lang="en" dir="ltr">Routing &amp; Troubleshooting</small>
+          </h3>
+          <p>Routing Concepts · Static · Default · IPv4/IPv6 · Troubleshooting</p>
+        </a>
+      </div>
     </section>
   </main>
 
