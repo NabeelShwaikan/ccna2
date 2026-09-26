@@ -1,19 +1,1320 @@
 {
   "schemaVersion": "1.1",
+  "bankVersion": "1.0",
   "course": "CCNA2 - Switching, Routing, and Wireless Essentials",
   "courseVersion": "SRWE v7",
   "section": {
     "id": "wlan",
     "number": 6,
     "title": "WLAN",
-    "description": "Wireless Concepts · Security · Configuration · Troubleshooting",
-    "topics": [
+    "description": "WLAN Concepts · WLAN Configuration",
+    "modules": [
       "WLAN Concepts",
-      "Wireless Security",
-      "Wireless Configuration",
-      "Wireless Troubleshooting"
+      "WLAN Configuration"
     ],
-    "status": "empty"
+    "status": "approved",
+    "approvedQuestionCount": 40,
+    "lastReviewed": "2026-09-26"
   },
-  "questions": []
+  "assessmentAlignment": {
+    "source": "SRWE v7 Module & Final Exam Design Documents.xlsx",
+    "moduleGroupExamPercent": {
+      "WLAN Concepts": 23.125,
+      "WLAN Configuration": 25.0
+    },
+    "finalExamCoveragePercent": {
+      "WLAN Concepts": 6.875,
+      "WLAN Configuration": 6.375
+    },
+    "questionAllocation": {
+      "WLAN Concepts": 20,
+      "WLAN Configuration": 20
+    },
+    "note": "The two modules have near-balanced assessment weighting; committee approved a 20/20 question allocation."
+  },
+  "coverageMatrix": [
+    {
+      "module": "WLAN Concepts",
+      "area": "Wireless Technologies & Standards",
+      "learningFocus": "Wireless Technologies & Standards",
+      "questionCount": 4,
+      "questionIds": [
+        "WLAN-001",
+        "WLAN-002",
+        "WLAN-003",
+        "WLAN-004"
+      ]
+    },
+    {
+      "module": "WLAN Concepts",
+      "area": "WLAN Components & Infrastructure",
+      "learningFocus": "WLAN Components & Infrastructure",
+      "questionCount": 4,
+      "questionIds": [
+        "WLAN-005",
+        "WLAN-006",
+        "WLAN-007",
+        "WLAN-008"
+      ]
+    },
+    {
+      "module": "WLAN Concepts",
+      "area": "WLAN Operation",
+      "learningFocus": "WLAN Operation",
+      "questionCount": 3,
+      "questionIds": [
+        "WLAN-009",
+        "WLAN-010",
+        "WLAN-011"
+      ]
+    },
+    {
+      "module": "WLAN Concepts",
+      "area": "CAPWAP & WLC Architecture",
+      "learningFocus": "CAPWAP & WLC Architecture",
+      "questionCount": 3,
+      "questionIds": [
+        "WLAN-012",
+        "WLAN-013",
+        "WLAN-014"
+      ]
+    },
+    {
+      "module": "WLAN Concepts",
+      "area": "Channel Management",
+      "learningFocus": "Channel Management",
+      "questionCount": 2,
+      "questionIds": [
+        "WLAN-015",
+        "WLAN-016"
+      ]
+    },
+    {
+      "module": "WLAN Concepts",
+      "area": "WLAN Threats",
+      "learningFocus": "WLAN Threats",
+      "questionCount": 2,
+      "questionIds": [
+        "WLAN-017",
+        "WLAN-018"
+      ]
+    },
+    {
+      "module": "WLAN Concepts",
+      "area": "WLAN Security Mechanisms",
+      "learningFocus": "WLAN Security Mechanisms",
+      "questionCount": 2,
+      "questionIds": [
+        "WLAN-019",
+        "WLAN-020"
+      ]
+    },
+    {
+      "module": "WLAN Configuration",
+      "area": "Remote-Site WLAN Configuration",
+      "learningFocus": "Remote-Site WLAN Configuration",
+      "questionCount": 4,
+      "questionIds": [
+        "WLAN-021",
+        "WLAN-022",
+        "WLAN-023",
+        "WLAN-024"
+      ]
+    },
+    {
+      "module": "WLAN Configuration",
+      "area": "Basic WLC Configuration",
+      "learningFocus": "Basic WLC Configuration",
+      "questionCount": 5,
+      "questionIds": [
+        "WLAN-025",
+        "WLAN-026",
+        "WLAN-027",
+        "WLAN-028",
+        "WLAN-029"
+      ]
+    },
+    {
+      "module": "WLAN Configuration",
+      "area": "WLAN / VLAN / Management Interface",
+      "learningFocus": "WLAN / VLAN / Management Interface",
+      "questionCount": 3,
+      "questionIds": [
+        "WLAN-030",
+        "WLAN-031",
+        "WLAN-032"
+      ]
+    },
+    {
+      "module": "WLAN Configuration",
+      "area": "WPA2-PSK Configuration",
+      "learningFocus": "WPA2-PSK Configuration",
+      "questionCount": 2,
+      "questionIds": [
+        "WLAN-033",
+        "WLAN-034"
+      ]
+    },
+    {
+      "module": "WLAN Configuration",
+      "area": "WPA2 Enterprise",
+      "learningFocus": "WPA2 Enterprise",
+      "questionCount": 3,
+      "questionIds": [
+        "WLAN-035",
+        "WLAN-036",
+        "WLAN-037"
+      ]
+    },
+    {
+      "module": "WLAN Configuration",
+      "area": "WLAN Troubleshooting",
+      "learningFocus": "WLAN Troubleshooting",
+      "questionCount": 3,
+      "questionIds": [
+        "WLAN-038",
+        "WLAN-039",
+        "WLAN-040"
+      ]
+    }
+  ],
+  "reviewRecord": {
+    "technicalReview": "approved",
+    "assessmentReview": "approved",
+    "educationalReview": "approved",
+    "studentClarityReview": "approved",
+    "mobileInteractionReview": "approved",
+    "reviewDate": "2026-09-26",
+    "notes": "Original questions aligned to SRWE v7 Modules 12–13. Cisco terminology retained in English with concise Arabic explanations. CAPWAP, RF channel planning, WLC VLAN mapping, WPA2-PSK and WPA2 Enterprise details were cross-checked against Cisco documentation. No external question bank was copied."
+  },
+  "questions": [
+    {
+      "module": "WLAN Concepts",
+      "topic": "Wireless Technologies & Standards",
+      "subtopic": "Frequency bands",
+      "learningObjective": "تمييز نطاقات التردد الشائعة لمعايير 802.11",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco Wireless RF Reference Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-001",
+      "question": "أي معيار من التالي يعمل أساسًا في نطاق 5 GHz؟",
+      "explanation": "يعمل 802.11a في نطاق 5 GHz. بينما 802.11b و802.11g يعملان في 2.4 GHz، و802.11n يمكن أن يعمل في 2.4 أو 5 GHz.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/wireless/controller/9800/technical-reference/wireless-rf-reference-guide.html",
+      "options": [
+        "802.11a",
+        "802.11b",
+        "802.11g",
+        "802.11n"
+      ],
+      "correctAnswer": "802.11a"
+    },
+    {
+      "module": "WLAN Concepts",
+      "topic": "Wireless Technologies & Standards",
+      "subtopic": "802.11 bands",
+      "learningObjective": "ربط معايير 802.11 الأساسية بنطاقات تشغيلها",
+      "difficulty": "Easy",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco Wireless RF Reference Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-002",
+      "question": "طابق كل معيار Wireless مع نطاق التردد المرتبط به في هذا السياق التعليمي.",
+      "explanation": "فهم النطاقات يساعد على تفسير التوافق والتداخل: 802.11b/g في 2.4 GHz، و802.11a في 5 GHz، و802.11n يمكن أن يستخدم النطاقين.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/wireless/controller/9800/technical-reference/wireless-rf-reference-guide.html",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "802.11a",
+          "right": "5 GHz"
+        },
+        {
+          "id": "p2",
+          "left": "802.11b",
+          "right": "2.4 GHz"
+        },
+        {
+          "id": "p3",
+          "left": "802.11g",
+          "right": "2.4 GHz"
+        },
+        {
+          "id": "p4",
+          "left": "802.11n",
+          "right": "2.4 GHz أو 5 GHz"
+        }
+      ]
+    },
+    {
+      "module": "WLAN Concepts",
+      "topic": "Wireless Technologies & Standards",
+      "subtopic": "Band selection",
+      "learningObjective": "اختيار نطاق مناسب وفق خصائص القنوات",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco Wireless RF Reference Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-003",
+      "question": "في بيئة مكتبية مزدحمة بشبكات 2.4 GHz، ما الميزة التي تجعل 5 GHz خيارًا مناسبًا غالبًا عند دعم الأجهزة له؟",
+      "explanation": "يوفر 5 GHz عادةً عددًا أكبر من القنوات غير المتداخلة، ما يساعد على تخطيط RF وتقليل التداخل مقارنةً بالنطاق 2.4 GHz المزدحم.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/wireless/controller/9800/technical-reference/wireless-rf-reference-guide.html",
+      "options": [
+        "يوفر عادةً قنوات غير متداخلة أكثر",
+        "يصل لمسافة أكبر دائمًا",
+        "لا يتأثر بأي نوع من التداخل",
+        "يلغي الحاجة إلى Access Points إضافية"
+      ],
+      "correctAnswer": "يوفر عادةً قنوات غير متداخلة أكثر"
+    },
+    {
+      "module": "WLAN Concepts",
+      "topic": "Wireless Technologies & Standards",
+      "subtopic": "Client compatibility",
+      "learningObjective": "تحليل أثر عدم توافق نطاق التردد",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco Wireless RF Reference Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-004",
+      "question": "تم ضبط Access Point ليعمل على 5 GHz فقط، بينما جهاز قديم يدعم 2.4 GHz فقط. ما النتيجة المتوقعة؟",
+      "explanation": "يجب أن يدعم Client وAccess Point نطاقًا لاسلكيًا مشتركًا. إذا كان AP يعمل فقط على 5 GHz والعميل يدعم 2.4 GHz فقط فلن يتمكن العميل من الارتباط بذلك الراديو.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/wireless/controller/9800/technical-reference/wireless-rf-reference-guide.html",
+      "options": [
+        "لن يتمكن الجهاز من الارتباط بالشبكة عبر ذلك الراديو",
+        "سيتحول الجهاز تلقائيًا إلى Ethernet",
+        "سيتصل لكن بسرعة أعلى",
+        "سيغير WLC بطاقة الشبكة في الجهاز"
+      ],
+      "correctAnswer": "لن يتمكن الجهاز من الارتباط بالشبكة عبر ذلك الراديو"
+    },
+    {
+      "module": "WLAN Concepts",
+      "topic": "WLAN Components & Infrastructure",
+      "subtopic": "Core components",
+      "learningObjective": "ربط مكونات WLAN بوظائفها الأساسية",
+      "difficulty": "Easy",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco Unified Wireless architecture documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-005",
+      "question": "طابق كل مكوّن مع وظيفته الأساسية في WLAN.",
+      "explanation": "Wireless Client هو الجهاز الطرفي، وAP يوفّر الاتصال اللاسلكي بالشبكة، وWLC يحقق الإدارة المركزية للـLightweight APs، والهوائي يتعامل مع إرسال واستقبال طاقة RF.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless/4400-series-wireless-lan-controllers/69719-wlc-lwap-config.html",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "Wireless Client",
+          "right": "جهاز المستخدم الذي يتصل لاسلكيًا"
+        },
+        {
+          "id": "p2",
+          "left": "Access Point (AP)",
+          "right": "يربط العملاء اللاسلكيين بالبنية الشبكية"
+        },
+        {
+          "id": "p3",
+          "left": "Wireless LAN Controller (WLC)",
+          "right": "يدير Lightweight APs وسياسات WLAN مركزيًا"
+        },
+        {
+          "id": "p4",
+          "left": "Antenna",
+          "right": "ترسل وتستقبل إشارات RF"
+        }
+      ]
+    },
+    {
+      "module": "WLAN Concepts",
+      "topic": "WLAN Components & Infrastructure",
+      "subtopic": "Lightweight AP",
+      "learningObjective": "تمييز دور Lightweight AP في بنية Controller-based WLAN",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco WLC and Lightweight AP configuration guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-006",
+      "question": "في بنية Controller-based WLAN، أي جهاز يدير إعدادات Lightweight APs مركزيًا؟",
+      "explanation": "في البنية المركزية، يتولى WLC إدارة إعدادات Lightweight APs والسياسات المرتبطة بها بدل إدارة كل AP بصورة مستقلة.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless/4400-series-wireless-lan-controllers/69719-wlc-lwap-config.html",
+      "options": [
+        "Wireless LAN Controller (WLC)",
+        "DHCP Client",
+        "Layer 2 Hub",
+        "RADIUS Supplicant"
+      ],
+      "correctAnswer": "Wireless LAN Controller (WLC)"
+    },
+    {
+      "module": "WLAN Concepts",
+      "topic": "WLAN Components & Infrastructure",
+      "subtopic": "Centralized management",
+      "learningObjective": "تمييز وظائف الإدارة المركزية في WLAN",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco Unified Wireless architecture documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-007",
+      "question": "أي ثلاث وظائف ترتبط عادةً بالإدارة المركزية عبر WLC؟ اختر ثلاث إجابات.",
+      "explanation": "WLC يسهّل الإدارة المركزية لإعدادات WLAN وسياسات الأمان وإدارة Lightweight APs. أما تحويل كل Client إلى Router أو إلغاء الحاجة إلى VLANs فليس من وظائفه.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless/4400-series-wireless-lan-controllers/69719-wlc-lwap-config.html",
+      "options": [
+        "إدارة إعدادات WLAN مركزيًا",
+        "تطبيق سياسات Wireless Security",
+        "إدارة Lightweight APs",
+        "تحويل كل Wireless Client إلى Router",
+        "إلغاء الحاجة إلى أي VLAN في الشبكة"
+      ],
+      "correctAnswer": [
+        "إدارة إعدادات WLAN مركزيًا",
+        "تطبيق سياسات Wireless Security",
+        "إدارة Lightweight APs"
+      ]
+    },
+    {
+      "module": "WLAN Concepts",
+      "topic": "WLAN Components & Infrastructure",
+      "subtopic": "Autonomous vs lightweight",
+      "learningObjective": "مقارنة الإدارة المحلية والمركزية للـAP",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Comparison",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco wireless device overview",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-008",
+      "question": "أي وصف يميز Autonomous AP عن Lightweight AP في الأساس؟",
+      "explanation": "Autonomous AP يحتفظ بإعداداته محليًا ويمكن إدارته بصورة مستقلة، بينما Lightweight AP يعتمد على WLC في الإدارة المركزية ضمن Controller-based architecture.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless/4400-series-wireless-lan-controllers/69719-wlc-lwap-config.html",
+      "options": [
+        "Autonomous AP يُدار محليًا بصورة مستقلة",
+        "Autonomous AP لا يحتوي Radio",
+        "Lightweight AP لا يحتاج IP مطلقًا",
+        "Lightweight AP يعمل فقط دون Controller"
+      ],
+      "correctAnswer": "Autonomous AP يُدار محليًا بصورة مستقلة"
+    },
+    {
+      "module": "WLAN Concepts",
+      "topic": "WLAN Operation",
+      "subtopic": "Shared medium",
+      "learningObjective": "تفسير سبب استخدام آلية تجنب التصادم في WLAN",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13 — WLAN Operation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-009",
+      "question": "لماذا تعتمد WLAN على آلية Collision Avoidance بدل اكتشاف التصادم بالطريقة المستخدمة تاريخيًا في Ethernet نصف المزدوج؟",
+      "explanation": "الوسط اللاسلكي Shared Medium، ولا يستطيع الجهاز الاعتماد على اكتشاف التصادم أثناء الإرسال كما في بعض بيئات Ethernet القديمة؛ لذلك تستخدم 802.11 آليات لتقليل احتمال التصادم قبل الإرسال.",
+      "options": [
+        "لأن الوسط اللاسلكي مشترك ويحتاج تقليل احتمال التصادم قبل الإرسال",
+        "لأن WLAN لا تستخدم Frames",
+        "لأن كل Client يملك قناة منفصلة دائمًا",
+        "لأن Access Point يمنع جميع الأجهزة من الإرسال"
+      ],
+      "correctAnswer": "لأن الوسط اللاسلكي مشترك ويحتاج تقليل احتمال التصادم قبل الإرسال"
+    },
+    {
+      "module": "WLAN Concepts",
+      "topic": "WLAN Operation",
+      "subtopic": "Client connection sequence",
+      "learningObjective": "ترتيب المراحل الأساسية لانضمام Client إلى WLAN",
+      "difficulty": "Medium",
+      "type": "ordering",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13 — WLAN Operation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-010",
+      "question": "رتب المراحل العامة التالية لانضمام Wireless Client إلى WLAN.",
+      "explanation": "يبدأ العميل باكتشاف WLAN المتاحة، ثم تتم Authentication وفق الآلية المستخدمة، وبعد ذلك Association مع AP قبل تبادل بيانات المستخدم.",
+      "items": [
+        {
+          "id": "i1",
+          "text": "اكتشاف WLAN / Access Point المناسب"
+        },
+        {
+          "id": "i2",
+          "text": "Authentication وفق آلية الشبكة"
+        },
+        {
+          "id": "i3",
+          "text": "Association مع Access Point"
+        },
+        {
+          "id": "i4",
+          "text": "بدء تبادل Data Traffic"
+        }
+      ],
+      "correctOrder": [
+        "i1",
+        "i2",
+        "i3",
+        "i4"
+      ]
+    },
+    {
+      "module": "WLAN Concepts",
+      "topic": "WLAN Operation",
+      "subtopic": "SSID",
+      "learningObjective": "تمييز وظيفة SSID عن وظائف الأمان",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13 — WLAN Operation and Secure WLANs",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-011",
+      "question": "اسم SSID يعرّف WLAN، لكنه لا يوفّر Encryption أو Authentication بمفرده.",
+      "explanation": "العبارة صحيحة. SSID هو معرف للشبكة اللاسلكية، أما حماية البيانات والتحقق من المستخدمين فتحتاج آليات Security منفصلة مثل WPA2.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless/4400-series-wireless-lan-controllers/100708-wpa-uwn-config.html",
+      "correctAnswer": "صح"
+    },
+    {
+      "module": "WLAN Concepts",
+      "topic": "CAPWAP & WLC Architecture",
+      "subtopic": "CAPWAP channels",
+      "learningObjective": "ربط عناصر CAPWAP بوظائفها الأساسية",
+      "difficulty": "Easy",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco CAPWAP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-012",
+      "question": "طابق كل عنصر CAPWAP مع وظيفته أو خصيصته.",
+      "explanation": "CAPWAP يفصل Control Traffic عن Data Traffic، ويستخدم WLC للإدارة المركزية. Cisco يوضح استخدام UDP 5246 للتحكم و5247 للبيانات.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/wireless/outdoor_industrial/iw9165e/software/configuration/261x/b-iw9165e-scg-26-1/g-control-and-provisioning-of-wireless-access-points/c-capwap-overview.html",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "CAPWAP Control",
+          "right": "رسائل الإدارة بين AP وWLC عبر UDP 5246"
+        },
+        {
+          "id": "p2",
+          "left": "CAPWAP Data",
+          "right": "حمل بيانات Wireless Clients عبر UDP 5247"
+        },
+        {
+          "id": "p3",
+          "left": "WLC",
+          "right": "يدير APs وسياسات WLAN مركزيًا"
+        }
+      ]
+    },
+    {
+      "module": "WLAN Concepts",
+      "topic": "CAPWAP & WLC Architecture",
+      "subtopic": "Layer 3 transport",
+      "learningObjective": "تفسير متطلبات اتصال CAPWAP الأساسية",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco CAPWAP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-013",
+      "question": "أي عبارة تصف CAPWAP بصورة صحيحة؟",
+      "explanation": "CAPWAP يعمل عبر Layer 3، ولذلك يحتاج AP وWLC إلى IP connectivity كي يكتشف AP الـController وينضم إليه ويتبادل معه Control/Data traffic.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/wireless/outdoor_industrial/iw9165e/software/configuration/261x/b-iw9165e-scg-26-1/g-control-and-provisioning-of-wireless-access-points/c-capwap-overview.html",
+      "options": [
+        "يعمل عبر Layer 3 ويحتاج IP connectivity بين AP وWLC",
+        "يعمل فقط عندما يكون AP وWLC في نفس Collision Domain",
+        "يستبدل 802.11 على الهواء بين Client وAP",
+        "لا يستخدم أي UDP ports"
+      ],
+      "correctAnswer": "يعمل عبر Layer 3 ويحتاج IP connectivity بين AP وWLC"
+    },
+    {
+      "module": "WLAN Concepts",
+      "topic": "CAPWAP & WLC Architecture",
+      "subtopic": "Firewall requirements",
+      "learningObjective": "تحليل متطلبات عبور CAPWAP عبر Firewall",
+      "difficulty": "Challenging",
+      "type": "multiple",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco CAPWAP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-014",
+      "question": "يوجد Firewall بين Lightweight AP وWLC، والـAP يحصل على IP لكنه لا يستطيع الانضمام للـController. أي منفذين UDP يجب التحقق من السماح بهما لـCAPWAP؟ اختر إجابتين.",
+      "explanation": "CAPWAP يستخدم UDP 5246 للـControl وUDP 5247 للـData. حجب هذه المنافذ بين AP وWLC قد يمنع الانضمام أو تبادل الحركة المطلوبة.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/wireless/outdoor_industrial/iw9165e/software/configuration/261x/b-iw9165e-scg-26-1/g-control-and-provisioning-of-wireless-access-points/c-capwap-overview.html",
+      "options": [
+        "UDP 5246",
+        "UDP 5247",
+        "TCP 22",
+        "UDP 53",
+        "TCP 443"
+      ],
+      "correctAnswer": [
+        "UDP 5246",
+        "UDP 5247"
+      ]
+    },
+    {
+      "module": "WLAN Concepts",
+      "topic": "Channel Management",
+      "subtopic": "2.4 GHz channel plan",
+      "learningObjective": "اختيار قنوات غير متداخلة في 2.4 GHz",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco Wireless RF Reference Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-015",
+      "question": "أي مجموعة تمثل أشهر القنوات غير المتداخلة المستخدمة في تخطيط 2.4 GHz؟",
+      "explanation": "في خطة 20 MHz الشائعة لنطاق 2.4 GHz، القنوات 1 و6 و11 هي المجموعة المعروفة التي لا تتداخل فيما بينها في البيئات التي تسمح بها.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/wireless/controller/9800/technical-reference/wireless-rf-reference-guide.html",
+      "options": [
+        "1 و6 و11",
+        "1 و2 و3",
+        "3 و6 و9",
+        "6 و7 و8"
+      ],
+      "correctAnswer": "1 و6 و11"
+    },
+    {
+      "module": "WLAN Concepts",
+      "topic": "Channel Management",
+      "subtopic": "Adjacent-channel interference",
+      "learningObjective": "تشخيص أثر استخدام قنوات متداخلة متجاورة",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco Wireless RF Reference Guide",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-016",
+      "question": "تم وضع AP1 على Channel 1 وAP2 القريب منه على Channel 3 في نطاق 2.4 GHz. ما المشكلة الأكثر احتمالًا؟",
+      "explanation": "Channel 1 وChannel 3 متداخلتان في 2.4 GHz، ما قد يسبب Adjacent-channel interference. استخدام خطة قنوات غير متداخلة يساعد على تقليل هذا النوع من التداخل.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/wireless/controller/9800/technical-reference/wireless-rf-reference-guide.html",
+      "options": [
+        "Adjacent-channel interference",
+        "اختفاء SSID بسبب DHCP",
+        "فشل CAPWAP لأن القناتين مختلفتان",
+        "تحول AP2 إلى Router"
+      ],
+      "correctAnswer": "Adjacent-channel interference"
+    },
+    {
+      "module": "WLAN Concepts",
+      "topic": "WLAN Threats",
+      "subtopic": "Threat recognition",
+      "learningObjective": "ربط تهديدات WLAN بأوصافها",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco Rogue AP guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-017",
+      "question": "طابق كل Wireless Threat مع الوصف الأنسب له.",
+      "explanation": "تمييز طبيعة التهديد يساعد على اختيار الحماية المناسبة: Rogue AP هو جهاز غير مصرح، Evil Twin ينتحل شبكة موثوقة، وRF jamming يستهدف تعطيل الوسط اللاسلكي.",
+      "referenceUrl": "https://www.cisco.com/site/us/en/learn/topics/networking/rogue-access-point.html",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "Rogue AP",
+          "right": "Access Point غير مصرح به متصل أو ظاهر في بيئة المؤسسة"
+        },
+        {
+          "id": "p2",
+          "left": "Evil Twin",
+          "right": "AP خبيث ينتحل SSID أو هوية شبكة موثوقة لخداع المستخدمين"
+        },
+        {
+          "id": "p3",
+          "left": "RF Jamming",
+          "right": "تشويش متعمد أو كثيف يعرقل الاتصال اللاسلكي"
+        }
+      ]
+    },
+    {
+      "module": "WLAN Concepts",
+      "topic": "WLAN Threats",
+      "subtopic": "Rogue AP impact",
+      "learningObjective": "تفسير خطورة Rogue AP على LAN",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco Rogue AP guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-018",
+      "question": "قد يشكل Rogue AP مسارًا غير مصرح به إلى الشبكة الداخلية حتى لو كانت البنية السلكية نفسها محمية جيدًا.",
+      "explanation": "العبارة صحيحة. توصيل AP غير مصرح به داخل LAN قد يتجاوز بعض ضوابط الوصول ويمنح مستخدمين لاسلكيين وصولًا لم يكن مخططًا له.",
+      "referenceUrl": "https://www.cisco.com/site/us/en/learn/topics/networking/rogue-access-point.html",
+      "correctAnswer": "صح"
+    },
+    {
+      "module": "WLAN Concepts",
+      "topic": "WLAN Security Mechanisms",
+      "subtopic": "Personal vs Enterprise",
+      "learningObjective": "تمييز آلية Authentication في WPA2 Enterprise",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Comparison",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco WPA2 configuration guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-019",
+      "question": "ما العنصر الذي يميز WPA2 Enterprise عن WPA2-PSK بصورة أساسية في هذا المقرر؟",
+      "explanation": "WPA2 Enterprise يعتمد عادةً على 802.1X/EAP وخادم Authentication مثل RADIUS، بينما WPA2-PSK يستخدم Pre-Shared Key مشتركًا.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless/4400-series-wireless-lan-controllers/100708-wpa-uwn-config.html",
+      "options": [
+        "استخدام 802.1X/RADIUS للتحقق من المستخدمين",
+        "استخدام نفس PSK لجميع المستخدمين",
+        "عدم استخدام Encryption",
+        "العمل فقط في 2.4 GHz"
+      ],
+      "correctAnswer": "استخدام 802.1X/RADIUS للتحقق من المستخدمين"
+    },
+    {
+      "module": "WLAN Concepts",
+      "topic": "WLAN Security Mechanisms",
+      "subtopic": "WPA2 Enterprise",
+      "learningObjective": "تحليل خصائص WPA2 Enterprise",
+      "difficulty": "Challenging",
+      "type": "multiple",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco WPA2 Enterprise guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-020",
+      "question": "أي عبارتين تصفان WPA2 Enterprise بصورة صحيحة؟ اختر إجابتين.",
+      "explanation": "WPA2 Enterprise يستخدم 802.1X/EAP مع Authentication Server مثل RADIUS، ما يسمح بهويات منفصلة وسياسات مركزية بدل مشاركة PSK واحدة بين الجميع.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless/4400-series-wireless-lan-controllers/100708-wpa-uwn-config.html",
+      "options": [
+        "يمكن أن يستخدم 802.1X/EAP",
+        "يعتمد عادةً على RADIUS أو Authentication Server مركزي",
+        "يتطلب PSK واحدة مشتركة لجميع المستخدمين",
+        "يلغي الحاجة إلى Encryption",
+        "يعمل فقط مع Autonomous AP"
+      ],
+      "correctAnswer": [
+        "يمكن أن يستخدم 802.1X/EAP",
+        "يعتمد عادةً على RADIUS أو Authentication Server مركزي"
+      ]
+    },
+    {
+      "module": "WLAN Configuration",
+      "topic": "Remote-Site WLAN Configuration",
+      "subtopic": "Small-office wireless router",
+      "learningObjective": "تمييز وظائف Wireless Router في الموقع الصغير",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13 — Remote Site WLAN Configuration",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-021",
+      "question": "في سيناريو Remote Site صغير، ما الجهاز الذي يجمع عادةً وظائف Router وEthernet Switch وWireless AP في جهاز واحد؟",
+      "explanation": "Wireless Router المنزلي/الصغير يجمع غالبًا Routing وSwitching وWireless Access، ولهذا يستخدم في أنشطة إعداد WLAN للمواقع الصغيرة.",
+      "options": [
+        "Wireless Router",
+        "RADIUS Server",
+        "Layer 2 Hub",
+        "Wireless Client"
+      ],
+      "correctAnswer": "Wireless Router"
+    },
+    {
+      "module": "WLAN Configuration",
+      "topic": "Remote-Site WLAN Configuration",
+      "subtopic": "Basic setup workflow",
+      "learningObjective": "ترتيب خطوات إعداد WLAN أساسي في موقع صغير",
+      "difficulty": "Medium",
+      "type": "ordering",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13 — Remote Site WLAN Configuration",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-022",
+      "question": "رتب خطوات العمل التالية لبناء WLAN آمن أساسي في موقع Remote Site.",
+      "explanation": "بعد الدخول إلى واجهة الجهاز، يحدد المسؤول SSID، ثم يضبط Security وPSK، وبعدها يربط Client ويختبر الاتصال. الترتيب هنا يمثل Workflow تعليميًا واضحًا من الإعداد إلى التحقق.",
+      "items": [
+        {
+          "id": "i1",
+          "text": "الدخول إلى واجهة إدارة Wireless Router"
+        },
+        {
+          "id": "i2",
+          "text": "تحديد SSID المطلوب"
+        },
+        {
+          "id": "i3",
+          "text": "تفعيل WPA2 وتحديد Pre-Shared Key"
+        },
+        {
+          "id": "i4",
+          "text": "ربط Wireless Client والتحقق من الاتصال"
+        }
+      ],
+      "correctOrder": [
+        "i1",
+        "i2",
+        "i3",
+        "i4"
+      ]
+    },
+    {
+      "module": "WLAN Configuration",
+      "topic": "Remote-Site WLAN Configuration",
+      "subtopic": "Client settings",
+      "learningObjective": "تحديد الإعدادات التي يجب أن تتطابق للانضمام إلى WLAN آمنة",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Analysis",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13 — Remote Site WLAN Configuration; Cisco WPA2 guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-023",
+      "question": "أي إعدادين يجب أن يعرفهما Wireless Client عادةً للانضمام إلى WLAN محمية بـWPA2-PSK؟ اختر إجابتين.",
+      "explanation": "يحتاج Client إلى اختيار SSID الصحيح وتقديم PSK المطابقة. IP address يحصل عليه عادةً بعد الارتباط عبر DHCP إذا كانت الخدمة متوفرة.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless/4400-series-wireless-lan-controllers/100708-wpa-uwn-config.html",
+      "options": [
+        "SSID الصحيح",
+        "Pre-Shared Key الصحيحة",
+        "MAC Address الخاصة بالـWLC",
+        "CAPWAP UDP port يدويًا",
+        "Root Bridge Priority"
+      ],
+      "correctAnswer": [
+        "SSID الصحيح",
+        "Pre-Shared Key الصحيحة"
+      ]
+    },
+    {
+      "module": "WLAN Configuration",
+      "topic": "Remote-Site WLAN Configuration",
+      "subtopic": "DHCP troubleshooting",
+      "learningObjective": "تشخيص مشكلة IP بعد نجاح الارتباط اللاسلكي",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13 — Remote Site WLAN Configuration and Troubleshooting",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-024",
+      "question": "Wireless Client يتصل بالـSSID بنجاح ويظهر أنه Associated، لكنه لا يحصل على IPv4 address صحيح. ما الخدمة التي يجب فحصها أولًا؟",
+      "explanation": "نجاح Association وAuthentication يعني أن الطبقة اللاسلكية الأساسية تعمل. إذا تعذر الحصول على IPv4 address ففحص DHCP هو الخطوة المنطقية الأولى.",
+      "options": [
+        "DHCP",
+        "STP Root Election",
+        "EtherChannel PAgP",
+        "CAPWAP firmware image"
+      ],
+      "correctAnswer": "DHCP"
+    },
+    {
+      "module": "WLAN Configuration",
+      "topic": "Basic WLC Configuration",
+      "subtopic": "WLC entities",
+      "learningObjective": "ربط عناصر WLC بوظائفها الأساسية",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco WLC interfaces and VLAN guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-025",
+      "question": "طابق كل عنصر في WLC مع وظيفته الأساسية.",
+      "explanation": "Management Interface تستخدم لإدارة Controller واتصالات البنية، وDynamic Interface تمثل VLAN/Subnet للعملاء، بينما WLAN Profile يربط SSID بسياسة وإعدادات محددة.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless-mobility/wireless-vlan/68100-wlan-controllers-vlans.html",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "Management Interface",
+          "right": "واجهة أساسية لإدارة WLC واتصالات البنية"
+        },
+        {
+          "id": "p2",
+          "left": "Dynamic Interface",
+          "right": "تمثل VLAN/Subnet ويمكن ربط WLAN بها"
+        },
+        {
+          "id": "p3",
+          "left": "WLAN Profile / SSID",
+          "right": "يعرف الشبكة اللاسلكية وسياساتها للعملاء"
+        }
+      ]
+    },
+    {
+      "module": "WLAN Configuration",
+      "topic": "Basic WLC Configuration",
+      "subtopic": "WLAN mapping",
+      "learningObjective": "تفسير ربط WLAN بواجهة أو VLAN صحيحة",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco WLC VLAN configuration guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-026",
+      "question": "عند إنشاء WLAN على WLC، لماذا يتم ربطها بالـInterface/VLAN المناسبة؟",
+      "explanation": "هذا الربط يحدد إلى أي شبكة VLAN/Subnet سيتم إدخال Traffic الخاص بعملاء تلك WLAN، وهو عنصر أساسي لفصل شبكات المستخدمين وتوجيهها بصورة صحيحة.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless-mobility/wireless-vlan/68100-wlan-controllers-vlans.html",
+      "options": [
+        "لتحديد VLAN/Subnet التي سيستخدمها عملاء WLAN",
+        "لتغيير MAC Address لكل Client",
+        "لانتخاب STP Root Bridge",
+        "لتحديد CAPWAP Control port"
+      ],
+      "correctAnswer": "لتحديد VLAN/Subnet التي سيستخدمها عملاء WLAN"
+    },
+    {
+      "module": "WLAN Configuration",
+      "topic": "Basic WLC Configuration",
+      "subtopic": "Dynamic interface parameters",
+      "learningObjective": "تمييز أهم بيانات Dynamic Interface",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco WLC VLAN configuration guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-027",
+      "question": "أي ثلاث معلومات تعد من الإعدادات الأساسية الشائعة عند إنشاء Dynamic Interface على WLC؟ اختر ثلاث إجابات.",
+      "explanation": "Dynamic Interface ترتبط بـVLAN/Subnet، ولذلك تتضمن عادة VLAN ID وإعدادات IP/Gateway ومعلومات DHCP Server. هذه البيانات تسمح بربط WLAN بشبكة العملاء الصحيحة.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless-mobility/wireless-vlan/68100-wlan-controllers-vlans.html",
+      "options": [
+        "VLAN ID",
+        "IP Address / Netmask / Gateway",
+        "Primary DHCP Server",
+        "STP Root Priority",
+        "EtherChannel PAgP mode"
+      ],
+      "correctAnswer": [
+        "VLAN ID",
+        "IP Address / Netmask / Gateway",
+        "Primary DHCP Server"
+      ]
+    },
+    {
+      "module": "WLAN Configuration",
+      "topic": "Basic WLC Configuration",
+      "subtopic": "WLC workflow",
+      "learningObjective": "ترتيب Workflow لإنشاء WLAN مرتبطة بـVLAN",
+      "difficulty": "Challenging",
+      "type": "ordering",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco WLC VLAN and WPA2 configuration guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-028",
+      "question": "رتب Workflow التالي لإعداد WLAN جديدة على WLC وربطها بشبكة مستخدمين محددة.",
+      "explanation": "يجب تجهيز Interface/VLAN التي ستحمل حركة العملاء، ثم إنشاء WLAN/SSID وربطها بتلك Interface، وبعد ذلك تطبيق Security وتمكين WLAN والتحقق منها.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless-mobility/wireless-vlan/68100-wlan-controllers-vlans.html",
+      "items": [
+        {
+          "id": "i1",
+          "text": "إنشاء/تجهيز Dynamic Interface المرتبطة بـVLAN المطلوبة"
+        },
+        {
+          "id": "i2",
+          "text": "إنشاء WLAN Profile وتحديد SSID"
+        },
+        {
+          "id": "i3",
+          "text": "ربط WLAN بالـInterface/VLAN الصحيحة"
+        },
+        {
+          "id": "i4",
+          "text": "تطبيق Security ثم Enable والتحقق من WLAN"
+        }
+      ],
+      "correctOrder": [
+        "i1",
+        "i2",
+        "i3",
+        "i4"
+      ]
+    },
+    {
+      "module": "WLAN Configuration",
+      "topic": "Basic WLC Configuration",
+      "subtopic": "Wrong VLAN mapping",
+      "learningObjective": "تشخيص أثر ربط WLAN بالـDynamic Interface الخطأ",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco WLC VLAN configuration guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-029",
+      "question": "عملاء SSID باسم STAFF ينجحون في Authentication، لكنهم يحصلون على عناوين من شبكة GUEST بدل شبكة الموظفين. ما السبب الأكثر احتمالًا على WLC؟",
+      "explanation": "نجاح Authentication مع الحصول على Subnet خاطئة يشير غالبًا إلى أن WLAN م mapped إلى Dynamic Interface/VLAN غير صحيحة، وليس إلى مشكلة في PSK أو Radio channel.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless-mobility/wireless-vlan/68100-wlan-controllers-vlans.html",
+      "options": [
+        "WLAN STAFF مرتبطة بالـDynamic Interface/VLAN الخطأ",
+        "CAPWAP يستخدم UDP 5246",
+        "القناة اللاسلكية غير متداخلة",
+        "RADIUS Server يرسل Beacon Frames"
+      ],
+      "correctAnswer": "WLAN STAFF مرتبطة بالـDynamic Interface/VLAN الخطأ"
+    },
+    {
+      "module": "WLAN Configuration",
+      "topic": "WLAN / VLAN / Management Interface",
+      "subtopic": "Dynamic interface role",
+      "learningObjective": "تفسير وظيفة Dynamic Interface في ربط WLAN بالشبكة السلكية",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco WLC interfaces guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-030",
+      "question": "أي وصف يعبّر بدقة عن Dynamic Interface على WLC؟",
+      "explanation": "Dynamic Interface هي Layer 3 interface على Controller ترتبط عادةً بـVLAN/Subnet محددة وتستخدم لربط WLAN بحركة عملائها على الشبكة السلكية.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless-mobility/wireless-vlan/68100-wlan-controllers-vlans.html",
+      "options": [
+        "واجهة منطقية تربط WLAN بـVLAN/Subnet محددة",
+        "راديو إضافي يبث SSID جديدًا",
+        "منفذ CAPWAP مخصص لكل Client",
+        "جدول MAC خاص بـSTP"
+      ],
+      "correctAnswer": "واجهة منطقية تربط WLAN بـVLAN/Subnet محددة"
+    },
+    {
+      "module": "WLAN Configuration",
+      "topic": "WLAN / VLAN / Management Interface",
+      "subtopic": "WLAN-to-VLAN mapping",
+      "learningObjective": "تأكيد علاقة WLAN بواجهة VLAN على WLC",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco WLC VLAN configuration guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-031",
+      "question": "يمكن ربط WLAN على WLC بـDynamic Interface لتمرير عملائها إلى VLAN/Subnet محددة.",
+      "explanation": "العبارة صحيحة. ربط WLAN بDynamic Interface هو ما يحدد الشبكة المنطقية التي تنتمي إليها حركة عملاء تلك WLAN.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless-mobility/wireless-vlan/68100-wlan-controllers-vlans.html",
+      "correctAnswer": "صح"
+    },
+    {
+      "module": "WLAN Configuration",
+      "topic": "WLAN / VLAN / Management Interface",
+      "subtopic": "Trunk VLAN reachability",
+      "learningObjective": "تشخيص أثر عدم السماح بـVLAN الخاصة بالعملاء على uplink",
+      "difficulty": "Challenging",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco WLC VLAN configuration guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-032",
+      "question": "WLAN مرتبطة بـVLAN 30 على WLC، لكن وصلة Switch المتجهة إلى WLC لا تسمح بـVLAN 30. ما الأثر الأكثر منطقية؟",
+      "explanation": "حتى لو نجح Wireless Association، يجب أن تمر VLAN الخاصة بالعملاء عبر الربط السلكي المناسب. إذا لم تكن VLAN 30 مسموحة على الوصلة فلن تصل حركة العملاء إلى الشبكة المطلوبة بصورة صحيحة.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless-mobility/wireless-vlan/68100-wlan-controllers-vlans.html",
+      "options": [
+        "ستفشل حركة عملاء VLAN 30 في الوصول إلى شبكتها السلكية بصورة صحيحة",
+        "سيتحول SSID تلقائيًا إلى VLAN 1 دائمًا",
+        "سيتم انتخاب WLC كـSTP Root",
+        "سيغير CAPWAP القناة اللاسلكية تلقائيًا"
+      ],
+      "correctAnswer": "ستفشل حركة عملاء VLAN 30 في الوصول إلى شبكتها السلكية بصورة صحيحة"
+    },
+    {
+      "module": "WLAN Configuration",
+      "topic": "WPA2-PSK Configuration",
+      "subtopic": "Personal authentication",
+      "learningObjective": "تمييز آلية WPA2 Personal",
+      "difficulty": "Easy",
+      "type": "single",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco WPA2-PSK guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-033",
+      "question": "ما نوع Credential الأساسي المستخدم في WPA2-PSK (Personal)؟",
+      "explanation": "WPA2-PSK يعتمد على Pre-Shared Key مشتركة بين WLAN والعملاء المصرح لهم بدل الاعتماد على RADIUS لكل مستخدم.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless/4400-series-wireless-lan-controllers/100708-wpa-uwn-config.html",
+      "options": [
+        "Pre-Shared Key",
+        "OSPF Router ID",
+        "STP Bridge ID",
+        "DHCP Option 43 فقط"
+      ],
+      "correctAnswer": "Pre-Shared Key"
+    },
+    {
+      "module": "WLAN Configuration",
+      "topic": "WPA2-PSK Configuration",
+      "subtopic": "Secure settings",
+      "learningObjective": "اختيار إعدادات WPA2-PSK المتوافقة",
+      "difficulty": "Medium",
+      "type": "multiple",
+      "skill": "Configuration",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco WPA2-PSK guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-034",
+      "question": "أي إعدادين يجب أن يتوافقا بين WLAN والـClient عند استخدام WPA2-PSK؟ اختر إجابتين.",
+      "explanation": "يجب أن يطابق العميل سياسة WPA2/Personal المستخدمة ويقدم Pre-Shared Key الصحيحة. عدم تطابق أحدهما يؤدي إلى فشل Authentication/Association الآمن.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless/4400-series-wireless-lan-controllers/100708-wpa-uwn-config.html",
+      "options": [
+        "WPA2/Personal security mode",
+        "Pre-Shared Key",
+        "STP Port Role",
+        "CAPWAP UDP 5247 ككلمة مرور",
+        "EtherChannel Group Number"
+      ],
+      "correctAnswer": [
+        "WPA2/Personal security mode",
+        "Pre-Shared Key"
+      ]
+    },
+    {
+      "module": "WLAN Configuration",
+      "topic": "WPA2 Enterprise",
+      "subtopic": "802.1X roles",
+      "learningObjective": "ربط أدوار 802.1X/WPA2 Enterprise بوظائفها",
+      "difficulty": "Medium",
+      "type": "matching",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco WPA2 Enterprise guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-035",
+      "question": "طابق كل عنصر بدوره في WPA2 Enterprise / 802.1X.",
+      "explanation": "Supplicant هو برنامج/جهاز العميل، وAuthenticator يفرض الوصول على الشبكة (مثل AP/WLC في المسار)، وAuthentication Server مثل RADIUS يتحقق من بيانات الاعتماد وفق السياسة.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless/4400-series-wireless-lan-controllers/100708-wpa-uwn-config.html",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "Supplicant",
+          "right": "Wireless Client الذي يطلب Authentication"
+        },
+        {
+          "id": "p2",
+          "left": "Authenticator",
+          "right": "عنصر الشبكة الذي يفرض عملية الوصول"
+        },
+        {
+          "id": "p3",
+          "left": "RADIUS / Authentication Server",
+          "right": "يتحقق من Credentials ويطبق سياسة Authentication"
+        }
+      ]
+    },
+    {
+      "module": "WLAN Configuration",
+      "topic": "WPA2 Enterprise",
+      "subtopic": "RADIUS dependency",
+      "learningObjective": "تشخيص أثر تعطل Authentication Server",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco WPA2 Enterprise guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-036",
+      "question": "WPA2 Enterprise WLAN تعمل والـSSID ظاهر، لكن RADIUS Server غير متاح. ما المشكلة الأكثر احتمالًا للمستخدمين الجدد؟",
+      "explanation": "في WPA2 Enterprise يعتمد 802.1X Authentication على الوصول إلى Authentication Server مثل RADIUS. إذا كان الخادم غير متاح فلن تكتمل عملية التحقق من المستخدمين بصورة طبيعية.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless/4400-series-wireless-lan-controllers/100708-wpa-uwn-config.html",
+      "options": [
+        "فشل Authentication للمستخدمين",
+        "تحول الشبكة تلقائيًا إلى WPA2-PSK",
+        "اختفاء قنوات 2.4 GHz",
+        "انتخاب AP كـDefault Gateway"
+      ],
+      "correctAnswer": "فشل Authentication للمستخدمين"
+    },
+    {
+      "module": "WLAN Configuration",
+      "topic": "WPA2 Enterprise",
+      "subtopic": "Authentication model",
+      "learningObjective": "تمييز WPA2 Enterprise عن PSK",
+      "difficulty": "Easy",
+      "type": "true_false",
+      "skill": "Concept",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco WPA2 Enterprise guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-037",
+      "question": "يعتمد WPA2 Enterprise على Pre-Shared Key واحدة مشتركة لجميع المستخدمين بدل 802.1X/RADIUS.",
+      "explanation": "العبارة خاطئة. هذا الوصف يناسب WPA2-PSK، بينما Enterprise يستخدم 802.1X/EAP مع Authentication Server مثل RADIUS.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless/4400-series-wireless-lan-controllers/100708-wpa-uwn-config.html",
+      "correctAnswer": "خطأ"
+    },
+    {
+      "module": "WLAN Configuration",
+      "topic": "WLAN Troubleshooting",
+      "subtopic": "Symptom-to-cause",
+      "learningObjective": "ربط الأعراض بأسباب محتملة في WLAN",
+      "difficulty": "Challenging",
+      "type": "matching",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13 — Troubleshoot WLAN Issues; Cisco WLC/WPA guidance",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-038",
+      "question": "طابق كل عرض مع السبب الأكثر احتمالًا في السيناريو المعطى.",
+      "explanation": "التشخيص يبدأ بتحديد المرحلة التي فشلت: عدم رؤية SSID يشير إلى WLAN/AP configuration، نجاح الارتباط دون IP يوجّه إلى DHCP/VLAN، وفشل Enterprise Authentication يوجّه إلى 802.1X/RADIUS.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless/4400-series-wireless-lan-controllers/69719-wlc-lwap-config.html",
+      "pairs": [
+        {
+          "id": "p1",
+          "left": "SSID غير ظاهر رغم عمل AP",
+          "right": "WLAN غير مفعلة أو SSID/Broadcast configuration غير صحيحة"
+        },
+        {
+          "id": "p2",
+          "left": "Client Associated لكن بلا IPv4 صحيح",
+          "right": "مشكلة DHCP أو VLAN mapping/path"
+        },
+        {
+          "id": "p3",
+          "left": "WPA2 Enterprise Authentication يفشل",
+          "right": "مشكلة RADIUS/802.1X أو Credentials"
+        }
+      ]
+    },
+    {
+      "module": "WLAN Configuration",
+      "topic": "WLAN Troubleshooting",
+      "subtopic": "AP cannot join WLC",
+      "learningObjective": "تشخيص فشل انضمام Lightweight AP إلى WLC",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13; Cisco CAPWAP documentation",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-039",
+      "question": "Lightweight AP يحصل على IP address ويعرف عنوان WLC، لكن يوجد ACL بينهما. ما الذي يجب التحقق منه أولًا؟",
+      "explanation": "عند توفر IP reachability ومعرفة WLC، يجب التأكد من أن ACL لا تمنع CAPWAP Control/Data traffic، خصوصًا UDP 5246 و5247.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/td/docs/wireless/outdoor_industrial/iw9165e/software/configuration/261x/b-iw9165e-scg-26-1/g-control-and-provisioning-of-wireless-access-points/c-capwap-overview.html",
+      "options": [
+        "السماح بحركة CAPWAP المطلوبة بين AP وWLC",
+        "تغيير STP Priority للـAP",
+        "إضافة Port Security إلى Wireless Client",
+        "تفعيل PAgP على Radio interface"
+      ],
+      "correctAnswer": "السماح بحركة CAPWAP المطلوبة بين AP وWLC"
+    },
+    {
+      "module": "WLAN Configuration",
+      "topic": "WLAN Troubleshooting",
+      "subtopic": "WLAN disabled",
+      "learningObjective": "تشخيص غياب SSID بسبب حالة WLAN",
+      "difficulty": "Medium",
+      "type": "single",
+      "skill": "Troubleshooting",
+      "sourceType": "Instructor-created",
+      "reference": "SRWE v7 Scope and Sequence — Modules 12–13 — Basic WLC Configuration and Troubleshoot WLAN Issues",
+      "status": "approved",
+      "version": 1,
+      "lastReviewed": "2026-09-26",
+      "id": "WLAN-040",
+      "question": "تم إنشاء WLAN Profile وSSID على WLC بصورة صحيحة، لكن لم يتم Enable للـWLAN. ماذا يتوقع المستخدمون؟",
+      "explanation": "إنشاء Profile وحده لا يكفي؛ يجب أن تكون WLAN مفعلة حتى تقدم الخدمة للعملاء. لذلك سيبقى SSID غير متاح من هذه WLAN حتى يتم Enable لها.",
+      "referenceUrl": "https://www.cisco.com/c/en/us/support/docs/wireless/4400-series-wireless-lan-controllers/69719-wlc-lwap-config.html",
+      "options": [
+        "لن تكون WLAN متاحة للعملاء حتى يتم Enable لها",
+        "سيتم تحويلها تلقائيًا إلى WPA2 Enterprise",
+        "سيعمل SSID لكن دون RF signal فقط في 5 GHz",
+        "سيتم تشغيلها تلقائيًا بعد DHCP Offer"
+      ],
+      "correctAnswer": "لن تكون WLAN متاحة للعملاء حتى يتم Enable لها"
+    }
+  ]
 }
