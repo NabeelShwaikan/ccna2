@@ -1,0 +1,396 @@
+/* Landing-page-only visual layer for preExams.
+   Loaded only by preExams/index.html so quiz/content pages keep their own styles. */
+
+.preexam-home {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 90% 0%, color-mix(in srgb, #2563eb 8%, transparent), transparent 30rem),
+    radial-gradient(circle at 10% 18%, color-mix(in srgb, #7c3aed 6%, transparent), transparent 28rem),
+    var(--bg);
+}
+
+.landing-shell {
+  padding-top: 24px;
+  padding-bottom: 48px;
+}
+
+.landing-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.landing-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.landing-logo {
+  width: 62px;
+  height: 62px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+
+.landing-logo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.landing-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.landing-brand-text strong {
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  font-weight: 800;
+}
+
+.landing-brand-text small {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: .82rem;
+  font-weight: 650;
+}
+
+.landing-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.back-link {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  color: var(--muted);
+  font-size: .84rem;
+  font-weight: 700;
+  transition: border-color .18s ease, color .18s ease, transform .18s ease;
+}
+
+.landing-theme {
+  flex: 0 0 auto;
+}
+
+.landing-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  min-height: 164px;
+  padding: 32px 24px;
+  margin-bottom: 30px;
+  border-radius: 24px;
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--surface) 97%, transparent),
+      color-mix(in srgb, var(--soft) 94%, transparent));
+  box-shadow: 0 16px 42px color-mix(in srgb, #0f172a 8%, transparent);
+}
+
+.landing-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(
+    100deg,
+    #2563eb,
+    #06b6d4,
+    #7c3aed,
+    #14b8a6,
+    #d97706,
+    #2563eb
+  );
+  background-size: 300% 100%;
+  animation: preexam-border-flow 9s linear infinite;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.landing-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 12% -70px;
+  height: 120px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  filter: blur(34px);
+  z-index: -1;
+}
+
+@keyframes preexam-border-flow {
+  to { background-position: 300% 0; }
+}
+
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 4px 10px;
+  margin-bottom: 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent);
+  font-size: .76rem;
+  font-weight: 800;
+  letter-spacing: .03em;
+}
+
+.landing-hero h1 {
+  margin: 0;
+  font-size: clamp(1.65rem, 4vw, 2.65rem);
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+.landing-sections {
+  margin-top: 0;
+}
+
+.landing-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 14px;
+}
+
+.landing-section-head h2 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.landing-section-head span {
+  color: var(--muted);
+  font-size: .82rem;
+}
+
+.landing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.landing-grid .section-card {
+  --section-accent: var(--accent);
+  position: relative;
+  min-height: 238px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  padding: 24px 18px 20px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--section-accent) 56%, var(--border));
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--section-accent) 5%, var(--surface)),
+      var(--surface) 46%);
+  box-shadow: 0 8px 24px color-mix(in srgb, #0f172a 5%, transparent);
+  transition:
+    transform .2s ease,
+    border-color .2s ease,
+    box-shadow .2s ease,
+    background .2s ease;
+}
+
+.landing-grid .section-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--section-accent),
+    transparent
+  );
+  opacity: .9;
+}
+
+.landing-grid .section-no {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  min-width: 34px;
+  height: 27px;
+  display: grid;
+  place-items: center;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--section-accent) 10%, transparent);
+  color: var(--section-accent);
+  font-size: .72rem;
+  font-weight: 850;
+  letter-spacing: .03em;
+}
+
+.landing-grid .section-icon {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  margin: 13px auto 16px;
+  border-radius: 17px;
+  color: var(--section-accent);
+  background: color-mix(in srgb, var(--section-accent) 9%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--section-accent) 28%, var(--border));
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 48%, transparent);
+}
+
+.landing-grid .section-icon svg {
+  width: 31px;
+  height: 31px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.landing-grid .section-card h3 {
+  margin: 0;
+  font-size: 1.03rem;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.landing-grid .section-card h3 small {
+  display: block;
+  margin-top: 4px;
+  color: color-mix(in srgb, var(--text) 66%, var(--muted));
+  font-size: .72rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.landing-grid .section-card p {
+  margin: 11px auto 0;
+  max-width: 30ch;
+  color: var(--muted);
+  font-size: .79rem;
+  line-height: 1.6;
+  direction: ltr;
+  text-align: center;
+}
+
+.landing-grid .section-card:last-child {
+  grid-column: 2;
+}
+
+.landing-grid .section-card:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--section-accent) 34%, transparent);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .back-link:hover {
+    color: var(--text);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .landing-grid .section-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--section-accent);
+    box-shadow:
+      0 16px 34px color-mix(in srgb, var(--section-accent) 10%, transparent),
+      0 8px 24px color-mix(in srgb, #0f172a 7%, transparent);
+    background:
+      linear-gradient(180deg,
+        color-mix(in srgb, var(--section-accent) 9%, var(--surface)),
+        var(--surface) 52%);
+  }
+
+  .landing-grid .section-card:hover .section-icon {
+    transform: translateY(-1px);
+  }
+}
+
+@media (max-width: 900px) {
+  .landing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .landing-grid .section-card:last-child {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .landing-shell {
+    padding-top: 16px;
+  }
+
+  .landing-topbar {
+    align-items: center;
+    margin-bottom: 18px;
+  }
+
+  .landing-logo {
+    width: 54px;
+    height: 54px;
+  }
+
+  .landing-brand-text strong {
+    font-size: 1rem;
+  }
+
+  .landing-brand-text small {
+    font-size: .74rem;
+  }
+
+  .back-link {
+    display: none;
+  }
+
+  .landing-hero {
+    min-height: 142px;
+    padding: 26px 18px;
+    margin-bottom: 24px;
+    border-radius: 20px;
+  }
+
+  .landing-grid {
+    grid-template-columns: 1fr;
+    gap: 13px;
+  }
+
+  .landing-grid .section-card {
+    min-height: 210px;
+    padding: 22px 16px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-hero::before {
+    animation: none;
+  }
+
+  .landing-grid .section-card,
+  .back-link {
+    transition: none;
+  }
+}
