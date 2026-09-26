@@ -1,114 +1,134 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+
+<html dir="rtl" lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#087ea4">
-  <meta name="color-scheme" content="light dark">
-
-  <title>CCNA 2 | منصة المقرر</title>
-
-  <link rel="stylesheet" href="Assets/style.css">
-  <link rel="manifest" href="Assets/manifest.json">
-  <link rel="icon" type="image/png" sizes="192x192" href="Assets/icons/icon-192.png">
-  <link rel="apple-touch-icon" href="Assets/icons/apple-touch-icon.png">
-</head>
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="#087ea4" name="theme-color"/>
+<meta content="light dark" name="color-scheme"/>
+<title>CCNA 2 | منصة المقرر</title>
+<link href="Assets/style.css" rel="stylesheet"/>
+<link href="Assets/manifest.json" rel="manifest"/>
+<link href="Assets/icons/icon-192.png" rel="icon" sizes="192x192" type="image/png"/>
+<link href="Assets/icons/apple-touch-icon.png" rel="apple-touch-icon"/>
+<style>
+  .card h4 .title-ar{display:block;font-weight:800;line-height:1.5}
+  .card h4 .title-en{display:block;margin-top:.18rem;font-size:.82em;font-weight:600;opacity:.68;direction:ltr}
+  .continue-card{
+    display:flex;align-items:center;gap:.7rem;
+    margin:0 0 1.1rem;padding:.85rem 1rem;
+    border:1px solid color-mix(in srgb, currentColor 14%, transparent);
+    border-radius:14px;text-decoration:none;color:inherit;
+    background:color-mix(in srgb, Canvas 94%, #087ea4 6%);
+  }
+  .continue-card[hidden]{display:none}
+  .continue-card .continue-label{font-size:.82rem;opacity:.7}
+  .continue-card strong{flex:1}
+  .status.new{background:#087ea4;color:#fff}
+</style></head>
 <body>
-  <main class="shell">
-    <header class="topbar">
-      <div class="brand">
-        <div class="logo"><img src="Assets/icons/icon-192.png" alt="أيقونة CCNA 2"></div>
-        <div>
-          <h1>CCNA 2</h1>
-          <p>منصة المقرر</p>
-        </div>
-      </div>
+<main class="shell">
+<header class="topbar">
+<div class="brand">
+<div class="logo"><img alt="أيقونة CCNA 2" src="Assets/icons/icon-192.png"/></div>
+<div>
+<h1>CCNA 2</h1>
+<p>منصة المقرر</p>
+</div>
+</div>
+<div class="badge">Switching • Routing • Wireless</div>
+</header>
+<section aria-labelledby="hero-title" class="hero">
+<div class="eyebrow">مساحة تعلم إضافية</div>
+<h2 id="hero-title">منصة CCNA 2 للتعلم والمراجعة والتدريب</h2>
+<p>المحاضرات • المختبرات • المراجعة • الاستعداد للاختبارات<br/>إعداد م. نبيل سليمان الشويكان</p>
+</section>
+<a class="continue-card" hidden="hidden" href="#" id="continueLast"><span class="continue-label">متابعة آخر نشاط</span><strong id="continueTitle"></strong><span aria-hidden="true">←</span></a><div class="section-head">
+<h3>مسارات المقرر</h3>
+<span></span>
+</div>
+<section aria-label="مسارات CCNA 2" class="grid">
+<a class="card ready" href="theory/index.html">
 
-      <div class="badge">Switching • Routing • Wireless</div>
-    </header>
-
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="eyebrow">مساحة تعلم إضافية</div>
-      <h2 id="hero-title">المعامل، المحاضرات، والاستعداد للاختبارات</h2>
-      <p>
-إعداد م. نبيل سليمان الشويكان
-      </p>
-    </section>
-
-    <div class="section-head">
-      <h3>مسارات المقرر</h3>
-      <span></span>
-    </div>
-
-    <section class="grid" aria-label="مسارات CCNA 2">
-
-
-      <a class="card ready" href="theory/index.html">
-        <span class="status ready">متاح</span>
-
-        <div class="icon" aria-hidden="true">L</div>
-
-        <h4>الجزء النظري Lectures</h4>
-
-        <p>
+<div aria-hidden="true" class="icon">L</div>
+<h4><span class="title-ar">المحاضرات النظرية</span><span class="title-en">Lectures</span></h4>
+<p>
           المحاضرات والمفاهيم النظرية للمقرر
         </p>
+<div class="card-foot">فتح المحاضرات ←</div>
+</a>
+<a class="card ready" href="labs/index.html">
 
-        <div class="card-foot">فتح المحاضرات ←</div>
-      </a>
-
-      <a class="card ready" href="labs/index.html">
-        <span class="status ready">متاح</span>
-
-        <div class="icon" aria-hidden="true">&gt;_</div>
-
-        <h4>الجزء العملي Labs</h4>
-
-        <p>
+<div aria-hidden="true" class="icon">&gt;_</div>
+<h4><span class="title-ar">المختبرات العملية</span><span class="title-en">Labs</span></h4>
+<p>
           المعامل والأوامر التفاعلية لـ Cisco IOS
                   </p>
+<div class="card-foot">فتح المختبرات ←</div>
+</a>
+<a class="card ready" href="review/index.html">
 
-        <div class="card-foot">فتح المعامل ←</div>
-      </a>
-
-      <a class="card ready" href="review/index.html">
-        <span class="status ready">متاح</span>
-
-        <div class="icon" aria-hidden="true">↻</div>
-
-        <h4>المراجعة السريعة Quick Review</h4>
-
-        <p>
+<div aria-hidden="true" class="icon">↻</div>
+<h4><span class="title-ar">المراجعة السريعة</span><span class="title-en">Quick Review</span></h4>
+<p>
           مراجعة مركزة وتفاعلية لأهم مفاهيم المقرر
         </p>
+<div class="card-foot">فتح المراجعة السريعة ←</div>
+</a>
+<a class="card ready" href="preExams/index.html"><span class="status new">جديد</span>
 
-        <div class="card-foot">فتح المراجعة السريعة ←</div>
-      </a>
-
-      <a class="card ready" href="preExams/index.html">
-        <span class="status ready">متاح</span>
-
-        <div class="icon" aria-hidden="true">✓</div>
-
-        <h4>الاستعداد للاختبارات Exam Preparation</h4>
-
-        <p>
+<div aria-hidden="true" class="icon">✓</div>
+<h4><span class="title-ar">الاستعداد للاختبارات</span><span class="title-en">Exam Preparation</span></h4>
+<p>
           للاستعداد للاختبارات تشمل المراجعة المركزة
           والأسئلة والتدريب قبل الاختبار.
         </p>
+<div class="card-foot">فتح الاستعداد للاختبارات ←</div>
+</a>
+</section>
+<footer class="footer">
+<span>CCNA 2 Learning Hub</span>
+<span>1448 هـ - 2026 م</span>
+</footer>
+</main>
+<script src="Assets/script.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const cards = [...document.querySelectorAll('section.grid a.card[href]')];
+  const labels = {
+    'theory/index.html': 'المحاضرات النظرية',
+    'labs/index.html': 'المختبرات العملية',
+    'review/index.html': 'المراجعة السريعة',
+    'preExams/index.html': 'الاستعداد للاختبارات'
+  };
 
-        <div class="card-foot">فتح الاستعداد للاختبارات ←</div>
-      </a>
+  const continueCard = document.getElementById('continueLast');
+  const continueTitle = document.getElementById('continueTitle');
 
-    </section>
+  function refreshContinue() {
+    const last = localStorage.getItem('ccna2_last_activity');
+    if (last && labels[last] && continueCard && continueTitle) {
+      continueCard.href = last;
+      continueTitle.textContent = labels[last];
+      continueCard.hidden = false;
+    }
+  }
 
-    <footer class="footer">
-      <span>CCNA 2 Learning Hub</span>
-      <span>1448 هـ - 2026 م</span>
-    </footer>
-  </main>
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const href = card.getAttribute('href');
+      if (labels[href]) localStorage.setItem('ccna2_last_activity', href);
+    });
+  });
 
-  <script src="Assets/script.js"></script>
-</body>
+  if (continueCard) {
+    continueCard.addEventListener('click', () => {
+      const href = continueCard.getAttribute('href');
+      if (labels[href]) localStorage.setItem('ccna2_last_activity', href);
+    });
+  }
+
+  refreshContinue();
+});
+</script></body>
 </html>
