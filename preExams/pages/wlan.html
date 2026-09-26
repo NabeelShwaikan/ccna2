@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="مراجعة WLAN ضمن مقرر CCNA2 / SRWE">
+  <meta name="description" content="مراجعة WLAN Concepts وWLAN Configuration ضمن مقرر CCNA2 / SRWE">
   <title>WLAN | CCNA2</title>
   <link rel="stylesheet" href="../css/main.css">
   <link rel="stylesheet" href="../css/quiz.css">
@@ -13,9 +13,8 @@
     <div class="shell quiz-header-row">
       <div>
         <a class="back-link" href="../index.html">→ العودة إلى الأقسام</a>
-        <p class="eyebrow">القسم 06 · CCNA2 / SRWE</p>
         <h1 class="quiz-title" id="sectionTitle">WLAN</h1>
-        <p class="quiz-subtitle" id="sectionSubtitle">Wireless Concepts · Security · Configuration · Troubleshooting</p>
+        <p class="quiz-subtitle" id="sectionSubtitle">WLAN Concepts · WLAN Configuration</p>
       </div>
       <button class="icon-btn" id="themeToggle" type="button" aria-label="تبديل المظهر">◐</button>
     </div>
@@ -23,13 +22,13 @@
 
   <main class="shell quiz-layout">
     <aside class="panel settings" aria-label="إعدادات المراجعة">
-      <h2>إعدادات المحاولة</h2>
+      <h2>الإعدادات</h2>
 
       <div class="field">
         <label for="modeSelect">الوضع</label>
         <select id="modeSelect">
-          <option value="review">Review Mode — مراجعة</option>
-          <option value="exam">Exam Mode — اختبار</option>
+          <option value="review">مراجعة</option>
+          <option value="exam">اختبار</option>
         </select>
       </div>
 
@@ -47,13 +46,15 @@
         <select id="countSelect">
           <option value="5">5</option>
           <option value="10" selected>10</option>
+          <option value="15">15</option>
           <option value="20">20</option>
           <option value="30">30</option>
+          <option value="40">40</option>
         </select>
       </div>
 
       <div class="field">
-        <label for="topicFilter">Topic</label>
+        <label for="topicFilter">الموضوع</label>
         <select id="topicFilter"><option value="">كل الموضوعات</option></select>
       </div>
 
@@ -63,12 +64,12 @@
       </div>
 
       <div class="field">
-        <label for="skillFilter">Skill</label>
+        <label for="skillFilter">المهارة</label>
         <select id="skillFilter"><option value="">كل المهارات</option></select>
       </div>
 
       <button class="action-btn" id="startBtn" type="button">ابدأ</button>
-      <button class="action-btn secondary" id="resetBtn" type="button">إعادة ضبط بيانات القسم</button>
+      <button class="action-btn secondary" id="resetBtn" type="button">إعادة ضبط التقدم</button>
     </aside>
 
     <section class="panel content-panel" id="quizContent" aria-live="polite">
