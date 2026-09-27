@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#F6F8FB">
-  <title>أوامر Cisco</title>
+  <title>المختبرات العملية | التوجيه والتحويل 1</title>
   <link rel="stylesheet" href="Style/main.css">
   <link rel="stylesheet" href="Style/home.css">
 
@@ -478,6 +478,45 @@
       -webkit-touch-callout: default !important;
     }
 
+</style>
+
+
+<style id="labs-final-visual-fix">
+  /* تثبيت خلفية حاوية العنوان بدون أبيض صريح */
+  .labs-home .landing-hero {
+    background:
+      linear-gradient(135deg,
+        rgba(8, 126, 164, .14),
+        rgba(37, 99, 235, .07) 52%,
+        rgba(20, 184, 166, .08)) !important;
+    border: 1px solid rgba(8, 126, 164, .18);
+    box-shadow: 0 14px 36px rgba(15, 23, 42, .08) !important;
+  }
+
+  /* إزالة الخلفيات البيضاء الصريحة من منطقة السيناريوهات */
+  .labs-home .scenario-preview-btn,
+  .labs-home .scenario-preview,
+  .labs-home .scenario-full-image {
+    background: #eef3f8 !important;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .labs-home .landing-hero {
+      background:
+        linear-gradient(135deg,
+          rgba(8, 126, 164, .18),
+          rgba(15, 23, 42, .92) 52%,
+          rgba(20, 184, 166, .12)) !important;
+      border-color: rgba(50, 166, 201, .24);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .20) !important;
+    }
+
+    .labs-home .scenario-preview-btn,
+    .labs-home .scenario-preview,
+    .labs-home .scenario-full-image {
+      background: #0f172a !important;
+    }
+  }
 </style>
 
 </head>
