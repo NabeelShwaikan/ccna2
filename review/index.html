@@ -8,30 +8,335 @@
 <link rel="stylesheet" href="assets/css/base.css">
 <link rel="stylesheet" href="assets/css/components.css">
 <link rel="stylesheet" href="assets/css/home.css">
+<style id="ccna2-unified-header-v2">
+  /* ===== CCNA2 Unified Header Standard v2 ===== */
+  .ccna2-platform-header{
+    position:relative;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:16px !important;
+    min-height:112px;
+    margin:0 0 36px !important;
+    padding:18px 20px !important;
+    border:1px solid color-mix(in srgb,currentColor 14%,transparent) !important;
+    border-radius:24px !important;
+    background:color-mix(in srgb,currentColor 3%,transparent) !important;
+    box-shadow:0 10px 28px rgba(0,0,0,.06) !important;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+  }
+
+  .ccna2-platform-brand{
+    display:inline-flex !important;
+    align-items:center !important;
+    gap:12px !important;
+    min-width:0;
+    color:inherit !important;
+    text-decoration:none !important;
+  }
+
+  .ccna2-platform-logo{
+    width:68px;
+    height:68px;
+    display:grid;
+    place-items:center;
+    flex:0 0 auto;
+  }
+
+  .ccna2-platform-logo img{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:contain;
+  }
+
+  .ccna2-platform-brand-text{
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+    line-height:1.2;
+    text-align:right;
+  }
+
+  .ccna2-platform-brand-text strong{
+    font-size:clamp(1.22rem,2.4vw,1.72rem);
+    font-weight:850;
+    white-space:nowrap;
+  }
+
+  .ccna2-platform-brand-text small{
+    margin-top:6px;
+    opacity:.68;
+    font-size:clamp(.82rem,1.6vw,1rem);
+    font-weight:750;
+    direction:ltr;
+    text-align:right;
+  }
+
+  .ccna2-platform-actions{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-end !important;
+    gap:9px !important;
+    flex:0 0 auto;
+  }
+
+  .ccna2-platform-back{
+    min-height:46px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:8px 13px;
+    border:1px solid color-mix(in srgb,currentColor 15%,transparent);
+    border-radius:14px;
+    background:color-mix(in srgb,currentColor 4%,transparent);
+    color:inherit;
+    opacity:.78;
+    font:inherit;
+    font-size:.8rem;
+    font-weight:750;
+    text-decoration:none;
+    transition:transform .18s ease,opacity .18s ease,border-color .18s ease;
+  }
+
+  /* ===== Unified hero ===== */
+  .ccna2-platform-hero{
+    --ccna2-a1:#06b6d4;
+    --ccna2-a2:#2563eb;
+    position:relative !important;
+    isolation:isolate;
+    overflow:hidden !important;
+    display:grid !important;
+    place-items:center !important;
+    align-content:center !important;
+    width:100% !important;
+    max-width:none !important;
+    min-height:292px !important;
+    margin:0 0 34px !important;
+    padding:34px 26px !important;
+    border:0 !important;
+    border-radius:30px !important;
+    text-align:center !important;
+    background:
+      linear-gradient(135deg,
+        color-mix(in srgb,var(--ccna2-a1) 10%,transparent),
+        color-mix(in srgb,currentColor 2.5%,transparent) 48%,
+        color-mix(in srgb,var(--ccna2-a2) 9%,transparent)) !important;
+    box-shadow:0 14px 36px rgba(0,0,0,.07) !important;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+  }
+
+  .ccna2-platform-hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:inherit;
+    padding:2px;
+    background:linear-gradient(100deg,
+      var(--ccna2-a1),
+      var(--ccna2-a2),
+      #14b8a6,
+      var(--ccna2-a1));
+    background-size:300% 100%;
+    animation:ccna2-border-flow 9s linear infinite;
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    pointer-events:none;
+  }
+
+  .ccna2-platform-hero::after{
+    content:"";
+    position:absolute;
+    inset:auto 14% -78px;
+    height:130px;
+    border-radius:50%;
+    background:color-mix(in srgb,var(--ccna2-a1) 12%,transparent);
+    filter:blur(38px);
+    z-index:-1;
+  }
+
+  @keyframes ccna2-border-flow{
+    to{background-position:300% 0}
+  }
+
+  .ccna2-platform-kicker{
+    display:inline-flex !important;
+    align-items:center;
+    justify-content:center;
+    min-height:42px;
+    padding:8px 17px !important;
+    margin:0 0 20px !important;
+    border:1px solid color-mix(in srgb,var(--ccna2-a1) 26%,transparent) !important;
+    border-radius:999px !important;
+    background:color-mix(in srgb,var(--ccna2-a1) 10%,transparent) !important;
+    color:var(--ccna2-a1) !important;
+    font-size:clamp(.9rem,1.8vw,1.08rem) !important;
+    font-weight:850 !important;
+    letter-spacing:.01em;
+  }
+
+  .ccna2-platform-title{
+    margin:0 !important;
+    padding:0 !important;
+    font-size:clamp(2rem,5.2vw,3rem) !important;
+    line-height:1.25 !important;
+    font-weight:850 !important;
+    text-align:center !important;
+    text-wrap:balance;
+  }
+
+  .ccna2-platform-description{
+    margin:14px auto 0 !important;
+    max-width:62ch;
+    opacity:.72;
+    font-size:clamp(.95rem,2vw,1.08rem) !important;
+    line-height:1.8 !important;
+    text-align:center !important;
+  }
+
+  /* Theory keeps its dynamic group information inside the same hero */
+  .ccna2-theory-detail{
+    width:min(100%,760px);
+    display:grid;
+    place-items:center;
+    margin-top:24px;
+    padding-top:22px;
+    border-top:1px solid color-mix(in srgb,currentColor 11%,transparent);
+  }
+
+  .ccna2-theory-detail .eyebrow{
+    margin:0 0 7px !important;
+    opacity:.62 !important;
+    font-size:.78rem !important;
+    font-weight:750 !important;
+  }
+
+  .ccna2-theory-detail #groupTitle{
+    margin:0 !important;
+    padding:0 !important;
+    font-size:clamp(1.28rem,3vw,1.85rem) !important;
+    line-height:1.45 !important;
+    text-align:center !important;
+  }
+
+  .ccna2-theory-detail #groupMeta{
+    display:inline-flex !important;
+    align-items:center;
+    justify-content:center;
+    margin:14px 0 0 !important;
+    padding:8px 16px !important;
+    border:1px solid color-mix(in srgb,var(--ccna2-a2) 28%,transparent) !important;
+    border-radius:999px !important;
+    background:color-mix(in srgb,var(--ccna2-a2) 8%,transparent) !important;
+    white-space:nowrap;
+  }
+
+  .ccna2-runtime-meta{display:none !important}
+
+  @media (hover:hover) and (pointer:fine){
+    .ccna2-platform-back:hover{
+      opacity:1;
+      transform:translateY(-1px);
+      border-color:var(--ccna2-a1,#06b6d4);
+    }
+  }
+
+  @media (max-width:700px){
+    .ccna2-platform-header{
+      min-height:112px;
+      margin-bottom:36px !important;
+      padding:15px 16px !important;
+      border-radius:22px !important;
+    }
+
+    .ccna2-platform-logo{
+      width:62px;
+      height:62px;
+    }
+
+    .ccna2-platform-brand-text strong{
+      font-size:1.22rem;
+    }
+
+    .ccna2-platform-brand-text small{
+      margin-top:5px;
+      font-size:.9rem;
+    }
+
+    .ccna2-platform-actions{
+      gap:7px !important;
+    }
+
+    .ccna2-platform-back{
+      width:46px;
+      min-width:46px;
+      padding:0 !important;
+      font-size:0 !important;
+    }
+
+    .ccna2-platform-back::before{
+      content:"↩";
+      font-size:1.15rem;
+      line-height:1;
+    }
+
+    .ccna2-platform-hero{
+      min-height:292px !important;
+      margin-bottom:34px !important;
+      padding:32px 22px !important;
+      border-radius:30px !important;
+    }
+
+    .ccna2-platform-kicker{
+      margin-bottom:22px !important;
+    }
+
+    .ccna2-platform-description{
+      margin-top:16px !important;
+    }
+
+    .ccna2-theory-detail{
+      margin-top:24px;
+      padding-top:22px;
+    }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .ccna2-platform-hero::before{animation:none}
+    .ccna2-platform-back{transition:none}
+  }
+</style>
 </head>
 <body class="review-home">
 <main class="shell">
-  <header class="site-hero landing-hero">
-    <div class="landing-topbar">
-      <a class="landing-brand" href="../index.html" aria-label="العودة إلى منصة المقرر">
-        <span class="landing-logo" aria-hidden="true">
-          <img src="../Assets/icons/icon-192.png" alt="">
-        </span>
-        <span class="landing-brand-text">
-          <strong>التوجيه والتحويل 1</strong>
-          <small lang="en" dir="ltr">CCNA 2 · SRWE</small>
-        </span>
-      </a>
-
-      <a class="back-link" href="../index.html">العودة للمنصة</a>
-    </div>
-
-    <div class="landing-hero-copy">
-      <span class="badge hero-kicker" lang="en" dir="ltr">Prerequisite</span>
-      <h1 id="siteTitle">المراجعة التمهيدية</h1>
-      <p id="courseTitle">راجع الأساسيات المهمة قبل البدء في محتوى المقرر.</p>
+  <header class="ccna2-platform-header">
+    <a class="ccna2-platform-brand" href="../index.html" aria-label="العودة إلى منصة المقرر">
+      <span class="ccna2-platform-logo" aria-hidden="true">
+        <img src="../Assets/icons/icon-192.png" alt="">
+      </span>
+      <span class="ccna2-platform-brand-text">
+        <strong>التوجيه والتحويل 1</strong>
+        <small lang="en" dir="ltr">CCNA 2 · SRWE</small>
+      </span>
+    </a>
+    <div class="ccna2-platform-actions">
+      <a class="ccna2-platform-back" href="../index.html">العودة للمنصة</a>
     </div>
   </header>
+
+  <section class="ccna2-platform-hero" style="--ccna2-a1:#8b5cf6;--ccna2-a2:#2563eb" aria-labelledby="reviewVisibleTitle">
+    <span class="ccna2-platform-kicker" lang="en" dir="ltr">Prerequisite</span>
+    <h1 class="ccna2-platform-title" id="reviewVisibleTitle">المراجعة التمهيدية</h1>
+    <p class="ccna2-platform-description">مراجعة المفاهيم الأساسية اللازمة قبل البدء بالمقرر.</p>
+  </section>
+
+  <div class="ccna2-runtime-meta" aria-hidden="true">
+    <span id="siteTitle">المراجعة التمهيدية</span>
+    <span id="courseTitle">التوجيه والتحويل 1</span>
+  </div>
 
   <section class="topic-grid" id="topicGrid" aria-live="polite"></section>
 
