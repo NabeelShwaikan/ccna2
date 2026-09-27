@@ -14,7 +14,7 @@
     radial-gradient(circle at 8% 18%,
       color-mix(in srgb, #2563eb 5%, transparent),
       transparent 28rem),
-    var(--bg, #f6f8fb);
+    var(--bg, Canvas);
 }
 
 /* ---------- Unified top identity ---------- */
@@ -64,7 +64,7 @@
 
 .labs-home .landing-brand-text small {
   margin-top: 4px;
-  color: var(--muted, #667085);
+  color: var(--muted, color-mix(in srgb, currentColor 68%, transparent));
   font-size: .82rem;
   font-weight: 650;
 }
@@ -79,8 +79,8 @@
   padding: 8px 12px;
   border: 1px solid var(--border, #e2e8f0);
   border-radius: 999px;
-  background: color-mix(in srgb, var(--surface, #fff) 92%, transparent);
-  color: var(--muted, #667085);
+  background: color-mix(in srgb, currentColor 4%, transparent);
+  color: var(--muted, color-mix(in srgb, currentColor 68%, transparent));
   font-size: .84rem;
   font-weight: 700;
   text-decoration: none;
@@ -107,8 +107,8 @@
   background:
     linear-gradient(
       180deg,
-      color-mix(in srgb, var(--surface, #fff) 97%, transparent),
-      color-mix(in srgb, var(--soft, #f8fafc) 94%, transparent)
+      color-mix(in srgb, currentColor 3.5%, transparent),
+      color-mix(in srgb, currentColor 1.5%, transparent)
     );
   box-shadow: 0 16px 42px rgba(15, 23, 42, .07);
 }
@@ -178,7 +178,7 @@
 .labs-home .landing-hero p {
   margin: 8px 0 0;
   max-width: 56ch;
-  color: var(--muted, #667085);
+  color: var(--muted, color-mix(in srgb, currentColor 68%, transparent));
   font-size: .92rem;
 }
 
@@ -202,7 +202,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   .labs-home .back-link:hover {
-    color: var(--text, #172033);
+    color: inherit;
     border-color: #0891b2;
     transform: translateY(-1px);
   }
@@ -246,4 +246,16 @@
   .labs-home .back-link {
     transition: none;
   }
+}
+
+/* Theme-safe correction: never force a white landing panel */
+.labs-home,
+.labs-home .landing-hero,
+.labs-home .back-link {
+  color-scheme: light dark;
+}
+
+.labs-home .landing-hero {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
