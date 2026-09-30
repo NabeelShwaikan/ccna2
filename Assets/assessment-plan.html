@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>الخطة الزمنية والتقييمات | CCNA 2</title>
+  <style>
+    :root{
+      --bg:#f7f9fc;
+      --panel:#ffffff;
+      --panel-2:#f8fafc;
+      --text:#152033;
+      --muted:#667085;
+      --line:#dfe6ef;
+      --a1:#06b6d4;
+      --a2:#2563eb;
+      --a3:#14b8a6;
+      --primary:#2563eb;
+      --primary-soft:#eef4ff;
+      --accent:#0f9f8f;
+      --accent-soft:#eafbf8;
+      --warn:#b76e00;
+      --warn-soft:#fff7e7;
+      --danger:#b42318;
+      --danger-soft:#fff1ef;
+      --shadow:0 14px 36px rgba(0,0,0,.07);
+    }
+
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg:#07111f;
+        --panel:#0d1828;
+        --panel-2:#111d2f;
+        --text:#f2f6fb;
+        --muted:#a9b6c8;
+        --line:#26364d;
+        --primary:#60a5fa;
+        --primary-soft:#102a48;
+        --accent:#5dd8c9;
+        --accent-soft:#10342f;
+        --warn:#f0b45d;
+        --warn-soft:#3a2a14;
+        --danger:#ff8a80;
+        --danger-soft:#3a1d1b;
+        --shadow:0 14px 36px rgba(0,0,0,.22);
+      }
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"Tajawal","Segoe UI",Tahoma,Arial,sans-serif;
+      background:
+        radial-gradient(circle at 90% 0%,color-mix(in srgb,var(--a2) 7%,transparent),transparent 28%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.65;
+    }
+    button{font:inherit}
+    .shell{width:min(1180px,calc(100% - 36px));margin:auto;padding:24px 0 48px}
+
+    /* ===== CCNA2 Unified Header Standard ===== */
+    .ccna2-platform-header{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      min-height:112px;
+      margin:0 0 36px;
+      padding:18px 20px;
+      border:1px solid color-mix(in srgb,currentColor 14%,transparent);
+      border-radius:24px;
+      background:color-mix(in srgb,currentColor 3%,transparent);
+      box-shadow:0 10px 28px rgba(0,0,0,.06);
+      backdrop-filter:blur(8px);
+      -webkit-backdrop-filter:blur(8px);
+    }
+    .ccna2-platform-brand{
+      display:inline-flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+      color:inherit;
+      text-decoration:none;
+    }
+    .ccna2-platform-logo{
+      width:68px;height:68px;display:grid;place-items:center;flex:0 0 auto;
+    }
+    .ccna2-platform-logo img{width:100%;height:100%;display:block;object-fit:contain}
+    .ccna2-platform-brand-text{
+      display:flex;flex-direction:column;min-width:0;line-height:1.2;text-align:right;
+    }
+    .ccna2-platform-brand-text strong{
+      font-size:clamp(1.22rem,2.4vw,1.72rem);font-weight:850;white-space:nowrap;
+    }
+    .ccna2-platform-brand-text small{
+      margin-top:6px;opacity:.68;font-size:clamp(.82rem,1.6vw,1rem);font-weight:750;
+      direction:ltr;text-align:right;
+    }
+    .ccna2-platform-actions{
+      display:flex;align-items:center;justify-content:flex-end;gap:9px;flex:0 0 auto;
+    }
+    .ccna2-platform-back{
+      min-height:46px;display:inline-flex;align-items:center;justify-content:center;
+      padding:8px 13px;border:1px solid color-mix(in srgb,currentColor 15%,transparent);
+      border-radius:14px;background:color-mix(in srgb,currentColor 4%,transparent);
+      color:inherit;opacity:.78;font:inherit;font-size:.8rem;font-weight:750;
+      text-decoration:none;transition:transform .18s ease,opacity .18s ease,border-color .18s ease;
+    }
+    @media (hover:hover) and (pointer:fine){
+      .ccna2-platform-back:hover{opacity:1;transform:translateY(-1px);border-color:var(--a1)}
+    }
+
+    /* ===== Unified Hero ===== */
+    .ccna2-platform-hero{
+      position:relative;isolation:isolate;overflow:hidden;
+      display:grid;place-items:center;align-content:center;width:100%;
+      min-height:292px;margin:0 0 24px;padding:34px 26px;border:0;border-radius:30px;
+      text-align:center;
+      background:
+        linear-gradient(135deg,
+          color-mix(in srgb,var(--a1) 10%,transparent),
+          color-mix(in srgb,currentColor 2.5%,transparent) 48%,
+          color-mix(in srgb,var(--a2) 9%,transparent));
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(8px);
+      -webkit-backdrop-filter:blur(8px);
+    }
+    .ccna2-platform-hero::before{
+      content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;
+      background:linear-gradient(100deg,var(--a1),var(--a2),var(--a3),var(--a1));
+      background-size:300% 100%;
+      animation:ccna2-border-flow 9s linear infinite;
+      -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+      -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
+    }
+    .ccna2-platform-hero::after{
+      content:"";position:absolute;inset:auto 14% -78px;height:130px;border-radius:50%;
+      background:color-mix(in srgb,var(--a1) 12%,transparent);filter:blur(38px);z-index:-1;
+    }
+    @keyframes ccna2-border-flow{to{background-position:300% 0}}
+    .ccna2-platform-kicker{
+      display:inline-flex;align-items:center;justify-content:center;min-height:42px;
+      padding:8px 17px;margin:0 0 20px;border:1px solid color-mix(in srgb,var(--a1) 26%,transparent);
+      border-radius:999px;background:color-mix(in srgb,var(--a1) 10%,transparent);
+      color:var(--a1);font-size:clamp(.9rem,1.8vw,1.08rem);font-weight:850;
+    }
+    .ccna2-platform-title{
+      margin:0;padding:0;font-size:clamp(2rem,5.2vw,3rem);line-height:1.25;
+      font-weight:850;text-align:center;text-wrap:balance;
+    }
+    .ccna2-platform-description{
+      margin:14px auto 0;max-width:62ch;opacity:.72;
+      font-size:clamp(.95rem,2vw,1.08rem);line-height:1.8;text-align:center;
+    }
+
+    .summary-grid{
+      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 20px;
+    }
+    .summary-card{
+      background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px 18px;
+      box-shadow:0 6px 20px rgba(0,0,0,.035);text-align:center;
+    }
+    .summary-card small{display:block;color:var(--muted);font-weight:750}
+    .summary-card strong{display:block;margin-top:2px;font-size:1.35rem;color:var(--primary)}
+
+    .toolbar{
+      margin:0 0 20px;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+    }
+    .tabs{
+      display:inline-flex;background:var(--panel);border:1px solid var(--line);
+      border-radius:14px;padding:5px;box-shadow:0 4px 14px rgba(20,35,60,.05);
+    }
+    .tab-btn,.print-btn{border:0;border-radius:10px;cursor:pointer;font-weight:800;transition:.18s ease}
+    .tab-btn{background:transparent;color:var(--muted);padding:10px 18px}
+    .tab-btn.active{background:linear-gradient(135deg,var(--a1),var(--a2));color:#fff}
+    .print-btn{
+      display:inline-flex;align-items:center;gap:8px;padding:11px 16px;
+      background:var(--panel);color:var(--primary);border:1px solid var(--line);
+      box-shadow:0 4px 14px rgba(20,35,60,.05);
+    }
+    .print-btn:hover{transform:translateY(-1px);border-color:var(--primary)}
+    .print-btn svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.9}
+
+    .section{display:none}
+    .section.active{display:block}
+    .section-head{
+      display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin:6px 0 14px;
+    }
+    .section-head h2{margin:0;font-size:1.35rem}
+    .badge-total{
+      padding:8px 12px;border-radius:999px;background:var(--primary-soft);
+      color:var(--primary);font-weight:900;border:1px solid var(--line);
+    }
+
+    .timeline{display:grid;gap:10px}
+    .week{
+      background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px 16px;
+      display:grid;grid-template-columns:82px minmax(0,1fr) 250px 72px;gap:14px;align-items:center;
+      box-shadow:0 5px 16px rgba(20,35,60,.035);transition:.2s ease;
+    }
+    .week:hover{transform:translateY(-1px);border-color:color-mix(in srgb,var(--primary) 42%,var(--line))}
+    .week-no{font-weight:900;color:var(--primary);display:flex;align-items:center;gap:7px}
+    .week-no b{
+      display:grid;place-items:center;width:32px;height:32px;border-radius:10px;
+      background:var(--primary-soft)
+    }
+    .topic{font-weight:800}
+    .multi-topic{display:grid;gap:6px}
+    .multi-topic .topic-item{
+      padding:7px 10px;border-radius:10px;background:var(--panel-2);
+      border:1px solid var(--line);font-weight:800;
+    }
+    .assessment{font-size:.9rem;color:var(--muted)}
+    .score{text-align:center;font-weight:900;font-size:1.08rem}
+    .score .pill,.assessment .pill{
+      display:inline-block;border-radius:999px;padding:6px 10px;background:var(--panel-2);border:1px solid var(--line)
+    }
+    .is-assessment{border-right:4px solid var(--accent)}
+    .is-assessment .assessment .pill{background:var(--accent-soft);color:var(--accent);font-weight:900}
+    .is-exam{border-right:4px solid var(--warn)}
+    .is-exam .assessment .pill{background:var(--warn-soft);color:var(--warn);font-weight:900}
+    .is-final{border-right:4px solid var(--danger)}
+    .is-final .assessment .pill{background:var(--danger-soft);color:var(--danger);font-weight:900}
+
+    .grading{
+      margin-top:18px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px
+    }
+    .grading-card{
+      background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;
+      box-shadow:0 5px 16px rgba(20,35,60,.025);
+    }
+    .grading-card h3{margin:0 0 12px;font-size:1.05rem}
+    .grade-line{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px dashed var(--line)}
+    .grade-line:last-child{border-bottom:0;padding-bottom:0}
+    .grade-line strong{color:var(--primary)}
+
+    .site-footer{
+      margin-top:34px;padding-top:18px;border-top:1px solid var(--line);
+      color:var(--muted);font-size:.88rem;text-align:center;font-weight:700;
+    }
+    .print-sheet{display:none}
+
+    @media (max-width:860px){
+      .week{grid-template-columns:68px minmax(0,1fr) 72px}
+      .assessment{grid-column:2 / 4}
+      .grading{grid-template-columns:1fr}
+    }
+    @media (max-width:700px){
+      .shell{width:min(100% - 24px,1180px);padding-top:14px}
+      .ccna2-platform-header{min-height:112px;margin-bottom:28px;padding:15px 16px;border-radius:22px}
+      .ccna2-platform-logo{width:62px;height:62px}
+      .ccna2-platform-brand-text strong{font-size:1.22rem}
+      .ccna2-platform-brand-text small{margin-top:5px;font-size:.9rem}
+      .ccna2-platform-actions{gap:7px}
+      .ccna2-platform-back{width:46px;min-width:46px;padding:0;font-size:0}
+      .ccna2-platform-back::before{content:"↩";font-size:1.15rem;line-height:1}
+      .ccna2-platform-hero{min-height:260px;margin-bottom:20px;padding:30px 20px;border-radius:28px}
+    }
+    @media (max-width:560px){
+      .summary-grid{grid-template-columns:1fr 1fr;gap:9px}
+      .summary-card:first-child{grid-column:1 / -1}
+      .summary-card{padding:12px}
+      .summary-card strong{font-size:1.2rem}
+      .toolbar{align-items:stretch}
+      .tabs{display:grid;grid-template-columns:1fr 1fr;flex:1 1 100%}
+      .tab-btn{width:100%}
+      .print-btn{width:100%;justify-content:center}
+      .week{grid-template-columns:52px minmax(0,1fr);gap:9px;padding:12px}
+      .week-no{align-self:start}
+      .week-no span{display:none}
+      .score{grid-column:1;grid-row:2;text-align:right}
+      .assessment{grid-column:2;grid-row:2}
+      .topic{font-size:.96rem}
+    }
+    @media (prefers-reduced-motion:reduce){
+      .ccna2-platform-hero::before{animation:none}
+      .ccna2-platform-back,.week,.tab-btn,.print-btn{transition:none}
+    }
+
+@page{size:A4 landscape;margin:7mm}
+    @media print{
+      html,body{background:#fff!important;color:#111!important}
+      body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .page{display:none!important}
+      .print-sheet{display:block!important;width:100%;font-family:"Tajawal","Segoe UI",Tahoma,Arial,sans-serif;color:#111}
+      .print-header{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;border-bottom:2px solid #0b5cab;padding-bottom:5px;margin-bottom:6px}
+      .print-header h1{font-size:17px;margin:0;color:#0b5cab}
+      .print-header .meta{font-size:9px;font-weight:700;color:#333;white-space:nowrap}
+      .print-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:6px}
+      .print-summary div{border:1px solid #cfd7e3;border-radius:5px;padding:4px 6px;text-align:center;background:#f7f9fc;font-size:9px;font-weight:700}
+      .print-summary strong{font-size:11px;color:#0b5cab}
+      .print-columns{display:grid;grid-template-columns:1fr 1fr;gap:7px;align-items:start}
+      .print-panel{border:1px solid #c9d2de;border-radius:6px;overflow:hidden}
+      .print-panel h2{margin:0;padding:5px 7px;background:#0b5cab;color:#fff;font-size:11px}
+      .print-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:7.5px;line-height:1.15}
+      .print-table th{background:#eaf2fb;font-size:7.5px;padding:3px;border-bottom:1px solid #c9d2de}
+      .print-table td{padding:2.5px 3px;border-bottom:1px solid #e0e5ec;vertical-align:middle}
+      .print-table tr:last-child td{border-bottom:0}
+      .print-table .w{width:8%;text-align:center;font-weight:800}
+      .print-table .topic-col{width:55%;font-weight:700}
+      .print-table .eval-col{width:25%;text-align:center}
+      .print-table .score-col{width:12%;text-align:center;font-weight:900}
+      .print-table tr.eval td{background:#eefaf7}
+      .print-table tr.exam td{background:#fff8e8}
+      .print-table tr.final td{background:#fff0ee}
+      .print-foot{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:6px}
+      .print-gradebox{border:1px solid #c9d2de;border-radius:6px;padding:5px 7px;font-size:8px}
+      .print-gradebox strong{color:#0b5cab}
+      .print-gradebox span+span:before{content:" • ";color:#98a2b3}
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="ccna2-platform-header">
+      <a class="ccna2-platform-brand" href="../index.html" aria-label="العودة إلى منصة المقرر">
+        <span class="ccna2-platform-logo" aria-hidden="true">
+          <img src="icons/icon-192.png" alt="">
+        </span>
+        <span class="ccna2-platform-brand-text">
+          <strong>التوجيه والتحويل 1</strong>
+          <small lang="en" dir="ltr">CCNA 2 · SRWE</small>
+        </span>
+      </a>
+      <div class="ccna2-platform-actions">
+        <a class="ccna2-platform-back" href="../index.html">العودة للمنصة</a>
+      </div>
+    </header>
+
+    <section class="ccna2-platform-hero" aria-labelledby="assessmentVisibleTitle">
+      <span class="ccna2-platform-kicker" lang="en" dir="ltr">Assessment Plan</span>
+      <h1 class="ccna2-platform-title" id="assessmentVisibleTitle">الخطة الزمنية والتقييمات</h1>
+      <p class="ccna2-platform-description">توزيع موضوعات المقرر والتقييمات والاختبارات والدرجات على الأسابيع.</p>
+    </section>
+
+    <section class="summary-grid" aria-label="ملخص الدرجات">
+      <div class="summary-card"><small>إجمالي المادة</small><strong>100 درجة</strong></div>
+      <div class="summary-card"><small>النظري</small><strong>50 درجة</strong></div>
+      <div class="summary-card"><small>العملي</small><strong>50 درجة</strong></div>
+    </section>
+
+    <div class="toolbar">
+      <div class="tabs" role="tablist" aria-label="نوع الخطة">
+        <button class="tab-btn active" type="button" role="tab" aria-selected="true" data-target="theory">النظري</button>
+        <button class="tab-btn" type="button" role="tab" aria-selected="false" data-target="practical">العملي</button>
+      </div>
+      <button class="print-btn" type="button" id="printPlan" aria-label="طباعة الخطة كاملة">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V3h12v6M6 18h12v3H6z"/><path d="M6 17H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><path d="M18 14H6v7h12z"/></svg>
+        طباعة الخطة كاملة
+      </button>
+    </div>
+
+    <section id="theory" class="section active" aria-labelledby="theory-title">
+      <div class="section-head">
+        <h2 id="theory-title">الخطة النظرية</h2>
+        <div class="badge-total">50 درجة</div>
+      </div>
+
+      <div class="timeline">
+        <article class="week"><div class="week-no"><b>1</b><span>الأسبوع</span></div><div><div class="topic">تسجيل المقررات</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week"><div class="week-no"><b>2</b><span>الأسبوع</span></div><div class="multi-topic"><div class="topic-item">الوحدة 1: التكوين الأساسي للجهاز</div><div class="topic-item">الوحدة 2: مفاهيم التبديل</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week"><div class="week-no"><b>3</b><span>الأسبوع</span></div><div><div class="topic">الوحدة 3: VLANs</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week"><div class="week-no"><b>4</b><span>الأسبوع</span></div><div><div class="topic">الوحدة 4: التوجيه بين شبكات VLAN</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week is-assessment"><div class="week-no"><b>5</b><span>الأسبوع</span></div><div><div class="topic">التقييم الأول</div></div><div class="assessment"><span class="pill">الوحدات 1–4</span></div><div class="score">6</div></article>
+        <article class="week"><div class="week-no"><b>6</b><span>الأسبوع</span></div><div><div class="topic">الوحدة 5: مفاهيم STP</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week"><div class="week-no"><b>7</b><span>الأسبوع</span></div><div><div class="topic">الوحدة 6: قناة EtherChannel</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week is-assessment"><div class="week-no"><b>8</b><span>الأسبوع</span></div><div><div class="topic">التقييم الثاني</div></div><div class="assessment"><span class="pill">الوحدات 5–6</span></div><div class="score">6</div></article>
+        <article class="week"><div class="week-no"><b>9</b><span>الأسبوع</span></div><div class="multi-topic"><div class="topic-item">الوحدة 7: DHCPv4</div><div class="topic-item">الوحدة 8: SLAAC and DHCPv6</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week"><div class="week-no"><b>10</b><span>الأسبوع</span></div><div><div class="topic">الوحدة 9: FHRP Concepts</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week is-assessment"><div class="week-no"><b>11</b><span>الأسبوع</span></div><div><div class="topic">التقييم الثالث</div></div><div class="assessment"><span class="pill">الوحدات 7–9</span></div><div class="score">6</div></article>
+        <article class="week"><div class="week-no"><b>12</b><span>الأسبوع</span></div><div class="multi-topic"><div class="topic-item">الوحدة 10: مفاهيم أمان LAN</div><div class="topic-item">الوحدة 11: تكوين أمان المحول</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week"><div class="week-no"><b>13</b><span>الأسبوع</span></div><div class="multi-topic"><div class="topic-item">الوحدة 12: مفاهيم شبكة WLAN</div><div class="topic-item">الوحدة 13: تكوين WLAN</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week is-assessment"><div class="week-no"><b>14</b><span>الأسبوع</span></div><div><div class="topic">التقييم الرابع</div></div><div class="assessment"><span class="pill">الوحدات 10–13</span></div><div class="score">6</div></article>
+        <article class="week"><div class="week-no"><b>15</b><span>الأسبوع</span></div><div class="multi-topic"><div class="topic-item">الوحدة 14: مفاهيم التوجيه</div><div class="topic-item">الوحدة 15: التوجيه الثابت لـ IP</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week"><div class="week-no"><b>16</b><span>الأسبوع</span></div><div><div class="topic">الوحدة 16: استكشاف أخطاء تكوين المسارات الثابتة والافتراضية وإصلاحها</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week is-assessment"><div class="week-no"><b>17</b><span>الأسبوع</span></div><div><div class="topic">التقييم الخامس</div></div><div class="assessment"><span class="pill">الوحدات 14–16</span></div><div class="score">6</div></article>
+        <article class="week is-final"><div class="week-no"><b>18</b><span>الأسبوع</span></div><div><div class="topic">الاختبار النهائي</div></div><div class="assessment"><span class="pill">اختبار نهائي</span></div><div class="score">20</div></article>
+      </div>
+
+      <div class="grading">
+        <div class="grading-card">
+          <h3>توزيع الدرجات</h3>
+          <div class="grade-line"><span>5 تقييمات × 6 درجات</span><strong>30</strong></div>
+          <div class="grade-line"><span>الاختبار النهائي</span><strong>20</strong></div>
+          <div class="grade-line"><span>المجموع</span><strong>50</strong></div>
+        </div>
+        <div class="grading-card">
+          <h3>نطاقات التقييم</h3>
+          <div class="grade-line"><span>التقييم 1</span><strong>1–4</strong></div>
+          <div class="grade-line"><span>التقييم 2</span><strong>5–6</strong></div>
+          <div class="grade-line"><span>التقييم 3</span><strong>7–9</strong></div>
+          <div class="grade-line"><span>التقييم 4</span><strong>10–13</strong></div>
+          <div class="grade-line"><span>التقييم 5</span><strong>14–16</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="practical" class="section" aria-labelledby="practical-title">
+      <div class="section-head">
+        <h2 id="practical-title">الخطة العملية</h2>
+        <div class="badge-total">50 درجة</div>
+      </div>
+
+      <div class="timeline">
+        <article class="week"><div class="week-no"><b>1</b><span>الأسبوع</span></div><div><div class="topic">تسجيل المقررات</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week"><div class="week-no"><b>2</b><span>الأسبوع</span></div><div><div class="topic">الإعدادات الأساسية للجهاز وإعدادات SSH</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week"><div class="week-no"><b>3</b><span>الأسبوع</span></div><div><div class="topic">إعدادات SSH</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week"><div class="week-no"><b>4</b><span>الأسبوع</span></div><div><div class="topic">إعدادات الشبكة المحلية الافتراضية VLAN</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week"><div class="week-no"><b>5</b><span>الأسبوع</span></div><div><div class="topic">إعدادات التوجيه بين الشبكات المحلية الافتراضية Inter-VLANs</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week"><div class="week-no"><b>6</b><span>الأسبوع</span></div><div><div class="topic">استكشاف بروتوكول الشجرة الممتدة STP</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week"><div class="week-no"><b>7</b><span>الأسبوع</span></div><div><div class="topic">إعدادات قنوات EtherChannel</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week"><div class="week-no"><b>8</b><span>الأسبوع</span></div><div><div class="topic">إعدادات بروتوكول DHCPv4</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week"><div class="week-no"><b>9</b><span>الأسبوع</span></div><div><div class="topic">تأمين منافذ المحولات باستخدام Port Security</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week is-assessment"><div class="week-no"><b>10</b><span>الأسبوع</span></div><div><div class="topic">إعدادات أمان منافذ المحولات عن طريق PortFast و BPDU Guard</div></div><div class="assessment"><span class="pill">تقييم 1</span></div><div class="score">15</div></article>
+        <article class="week is-exam"><div class="week-no"><b>11</b><span>الأسبوع</span></div><div><div class="topic">الاختبار الدوري الأول</div></div><div class="assessment"><span class="pill">الاختبار الدوري الأول</span></div><div class="score">10</div></article>
+        <article class="week is-assessment"><div class="week-no"><b>12</b><span>الأسبوع</span></div><div><div class="topic">إعدادات الشبكات المحلية اللاسلكية WLAN</div></div><div class="assessment"><span class="pill">تقييم 2</span></div><div class="score">5</div></article>
+        <article class="week"><div class="week-no"><b>13</b><span>الأسبوع</span></div><div><div class="topic">إعدادات التوجيه الثابت والافتراضي IPv4</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week is-assessment"><div class="week-no"><b>14</b><span>الأسبوع</span></div><div><div class="topic">إعدادات التوجيه الثابت والافتراضي IPv4</div></div><div class="assessment"><span class="pill">تقييم 3</span></div><div class="score">10</div></article>
+        <article class="week"><div class="week-no"><b>15</b><span>الأسبوع</span></div><div><div class="topic">مراجعة</div></div><div class="assessment">—</div><div class="score">—</div></article>
+        <article class="week is-exam"><div class="week-no"><b>16</b><span>الأسبوع</span></div><div><div class="topic">الاختبار الدوري الثاني</div></div><div class="assessment"><span class="pill">الاختبار الدوري الثاني</span></div><div class="score">10</div></article>
+      </div>
+
+      <div class="grading">
+        <div class="grading-card">
+          <h3>توزيع الدرجات</h3>
+          <div class="grade-line"><span>التقييمات: 15 + 5 + 10</span><strong>30</strong></div>
+          <div class="grade-line"><span>الاختبار الدوري الأول + الاختبار الدوري الثاني</span><strong>20</strong></div>
+          <div class="grade-line"><span>المجموع</span><strong>50</strong></div>
+        </div>
+        <div class="grading-card">
+          <h3>مواعيد التقييم</h3>
+          <div class="grade-line"><span>التقييم 1</span><strong>الأسبوع 10</strong></div>
+          <div class="grade-line"><span>الاختبار الدوري الأول</span><strong>الأسبوع 11</strong></div>
+          <div class="grade-line"><span>التقييم 2</span><strong>الأسبوع 12</strong></div>
+          <div class="grade-line"><span>التقييم 3</span><strong>الأسبوع 14</strong></div>
+          <div class="grade-line"><span>الاختبار الدوري الثاني</span><strong>الأسبوع 16</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <span>الخطة الزمنية والتقييمات</span>
+    </footer>
+  </main>
+
+  <section class="print-sheet" aria-hidden="true">
+    <div class="print-header">
+      <h1>خطة التقييم وتوزيع الدرجات — التوجيه والتحويل 1</h1>
+      <div class="meta">النظري 50 درجة &nbsp;|&nbsp; العملي 50 درجة &nbsp;|&nbsp; الإجمالي 100 درجة</div>
+    </div>
+
+    <div class="print-summary">
+      <div>النظري <strong>50</strong></div>
+      <div>العملي <strong>50</strong></div>
+      <div>المجموع <strong>100</strong></div>
+    </div>
+
+    <div class="print-columns">
+      <div class="print-panel">
+        <h2>الخطة النظرية</h2>
+        <table class="print-table">
+          <thead><tr><th class="w">الأسبوع</th><th class="topic-col">الموضوع</th><th class="eval-col">التقييم</th><th class="score-col">الدرجة</th></tr></thead>
+          <tbody>
+            <tr><td class="w">1</td><td class="topic-col">تسجيل المقررات</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr><td class="w">2</td><td class="topic-col">الوحدة 1: التكوين الأساسي للجهاز<br>الوحدة 2: مفاهيم التبديل</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr><td class="w">3</td><td class="topic-col">الوحدة 3: VLANs</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr><td class="w">4</td><td class="topic-col">الوحدة 4: التوجيه بين شبكات VLAN</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr class="eval"><td class="w">5</td><td class="topic-col">التقييم الأول</td><td class="eval-col">الوحدات 1–4</td><td class="score-col">6</td></tr>
+            <tr><td class="w">6</td><td class="topic-col">الوحدة 5: مفاهيم STP</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr><td class="w">7</td><td class="topic-col">الوحدة 6: قناة EtherChannel</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr class="eval"><td class="w">8</td><td class="topic-col">التقييم الثاني</td><td class="eval-col">الوحدات 5–6</td><td class="score-col">6</td></tr>
+            <tr><td class="w">9</td><td class="topic-col">الوحدة 7: DHCPv4<br>الوحدة 8: SLAAC and DHCPv6</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr><td class="w">10</td><td class="topic-col">الوحدة 9: FHRP Concepts</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr class="eval"><td class="w">11</td><td class="topic-col">التقييم الثالث</td><td class="eval-col">الوحدات 7–9</td><td class="score-col">6</td></tr>
+            <tr><td class="w">12</td><td class="topic-col">الوحدة 10: مفاهيم أمان LAN<br>الوحدة 11: تكوين أمان المحول</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr><td class="w">13</td><td class="topic-col">الوحدة 12: مفاهيم شبكة WLAN<br>الوحدة 13: تكوين WLAN</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr class="eval"><td class="w">14</td><td class="topic-col">التقييم الرابع</td><td class="eval-col">الوحدات 10–13</td><td class="score-col">6</td></tr>
+            <tr><td class="w">15</td><td class="topic-col">الوحدة 14: مفاهيم التوجيه<br>الوحدة 15: التوجيه الثابت لـ IP</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr><td class="w">16</td><td class="topic-col">الوحدة 16: استكشاف أخطاء تكوين المسارات الثابتة والافتراضية وإصلاحها</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr class="eval"><td class="w">17</td><td class="topic-col">التقييم الخامس</td><td class="eval-col">الوحدات 14–16</td><td class="score-col">6</td></tr>
+            <tr class="final"><td class="w">18</td><td class="topic-col">الاختبار النهائي</td><td class="eval-col">اختبار نهائي</td><td class="score-col">20</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="print-panel">
+        <h2>الخطة العملية</h2>
+        <table class="print-table">
+          <thead><tr><th class="w">الأسبوع</th><th class="topic-col">الموضوع</th><th class="eval-col">التقييم</th><th class="score-col">الدرجة</th></tr></thead>
+          <tbody>
+            <tr><td class="w">1</td><td class="topic-col">تسجيل المقررات</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr><td class="w">2</td><td class="topic-col">الإعدادات الأساسية للجهاز وإعدادات SSH</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr><td class="w">3</td><td class="topic-col">إعدادات SSH</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr><td class="w">4</td><td class="topic-col">إعدادات الشبكة المحلية الافتراضية VLAN</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr><td class="w">5</td><td class="topic-col">إعدادات التوجيه بين الشبكات المحلية الافتراضية Inter-VLANs</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr><td class="w">6</td><td class="topic-col">استكشاف بروتوكول الشجرة الممتدة STP</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr><td class="w">7</td><td class="topic-col">إعدادات قنوات EtherChannel</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr><td class="w">8</td><td class="topic-col">إعدادات بروتوكول DHCPv4</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr><td class="w">9</td><td class="topic-col">تأمين منافذ المحولات باستخدام Port Security</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr class="eval"><td class="w">10</td><td class="topic-col">إعدادات أمان منافذ المحولات عن طريق PortFast و BPDU Guard</td><td class="eval-col">تقييم 1</td><td class="score-col">15</td></tr>
+            <tr class="exam"><td class="w">11</td><td class="topic-col">الاختبار الدوري الأول</td><td class="eval-col">الاختبار الدوري الأول</td><td class="score-col">10</td></tr>
+            <tr class="eval"><td class="w">12</td><td class="topic-col">إعدادات الشبكات المحلية اللاسلكية WLAN</td><td class="eval-col">تقييم 2</td><td class="score-col">5</td></tr>
+            <tr><td class="w">13</td><td class="topic-col">إعدادات التوجيه الثابت والافتراضي IPv4</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr class="eval"><td class="w">14</td><td class="topic-col">إعدادات التوجيه الثابت والافتراضي IPv4</td><td class="eval-col">تقييم 3</td><td class="score-col">10</td></tr>
+            <tr><td class="w">15</td><td class="topic-col">مراجعة</td><td class="eval-col">—</td><td class="score-col">—</td></tr>
+            <tr class="exam"><td class="w">16</td><td class="topic-col">الاختبار الدوري الثاني</td><td class="eval-col">الاختبار الدوري الثاني</td><td class="score-col">10</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="print-foot">
+      <div class="print-gradebox"><strong>النظري:</strong> <span>5 تقييمات × 6 = 30</span><span>النهائي = 20</span><span>المجموع = 50</span></div>
+      <div class="print-gradebox"><strong>العملي:</strong> <span>التقييمات: 15 + 5 + 10 = 30</span><span>الاختبار الدوري الأول + الاختبار الدوري الثاني = 20</span><span>المجموع = 50</span></div>
+    </div>
+  </section>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab-btn');
+    const sections = document.querySelectorAll('.section');
+
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabs.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected','false');
+        });
+        sections.forEach(s => s.classList.remove('active'));
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected','true');
+        document.getElementById(btn.dataset.target).classList.add('active');
+      });
+    });
+
+    document.getElementById('printPlan').addEventListener('click', () => window.print());
+  </script>
+</body>
+</html>
