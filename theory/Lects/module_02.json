@@ -30,7 +30,11 @@
         "time": "10 د",
         "topic": "خصائص Switch (المحوّل) التي تقلل الازدحام + مراجعة."
       }
-    ]
+    ],
+    "presentation_link": {
+      "label": "عرض المحاضرة",
+      "href": "presentations/switching_basics_pres.html"
+    }
   },
   "sections": [
     {
