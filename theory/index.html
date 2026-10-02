@@ -221,6 +221,26 @@
     text-align:center !important;
   }
 
+  .ccna2-theory-detail #groupPresentationLink{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:44px;
+    margin-top:14px;
+    padding:8px 22px;
+    border:1px solid var(--ccna2-a1);
+    border-radius:14px;
+    background:color-mix(in srgb,var(--ccna2-a1) 12%,transparent);
+    color:var(--text);
+    font-weight:750;
+    text-decoration:none;
+  }
+  .ccna2-theory-detail #groupPresentationLink[hidden]{display:none}
+  .ccna2-theory-detail #groupPresentationLink:focus-visible{
+    outline:3px solid var(--ccna2-a1);
+    outline-offset:4px;
+  }
+
   .ccna2-theory-detail #groupMeta{
     display:inline-flex !important;
     align-items:center;
@@ -324,7 +344,6 @@
 
       <div class="ccna2-platform-actions">
         <a class="ccna2-platform-back" href="../index.html">العودة للمنصة</a>
-        <button class="toolbtn" id="classroomButton" type="button">وضع المحاضرة</button>
         <button class="toolbtn icon" id="themeButton" type="button" aria-label="تبديل المظهر">◐</button>
       </div>
     </header>
@@ -336,6 +355,7 @@
     <div class="ccna2-theory-detail">
       <div class="eyebrow">CCNA2 SRWE</div>
       <h2 id="groupTitle">أساسيات الأجهزة والتحويل</h2>
+      <a id="groupPresentationLink" hidden>عرض المحاضرة</a>
       <div id="groupMeta">الوحدتان 1–2</div>
     </div>
   </section>
