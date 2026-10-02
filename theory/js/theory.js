@@ -7,7 +7,7 @@
   const sidebar=document.getElementById('sidebar');
   const tocToggle=document.getElementById('tocToggle');
   const themeButton=document.getElementById('themeButton');
-  const classroomButton=document.getElementById('classroomButton');
+  const groupPresentationLink=document.getElementById('groupPresentationLink');
   const groupTitle=document.getElementById('groupTitle');
   const groupMeta=document.getElementById('groupMeta');
   const cache=new Map();
@@ -136,13 +136,6 @@
   setTheme((()=>{try{return localStorage.getItem('cisco-theory-theme')||'dark'}catch(_){return 'dark'}})());
   themeButton.addEventListener('click',()=>setTheme(root.dataset.theme==='dark'?'light':'dark'));
 
-  function setClassroom(on){
-    document.body.classList.toggle('classroom',on);
-    classroomButton.classList.toggle('active',on);
-    classroomButton.textContent=on?'إنهاء العرض':'وضع المحاضرة';
-  }
-  classroomButton.addEventListener('click',()=>setClassroom(!document.body.classList.contains('classroom')));
-
   window.toggleAnswer=function(btn){
     const quiz=btn.closest('.quiz'); if(!quiz)return;
     const ans=quiz.querySelector('.answer'); if(!ans)return;
@@ -270,6 +263,16 @@
   function showGroup(group){
     groupTitle.textContent=group.title;
     if(groupMeta) groupMeta.textContent=group.meta||'';
+    groupPresentationLink.hidden=true;
+    groupPresentationLink.removeAttribute('href');
+  }
+
+  function showPresentationLink(data,modulePath){
+    const link=data.lecture?.presentation_link;
+    if(!link || !/^presentations\/[a-z0-9_]+_pres\.html$/.test(link.href)) return;
+    groupPresentationLink.href=new URL(link.href,new URL(modulePath,location.href)).href;
+    groupPresentationLink.textContent='عرض المحاضرة';
+    groupPresentationLink.hidden=false;
   }
 
   async function selectModule(entry){
@@ -282,6 +285,7 @@
       const data=await getJSON(meta.path);
       if(!data.review?.approved) throw new Error('بيانات الوحدة لم تعتمد بعد.');
       renderModule(data);
+      showPresentationLink(data,meta.path);
       const url=new URL(location.href); url.searchParams.set('module',meta.number); history.replaceState(null,'',url);
     }catch(err){
       content.innerHTML=`<div class="errorbox">تعذر تحميل بيانات الوحدة. ${esc(err.message)}<br><small>إذا فتحت الملف مباشرة من الجهاز، شغّله عبر خادم محلي أو من موقع المنصة.</small></div>`;
