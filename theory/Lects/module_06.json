@@ -34,7 +34,11 @@
         "time": "10 د",
         "topic": "أوامر التحقق ومسار تشخيص الأخطاء + مراجعة."
       }
-    ]
+    ],
+    "presentation_link": {
+      "label": "عرض المحاضرة",
+      "href": "presentations/etherchannel_pres.html"
+    }
   },
   "review": {
     "committee": "theory_content_committee",
