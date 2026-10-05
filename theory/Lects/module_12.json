@@ -46,7 +46,11 @@
         "time": "10 د",
         "topic": "تطور أمان WLAN من WEP إلى WPA3 وPersonal مقابل Enterprise."
       }
-    ]
+    ],
+    "presentation_link": {
+      "label": "عرض المحاضرة",
+      "href": "presentations/wlan_pres.html"
+    }
   },
   "review": {
     "committee": "theory_content_committee",
@@ -97,7 +101,7 @@
       "toc_title": "BSS وESS",
       "title": "Infrastructure Mode هو النموذج المعتاد، وBSS وESS يصفان نطاقات الخدمة",
       "subtitle": "Ad Hoc يربط الأجهزة مباشرة، أما Infrastructure فيعتمد على AP.",
-      "body_html": "<div class=\"compare\"><div class=\"compare-box\"><div class=\"micro\">Ad Hoc</div><h4>Peer-to-Peer</h4><p>أجهزة تتصل مباشرة دون AP.</p></div><div class=\"compare-box\"><div class=\"micro\">Infrastructure</div><h4>Client ↔ AP ↔ Network</h4><p>النموذج المعتاد للوصول إلى الشبكة عبر نقطة وصول.</p></div></div><div class=\"flow\"><div class=\"step\"><b>BSS</b><span>AP واحد والعملاء المرتبطون به.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>Distribution System</b><span>يربط عدة BSS.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>ESS</b><span>اتحاد BSS متعددة لتغطية أوسع.</span></div></div><div class=\"keyline\"><strong>Tethering</strong> مثال قريب من Ad Hoc عندما يحول الهاتف اتصال البيانات إلى Hotspot.</div><div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: ما الفرق بين BSS وESS؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">BSS يعتمد على AP واحد، بينما ESS يضم عدة BSS مترابطة لتغطية أوسع.</div></div>\n<div class=\"terms\"><span class=\"term\">Ad Hoc</span><span class=\"term\">Infrastructure Mode</span><span class=\"term\">BSS</span><span class=\"term\">ESS</span></div>"
+      "body_html": "<div class=\"compare\"><div class=\"compare-box\"><div class=\"micro\">Ad Hoc</div><h4>Peer-to-Peer</h4><p>أجهزة تتصل مباشرة دون AP.</p></div><div class=\"compare-box\"><div class=\"micro\">Infrastructure</div><h4>Client ↔ AP ↔ Network</h4><p>النموذج المعتاد للوصول إلى الشبكة عبر نقطة وصول.</p></div></div><div class=\"flow\"><div class=\"step\"><b>BSS</b><span>AP واحد والعملاء المرتبطون به.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>Distribution System</b><span>يربط عدة BSS.</span></div><div class=\"arrow\">←</div><div class=\"step\"><b>ESS</b><span>اتحاد BSS متعددة لتغطية أوسع.</span></div></div><div class=\"keyline\"><strong>Hotspot الهاتف</strong> يعمل عادةً كنقطة وصول في Infrastructure Mode؛ اتصال Ad Hoc (IBSS) يربط الأجهزة مباشرة دون AP.</div><div class=\"quiz\"><div class=\"quiz-row\"><b>سؤال فهم: ما الفرق بين BSS وESS؟</b><button class=\"chipbtn\" onclick=\"toggleAnswer(this)\">اعرض الإجابة</button></div><div class=\"answer\">BSS يعتمد على AP واحد، بينما ESS يضم عدة BSS مترابطة لتغطية أوسع.</div></div>\n<div class=\"terms\"><span class=\"term\">Ad Hoc</span><span class=\"term\">Infrastructure Mode</span><span class=\"term\">BSS</span><span class=\"term\">ESS</span></div>"
     },
     {
       "id": "u12s5",
